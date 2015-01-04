@@ -1,0 +1,149 @@
+﻿To Do List for IceChat 9
+
+
+*Add DCC Chat Events to Plugin Framework (RC1.3)
+*BNC Settings need to be added to server editor and tested (RC1.3)
+*Add in server editor "Show Advanced Settings" to show proxy/bnc/notes tabs (RC1.3)
+*Change for /run command, params to be added inside ' ' single quotes (RC1.3)
+*Add $md5() identifier (RC1.3)
+*Server Editor, fix AutoJoin, Ignore, Buddy List , make slightly taller to coincide with AutoPerform checkbox (RC1.3)
+*Strip colors out of channel list topics (RC1.3)
+*Option to keep channel tab open if you get kicked (add to display settings) (RC1.3)
+*Add 'add to autojoin' for popupmenu for channel in server tree (RC1.3)
+*Add right click menu for channel list, add 'add to autojoin' and 'join channel' (RC1.3)
+*Add ctrl-backspace to erase a word at a time (RC1.3)
+*Add /clearall command to clear all the text windows and console tab windows (RC1.3)
+*Change plugin framework from an Interface type to an Abstract class, with Methods that get overriden in plugins (RC1.4)
+*Flash Tray icon command /flashtray added with optional message (/flashtray The Message to show) (RC1.5)
+*Change program icons and some internal ones as well (RC1.5)
+*Fix Highlite plugin to run optional command if added (RC1.5)
+
+*Ability to Enable/Disable a Plugin, does not unload it, just disables it (RC2.0)
+*Fix scrollbar in channel list/search bar and make search ability to search channel name and topic (RC2.0)
+*Add a background image to a channel,query,console, @window with a command, all, none, clear, etc with /bg command (RC2.0)
+*Allow to use a web image for a background image using full URL /bg console http://www.icechat.net/icechat_logo.jpg (RC2.0)
+*Allow DCC Chat messages to show and parse /me messages (RC2.0)
+*Add option to Autoget IP Router IP Address (RC2.0)
+*Add menu item for Server Tree popup menu to remove a Server (RC2.0)
+
+*Add ability to show a settings form for a plugin, from the Plugins Menu (RC2.1)
+*Plugins settings (if enabled or disabled) remembered in IceChatPlugins.xml file (RC2.1)
+*Remove the channel bar completely (RC2.1)
+*Add a close button menu item to the Menu bar to close the current window (RC2.1)
+
+*Double clicking the expand/collapse icon in the server tree does not cause a connect/disconnect (RC2.2)
+*Added $osbits to return if we are using a 32bit or 64bit OS (RC2.2)
+*Fixed issue with pasting 2 lines, but 2nd line was blank, would paste as 2 lines (RC2.2)
+*Add scrollbar to Topic Bar (RC2.2)
+
+*Automatically export English.xml Language file to Languages folder if it does not exist (RC2.3)
+*Add /timers command to show all timers for current connection, shows in Console (RC2.3)
+*Add $timer(id) identifier, with properties .id, .reps, .count, .interval and .command (RC2.3)
+*Fix issue with closing a window, Server Tree does not show proper window highlighted (RC2.3)
+*Add in the $+ identifier, used for joining to other words/identifiers (RC2.3)
+
+*Fix issue with Debug window not showing in the Server Tree (RC2.4)
+*Add popup menu for Channel List in the Server Tree (RC2.4)
+*Fix issue with ChannelKick event in Plugins, Host now passes self nick (RC2.4)
+
+*Add in better error reporting for saving in the IceChat Editor (RC2.5)
+*Fix showing of DCC Files Window in Server Tree (RC2.5)
+
+*Fix issue with nicklist showing tooltips in Query's (RC2.6)
+*Make Tab Complete loop through a Sorted Nicklist, not the un-sorted list (RC2.6)
+*Add DCC File Events to Plugin Framework (RC2.6)
+*Added option to Disable Timestamp (RC2.6)
+*Added option to disable asking to quit on program close (RC2.6)
+*Added option to flash taskbar when minimized or not active (RC2.6)
+*Added if no channel prefix is added to a channel join, the 1st CHANTYPES value is used (RC2.6)
+*Start on importing IceChat 7 settings, not completed yet (RC2.6)
+
+
+*Fix Timestamps parsing with emoticons (RC2.7)
+*Fix buddy list stop working after 25+ buddy's were in the list (RC2.7)
+*Added ability to double click a nickname in the buddy list to open query (RC2.7)
+*Buddy list shows server name in tooltip (RC2.7)
+*Make the /msg command properly echo to the channel as a message (RC2.7)
+*Added /scid command /scid <ServerNumber/NetworkName> /command [parameters] (RC2.7)
+*Fixed Topic font size, did not change from initial size, and did not resize properly (RC2.7)
+*Fixed bug with certain text causing text window to error and blank (RC2.7)
+
+*Fix DCC Chat problem, connects and then errors (RC2.8)
+*Further testing of DCC File Sending and Receiving (RC2.8)
+*Added better workability with the multiline edit box (RC2.8)
+*Added built in flood protection from pasting, when pasting multiple lines, opens multiline editbox (RC2.8)
+*Added ability to override nick colors /nick/host with plugins (RC2.8)
+
+*(for RC3, upload Buzzen auth Plugin) (RC4)
+
+* Add DNSResolve, AutoJoinChannel and AutoPerformCommand to Plugin Events (RC 4.13)
+* Fix logging of URL's adds extra chars to front and back of URL (RC 4.13)
+
+* Fixed disabled plugin not properly disabling (RC 5.1)
+* Fixed minor issues with font selection (RC 5.1)
+* Fixed issue with autojoin delay not working (RC 5.1)
+* Fixed issue where channel part message would not show in console for self (RC 5.1)
+* Added ability to have text after Nick complete, in IceChat Display Settings (RC 5.1)
+* Added ability to log @window windows (on by default) (RC 5.1)
+* Fixed issue with adding a emoticon or a color from color picker erased text in box (RC 5.1)
+* Added OnWhoReply to Plugin Methods (RC 5.1)
+* Added more IRCv3 capabilities (RC 5.1)
+* Made slight changes to messages for Channel Part, added brackets in, if reason exists (RC 5.1)
+
+* Fixed saving to multiple monitors position problem (RC 5.2)
+* Added $rand() identifier, specify a number or a range $rand(5.2)
+
+
+Switching between single and multiline edit box, copy any text if it exists in one (done)
+add per network away/auto away settings disable/enable and for messages (done)
+Add options for how many times to flash taskbar/system tray icons (done)
+Add /msgsec command to replace command with * (done) (removed)
+Fix ping replies / icechat 7 issue... (looks to be done)
+Save sidepanel locations when exiting (done)
+Create ice7 theme importer (in progress)
+remember window order when opening channels (in progress)(group by order in server tree)
+
+fix server tree coloring for servers (only colors channel tab)
+make single buffer for Single and Multiline text boxes (done)
+Add to Highlite Plugin, ability to match message, nick or message and nick (done)
+
+Add to Nick HiLite plugin, allow different colors for different User Modes (!&@+)
+Add to Highlite Color to change background color
+
+Right click for Channel on Tabs should be same as on Server Tree (done)
+Allow keyboard short cut for Nicklist Popups 
+Add option to not reload channel logs for specific channels (popup/added)
+Add option to have channel bar scrollable (done)
+Make channel reload logs limit the size of the back buffer (max lines)
+make ctrl-bksp work mid sentence (done)
+add option to change encoding on a per channel basis
+add option to open query tabs last
+because of single click links, cant copy the url from the beginning
+add a /tab command to toggle seeing which tab in a sidebar??
+Need to fix some UTF8 character issues (what is a unicode font)
+Add ability to change font with a control code in text window
+Add ability to load custom color palette into program (done)
+Add ability to sort nick list by nicknames only not status
+IceChat 7 settings imported, check for / before popup menu commands
+DCC Receive Passive, locks file if no connection, need to release
+BUG: Resize window, scrolls needs to stay at bottom if at bottom (fixed?)
+Enable/disable buttons if no nick is selected (no point)
+Ability to add custom marker lines
+Allow multiple logging types, not just 1
+Add option for floating window always on top
+Redo search option (F3)
+Import an Emoticon Folder, to add Emoticons (recreate XML file)
+Add possibility to set option values with /set command
+Adding Emoticon(s) requires a restart
+Add option when autojoining channels, it opens them , but not set as active
+Add option to automatically allow accept with DCC from people in buddy list
+Allow plugins to change the colors/appearance of IceChat, w/o needing an external Theme file
+Need to save the background image settings to a config file so they save on exit and show again in reload
+Add a background image to the nicklist, server list
+Add background color for html logging
+When a plugin is loaded, allow it to check if there is a newer version online
+Add news item on loadup, for showing IceChat news
+
+xEmoticons that are larger then font sizes, allowed (not recommended)
+xTry and remove bold/italic from font selection dialog (cant find way)
+xAdd option to Duplicate Server Settings, create a new server

@@ -1,4 +1,0 @@
-IceChat
-=======
-
-IceChat IRC Client 

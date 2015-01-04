@@ -1,0 +1,959 @@
+Build 9.01h, Dec 30, 2014
+* Minor GUI updates
+
+Build 9.01g, Dec 17, 2014
+* fix html logging problems with background colors
+* added Duplicate in server settings to duplicate server
+
+Build 9.01d, Dec 5, 2014
+* Switching to windowed mode now asks for a confirmation
+* Ctrl-A in multiline edit box now selects all
+* popups from plugins now show in windows as well
+* Server Editor returns error if empty details entered
+
+Build 9.01c, Nov 16, 2014
+* have channel bar icons in sync
+* fix html logging problems
+
+Build 9.01b, Nov 10, 2014
+* fix popup menu commands not working
+* /names and /who now work for channels you are not in
+* middle click in Server Tree now also closes Channel lists
+* added [] as valid characters in URL's
+* allow half-ops to remove bans from Channel Info window
+* Multiline inputbox, Shift-Enter goes to new line, Enter now sends message
+* Show user mode for channels in status bar
+
+Build 9.01a, Oct 11, 2014
+* restore to previous utf8 decoding, new way did not work
+
+Build 9.01, Oct 8, 2014
+* work on detached windows closing, errors
+* start of remember/restore tab order
+
+Build 9.01, Oct 7, 2014
+* silence messages returned with proper formatting
+* pinning allowed for more types of tabs
+* window captions show network for channels and queries
+* added window list to windows menu in windowed mode
+* /names command now allows a nicklist refresh
+* changed add to autojoin to toggle autojoin in menu
+* fix issue with alt nicks overriding main nick setting
+* fix issue with not showing topic bar option
+
+Build 9.0, Sept 25, 2014
+* ctrl-bksp now works mid-sentence
+* multi-threading updates
+* added display option for single row channel bar
+* can pin/unpin tabs on channel bar (console and channels) by right click channel bar menu
+
+Build RC 8.61, Sept 20, 2014
+* Can export a channel list with /export command or from channel bar popup menu
+
+Build RC 8.6, Sept 18, 2014
+* Fix freezing issue
+* Added small mark on connect/disconnect icons for AutoStart servers in Server Tree
+
+Build RC 8.555, Sept 18, 2014
+* Text trimming in Channel windows speed improvement
+* Added Connect on Startup Menu item to server tree popup
+
+Build RC 8.541, Sept 18, 2014
+* IAL Bug Fix
+
+Build RC 8.53, Sept 14, 2014
+* fix ctrl-bksp leaving an extra character
+* fix clicking enter in add theme box not adding the theme
+* temporarily disable re-loading channel logs, because of performance issues
+
+Build RC 8.52, Sept 12, 2014
+* fix ssl connection errors / freezing
+
+Build RC 8.51, Sept 11, 2014
+* Added -disableauto command line parameter, to disable auto starting of all servers
+* blank/null autojoin channels won't cause client to crash
+* away status nicks are italic font in nick list
+
+Build RC 8.5 Sept 11, 2014
+* Fix text trimming issue with losing new lines
+* Fix issue with console log location
+
+Build RC 8.45 Aug 16, 2014
+* Channel reloading logs works much better
+* Sounds play more consistently
+
+Build RC 8.44 Aug 15, 2014
+* Fix buddy list with BNC connections
+
+Build RC 8.43 July 28, 2014
+* Added error handling for corrupt XML settings file
+* Fix plain text logs to strip out extra codes
+* Clicking of close button in Console Tabs a bit more accurate
+
+Build RC 8.42 July 20, 2014
+* Fix issue with selecting a server in the server tree while in windowed mode
+* Holding CTRL Key while selecting text does not copy to the clipboard
+* Middle click a URL copies it to the Clipboard
+
+
+Build RC 8.41 July 19, 2014
+* Improvements with reloading Channel Logs (continueing)
+* Fix issue with Send/Reset buttons
+* Improve sound playing
+
+Build RC 8.4 July 9, 2014
+* Fix bug with Query/Channels windows not opening when on System Tray
+* Added BuildIceChat.cmd file to build IceChat 9 from command line
+
+Build RC 8.4 July 8, 2014
+* Minor GUI updates to Server Editor
+* Fix /ignore enable|disable 
+
+Build RC 8.4 July 1, 2014
+* Minor GUI updates
+
+Build RC 8.4 April 24, 2014
+* Added colored tabs for Sidebars and Console
+* Added options to change System Tray Icon and Text
+* Added autojoin on invite channel option
+* Added server-time-iso capability for ZNC
+* Send button now hides in Multiline Editbox if specified
+* Middle click opens url's as well
+* New Option for saving Channel logs and Reloading 
+* Server Silence response shows properly now
+
+
+Build RC 8.3 March 22, 2014
+* Fix issue with connecting to an IRC server with just an IP Address
+* ircv3.2 username-in-host capability added
+* Added Logged in as to User Info Window
+* Added ability to message user in Info Window
+
+
+Build RC 8.3 March 15, 2014
+* Keep toolbar and channel bar in proper place when hiding and restoring
+* LinkClicked plugin method now returns a value, allows override
+
+
+
+Build RC 8.3 March 10, 2014
+* Allow color codes in timestamp and display names for servers
+* Fix scrolling text issue when program is minimized
+* Fix bug with debug window closing when closing a @window
+* Add IRCv3 options in Server Editor
+
+
+Build RC 8.21 February 10, 2014
+* Fix issue with hand icon not showing for links
+
+
+Build RC 8.2 February 9, 2014
+* Fix some URL issues with links being broken when clicked
+* Added ability from Debug Window popup to de-select servers for showing raw data
+* Expanded plugin framework to allow disabling certain events
+
+
+Build RC 8.11 January 26, 2014
+* Fix issue with windowed mode closing windows
+* Fix issue with system tray notification settings
+* Added ColorPalette.xml file to allow color palette changes
+
+
+
+Build RC 8.1 January 25, 2014
+* Fix dcc chat buffer size issue with windows 8
+* Fix new query not properly showing when on System Tray
+* Start remembering individual channel sizes / options
+* Fix issue with nick colors not updating after mode change
+* Added ability to disable sending away/return messages per server
+
+
+
+Build RC 8 December 27, 2013
+* Sound event New Channel message also works for action
+* Sound event New Private message also works for action
+* Sound event Nickname said in channel also works for action
+* Sound event Nickname said in private also works for action
+* Added TaskBar Flash Settings
+* Moved some Main settings to Notifications settings
+* Added buddy notification to tray notifications
+* Added option to move logs folder
+* Fix issue with /nick command and extra space
+* Fix issue with PREFIX= and invalid values
+* Added windowed mode to display settings 
+- windowed mode in its infancy, 
+- does not save window positions yet
+
+
+Build RC 8 November 16, 2013
+* Fixed linked URL's with wrapped lines
+* Fixed crash when adding a new server
+* /echo command echo's to console if on a different server
+* Nick list caption shortened if too long
+
+
+Build RC 8 October 21, 2013
+* Improvements to Windowed Mode
+
+
+Build RC 8 September 28, 2013
+* Allow tabs to go into windows, with new window resize button
+
+
+Build RC 7.4 September 27, 2013
+* Middle mouse click was not closing tabs properly
+* Highlite Plugin updated to v2.1
+* Add option in events settings for nick change events
+* Some log file fixes/updates
+
+
+Build RC 7.3 September 20, 2013
+* Save window State on exit / system tray restore
+* Save docked panel items positions and locations
+* Can drag/re-arrange tabs for left and right panel items
+* Fix issue with trying to close the Console Tab with close button
+* Emoticon and Color picker options work better
+* Option added to hide send button
+* Change text back to proper rendering, not fuzzy anymore
+* Fix some issues with text selection (still improving)
+
+
+Build RC 7.2 September 2, 2013
+* Fix bug with not being able to close windows from menu
+* Fix channel messages not coming into channel properly
+
+
+Build RC 7.1 September 1, 2013
+* Add ability to change incoming server data with plugin
+* Fix bug with Channel Bar not showing multiple rows
+* Fix bug with clicking on header in nicklist in Query
+
+
+Build RC 7 August 31, 2013
+* Channel and User Info windows no longer modal
+* Quick connect window no longer modal
+* Updated User Info Window
+* Added system tray icon options and notifications
+  (Only shows server connects/disconnects for now)
+
+
+Build RC 7 August 27, 2013
+* Added fonts button to toolbar
+* Fix away messaging
+* Add nick change messages to queries if open
+
+
+Build RC 7 August 25, 2013
+* Minor updates and fixes
+
+Build RC 7 August 15, 2013
+* Add Fonts button to toolbar
+* Improve text selection to clipboard
+
+
+Build RC 7 August 10, 2013
+* Fix CTCP Message problems issued by some clients
+* Fix unread text marker issues
+* Change channel bar to span entire width of client
+* added /onotice command
+* Fix error log that it does not create a new one every start up
+
+
+Build RC 6.6 March 23, 2013
+* Ability to connect to hostname for a BNC Server
+* Ability to connect to hostname for a Proxy Server
+
+
+Build RC 6.5 March 23, 2013
+* Open Settings/Color/Editor windows and can still use Editbox
+
+
+Build RC 6.4 February 22, 2013
+* Added reset button below send button when in MultiLine Editbox
+* Fixed crash in Mono on empty popup menus
+* Fix PING replies
+
+
+Build RC 6.3 February 14, 2013
+* Added option to play sound in active window if matched
+* Fixed bug with not being able to connect to hybrid servers
+* Fixed bug with certain plugins crashing on startup
+* Added some different control codes for underline and italic in editor
+* More changes made to auto-updater
+
+
+Build RC 6.2 February 12, 2013
+* Fix issue with unable to connect to Hybrid servers
+* Added channel settings to remember No Color Mode, Events Disable
+
+
+Build RC 6.1 February 9, 2013
+* Fix issue with error box coming up on start
+
+
+Build RC 6 February 3 2013
+* Added option to not show topic bar in channels in Display settings
+* Some minor updates to chat window redrawing speed
+
+
+Build RC 5.2 January 27 2013
+* Added ability to change background images for Nicklist and Server Tree
+* Added menu items under View Menu for Nick List and Server Tree BG images
+* Added $rand() identifier
+* Some fixing to DCC code, but needs further testing
+
+
+
+
+Build RC 5.1 January 20 2013
+* Fixed disabled plugin not properly disabling
+* Fixed minor issues with font selection
+* Fixed issue with autojoin delay not working
+* Fixed issue where channel part message would not show in console for self
+* Fixed issue with adding a emoticon or a color from color picker erased text in box 
+* Fixed issue with 2nd line of channel topic links not working
+* Added ability to have text after Nick complete, in IceChat Display Settings
+* Added ability to log @window windows (on by default) 
+* Added OnWhoReply to Plugin Methods
+* Added more IRCv3 capabilities
+* Added under Events settings Server Messages, Notices, Errors
+* Added under Events settings Channel Notices
+* Made slight change to messages for Channel Part, added brackets in, if reason exists
+
+
+
+Build RC 5.0 September 15 2012
+* Added AutoJoinChannel to plugin events
+* Added RejoinChannel to plugin events
+* Added AutoPerformCommand to plugin events
+* Added DNSResolve to plugin events
+* Auto Join Delay between channels to server editor (1 second)
+* Fix crash with Changing colors and not selecting a message
+* Make URL's single click
+* When panel is docked to side, hovering over tab does not open, need to click
+* Fix # parse for nick popup in channel window
+* Added ability to Parse identifiers inside plugins (args.Connection.Parse())
+* Attempt fix at scrollbar at bottom / resizing issue
+
+
+
+Build RC 4.12 August 22, 2012
+* parsed whowas information properly
+* more fixes to text selection
+* bold text implemented
+
+
+Build RC 4.11 August 13, 2012
+* Added Logging menu items to Channel Popup in Server Tree
+* Redo text selection, make more accurate (work in progress)
+* Reimplemented tab dragging/moving
+* While Channel List is in progress, can not close window
+* Fix some minor issues with HTML logging
+* Added /beep command
+
+
+
+Build RC 4.1 August 10, 2012
+* Fix bug with selecting Default Theme
+* Fix bug with : appearing in channels names and not properly displayed
+* Fix Highlite plugin to work properly with wildcards
+* Change Channel Notice for Server Tree colors to go under Other
+* Fix some encoding issues with UTF8, default encoders to utf8
+* Fix url parsing to allow ! in url
+* FormMain now shows in DesignView with no errors in VisualStudio (thanks KommerszUnicum)
+* FormColors now shows in DesignView with no errors in VisualStudio
+* Placed IceDockPanel in its own Control
+* Copy issue from IceChat with line-wrapping fixed
+* Fix issue with Initializing plugins using Load Plugin
+* Fix issue with autojoin channels joining out of order
+* Fix color issue with Server Tree and default state
+* Fix problem with cancel characters not working
+* Add hyperlink color option in Other Colors (default Red)
+
+
+
+Build RC 4 July 1, 2012
+* Added some extra colors for server tree event colors
+
+
+Build RC 3.6 June 10, 2012
+* Disabled sending all Server Errors to all windows, only Console and Current
+* Added $plugins, $totalplugins and $plugin() identifiers
+* $plugin() identifier adds .name, .version, .author, .enabled and .filename properties 
+* ipv6 support added, only works with ipv6 IP addresses currently
+* Plugins are now loaded in seperate thread to stop client on loading and freezing
+
+
+Build RC 3.5 May 28, 2012
+* Fixes to links that are wrapped
+
+Build RC 3.4 May 22, 2012
+* Added popup menu's for @window tabs
+
+Build RC 3.3 May 21, 2012 
+* Fix some word wrapping, text linking issues
+* Fix issue with @window being opened from plugin , causing errors
+* Add Font setting for Channel Bar
+* Added IRCv3 multi-prefix 
+* Added IRCv3 SASL Capabilities, added SASL Settings in Server Settings Window
+
+
+Build RC 3.20 April 25, 2012
+* Added Channel Bar back in, removed dragging until issues get fixed
+
+Build RC 3.14 April 9, 2012
+* Minor updates and fixes to DCC
+
+
+Build RC 3.13 February 28, 2012
+* Minor update to fix nick coloring issue
+
+
+Build RC 3.12 February 27, 2012
+* More minor updates and changes to the IceChat Updater and added an MP3 Player class
+
+
+Build RC 3.1 
+* Change how updater works, downloads new updater everytime there is an update
+
+
+Build RC 3 February 9, 2012
+* Minor fixes and updates to IceChat 7 Settings Importer
+
+
+
+Build RC 2.87 February 4, 2012
+* Make slight adjustment to HighLite Plugin to work with wildcards
+* When nickname is in use, no longer adds random numbers, waits for /nick command
+* Fix tooltip color issue for nicklist and serverlist
+* Have irc:// links working in Windows, needs Admin privs to set
+
+  
+
+Build RC 2.86 February 3, 2012
+* Added events to channel popup menu from Server Tree, to disable events
+* IceChat 7 theme importer completed
+
+
+Build RC 2.85 January 27, 2012
+* Save whether or not a Side Panel is Docked or not
+* Added possibility to override nick colors/nicks/hosts with plugin
+* Added Themes to View Menu
+* Channel hop does not close the channel window
+
+
+
+Build RC 2.84 January 1, 2012
+* Fix issue with client disconnects, add a keep alive variable
+
+
+Build RC 2.83 December 20, 2011
+* Fix channelmode problems on server that do not send them
+* Fix issues with sizing with DPI 120 setting
+
+Build RC 2.82 December 18, 2011
+* Minor changes to menu colors
+* Fix /msg not showing if channel or nickname window was not open
+
+Build RC 2.81 December 17, 2011
+* Fix issue with double clicking a link sometimes adding extra text
+* Change tab order of items in Server Editor and Main Options
+* Make changes to menu colors and back colors
+
+
+Build RC 2.8 December 17, 2011
+* Fix DCC Chat issues, errored on connect
+* Fix more DCC Send and Receive issues
+* Added better workability with the multiline edit box
+
+
+Build RC 2.7 December 2, 2011
+* Fix Timestamps parsing with emoticons 
+* Fix buddy list stop working after 25+ buddy's were in the list
+* Added ability to double click a nickname in the buddy list to open query 
+* Buddy list shows server name in tooltip
+* Make the /msg command properly echo to the channel as a message
+* Added /scid command /scid <ServerNumber/NetworkName> /command [parameters] 
+* Fixed Topic font size, did not change from initial size, and did not resize properly
+* Fixed bug with certain text causing text window to error and blank 
+
+
+Build RC 2.6 November 16, 2011
+* Fix issue with nicklist showing tooltips in Querys
+* Make Tab Complete loop through a Sorted Nicklist, not the un-sorted list 
+* Add DCC File Events to Plugin Framework 
+* Added option to Disable Timestamp 
+* Added option to disable asking to quit on program close 
+* Added option to flash taskbar when minimized or not active 
+* Added if no channel prefix is added to a channel join, the 1st CHANTYPES value is used 
+* Start on importing IceChat 7 settings, not completed yet
+
+
+
+Build RC 2.5 September 14, 2011
+* Add in better error reporting for saving in the IceChat Editor 
+* Fix showing of DCC Files Window in Server Tree 
+
+Build RC 2.4 September 4, 2011
+* Fix issue with Debug window not showing in the Server Tree 
+* Add popup menu for Channel List in the Server Tree 
+* Fix issue with ChannelKick event in Plugins, Host now passes self nick
+
+Build RC 2.3 August 30, 2011
+* Automatically export English.xml Language file to Languages folder if it does not exist 
+* Add /timers command to show all timers for current connection, shows in Console
+* Add $timer(id) identifier, with properties .id, .reps, .count, .interval and .command
+* Fix issue with closing a window, Server Tree does not show proper window highlighted 
+* Add in the $+ identifier, used for joining to other words/identifiers
+
+Build RC 2.2 August 21, 2011
+* Double clicking the expand/collapse icon in the server tree does not cause a connect/disconnect
+* Added $osbits to return if we are using a 32bit or 64bit OS
+* Fixed issue with pasting 2 lines, but 2nd line was blank, would paste as 2 lines
+* Add scrollbar to Topic Bar
+
+Build RC 2.1 August 19, 2011
+* Add ability to show a settings form for a plugin, from the Plugins Menu 
+* Plugins settings (if enabled or disabled) remembered in IceChatPlugins.xml file 
+* Remove the channel bar completely 
+* Add a close button menu item to the Menu bar to close the current window 
+
+Build RC 2.0 August 14, 2011
+* Add ability to Enable/Disable a Plugin from Options Menu
+* Fix loading of plugins in Mono from start of Program
+* Ability to Enable/Disable a Plugin, does not unload it, just disables it 
+* Fix scrollbar in channel list/search bar and make search ability to search channel name and topic 
+* Add a background image to a channel,query,console, @window from /bg command
+* Allow to use a web image for a background image using full URL 
+* Allow DCC Chat messages to show and parse /me messages 
+* Add option to Autoget IP Router IP Address 
+* Add menu item for Server Tree popup menu to remove a Server 
+
+
+
+Build RC 1.5 August 7, 2011
+* Flash Tray icon command /flashtray added with optional message (/flashtray The Message to show)
+* Fix Highlite plugin to run optional command if added
+* Change some of the icons for the program
+
+
+Build RC 1.41 August 5, 2011
+* Add missing file for Highlight Plugin
+
+Build RC 1.41 August 4, 2011
+* Fix issue with Auto starting server connections and Exception Errors
+
+
+Build RC 1.4 August 3, 2011
+* Fix some glitches caused by running server connections in seperate threads
+* Plugin Framework reworked, now can use overriden methods, not interface
+
+
+Build RC 1.3 August 1, 2011
+* Fix Scrollbar issue with new windows where a lot of text gets entered, but does not show
+* Fix Scrollbar issue on Nicklist overlapping Nicklist Buttons panel
+* Add option to keep channel tab open if you get kicked
+* Add option to show advanced server settings in server editor, disabled by default
+* Added CTRL-Backspace removes a word at a time
+* BNC Settings added into Server Editor
+* Add in Server Editor "Show Advanced Settings" to show proxy/bnc/notes tabs 
+* Add $md5() identifier
+* Strip colors out of Channel List topics
+* Add 'Add to Autojoin' for popupmenu for channel in server tree
+* Add right click menu for channel list, add 'Add to Autojoin' and 'Join Channel'
+* Add /clearall command to clear all the text windows and console tab windows
+
+
+
+Build RC 1.2 July 21, 2011
+* Fix Scrollbar issue with new windows where a lot of text gets entered, but does not show
+* Fix Scrollbar issue on Nicklist overlapping Nicklist Buttons panel 
+
+
+Build RC1.1 July 20, 2011
+* Updater now shows progress bar status for each file to be downloaded
+* Fix problem with channels clearing when settings changed, and Maximum text lines did not change
+* Fix bug with selecting item in Nicklist Popup with no command, sends :No text to send
+* Fix bug with $server and $port not parsing on server connect
+* Fixed docking problem for side panels
+* Ability to drag servers in the Server Tree up and down the list
+* Added option to Show Hosts in Nick List under Display Settings
+* Added option to Show Nick List buttons under Display settings
+* Added option to Show Server List buttons under Display settings
+* If pasting 5 or more lines, client asks if you wish to proceed
+* Fixed more DCC File Receiving problems
+* Fixed colors to be the same colors as IceChat 7
+* Server Disconnect errors should show disconnect in server tree
+
+
+Build RC1 July 5, 2011
+* Minor fix to Tabs on Side Panels
+* Major update to Plugin Framework, access to Connection Class added
+* Will need to re-compile all Plugins
+* Plugins folder moved from Appdata/Plugins to Program Files\IceChat\Plugins
+* Fixed quickconnect button, does not crash anymore
+
+
+Build Beta 7 June 20, 2011
+* Added option to use external command for playing sound files, can be specified in plugin
+* More code fixes to un-bind connection class from main form
+* Fix double click crash in Debug Window
+* Start showing as IceChat 9, not IceChat 2009
+
+
+Build Beta 6 June 11, 2011
+* Fix bug with parsing channel modes on some networks
+* Fix bug with losing the host for nicks in the nick list
+
+
+Build Beta 5.4 June 9, 2011
+* Fix bug with screen buffer clearing randomly
+* Fix and finalize the Simple Script Plugin
+
+
+Build Beta 5.3 June 7, 2011
+* Fix bug with screen clearing when buffer got full
+* Remove 'unload plugin' from Plugins, and allow to load a plugin from menu
+
+
+Build Beta 5.2 May 25, 2011
+* Added setting for maximum number of text lines
+* Changes to Plugins to allow tabs to be added to Editor
+
+
+
+Build Beta 5.1  April 30, 2011
+* Added DCC File changes submitted
+* Fixed issue with Server Errors showing in all windows, not in proper places
+* Added /closequery and /closeallquery for closing all Query Windows for current server or all
+* Added a Mute All Sounds item to the Options Menu to disable playing any sounds
+* Added $+ identifier for joining 2 words together
+* Added option to Minimize to Tray
+* Added if IceChat is closed on Tray, it will restart on Tray
+* Added basic word wrapping
+
+
+
+Build Beta 5 February 26 2011
+* Fix bug crash while attempting to connect with SSL to an NON-SSL Server Port
+* Fix bug with popup menus running a blank command
+* Fix problem with connecting servers not being properly selected from Server Tree
+* Fix nicklist buttons causing crash when clicked in the Console
+* Fix /kick command now works if you dont specify a channel, uses current channel
+* Fix irc:// links with channel specified now properly joins the channel
+* Fix UserInfo and Channel Info windows now have text areas stretch with window resizing
+* Remove extra messages from server timeouts and disconnects
+* On a server error, sends the message to the console and now all open channels
+* Using /server with + port (for SSL) enables the Accept Invalid SSL Certifiates option
+
+
+Build Beta 4.1 February 17 2011
+* Adding a new buddy with /buddylist now should update the BuddyList much quicker
+* Automatically detect Unicode Text, no need to select Server Encoding
+* Using the nicklist buttons with selected nicks, now fixed
+* Can select multiple nicks for Voice/Op/Halfop with nicklist buttons
+
+
+
+Build Beta 4 February 16 2011
+* Added Color Themes
+* Fixed properly selecting nicks in nicklist
+* Clicking the header of the nicklist deselects any selected nicks
+* Added /buddylist command
+* Fixed html logging issue with nicknames not showing 
+* Fixed html logging with colors showing wrong or on next lines
+
+
+
+Build Beta 3.8 February 3 2011
+* Added No Color Mode option to popup menu for Channel from Server Tree
+* No Color Mode now properly strips all colors
+* Strip out NULL Characters sent by server
+
+
+Build Beta 3.71 February 2 2011
+* Fix $os identifier for Linux/Unix (now fixed)
+
+
+
+Build Beta 3.6 February 2 2011
+* Fix bug with rejoining channels
+* Connecting to Socks5 Proxy Server now working
+* Numbered identifiers ending with a - now parse properly ($1-)
+
+
+
+Build Beta 3.5 January 29 2011
+* Fix line wrapping for Reverse Code
+* Fix wrapped URL's losing underline
+* Fix hover issue with nicknames with an underscore in them
+
+
+
+Build Beta 3.4 January 24 2011
+* Added fix for removing channel mode l
+* Added button to remove channel exceptions
+* Added CTRL-R for reverse text code
+* Added CTRL-O for plain text code
+* Added CTRL-I for italic text code
+* Added parsing for reverse characters
+* Added parsing for italic characters
+* Added parsing for bold characters
+
+
+
+Build Beta 3.3 January 9 2011
+* Added a Splash Screen
+* www1 links now work as well, with numbers after www
+* Toolbar shows Update Button when an IceChat Update is available
+* # is now parsed in Channel and Nicklist Popups as the current channel
+* Fixed bug with removing a channel key, now just a matter of unchecking the check box
+* Added /aaway command to set /away for all connected servers
+
+
+Build Beta 3.2 January 2 2011
+* /play command now allows for a full path to be sent to it
+* Fixed issues with *nix and aliases and popup files not properly being parsed
+
+
+Build Beta 3.1 January 2 2011
+* Added /reload command. Command accepts alias,popup,emoticon,sound to reload those config files on the fly
+* Opening editor also reloads aliases and popup files from actual file
+
+
+Build Beta 3 January 1 2011
+* Added /play command to play WAV files in the Sounds folder
+* Added /amsg command to send messages to all open channels for a server
+* Added /joinserv command which can connect to a server and a channel /joinserv irc.server.com #channel
+* Links that start with www now show as links
+* Fixed bug with emoticons on lines that are wrapped
+* The Updater should work properly now, closing IceChat and updating the files properly
+
+
+Build Beta 2.2 - December 9 2010
+* Fixed problem with trying to add submenu items to a seperator for the Popup Menus
+* Added option to Display Settings to set the Opacity of the Main Window
+* Server Tree shows current window more accurately when creating new windows
+
+
+Build Beta 2.1 - December 4 2010
+* Added option to Show/Hide Channel Bar
+
+
+Build Beta 2 - December 4 2010
+* Fixed problem with BeginWrite for Sending Data, added a sendBuffer Queue
+* Fixed SSL Exception Error if the remote certificate is invalid
+* Fixed problem with $color not parsing properly for single digit color codes
+* Added option for Color Settings to reset color back to default setting
+* Added an option for Server Settings, to allow it to accept invalid SSL certificates (in Extra Settings)
+* Added for /server command, if a + in front of a port, will use SSL
+* Added option to change Font for Docking Tabs
+* Added option to change Font for Main Menu Bar
+* Added option from Channel Popupmenu from Tabbar to change font for just that window
+* Added popupmenu for channel bar for Channel List
+* Added ServerError event to the Plugin Framework
+* Added ServerMessage event to the Plugin Framework
+* Added ServerNotice event to the Plugin Framework
+* Added UserNotice event to the Plugin Framework
+* Added ChannelKick event to the Plugin Framework
+* Added NickChange event to the Plugin Framework
+* Added CtcpMessage event to the Plugin Framework
+* Added CtcpReply event to the Plugin Framework
+
+
+
+Build Beta 1 - October 16 2010
+* Started adding some accessibility features
+* Access Server Tree/Nicklist from Menu and allow cursor keys to scroll through
+* Can scroll through nicklist with mousewheel, without needing to select nicklist
+* /ignore command now adds an item to the ignore list
+* Added /partall command , closes all open channels for selected server
+* Added $?='Ask Question Here' identifier
+* Added SSL Support (may still need a little debugging)
+
+
+Build Alpha 14.5 - July 28 2010
+* Added DCC Passive Support (Incoming only)
+* Added more DCC Receive fixes and additions
+
+
+Build Alpha 14.4 - June 12 2010
+* Fixed bug with @@@ and mouse hover issue
+* Started with Auto DCC Resume
+
+
+Build Alpha 14.3 - May 29 2010
+* Fixed crash when disconnected from server (if you had an empty buddy list)
+* Fixed $color not parsing at times in Channel Messages
+* Fixed connection to new server, IP Detection bug
+* Fixed bug with a manual /server connection when tab removed from console, did not remove from Server Tree
+* Fixed error on MODE when attempting to get self host, and passed host is invalid(masked)
+* Fixed error with hovering over words that had links, and then to words that were not, the cursor did not change
+* Fixed hovering over channel names that are preceded with a user mode (@#channel)
+* Fixed Nicklist where scrollbar was not allowing to view all nicknames in larger channels
+* Changed more Images to use the Embedded Resources
+* Better behaviour with BNC's and removed BNC Tab in Server Settings
+* Added crash fixes for browser links
+* Added DCC File Window, will show all transfers in a single window
+* Added DCC File receiving
+* Added more DCC Options to IceChat Options
+* Auto Renaming of files if file exists adding (#) to the end of the file name.
+
+
+Build Alpha 14.2 - May 19 2010
+* Added MouseWheel support to Nicklist and Server Tree
+* Added Events options to Settings, select where messages go (in progress)
+* Added Sound Events, now saves in IceChatSounds.xml
+* Added Sounds folder created in data folder
+* Added Confirm Exit if connected when IceChat is closed
+* Fixed issue with mode +x on self not updating nicklist with new host
+* Fixed bug with userhost and /dns command
+* Fixed bug with sending ctcp messages and how they are received
+* Fixed bug with FirstRun not adding all default server values
+* Buddy List editable in Server Editor
+* Buddy shows connected or disconnected when connected to Server
+
+
+Build Alpha 14.1 - May 9 2010
+* Small resource changes for Server Editor Tabs and Main Tab Control
+* Floating forms stay on top
+
+
+Build Alpha 14 - May 8 2010
+* Change from using .Net 2.0 to .Net 3.5
+* Fix bug with changing nicks while in Console
+* Moved Default Server Settings from Settings to Server settings Window
+* Improvements on Error Handling
+* Added ability to undock panels and move them around, or keep them floating
+* Adjustment for changing images to embedded resources for Mono compatability
+* Added anonymous Socks5 Proxy support (no user/pass support yet)
+* Added $read() identifier, defaults to read from Scripts folder
+* Starting implementation of the Buddy List
+* Started the IceChat Updater Project
+
+
+Build Alpha 12.4 - April 17 2010
+* Added IceChatScript.dll , needs to be added in same folder with EXE and IPluginIceChat.dll
+* Added Self Notice in Colors, when using /notice command
+* Added ability to Unload/Reload and load New Plugins with out a restart
+* Added /loadplugin, /unloadplugin and /reloadplugin commands, just pass the DLL name
+* Added Pictures folder created in data folder
+* Added when server re-connects, goes through DNS of server address
+* Fixed /query command if a message was also included
+* Fixed hovering over a nickname in a channel, strips non-alpha numeric chars
+* Fixed issues with server events, checking nicknames no longer case-sensative
+* Fixed clicking on Docked Side Panel - now undocks the Panel
+
+Build Alpha 12.3 - April 10 2010
+* Fixed UnHandledException log now in Logs folder
+* Fixed Double Click in Text Window only works with Left Button
+* Added Middle Mouse button closes Tabs
+* Start renaming private variables with _ in front
+* Fix for Mono/Linux for missing query.png file for ServerTree
+
+
+Build Alpha 12.2 - April 5 2010
+* Added -profile parameter to allow change of data folder
+* Minor Update to the Nicklist/Server List Text Fonts, less fuzzy
+* First Run Wizard window can now be closed
+* Fix for docking panels, remove splitters
+* Plugins now loaded from the Plugins folder in the Data Folder
+* Update Plugins to pass CurrentFolder
+ 
+
+Build Alpha 12.1 - March 30 2010
+* Fix Nick Name Change for Tabs/Server List for Queries
+* Fix for running Channel List Multiple Times, clears list now
+* Fix for Scrolling Mouse while in Channel List
+* Fix parsing of incoming Data, problems with Null Characters
+* Added a Pong Checker / Reconnect Timer, at 15 minutes
+* Added Random Nick List Colors
+* Added Option to Log in Colored Text (keeps colors intact)
+* Added ability to change channel modes from Channel Info Window
+* Added ability to double click on channel names in channels/console
+* Added ability to double click on nicks in channels to open query
+* Added hovering over channel names in channels/console changes to hand cursor
+* Added hovering over nicks in channels changes to hand cursor
+* Added right click of nicks in channel brings up NickList popup menu
+* Added ability to Dock right and left panel to side
+* Added more $identifiers
+* Started with Search for Text Feature (F3 Key) (Not Complete)
+
+
+Build Alpha 12 - March 21 2010
+* Fix Tab swapping, properly move tabs around now, with short-cut keys as well
+* Added /query command
+* added /close command
+* Added DCC Chat - incoming and outgoing
+* Added DCC Options for DCC Chats
+* Applied Patch 5472
+* Applied Patch 5570
+* Temporarily added numbers to Tabs, to check for memory leaks
+
+
+Build Alpha 11.6 - March 13 2010
+* Added Channel List
+* Added Server AutoStart up Option
+
+
+Build Alpha 11.5 - March 13 2010
+* Fixed mode parsing problem with mulitple channel modes
+
+
+Build Alpha 11.4 - March 13 2010
+* Started with Ignore List
+* Added HTML logging format, instead of Plain Text
+* Re-did the IPluginIceChat, plugins working much better
+* Other Minor Fixes 
+
+
+Build Alpha 11.3 - March 6 2010
+* Added AutoJoin Delay option (5 Seconds)
+* Fixed bug with Nick list buttons and invalid nick
+* Fixed bug in Language File, Close button was not specified
+* Added icons to menus and such
+* Added /forcequit command to force drop a connection
+* Added FirstRun Form for initial setup
+
+Build Alpha 11.2
+* Added /anick and /aquit commands
+* Added Language Options
+
+
+Build Alpha 11.1
+* Made Line Marker disabled by default
+* $uptime now uses TotalSeconds and not just Seconds
+* Added ScrollBar to the Server Tree
+
+
+Build Alpha 11 - February 24 2010
+* Added $aliasfile identifier
+* Added $serverfile identifier
+* Added $popupfile identifier
+* $nick(#,N).host and $nick(#,N).ident both work now
+* Added option for a Line Marker for Windows
+* Fixed a small issue with Tab sizes
+
+
+Build Alpha 10 - February 20 2010
+
+* Fixed issue with not being able to select colors for Nick List
+
+
+Build Alpha 10 - February 19 2010
+
+* Fixed Logging Class to fix invalid characters in logfile names and paths
+* Moved data files from MyDocuments to Local App Data\IceChat Networks\IceChat folder
+* IceChatEmoticons folder renamed to Emoticons
+* IceChatLogs folder renamed to Logs
+
+
+
+
+
+
+
+
+
+
+

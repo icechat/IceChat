@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2013 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2015 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 using System.Diagnostics;
-using System.IO.Packaging;
+using System.Reflection;
+using Microsoft.Win32;
+
 
 namespace IceChatUpdater
 {
@@ -41,15 +43,15 @@ namespace IceChatUpdater
         private string currentFolder;
         private System.Net.WebClient webClient;
         private string currentFile;
-
-        private const long BUFFER_SIZE = 4096;
-
-        //private Stack<Uri> localFiles = new Stack<Uri>();
-        //private Stack<Uri> moveFiles = new Stack<Uri>();
+        
+        private Stack<Uri> localFiles = new Stack<Uri>();
+        private Stack<Uri> moveFiles = new Stack<Uri>();
 
         public FormUpdater(string[] args)
         {
             InitializeComponent();
+
+            this.TopMost = true;
 
             if (args.Length > 0)
             {
@@ -65,6 +67,10 @@ namespace IceChatUpdater
 
             CheckForUpdate();
             
+            //check for Framework version (no not check in Mono)
+            if (Type.GetType("Mono.Runtime") == null)
+                Get45or451FromRegistry();
+
             //string remoteUri = "http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=icechat&changeSetId=" + revision;
 
         }
@@ -86,16 +92,17 @@ namespace IceChatUpdater
             {
                 currentVersion = 000000000;
                 labelCurrent.Text = "Current Version: 0.0.0000.0000";
+                System.Diagnostics.Debug.WriteLine("IceChat EXE not found");
             }
             
             //delete the current update.xml file if it exists
-            if (File.Exists(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "icechat9.xml"))
-                File.Delete(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "icechat9.xml");
+            if (File.Exists(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "update9.xml"))
+                File.Delete(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "update9.xml");
 
             System.Net.WebClient webClient = new System.Net.WebClient();
-            webClient.DownloadFile("http://www.icechat.net/beta/icechat9/icechat9.xml", Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "icechat9.xml");
+            webClient.DownloadFile("http://www.icechat.net/update9.xml", Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "update9.xml");
             System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument();
-            xmlDoc.Load(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "icechat9.xml");
+            xmlDoc.Load(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "update9.xml");
             
             System.Xml.XmlNodeList version = xmlDoc.GetElementsByTagName("version");
             System.Xml.XmlNodeList versiontext = xmlDoc.GetElementsByTagName("versiontext");
@@ -107,7 +114,11 @@ namespace IceChatUpdater
                 XmlNodeList files = xmlDoc.GetElementsByTagName("file");
                 foreach (XmlNode node in files)
                 {
-                    listFiles.Items.Add(node.InnerText);
+                    DownloadItem dl = new DownloadItem();
+                    dl.FileName = node.InnerText;
+                    dl.ShortName = Path.GetFileName(node.InnerText);
+                    dl.FileType = "core";
+                    listFiles.Items.Add(dl);                 
                 }
 
                 buttonDownload.Visible = true;
@@ -115,6 +126,52 @@ namespace IceChatUpdater
             }
             else
                 labelNoUpdate.Visible = true;
+
+            //return;
+
+            //check plugins that need to be updated as well
+            //check the plugins folder
+            if (Directory.Exists(currentFolder + System.IO.Path.DirectorySeparatorChar + "Plugins"))
+            {
+                string[] plugins = Directory.GetFiles(currentFolder + System.IO.Path.DirectorySeparatorChar + "Plugins", "*.dll");
+                foreach (string fileName in plugins)
+                {
+                                        
+                    //System.Diagnostics.Debug.WriteLine(fileName);
+                    //look for a match to plugins online
+                    FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(fileName);
+
+                    XmlNodeList plgs = xmlDoc.GetElementsByTagName("plugin");
+                    
+                    foreach (XmlNode plg in plgs)
+                    {
+                        //System.Diagnostics.Debug.WriteLine(plg["file"].InnerText);
+                        //System.Diagnostics.Debug.WriteLine(plg["version"].InnerText);
+                        if (Path.GetFileName(plg["pluginfile"].InnerText).ToLower() == fvi.InternalName.ToLower())
+                        {
+                            //check versions
+                            //System.Diagnostics.Debug.WriteLine(fvi.FileVersion + ":" + plg["pluginversion"].InnerText + ":" + plg["pluginfile"].InnerText);
+                            //System.Diagnostics.Debug.WriteLine(Convert.ToSingle(fvi.FileVersion));
+                            if (Convert.ToSingle(fvi.FileVersion.Replace(".", "")) < Convert.ToSingle(plg["pluginversion"].InnerText.Replace(".", "")))
+                            {
+                                System.Diagnostics.Debug.WriteLine("Upgrade needed for " + fvi.InternalName);
+
+                                DownloadItem dl = new DownloadItem();
+                                dl.FileName = plg["pluginfile"].InnerText;
+                                dl.ShortName = Path.GetFileName(plg["pluginfile"].InnerText);
+                                dl.FileType = "plugin";
+                                listFiles.Items.Add(dl);
+
+                                buttonDownload.Visible = true;
+                                labelUpdate.Visible = true;
+
+                            }
+                        }
+                    }
+                    
+                }
+            }
+
         }
 
         private void buttonDownload_Click(object sender, EventArgs e)
@@ -125,18 +182,23 @@ namespace IceChatUpdater
 
             foreach (Process p in pArry)
             {
-                    string s = p.ProcessName;
-                    s = s.ToLower();
-                    if (s.CompareTo("icechat2009") == 0)
+                string s = p.ProcessName;
+                s = s.ToLower();
+                //System.Diagnostics.Debug.WriteLine(s);
+
+                if (s.Equals("icechat2009"))
+                {
+                    System.Diagnostics.Debug.WriteLine(Path.GetDirectoryName(p.Modules[0].FileName).ToLower() + ":" + currentFolder.ToLower());
+                    if (Path.GetDirectoryName(p.Modules[0].FileName).ToLower() == currentFolder.ToLower())
                     {
-                        if (Path.GetDirectoryName(p.Modules[0].FileName).ToLower() == currentFolder.ToLower())
-                        {
-                            MessageBox.Show("Please Close IceChat 9 before we update");
-                            return;
-                        }
+                        MessageBox.Show("Please Close IceChat 9 before updating.");
+                        return;
                     }
+               }
             }
-            
+            //MessageBox.Show("no match");
+            //return;
+
             webClient = new System.Net.WebClient();
             this.Cursor = Cursors.WaitCursor;
             
@@ -144,50 +206,32 @@ namespace IceChatUpdater
             this.progressBar.Visible = true;
 
             this.buttonDownload.Enabled = false;
-
-            System.Diagnostics.Debug.WriteLine(System.IO.Path.GetFileName(listFiles.Items[0].ToString()));
-            System.Diagnostics.Debug.WriteLine(listFiles.Items[0].ToString());
-
-            string localFile = Application.StartupPath + System.IO.Path.DirectorySeparatorChar + System.IO.Path.GetFileName(listFiles.Items[0].ToString());
-            if (File.Exists(localFile))
-                File.Delete(localFile);
-
-            currentFile = localFile;
-
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(webClient_DownloadFileCompleted);
-            webClient.DownloadProgressChanged += new System.Net.DownloadProgressChangedEventHandler(webClient_DownloadProgressChanged);
-
-            Uri uri = new Uri(listFiles.Items[0].ToString());
-
-            webClient.DownloadFileAsync(uri,localFile);
-
-            //webClient.DownloadFile(listFiles.Items[0].ToString(), localFile);
+            //System.Collections.ArrayList localFiles = new System.Collections.ArrayList();
             
-            //System.Diagnostics.Debug.WriteLine("done");
-
-
-            //this.Cursor = Cursors.Default;
-            //MessageBox.Show("Completed Download");
-            //if (File.Exists(localFile))
-
-
-            /*
-
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(webClient_DownloadFileCompleted);            
             webClient.DownloadProgressChanged += new System.Net.DownloadProgressChangedEventHandler(webClient_DownloadProgressChanged);
-            foreach (string file in listFiles.Items)
+            
+            foreach (DownloadItem item in listFiles.Items)
             {
-                string f = System.IO.Path.GetFileName(file);
-                //System.Diagnostics.Debug.WriteLine(f);
-                if (File.Exists(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + f))
-                    File.Delete(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + f);
+                //if (item.FileType == "core")
+                {
+                    string f = System.IO.Path.GetFileName(item.FileName);
 
-                System.Diagnostics.Debug.WriteLine(file);
-                
-                Uri uri = new Uri(file);
-                localFiles.Push(uri);
-                moveFiles.Push(uri);
+                    //delete any previous downloaded versions of the file
+                    try
+                    {
+                        if (File.Exists(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + f))
+                            File.Delete(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + f);
+                    }
+                    catch (Exception) { }
                     
+                    System.Diagnostics.Debug.WriteLine("core:" + item.FileName);
+
+                    Uri uri = new Uri(item.FileName);                    
+
+                    localFiles.Push(uri);
+                    moveFiles.Push(uri);
+                }   
             }
             
             Uri u = localFiles.Pop();
@@ -196,7 +240,7 @@ namespace IceChatUpdater
             labelCurrentFile.Text = currentFile;
 
             webClient.DownloadFileAsync(u, Application.StartupPath + System.IO.Path.DirectorySeparatorChar + localFile);
-            */
+           
         }
 
         private void webClient_DownloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
@@ -208,45 +252,9 @@ namespace IceChatUpdater
 
         private void webClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine("download done:" + e.UserState + ":" + currentFile + ":" + localFiles.Count);
-            System.Diagnostics.Debug.WriteLine("download done:" + currentFile);
-
-            this.Cursor = Cursors.Default;
-            //MessageBox.Show("Completed Download");
-
-            buttonDownload.Enabled = false;
-            string outPath = Application.StartupPath;
-            //unzip the files
-            
-            using (ZipPackage zip =(ZipPackage)Package.Open(currentFile,FileMode.Open))
-            {               
-                System.Diagnostics.Debug.WriteLine("open zip:");
-                foreach (PackagePart part in zip.GetParts())
-                {
-                    string outFileName = Path.Combine(outPath, part.Uri.OriginalString.Substring(1));
-                 
-                    System.Diagnostics.Debug.WriteLine(outFileName);
-
-                    using (System.IO.FileStream outFileStream = new System.IO.FileStream(outFileName, FileMode.Create))
-                    {
-                        using (Stream inFileStream = part.GetStream())
-                        {
-                            CopyStream(inFileStream, outFileStream);
-                        }
-                    }
-                }
-            }
-
-            if (File.Exists(currentFile))
-                File.Delete(currentFile);
-
-            if (File.Exists(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "icechat9.xml"))
-                File.Delete(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "icechat9.xml");
-
-            MessageBox.Show("Files updated, you are welcome to restart IceChat");
+            System.Diagnostics.Debug.WriteLine("download done:" + e.UserState + ":" + currentFile);
 
             //go to the next file in the list
-            /*
             if (localFiles.Count > 0)
             {
                 Uri u = localFiles.Pop();
@@ -254,7 +262,9 @@ namespace IceChatUpdater
                 string localFile = Path.GetFileName(u.ToString());
                 currentFile = u.ToString();
                 labelCurrentFile.Text = currentFile;
-                System.Diagnostics.Debug.WriteLine("download+" + localFile);
+                
+                System.Diagnostics.Debug.WriteLine("downloaded:" + localFile);
+
                 webClient.DownloadFileAsync(u, Application.StartupPath + System.IO.Path.DirectorySeparatorChar + localFile);
             }
             else
@@ -263,80 +273,123 @@ namespace IceChatUpdater
                 this.Cursor = Cursors.Default;
                 MessageBox.Show("Completed Download");
 
-                //now see if IceChat is running
-                //and close it
-
                 
-
                 buttonDownload.Enabled = false;
-                /*
-                Process[] pArry = Process.GetProcesses();
-
-                foreach (Process p in pArry)
-                {
-                    string s = p.ProcessName;
-                    s = s.ToLower();
-                    if (s.CompareTo("icechat2009") == 0)
-                    {
-                        if (Path.GetDirectoryName(p.Modules[0].FileName).ToLower() == currentFolder.ToLower())
-                        {
-                            MessageBox.Show("Closing IceChat to update it");
-                            try
-                            {
-                                p.Kill();
-                                //p.CloseMainWindow();
-
-                                //wait a bit and then copy the files to this folder, and VOILA
-                                p.WaitForExit();
-
-                                System.Threading.Thread.Sleep(3000);
-
-
-                            }
-                            catch (Exception ee)
-                            {
-                                MessageBox.Show(ee.Message + ":" + ee.Source);
-                            }
-
-                        }
-                    }
-                }
-                */
-                
-                /*
-                
                 
                 foreach (Uri f in moveFiles)
                 {
-                    if (File.Exists(currentFolder + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString())))
-                        File.Delete(currentFolder + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString()));
+                    //check where to place the file
 
-                    System.Threading.Thread.Sleep(500);
+                    if (f.ToString().Contains("www.icechat.net/beta/"))
+                    {
+                        System.Diagnostics.Debug.WriteLine("Update core:" + f.ToString());
+                        try
+                        {
+                            if (File.Exists(currentFolder + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString())))
+                                File.Delete(currentFolder + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString()));
 
-                    File.Copy(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString()), currentFolder + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString()));
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Error 1");
+                        }
 
+                        System.Threading.Thread.Sleep(500);
+
+                        File.Copy(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString()), currentFolder + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString()), true);
+
+                    }
+                    else
+                    {
+                        //its a plugin file
+                        System.Diagnostics.Debug.WriteLine("Update plugin:" + f.ToString());
+                        try
+                        {
+                            if (File.Exists(currentFolder + System.IO.Path.DirectorySeparatorChar + "Plugins" + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString())))
+                                File.Delete(currentFolder + System.IO.Path.DirectorySeparatorChar + "Plugins" + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString()));
+
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Error 2");
+                        }
+                        System.Threading.Thread.Sleep(500);
+
+                        File.Copy(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString()), currentFolder + System.IO.Path.DirectorySeparatorChar + "Plugins" + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString()), true);
+
+                    }
                     //delete the files out of the update folder
                     File.Delete(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(f.ToString()));
+
                 }
-                */
 
-                //MessageBox.Show("Files updated, you are welcome to restart IceChat");
 
-           // }
+                MessageBox.Show("Files updated, you are welcome to restart IceChat");
+
+            }
 
         }
-        private void CopyStream(System.IO.Stream inputStream, System.IO.Stream outputStream)
+
+
+        private void Get45or451FromRegistry()
         {
-            long bufferSize = inputStream.Length < BUFFER_SIZE ? inputStream.Length : BUFFER_SIZE;
-            byte[] buffer = new byte[bufferSize];
-            int bytesRead = 0;
-            long bytesWritten = 0;
-            while ((bytesRead = inputStream.Read(buffer, 0, buffer.Length)) != 0)
+            using (RegistryKey rkey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Full\\", false))
             {
-                outputStream.Write(buffer, 0, bytesRead);
-                bytesWritten += bufferSize;
+                int releaseKey = Convert.ToInt32(rkey.GetValue("Release"));
+                labelFramework.Text = CheckFor45DotVersion(releaseKey);
+
+                if (releaseKey >= 378389)
+                {
+                    //4.5 installed, no need to download
+
+                }
+                else
+                {
+                    //need to install .net 4.5!!
+                    // http://www.microsoft.com/en-ca/download/details.aspx?id=42643
+
+                }
             }
         }
 
+        private string CheckFor45DotVersion(int releaseKey)
+        {
+            // https://msdn.microsoft.com/en-us/library/hh925568%28v=vs.110%29.aspx
+
+            if (releaseKey >= 393273)
+            {
+                return ".Net Framework 4.6 RC or later";
+            }
+            if ((releaseKey >= 379893))
+            {
+                return ".Net Framework 4.5.2";
+            }
+            if ((releaseKey >= 378675))
+            {
+                return ".Net Framework 4.5.1";
+            }
+            if ((releaseKey >= 378389))
+            {
+                return ".Net Framework 4.5";
+            }
+            // This line should never execute. A non-null release key should mean 
+            // that 4.5 or later is installed. 
+            return "No .Net Framework 4.5 or later version detected";
+        }
+
     }
+    public class DownloadItem
+    {
+
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public string ShortName { get; set; }
+
+        public override string ToString()
+        {
+            return ShortName;
+        }
+
+    }    
+
 }

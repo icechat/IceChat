@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2015 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "HighLite Plugin";
             m_Author = "Snerf";
-            m_Version = "2.3";
+            m_Version = "2.9.1";
         }
 
         public override void Dispose()
@@ -80,7 +80,7 @@ namespace IceChatPlugin
             {
                 //need a newer version
                 PluginArgs a = new PluginArgs();
-                a.Command = "/echo Highlite Plugin v2.3 requires IceChat 9 RC 8.22 or newer";
+                a.Command = "/echo Highlite Plugin v2.9 requires IceChat 9 RC 8.22 or newer";
                 OnCommand(a);
                 this.Enabled = false;
 
@@ -89,6 +89,9 @@ namespace IceChatPlugin
             
             highlitesFile = CurrentFolder + System.IO.Path.DirectorySeparatorChar + "IceChatHighLites.xml";
             LoadHighLites();
+
+
+
         }
         
         public override void LoadColorsForm(TabControl OptionsTab)
@@ -125,7 +128,7 @@ namespace IceChatPlugin
             buttonRemove.Name = "buttonRemove";
             buttonRemove.Size = new System.Drawing.Size(75, 27);
             buttonRemove.TabIndex = 4;
-            buttonRemove.Text = "Remove";
+            buttonRemove.Text = "&Remove";
             buttonRemove.UseVisualStyleBackColor = true;
             buttonRemove.Click += new EventHandler(buttonRemove_Click);
             // 
@@ -136,7 +139,7 @@ namespace IceChatPlugin
             buttonEdit.Name = "buttonEdit";
             buttonEdit.Size = new System.Drawing.Size(75, 27);
             buttonEdit.TabIndex = 3;
-            buttonEdit.Text = "Edit";
+            buttonEdit.Text = "&Edit";
             buttonEdit.UseVisualStyleBackColor = true;
             buttonEdit.Click += new EventHandler(buttonEdit_Click);
             // 
@@ -147,7 +150,7 @@ namespace IceChatPlugin
             buttonAdd.Name = "buttonAdd";
             buttonAdd.Size = new System.Drawing.Size(75, 27);
             buttonAdd.TabIndex = 2;
-            buttonAdd.Text = "Add";
+            buttonAdd.Text = "&Add";
             buttonAdd.UseVisualStyleBackColor = true;
             buttonAdd.Click += new EventHandler(buttonAdd_Click);
             // listHighLite
@@ -174,6 +177,8 @@ namespace IceChatPlugin
             listHighLite.TabIndex = 1;
             listHighLite.UseCompatibleStateImageBehavior = false;
             listHighLite.View = System.Windows.Forms.View.Details;
+            listHighLite.DoubleClick += new EventHandler(listHighLite_DoubleClick);
+            
 
             tabPageHighlight.BackColor = System.Drawing.SystemColors.Control;
             tabPageHighlight.Controls.Add(buttonRemove);
@@ -194,6 +199,42 @@ namespace IceChatPlugin
 
             ShowHighLites();
 
+        }
+
+        private void listHighLite_DoubleClick(object sender, EventArgs e)
+        {
+            //double click event unchecks the box.. annoying!
+            if (listHighLite.SelectedItems.Count == 1)
+            {
+                ListViewItem item = listHighLite.SelectedItems[0];
+
+                if (listHighLite.FocusedItem == item)
+                {
+                    if (listHighLite.FocusedItem.Checked == false)
+                        listHighLite.FocusedItem.Checked = true;
+                    else
+                        listHighLite.FocusedItem.Checked = false;
+                }
+                
+                
+                HighLiteItem hli = new HighLiteItem();
+
+
+
+                hli.Match = item.Text;
+                hli.Command = item.SubItems[1].Text.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
+                hli.Color = Convert.ToInt32(item.SubItems[2].Text);
+                hli.FlashTab = Convert.ToBoolean(item.SubItems[3].Text);
+                hli.NicksInclude = item.SubItems[4].Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                hli.NicksExclude = item.SubItems[5].Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                hli.Sound = item.SubItems[6].Text;
+
+                FormHighLite fi = new FormHighLite(hli, item.Index);
+                fi.SaveHighLite += new FormHighLite.SaveHighLiteDelegate(UpdateHighLite);
+                fi.ShowDialog(this.MainForm);
+
+
+            }
         }
 
         public override void SaveColorsForm()
@@ -354,89 +395,113 @@ namespace IceChatPlugin
         {
             //parse out any identifiers for the channel/nick, etc
             string message = args.Message;
-
-            foreach (HighLiteItem hli in iceChatHighLites.listHighLites)
+            try
             {
-                if (hli.Enabled)
+                foreach (HighLiteItem hli in iceChatHighLites.listHighLites)
                 {
-                    string match = hli.Match;
-                    match = match.Replace("$me", args.Connection.ServerSetting.NickName);
-
-                    if (Regex.IsMatch(message, "\\b" + match + "\\b", RegexOptions.IgnoreCase))
+                    if (hli.Enabled)
                     {
+                        string match = hli.Match;
+                        // if $me is part of the match string substitute with the current nickname. 
+                        // Some characters that are allowed in nicknames carry significance in regex.
+                        // These are  - \ [ ] { } ^ |
+                        // We need to escape them with \ before using the nickname in the regex match
 
-                        //check include list
-                        if (hli.NicksInclude != null && hli.NicksInclude.Length > 0)
+                        string me = args.Connection.ServerSetting.CurrentNickName;
+
+                        me = me.Replace(@"\", @"\\");
+                        me = me.Replace(@"[", @"\[");
+                        me = me.Replace(@"]", @"\]");
+                        me = me.Replace(@"{", @"\{");
+                        me = me.Replace(@"}", @"\}");
+                        me = me.Replace(@"^", @"\^");
+                        me = me.Replace(@"|", @"\|");
+
+                        //me = me.Replace(@"-", @"\-");  Don't need this because it has significance only between [ and ] which are already escaped
+
+                        match = match.Replace("$me", me);
+
+                        if (Regex.IsMatch(message, match, RegexOptions.IgnoreCase))
                         {
-                            bool nickFound = false;
-                            foreach (string ni in hli.NicksInclude)
+                            //check include list
+                            if (hli.NicksInclude != null && hli.NicksInclude.Length > 0)
                             {
-                                if (Regex.IsMatch(args.Nick, "\\b" + ni + "\\b", RegexOptions.IgnoreCase))
+                                bool nickFound = false;
+                                foreach (string ni in hli.NicksInclude)
                                 {
-                                    nickFound = true;
+                                    //string n = EscapeNick(ni);
+                                    //if (Regex.IsMatch(args.Nick, "\\b" + n + "\\b", RegexOptions.IgnoreCase)) 
+                                    if (Regex.IsMatch(args.Nick, ni, RegexOptions.IgnoreCase))
+                                    {
+                                        nickFound = true;
+                                    }
                                 }
+                                if (nickFound == false)
+                                    continue;
+
                             }
-                            if (nickFound == false)
-                                continue;
 
-                        }
-
-                        //check exclude list
-                        if (hli.NicksExclude != null && hli.NicksExclude.Length > 0)
-                        {
-                            bool nickFound = false;
-                            foreach (string ni in hli.NicksExclude)
+                            //check exclude list
+                            if (hli.NicksExclude != null && hli.NicksExclude.Length > 0)
                             {
-                                if (Regex.IsMatch(args.Nick, "\\b" + ni + "\\b", RegexOptions.IgnoreCase))
+                                bool nickFound = false;
+                                foreach (string ni in hli.NicksExclude)
                                 {
-                                    nickFound = true;
+                                    //string n = EscapeNick(ni);
+                                    if (Regex.IsMatch(args.Nick, ni, RegexOptions.IgnoreCase))
+                                    {
+                                        nickFound = true;
+                                    }
                                 }
+                                if (nickFound == true)
+                                    continue;
                             }
-                            if (nickFound == true)
-                                continue;
-                        }                        
-                        
-                        message = message.Replace(args.Extra, "&#x3;" + hli.Color.ToString("00") + args.Extra);                        
 
-                        if (hli.FlashTab == true)
-                        {
-                            if (args.Channel.Length > 0)
-                                args.Command = "/flash " + args.Channel;
-                            else if (args.Nick.Length > 0)
-                                args.Command = "/flash " + args.Nick;
-                            
-                            OnCommand(args);
-                            
-                        }
+                            message = message.Replace(args.Extra, "&#x3;" + hli.Color.ToString("00") + args.Extra);
 
-                        if (hli.Sound != null)
-                        {
-                            if (hli.Sound.Length > 0)
+                            if (hli.FlashTab == true)
                             {
-                                args.Command = "/cplay " + args.Channel + " " + hli.Sound;
+                                if (args.Channel.Length > 0)
+                                    args.Command = "/flash " + args.Channel;
+                                else if (args.Nick.Length > 0)
+                                    args.Command = "/flash " + args.Nick;
+
                                 OnCommand(args);
+
                             }
-                        }
 
-                        if (hli.Command != null)
-                        {
-                            if (hli.Command.Length > 0)
+                            if (hli.Sound != null)
                             {
-                                args.Command = hli.Command.Replace("$message", args.Extra);
-                                args.Command = args.Command.Replace("$match", hli.Match);
-                                
-                                args.Command = args.Command.Replace("$chan", args.Channel);
-                                args.Command = args.Command.Replace("$nick", args.Nick);
-                                
-                                OnCommand(args);                                
-                            }                                       
-                        }
+                                if (hli.Sound.Length > 0)
+                                {
+                                    args.Command = "/cplay " + args.Channel + " " + hli.Sound;
+                                    OnCommand(args);
+                                }
+                            }
 
-                        break;
+                            if (hli.Command != null)
+                            {
+                                if (hli.Command.Length > 0)
+                                {
+                                    args.Command = hli.Command.Replace("$message", args.Extra);
+                                    args.Command = args.Command.Replace("$match", hli.Match);
+                                    args.Command = args.Command.Replace("$chan", args.Channel);
+                                    args.Command = args.Command.Replace("$nick", args.Nick);
+
+                                    OnCommand(args);
+                                }
+                            }
+
+                            break;
+                        }
                     }
                 }
             }
-
+            catch (Exception ex)
+            {
+                //message = ex.Message;
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
             return message;
         }
 
@@ -466,9 +531,7 @@ namespace IceChatPlugin
             args.Message = CheckTextHighLite(args);
             
             return args;
-        }
-
-        
+        }        
     }
 
     //seperate file for all the highlite items

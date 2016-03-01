@@ -32,6 +32,7 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
+            this.checkUseTLS = new System.Windows.Forms.CheckBox();
             this.checkUseSSL = new System.Windows.Forms.CheckBox();
             this.checkInvalidCertificate = new System.Windows.Forms.CheckBox();
             this.checkUseIPv6 = new System.Windows.Forms.CheckBox();
@@ -54,6 +55,8 @@
             this.labelServerName = new System.Windows.Forms.Label();
             this.labelNickName = new System.Windows.Forms.Label();
             this.tabPageExtra = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textReconnectTime = new System.Windows.Forms.TextBox();
             this.checkAccountNotify = new System.Windows.Forms.CheckBox();
             this.checkAwayNotify = new System.Windows.Forms.CheckBox();
             this.checkExtendedJoin = new System.Windows.Forms.CheckBox();
@@ -79,6 +82,8 @@
             this.checkMOTD = new System.Windows.Forms.CheckBox();
             this.checkModeI = new System.Windows.Forms.CheckBox();
             this.tabPageAutoJoin = new System.Windows.Forms.TabPage();
+            this.buttonMoveDown = new System.Windows.Forms.Button();
+            this.buttonMoveUp = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkAutoJoinDelayBetween = new System.Windows.Forms.CheckBox();
             this.checkAutoJoinDelay = new System.Windows.Forms.CheckBox();
@@ -228,11 +233,12 @@
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
             this.tabControlSettings.Size = new System.Drawing.Size(681, 292);
-            this.tabControlSettings.TabIndex = 36;
+            this.tabControlSettings.TabIndex = 0;
             // 
             // tabPageMain
             // 
             this.tabPageMain.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageMain.Controls.Add(this.checkUseTLS);
             this.tabPageMain.Controls.Add(this.checkUseSSL);
             this.tabPageMain.Controls.Add(this.checkInvalidCertificate);
             this.tabPageMain.Controls.Add(this.checkUseIPv6);
@@ -262,6 +268,18 @@
             this.tabPageMain.TabIndex = 0;
             this.tabPageMain.Text = "Main Settings";
             this.tabPageMain.UseVisualStyleBackColor = true;
+            // 
+            // checkUseTLS
+            // 
+            this.checkUseTLS.AutoSize = true;
+            this.checkUseTLS.Location = new System.Drawing.Point(567, 134);
+            this.checkUseTLS.Margin = new System.Windows.Forms.Padding(2);
+            this.checkUseTLS.Name = "checkUseTLS";
+            this.checkUseTLS.Size = new System.Drawing.Size(80, 20);
+            this.checkUseTLS.TabIndex = 55;
+            this.checkUseTLS.Text = "use TLS";
+            this.checkUseTLS.UseVisualStyleBackColor = true;
+            this.checkUseTLS.Visible = false;
             // 
             // checkUseSSL
             // 
@@ -464,6 +482,8 @@
             // tabPageExtra
             // 
             this.tabPageExtra.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageExtra.Controls.Add(this.label13);
+            this.tabPageExtra.Controls.Add(this.textReconnectTime);
             this.tabPageExtra.Controls.Add(this.checkAccountNotify);
             this.tabPageExtra.Controls.Add(this.checkAwayNotify);
             this.tabPageExtra.Controls.Add(this.checkExtendedJoin);
@@ -497,6 +517,24 @@
             this.tabPageExtra.TabIndex = 3;
             this.tabPageExtra.Text = "Extra Settings";
             this.tabPageExtra.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(9, 209);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(190, 16);
+            this.label13.TabIndex = 67;
+            this.label13.Text = "Reconnect Timer (seconds)";
+            // 
+            // textReconnectTime
+            // 
+            this.textReconnectTime.Location = new System.Drawing.Point(223, 205);
+            this.textReconnectTime.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.textReconnectTime.Name = "textReconnectTime";
+            this.textReconnectTime.Size = new System.Drawing.Size(37, 23);
+            this.textReconnectTime.TabIndex = 66;
             // 
             // checkAccountNotify
             // 
@@ -565,7 +603,7 @@
             // 
             // textPingTimer
             // 
-            this.textPingTimer.Location = new System.Drawing.Point(184, 177);
+            this.textPingTimer.Location = new System.Drawing.Point(223, 177);
             this.textPingTimer.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textPingTimer.Name = "textPingTimer";
             this.textPingTimer.Size = new System.Drawing.Size(37, 23);
@@ -594,6 +632,7 @@
             this.textSASLPass.Location = new System.Drawing.Point(465, 129);
             this.textSASLPass.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textSASLPass.Name = "textSASLPass";
+            this.textSASLPass.PasswordChar = '*';
             this.textSASLPass.Size = new System.Drawing.Size(115, 23);
             this.textSASLPass.TabIndex = 55;
             // 
@@ -644,6 +683,7 @@
             this.textServerPassword.Location = new System.Drawing.Point(465, 3);
             this.textServerPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textServerPassword.Name = "textServerPassword";
+            this.textServerPassword.PasswordChar = '*';
             this.textServerPassword.Size = new System.Drawing.Size(115, 23);
             this.textServerPassword.TabIndex = 8;
             // 
@@ -652,6 +692,7 @@
             this.textNickservPassword.Location = new System.Drawing.Point(465, 29);
             this.textNickservPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textNickservPassword.Name = "textNickservPassword";
+            this.textNickservPassword.PasswordChar = '*';
             this.textNickservPassword.Size = new System.Drawing.Size(115, 23);
             this.textNickservPassword.TabIndex = 9;
             // 
@@ -679,7 +720,7 @@
             // labelEncoding
             // 
             this.labelEncoding.AutoSize = true;
-            this.labelEncoding.Location = new System.Drawing.Point(9, 207);
+            this.labelEncoding.Location = new System.Drawing.Point(309, 209);
             this.labelEncoding.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelEncoding.Name = "labelEncoding";
             this.labelEncoding.Size = new System.Drawing.Size(67, 16);
@@ -690,7 +731,7 @@
             // 
             this.comboEncoding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboEncoding.FormattingEnabled = true;
-            this.comboEncoding.Location = new System.Drawing.Point(97, 204);
+            this.comboEncoding.Location = new System.Drawing.Point(397, 206);
             this.comboEncoding.Margin = new System.Windows.Forms.Padding(2);
             this.comboEncoding.Name = "comboEncoding";
             this.comboEncoding.Size = new System.Drawing.Size(131, 24);
@@ -747,6 +788,8 @@
             // tabPageAutoJoin
             // 
             this.tabPageAutoJoin.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageAutoJoin.Controls.Add(this.buttonMoveDown);
+            this.tabPageAutoJoin.Controls.Add(this.buttonMoveUp);
             this.tabPageAutoJoin.Controls.Add(this.panel1);
             this.tabPageAutoJoin.Controls.Add(this.buttonEditAutoJoin);
             this.tabPageAutoJoin.Controls.Add(this.listChannel);
@@ -763,6 +806,28 @@
             this.tabPageAutoJoin.TabIndex = 1;
             this.tabPageAutoJoin.Text = "AutoJoin";
             this.tabPageAutoJoin.UseVisualStyleBackColor = true;
+            // 
+            // buttonMoveDown
+            // 
+            this.buttonMoveDown.Location = new System.Drawing.Point(425, 130);
+            this.buttonMoveDown.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonMoveDown.Name = "buttonMoveDown";
+            this.buttonMoveDown.Size = new System.Drawing.Size(95, 25);
+            this.buttonMoveDown.TabIndex = 37;
+            this.buttonMoveDown.Text = "Move Down";
+            this.buttonMoveDown.UseVisualStyleBackColor = true;
+            this.buttonMoveDown.Click += new System.EventHandler(this.buttonMoveDown_Click);
+            // 
+            // buttonMoveUp
+            // 
+            this.buttonMoveUp.Location = new System.Drawing.Point(425, 99);
+            this.buttonMoveUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonMoveUp.Name = "buttonMoveUp";
+            this.buttonMoveUp.Size = new System.Drawing.Size(95, 25);
+            this.buttonMoveUp.TabIndex = 36;
+            this.buttonMoveUp.Text = "Move Up";
+            this.buttonMoveUp.UseVisualStyleBackColor = true;
+            this.buttonMoveUp.Click += new System.EventHandler(this.buttonMoveUp_Click);
             // 
             // panel1
             // 
@@ -833,6 +898,7 @@
             this.listChannel.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listChannel.Location = new System.Drawing.Point(5, 31);
             this.listChannel.Margin = new System.Windows.Forms.Padding(2);
+            this.listChannel.MultiSelect = false;
             this.listChannel.Name = "listChannel";
             this.listChannel.Size = new System.Drawing.Size(370, 180);
             this.listChannel.TabIndex = 32;
@@ -1189,6 +1255,7 @@
             this.textProxyPass.Location = new System.Drawing.Point(141, 121);
             this.textProxyPass.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textProxyPass.Name = "textProxyPass";
+            this.textProxyPass.PasswordChar = '*';
             this.textProxyPass.Size = new System.Drawing.Size(255, 23);
             this.textProxyPass.TabIndex = 56;
             // 
@@ -1328,6 +1395,7 @@
             this.textBNCPass.Location = new System.Drawing.Point(141, 121);
             this.textBNCPass.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBNCPass.Name = "textBNCPass";
+            this.textBNCPass.PasswordChar = '*';
             this.textBNCPass.Size = new System.Drawing.Size(256, 23);
             this.textBNCPass.TabIndex = 64;
             // 
@@ -1866,5 +1934,10 @@
         private System.Windows.Forms.CheckBox checkExtendedJoin;
         private System.Windows.Forms.CheckBox checkAccountNotify;
         private System.Windows.Forms.Button buttonDuplicateServer;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textReconnectTime;
+        private System.Windows.Forms.Button buttonMoveDown;
+        private System.Windows.Forms.Button buttonMoveUp;
+        private System.Windows.Forms.CheckBox checkUseTLS;
     }
 }

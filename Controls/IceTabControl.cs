@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -132,6 +132,7 @@ namespace IceChat
                 if (this.Controls.GetChildIndex(page) == 0)
                 {
                     //this is the current 
+                    System.Diagnostics.Debug.WriteLine("Index - 0:" + page.TabCaption);
                     _currentTab = page;
                 }
 
@@ -141,6 +142,7 @@ namespace IceChat
 
             //redraw
             FormMain.Instance.ChannelBar.SelectTab(_currentTab);
+            FormMain.Instance.ServerTree.SelectTab(_currentTab, false);
             FormMain.Instance.ServerTree.Invalidate();
 
         }        

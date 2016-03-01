@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,8 +33,8 @@ namespace IceChat
         private int timerCounter;
         private string timerCommand;
 
-        internal delegate void TimerElapsed(string command);
-        internal event TimerElapsed OnTimerElapsed;
+        public delegate void TimerElapsed(string timerID, string command);
+        public event TimerElapsed OnTimerElapsed;
 
         public IrcTimer(string ID, int repetitions, double interval, string command)
         {
@@ -50,7 +50,7 @@ namespace IceChat
         private void IrcTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (OnTimerElapsed != null)
-                OnTimerElapsed(this.timerCommand);
+                OnTimerElapsed(this.timerID, this.timerCommand);
 
             timerCounter++;
             
@@ -61,7 +61,7 @@ namespace IceChat
             }
         }
 
-        internal void DisableTimer()
+        public void DisableTimer()
         {
             this.Stop();
             base.Dispose();

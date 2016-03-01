@@ -1,0 +1,15 @@
+http://wiki.icechat.net/index.php?title=Build_from_source_code
+
+Unzip the file into any folder. It is best to use My Documents and not the Program Files folder, because of permissions issues.
+
+There is an BuildIceChat.cmd file in the root folder which will build IceChat 9.
+
+If you have a problem with BuildIceChat.cmd erroring about msbuild, try BuildIceChat.4.0.cmd
+
+Open a command line window (cmd.exe) and run the BuildIceChat.cmd at the prompt.
+A new folder called IceChatBuild will be created, and once the batch file has completed, 5 files will be placed in this folder.
+
+Copy these 5 files into your IceChat installation/Program Files folder, or place them anywhere else you want.
+
+To see all the changes from build to build, read the changelog.txt file in the source code.
+

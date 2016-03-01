@@ -40,7 +40,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;USE_NET_35;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -75,11 +75,18 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Colors.cs" />
@@ -272,14 +279,12 @@
     <Compile Include="Renderers\VS2008Renderer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ServerSetting.cs" />
     <Compile Include="Controls\ServerTree.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\ServerTree.Designer.cs">
       <DependentUpon>ServerTree.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
     <Compile Include="Controls\TextWindow.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -452,6 +457,9 @@
   <ItemGroup>
     <Content Include="icechat9.ico">
     </Content>
+    <EmbeddedResource Include="Controls\IceDockPanel.resx">
+      <DependentUpon>IceDockPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormList.resx">
       <DependentUpon>FormList.cs</DependentUpon>
     </EmbeddedResource>

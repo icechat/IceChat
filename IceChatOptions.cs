@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,14 +33,28 @@ using IceChatPlugin;
 
 namespace IceChat
 {
-    
+    [XmlRoot("IceChatPackage")]
+    public class IceChatPackage
+    {
+        [XmlArray("Servers")]
+        [XmlArrayItem("Item", typeof(ServerSetting))]
+        public List<ServerSetting> Servers;
+
+        [XmlElement("Options")]
+        public IceChatOptions Options
+        {
+            get; set;
+        }
+
+    }
     [XmlRoot("IceChatOptions")]
     public class IceChatOptions
     {
         //set the default values
-        private string _timeStamp = "[hh:mm.ss] ";
+        private string _timeStamp = "[HH:mm.ss] ";
         private bool _showTimeStamp = true;
         private bool _saveWindow = true;
+        private bool _lockWindow = false;
         private bool _identServer = true;
         private bool _reconnectServer = true;
         private bool _askQuit = true;
@@ -104,9 +118,11 @@ namespace IceChat
         private string _privateAwayMessage = "I am away at the moment, your message has been logged ( away for $awaytime )";
         private string _autoAwayMessage = "Auto-Away (Away from Keyboard for $autoawaytime minutes)";
         private int _autoAwayTime = 30;
-        private bool _sendAwayCommands = true;
+        private bool _sendAwayCommands = false;
         private bool _sendAwayPrivateMessage = true;
         private int userNoticeEvent = 1;
+        
+        private int _transparency = 100;
 
         [XmlElement("TimeStamp")]
         public string TimeStamp
@@ -134,6 +150,13 @@ namespace IceChat
         {
             get { return this._saveWindow; }
             set { this._saveWindow = value; }
+        }
+
+        [XmlElement("LockWindowSize")]
+        public bool LockWindowSize
+        {
+            get { return this._lockWindow; }
+            set { this._lockWindow = value; }
         }
 
         [XmlElement("WindowSize")]
@@ -347,6 +370,13 @@ namespace IceChat
         {
             get { return this._singleRowChannelBar; }
             set { this._singleRowChannelBar = value; }
+        }
+
+        [XmlElement("Transparency")]
+        public int Transparency
+        {
+            get { return this._transparency; }
+            set { this._transparency = value; }
         }
 
         [XmlElement("ShowServerTree")]
@@ -817,6 +847,15 @@ namespace IceChat
       public bool AutoAwaySystemTray
       { get; set; }
 
+      [XmlArray("AutoPerformStartup")]
+      [XmlArrayItem("Item")]
+      public string[] AutoPerformStartup
+      { get; set; }
+
+      [XmlElement("AutoPerformStartupEnable")]
+      public bool AutoPerformStartupEnable
+      { get; set; }
+
     }
     
     public class ThemeItem
@@ -1178,6 +1217,30 @@ namespace IceChat
 
         [XmlElement("WindowIndex")]
         public int WindowIndex
+        { get; set; }
+
+        [XmlElement("JoinEventOverload")]
+        public bool JoinEventOverload
+        { get; set; }
+
+        [XmlElement("JoinEventLocation")]
+        public int JoinEventLocation
+        { get; set; }
+
+        [XmlElement("PartEventOverload")]
+        public bool PartEventOverload
+        { get; set; }
+
+        [XmlElement("PartEventLocation")]
+        public int PartEventLocation
+        { get; set; }
+
+        [XmlElement("QuitEventOverload")]
+        public bool QuitEventOverload
+        { get; set; }
+
+        [XmlElement("QuitEventLocation")]
+        public int QuitEventLocation
         { get; set; }
 
     }

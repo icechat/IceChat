@@ -16,10 +16,14 @@ namespace IceChat
         private string logFileLocation;
         private string fileExtension;
         
-
         internal string LogFileLocation
         {
             get { return logFileLocation; }
+        }
+
+        internal string LogFileName
+        {
+            get { return Path.GetFileName(logFile.Name); }
         }
 
         public Logging(ConsoleTab consoleTab)
@@ -252,10 +256,10 @@ namespace IceChat
 
         public void Dispose()
         {
-            if (_tabPage != null)
-                System.Diagnostics.Debug.WriteLine("Dispose Logging Class TabPage:" + _tabPage.TabCaption);
-            else if (_consoleTab != null)
-                System.Diagnostics.Debug.WriteLine("Dispose Logging Class Console:" + _consoleTab.Connection.ServerSetting.ServerName);
+            //if (_tabPage != null)
+            //    System.Diagnostics.Debug.WriteLine("Dispose Logging Class TabPage:" + _tabPage.TabCaption);
+            //else if (_consoleTab != null)
+            //    System.Diagnostics.Debug.WriteLine("Dispose Logging Class Console:" + _consoleTab.Connection.ServerSetting.ServerName);
             
             if (logFile != null)
             {

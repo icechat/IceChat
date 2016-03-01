@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -87,6 +87,7 @@ namespace IceChat
     //for the Buddy List
     public delegate void BuddyListDelegate(IRCConnection connection, string[] buddies, string timeStamp);
     public delegate void BuddyListClearDelegate(IRCConnection connection);
+    public delegate void BuddyRemoveDelegate(IRCConnection connection, BuddyListItem buddy);
     public delegate void MonitorListDelegate(IRCConnection connection, string buddy, bool online, string timeStamp);
 
     //for the IAL (internal address list)

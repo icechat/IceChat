@@ -138,6 +138,7 @@
             this.tabBasic = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonResetBasic = new System.Windows.Forms.Button();
+            this.textFormattedBasic = new TextWindow();
             this.checkChangeBGBasic = new System.Windows.Forms.CheckBox();
             this.labelFormatMessageBasic = new System.Windows.Forms.Label();
             this.labelIRCMessagesBasic = new System.Windows.Forms.Label();
@@ -145,6 +146,7 @@
             this.tabAdvanced = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonResetAdvanced = new System.Windows.Forms.Button();
+            this.textFormattedText = new TextWindow();
             this.textRawMessage = new System.Windows.Forms.TextBox();
             this.labelIRCMessagesAdvanced = new System.Windows.Forms.Label();
             this.checkBGColor = new System.Windows.Forms.CheckBox();
@@ -260,8 +262,6 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.labelCurrent = new System.Windows.Forms.Label();
             this.buttonApply = new System.Windows.Forms.Button();
-            this.textFormattedBasic = new IceChat.TextWindow();
-            this.textFormattedText = new IceChat.TextWindow();
             this.tabControlColors.SuspendLayout();
             this.tabPageMessages.SuspendLayout();
             this.tabMessages.SuspendLayout();
@@ -397,6 +397,18 @@
             this.buttonResetBasic.UseVisualStyleBackColor = true;
             this.buttonResetBasic.Click += new System.EventHandler(this.buttonResetBasic_Click);
             // 
+            // textFormattedBasic
+            // 
+            this.textFormattedBasic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.textFormattedBasic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textFormattedBasic.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textFormattedBasic.Location = new System.Drawing.Point(13, 263);
+            this.textFormattedBasic.Margin = new System.Windows.Forms.Padding(2);
+            this.textFormattedBasic.Name = "textFormattedBasic";
+            this.textFormattedBasic.SingleLine = true;
+            this.textFormattedBasic.Size = new System.Drawing.Size(484, 19);
+            this.textFormattedBasic.TabIndex = 51;
+            // 
             // checkChangeBGBasic
             // 
             this.checkChangeBGBasic.AutoSize = true;
@@ -486,6 +498,18 @@
             this.buttonResetAdvanced.Text = "Reset to Default";
             this.buttonResetAdvanced.UseVisualStyleBackColor = true;
             this.buttonResetAdvanced.Click += new System.EventHandler(this.buttonResetAdvanced_Click);
+            // 
+            // textFormattedText
+            // 
+            this.textFormattedText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.textFormattedText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textFormattedText.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textFormattedText.Location = new System.Drawing.Point(11, 269);
+            this.textFormattedText.Margin = new System.Windows.Forms.Padding(2);
+            this.textFormattedText.Name = "textFormattedText";
+            this.textFormattedText.SingleLine = true;
+            this.textFormattedText.Size = new System.Drawing.Size(484, 19);
+            this.textFormattedText.TabIndex = 46;
             // 
             // textRawMessage
             // 
@@ -1401,9 +1425,9 @@
             this.labelChannelListFore.Location = new System.Drawing.Point(15, 224);
             this.labelChannelListFore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelChannelListFore.Name = "labelChannelListFore";
-            this.labelChannelListFore.Size = new System.Drawing.Size(147, 16);
+            this.labelChannelListFore.Size = new System.Drawing.Size(144, 16);
             this.labelChannelListFore.TabIndex = 102;
-            this.labelChannelListFore.Text = "Favorite Channel List";
+            this.labelChannelListFore.Text = "Channel / Buddy List";
             // 
             // labelOtherForeGroundColors
             // 
@@ -1501,9 +1525,9 @@
             this.labelChannelList.Location = new System.Drawing.Point(15, 147);
             this.labelChannelList.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelChannelList.Name = "labelChannelList";
-            this.labelChannelList.Size = new System.Drawing.Size(88, 16);
+            this.labelChannelList.Size = new System.Drawing.Size(144, 16);
             this.labelChannelList.TabIndex = 93;
-            this.labelChannelList.Text = "Channel List";
+            this.labelChannelList.Text = "Channel / Buddy List";
             // 
             // picturePanelHeaderBG2
             // 
@@ -1836,30 +1860,6 @@
             this.buttonApply.Text = "Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
-            // 
-            // textFormattedBasic
-            // 
-            this.textFormattedBasic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.textFormattedBasic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textFormattedBasic.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textFormattedBasic.Location = new System.Drawing.Point(13, 263);
-            this.textFormattedBasic.Margin = new System.Windows.Forms.Padding(2);
-            this.textFormattedBasic.Name = "textFormattedBasic";
-            this.textFormattedBasic.SingleLine = true;
-            this.textFormattedBasic.Size = new System.Drawing.Size(484, 19);
-            this.textFormattedBasic.TabIndex = 51;
-            // 
-            // textFormattedText
-            // 
-            this.textFormattedText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.textFormattedText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textFormattedText.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textFormattedText.Location = new System.Drawing.Point(11, 269);
-            this.textFormattedText.Margin = new System.Windows.Forms.Padding(2);
-            this.textFormattedText.Name = "textFormattedText";
-            this.textFormattedText.SingleLine = true;
-            this.textFormattedText.Size = new System.Drawing.Size(484, 19);
-            this.textFormattedText.TabIndex = 46;
             // 
             // FormColors
             // 

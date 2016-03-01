@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -215,8 +215,8 @@ namespace IceChat
 
         internal void ApplyLanguage()
         {
-            btnOK.Text = FormMain.Instance.IceChatLanguage.buttonOk;
-            buttonCancel.Text = FormMain.Instance.IceChatLanguage.buttonCancel;
+            btnOK.Text = "Ok";
+            buttonCancel.Text = "Cancel";
         }
 
         private void btnOK_Click(object sender, System.EventArgs e)

@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,10 +38,12 @@ namespace IceChat
     {
         private string headerCaption = "Favorite Channels";
         private int headerHeight = 23;
+        private FormMain _parent;
 
-        public ChannelList()
+        public ChannelList(FormMain parent)
         {
             InitializeComponent();
+            this._parent = parent;
 
             this.Paint += new PaintEventHandler(OnHeaderPaint);
             //this.DoubleClick += new EventHandler(OnDoubleClick);
@@ -62,22 +64,10 @@ namespace IceChat
             listChannels.Height = this.Height - (panelButtons.Height + listChannels.Top);
             listChannels.Width = this.Width;
         }
-        
-        /*
-        private void OnDoubleClick(object sender, EventArgs e)
-        {
-            if (this.Parent.Parent.GetType() == typeof(TabPage))
-            {
-                if (this.Parent.Parent.GetType() != typeof(FormFloat))
-                    FormMain.Instance.UnDockPanel((Panel)this.Parent);
-                return;
-            }
-        }
-        */
 
         internal void ApplyLanguage()
         {
-            IceChatLanguage iceChatLanguage = FormMain.Instance.IceChatLanguage;
+            IceChatLanguage iceChatLanguage = _parent.IceChatLanguage;
             headerCaption = iceChatLanguage.favChanHeader;
             buttonAdd.Text = iceChatLanguage.favChanbuttonAdd;
             buttonJoin.Text = iceChatLanguage.favChanbuttonJoin;
@@ -97,8 +87,10 @@ namespace IceChat
 
         internal void SetListColors()
         {
-            this.listChannels.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.ChannelListBackColor];
-            this.listChannels.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.ChannelListForeColor];
+            this.listChannels.BackColor = IrcColor.colors[_parent.IceChatColors.ChannelListBackColor];
+            this.listChannels.ForeColor = IrcColor.colors[_parent.IceChatColors.ChannelListForeColor];
+
+            this.panelButtons.BackColor = IrcColor.colors[_parent.IceChatColors.TabbarBackColor];
         }
 
         /// <summary>
@@ -111,7 +103,7 @@ namespace IceChat
 
             //draw the header
             Rectangle headerR = new Rectangle(0, 0, this.Width, headerHeight);
-            Brush l = new LinearGradientBrush(headerR, IrcColor.colors[FormMain.Instance.IceChatColors.PanelHeaderBG1], IrcColor.colors[FormMain.Instance.IceChatColors.PanelHeaderBG2], 300);
+            Brush l = new LinearGradientBrush(headerR, IrcColor.colors[_parent.IceChatColors.PanelHeaderBG1], IrcColor.colors[_parent.IceChatColors.PanelHeaderBG2], 300);
 
             g.FillRectangle(l, headerR);
             if (this.Parent.Parent.GetType() != typeof(FormFloat))
@@ -139,7 +131,7 @@ namespace IceChat
             Rectangle centered = headerR;
             centered.Offset(0, (int)(headerR.Height - g.MeasureString(headerCaption, headerFont).Height) / 2);
 
-            g.DrawString(headerCaption, headerFont, new SolidBrush(Color.Black), centered, sf);
+            g.DrawString(headerCaption, headerFont, new SolidBrush(IrcColor.colors[_parent.IceChatColors.PanelHeaderForeColor]), centered, sf);
 
             e.Graphics.DrawImageUnscaled(buffer, 0, 0);
             buffer.Dispose();
@@ -175,9 +167,9 @@ namespace IceChat
         /// </summary>
         private void ReadSettings()
         {
-            if (!File.Exists(FormMain.Instance.FavoriteChannelsFile)) return;
+            if (!File.Exists(_parent.FavoriteChannelsFile)) return;
 
-            FileStream fs = new FileStream(FormMain.Instance.FavoriteChannelsFile, FileMode.Open);
+            FileStream fs = new FileStream(_parent.FavoriteChannelsFile, FileMode.Open);
             XmlTextReader r = new XmlTextReader(fs);
             string currentElement = "";            
             while (r.Read())
@@ -197,7 +189,7 @@ namespace IceChat
         /// </summary>
         private void WriteSettings()
         {
-            FileStream fs = new FileStream(FormMain.Instance.FavoriteChannelsFile, FileMode.Create);
+            FileStream fs = new FileStream(_parent.FavoriteChannelsFile, FileMode.Create);
             XmlTextWriter w = new XmlTextWriter(fs, System.Text.Encoding.UTF8);
             w.Formatting = Formatting.Indented;
 
@@ -215,7 +207,7 @@ namespace IceChat
             w.Close();
             fs.Close();
 
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
         
         /// <summary>
@@ -229,9 +221,9 @@ namespace IceChat
 
             if (s == -1) return;
 
-            IRCConnection c = FormMain.Instance.InputPanel.CurrentConnection;
+            IRCConnection c = _parent.InputPanel.CurrentConnection;
             if (c != null)
-                FormMain.Instance.ParseOutGoingCommand(c, "/join " + listChannels.Items[s].ToString());
+                _parent.ParseOutGoingCommand(c, "/join " + listChannels.Items[s].ToString());
         }
 
         /// <summary>
@@ -266,12 +258,12 @@ namespace IceChat
 
             if (s == -1) return;
 
-            IRCConnection c = FormMain.Instance.InputPanel.CurrentConnection;
+            IRCConnection c = _parent.InputPanel.CurrentConnection;
             if (c != null)
             {
-                FormMain.Instance.ParseOutGoingCommand(c, "/join " + listChannels.Items[s].ToString());
+                _parent.ParseOutGoingCommand(c, "/join " + listChannels.Items[s].ToString());
             }
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
         /// <summary>
@@ -312,7 +304,7 @@ namespace IceChat
 
             WriteSettings();
 
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
     }
 }

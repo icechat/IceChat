@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUpdater));
             this.labelCurrent = new System.Windows.Forms.Label();
             this.labelLatest = new System.Windows.Forms.Label();
             this.listFiles = new System.Windows.Forms.ListBox();
@@ -41,6 +42,7 @@
             this.labelSize = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.labelFramework = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelCurrent
@@ -69,7 +71,7 @@
             this.listFiles.FormattingEnabled = true;
             this.listFiles.Location = new System.Drawing.Point(16, 82);
             this.listFiles.Name = "listFiles";
-            this.listFiles.Size = new System.Drawing.Size(386, 82);
+            this.listFiles.Size = new System.Drawing.Size(386, 134);
             this.listFiles.TabIndex = 2;
             // 
             // label1
@@ -84,7 +86,7 @@
             // labelFolder
             // 
             this.labelFolder.AutoSize = true;
-            this.labelFolder.Location = new System.Drawing.Point(13, 243);
+            this.labelFolder.Location = new System.Drawing.Point(13, 299);
             this.labelFolder.Name = "labelFolder";
             this.labelFolder.Size = new System.Drawing.Size(46, 16);
             this.labelFolder.TabIndex = 4;
@@ -96,7 +98,7 @@
             this.buttonDownload.Name = "buttonDownload";
             this.buttonDownload.Size = new System.Drawing.Size(173, 23);
             this.buttonDownload.TabIndex = 5;
-            this.buttonDownload.Text = "Download Update";
+            this.buttonDownload.Text = "Download Updates";
             this.buttonDownload.UseVisualStyleBackColor = true;
             this.buttonDownload.Visible = false;
             this.buttonDownload.Click += new System.EventHandler(this.buttonDownload_Click);
@@ -107,25 +109,25 @@
             this.labelUpdate.ForeColor = System.Drawing.Color.Red;
             this.labelUpdate.Location = new System.Drawing.Point(434, 96);
             this.labelUpdate.Name = "labelUpdate";
-            this.labelUpdate.Size = new System.Drawing.Size(118, 16);
+            this.labelUpdate.Size = new System.Drawing.Size(125, 16);
             this.labelUpdate.TabIndex = 6;
-            this.labelUpdate.Text = "Update Available";
+            this.labelUpdate.Text = "Updates Available";
             this.labelUpdate.Visible = false;
             // 
             // labelNoUpdate
             // 
             this.labelNoUpdate.AutoSize = true;
             this.labelNoUpdate.ForeColor = System.Drawing.Color.Red;
-            this.labelNoUpdate.Location = new System.Drawing.Point(336, 9);
+            this.labelNoUpdate.Location = new System.Drawing.Point(364, 9);
             this.labelNoUpdate.Name = "labelNoUpdate";
-            this.labelNoUpdate.Size = new System.Drawing.Size(244, 16);
+            this.labelNoUpdate.Size = new System.Drawing.Size(217, 16);
             this.labelNoUpdate.TabIndex = 7;
-            this.labelNoUpdate.Text = "Your are running the Latest Version";
+            this.labelNoUpdate.Text = "Your are running Latest Version";
             this.labelNoUpdate.Visible = false;
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(16, 170);
+            this.progressBar.Location = new System.Drawing.Point(16, 226);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(386, 23);
             this.progressBar.TabIndex = 8;
@@ -134,7 +136,7 @@
             // labelCurrentFile
             // 
             this.labelCurrentFile.AutoSize = true;
-            this.labelCurrentFile.Location = new System.Drawing.Point(13, 207);
+            this.labelCurrentFile.Location = new System.Drawing.Point(13, 263);
             this.labelCurrentFile.Name = "labelCurrentFile";
             this.labelCurrentFile.Size = new System.Drawing.Size(90, 16);
             this.labelCurrentFile.TabIndex = 9;
@@ -143,7 +145,7 @@
             // labelSize
             // 
             this.labelSize.AutoSize = true;
-            this.labelSize.Location = new System.Drawing.Point(408, 177);
+            this.labelSize.Location = new System.Drawing.Point(408, 233);
             this.labelSize.Name = "labelSize";
             this.labelSize.Size = new System.Drawing.Size(35, 16);
             this.labelSize.TabIndex = 10;
@@ -154,7 +156,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 262);
+            this.label2.Location = new System.Drawing.Point(12, 338);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(337, 16);
             this.label2.TabIndex = 11;
@@ -163,17 +165,27 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 225);
+            this.label3.Location = new System.Drawing.Point(13, 281);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 16);
             this.label3.TabIndex = 12;
             this.label3.Text = "label3";
             // 
+            // labelFramework
+            // 
+            this.labelFramework.AutoSize = true;
+            this.labelFramework.Location = new System.Drawing.Point(13, 318);
+            this.labelFramework.Name = "labelFramework";
+            this.labelFramework.Size = new System.Drawing.Size(79, 16);
+            this.labelFramework.TabIndex = 13;
+            this.labelFramework.Text = "Framework";
+            // 
             // FormUpdater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 287);
+            this.ClientSize = new System.Drawing.Size(593, 363);
+            this.Controls.Add(this.labelFramework);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.labelSize);
@@ -188,12 +200,13 @@
             this.Controls.Add(this.labelLatest);
             this.Controls.Add(this.labelCurrent);
             this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormUpdater";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "IceChat 9 Updater v1.5";
+            this.Text = "IceChat 9 Updater v2.0";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,6 +227,7 @@
         private System.Windows.Forms.Label labelSize;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelFramework;
     }
 }
 

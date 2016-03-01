@@ -1,3 +1,120 @@
+Build 9.08b, January 17 2016
+* Changed sound settings for the nickname in a channel to not override the channel message sound
+
+
+Build 9.08a, November 28 2015
+* Transparency setting is now saved
+* Fixed issue with Self Channel Message , $color not working properly
+* Added Projects for VS2015 using .Net 4.5
+
+Build 9.08, November 7 2015
+* Removed IRC Search because IRCIndexer has gone offline
+
+Build 9.08, November 7 2015
+* Fix issue with queries being used when a nick change to a previous nick after disconnection
+* Add ability to ignore hosts
+* Added CAP NEW / LIST for ircv3
+
+Build 9.07b, August 3 2015
+* Fix issue with some user modes interfering with nicks (like mode -)
+* Send away commands disabled by default
+* Minor fix with Nicks not showing in the nick list
+
+Build 9.07a, July 2 2015
+* Fix issue with closing window and proper tab not selected in server tree
+* Fix issue with multiline editbox not returning to top corner of box on Enter
+* Highlite plugin updated to v2.9, fix more regex issues
+* Updater updated to check for Plugin updates
+* Added /updater command to manually run IceChat Updater
+* Don't allow Settings/Colors/Server Editor/IceChat Editor windows to be opened multiple times
+* Fix issue with blank value being added for QuickConnect window
+* Ability to move AutoJoin Channels up or down in list
+* Fix issue with Loading a new theme does not save the theme in the list
+* Few minor fixes for the IceChat 7 settings importer
+* Fix Close Window in Server Tree for Channel List not working
+
+Build 9.07, May 9 2015
+* Added account to to values sent for ChannelJoin event in plugins
+* Other minor fixes and updates
+
+Build 9.06a, Apr 10 2015
+* Fix Buddy List Issues
+* Fix SASL Authentication, was not working some networks
+
+Build 9.06, Mar 13 2015
+* Change Close Window to Close Query for Query windows
+* Highlite plugin updated to v2.8, fix more regex issues
+
+Build 9.05, Mar 13 2015
+* Added scroll bar to topic box in Channel Info window
+* Added /searchchannel and /searchnetwork commands for the IRC Indexer service
+
+Build 9.04b, Mar 4 2015
+* Fix issue with clicking on X to close iceChat, and it auto closes channels if closing was canceled
+* Panel behind buttons on Server Tree/Nicklist now set as color of Tab bar background
+* Added AutoPerform Startup commands to Default Server Settings - These commands run on IceChat Startup
+* /timer command now works with no server connection, to add a global timer, use "-g" for the start Timer ID
+
+Build 9.04a, Feb 27 2015
+* Fixed bug with manually connecting autostart servers
+* Fix URL parsing issues, with dropping h from http:// and such
+
+Build 9.04, Feb 26 2015
+* Added option to lock window size, from Main menu
+* Highlite plugin updated to v2.7, fix regex issues
+* Fixed /switch command bug
+* Fixed menu background color not being applied on startup
+* Resetting default Menu Style now works properly
+* Buddy List and Channel List header fore color now selectable
+* Added extra channel mode parsing
+* Added VBScript Plugin to Plugins Folder 
+
+Build 9.03, Feb 17, 2015
+* Fix reconnect issue with servers, erroring out
+* added /switch command for allowing to switch to a specific channel on a server (/switch #channel serverID)
+
+Build 9.02, Feb 13, 2015
+* fix some line wrapping issues with certain character codes
+* Add reconnect time option in server editor (default 60 seconds)
+
+Build 9.01r, Feb 11, 2015
+* expanded /server command to allow for -i and -j switches 
+* Highlite plugin updated to 2.4
+* allow for empty Away nick to disable changing nicks when using /away
+* fix ircv3 issue with not sending CAP END
+
+Build 9.01q, Feb 5, 2015
+* Fix modes t and n not showing properly in channel info window
+* Made topic box in channel info window larger
+* fix error using ctrl-w to close private message tabs
+
+Build 9.01p, Feb 4, 2015
+* Fix nicklist paint errors
+
+Build 9.01n, Feb 4, 2015
+* Search Menu added for searching in client for irc channels/networks, provided by ircindexer.net
+* Fix issue with ()'s in url's
+* Fix issues with windows not closing on middle click of channel bar in windowed mode
+* Add IceChatBuild.4.0.cmd for users who have errors with IceChatBuild.cmd
+* Nick complete (tab) now works mid sentence
+* fix /names and /who issue
+
+Build 9.01m, Jan 18, 2015
+* Fixes identifiers not parsing properly with multiline aliases
+
+Build 9.01k, Jan 15, 2015
+* Fixes to the part events not working for Hide
+
+Build 9.01j, Jan 15, 2015
+* Fixes to the change events from server tree
+* Fix saving channel position on BNC Connections
+
+Build 9.01i, Jan 15, 2015
+* Added Newtonsoft.Json.dll for parsting JSON data
+* Added channel and network search under Search menu 
+* Search bar shows in Channel List after list is completed
+* Add ability to change join/part/quit messages on a per channel basis, from the server tree
+
 Build 9.01h, Dec 30, 2014
 * Minor GUI updates
 

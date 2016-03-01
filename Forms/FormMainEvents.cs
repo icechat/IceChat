@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,7 +74,11 @@ namespace IceChat
         private void OnServerReconnect(IRCConnection connection)
         {
             string msg = GetMessageFormat("Server Reconnect");
-            msg = msg.Replace("$serverip", connection.ServerSetting.ServerIP).Replace("$server",connection.ServerSetting.ServerName).Replace("$port", connection.ServerSetting.ServerPort);
+
+            if (connection.ServerSetting.UseBNC)
+                msg = msg.Replace("$serverip", connection.ServerSetting.BNCIP).Replace("$server", connection.ServerSetting.BNCIP).Replace("$port", connection.ServerSetting.BNCPort) + " (BNC Connection)";
+            else
+                msg = msg.Replace("$serverip", connection.ServerSetting.ServerIP).Replace("$server",connection.ServerSetting.ServerName).Replace("$port", connection.ServerSetting.ServerPort);
             
             OnServerMessage(connection, msg, "");
         }
@@ -101,7 +105,7 @@ namespace IceChat
         {
             if (IceChatOptions.ReconnectServer && connection.AttemptReconnect)
             {                
-                OnServerMessage(connection, "Waiting 60 seconds to re-connect to (" + connection.ServerSetting.ServerName + ")", "");
+                OnServerMessage(connection, "Waiting " + connection.ServerSetting.ReconnectTime + " seconds to re-connect to (" + connection.ServerSetting.ServerName + ")", "");
                 try
                 {
                     if (connection.ReconnectTimer != null)
@@ -124,7 +128,7 @@ namespace IceChat
 
         private void OnServerConnect(IRCConnection connection, string address)
         {
-            string msg = FormMain.Instance.GetMessageFormat("Server Connect");
+            string msg = this.GetMessageFormat("Server Connect");
 
             if (connection.ServerSetting.UseBNC)
                 msg = msg.Replace("$serverip", address).Replace("$server", connection.ServerSetting.BNCIP).Replace("$port", connection.ServerSetting.BNCPort) + " (BNC Connection)";
@@ -215,8 +219,9 @@ namespace IceChat
             }
 
             OnServerMessage(connection, msg, "");
-
-            PlaySoundFile("dropped");
+            
+            if (!connection.ServerSetting.DisableSounds)
+                PlaySoundFile("dropped");
 
             if (loadedPlugins.Count > 0)
             {
@@ -242,7 +247,7 @@ namespace IceChat
 
         private void OnChannelInfoTopicSet(IRCConnection connection, string channel, string nick, string time)
         {
-            IceTabPage t = FormMain.Instance.GetWindow(connection, channel, IceTabPage.WindowType.Channel);
+            IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
             if (t != null)
             {
                 if (t.HasChannelInfo)
@@ -254,7 +259,7 @@ namespace IceChat
 
         private void OnChannelInfoAddException(IRCConnection connection, string channel, string host, string bannedBy)
         {
-            IceTabPage t = FormMain.Instance.GetWindow(connection, channel, IceTabPage.WindowType.Channel);
+            IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
             if (t != null)
             {
                 if (t.HasChannelInfo)
@@ -266,7 +271,7 @@ namespace IceChat
 
         private void OnChannelInfoAddBan(IRCConnection connection, string channel, string host, string bannedBy)
         {
-            IceTabPage t = FormMain.Instance.GetWindow(connection, channel, IceTabPage.WindowType.Channel);
+            IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
             if (t != null)
             {
                 if (t.HasChannelInfo)
@@ -400,73 +405,98 @@ namespace IceChat
                 if (tw.WindowStyle == IceTabPage.WindowType.Channel)
                 {
                     if (tw.Connection == connection)
-                    {
-                        
-                        if (connection.ServerSetting.AutoJoinDelay)
-                        {
-                            if (connection.ServerSetting.AutoJoinDelayBetween)
-                            {
-                                args.Channel = tw.TabCaption;
-                                foreach (Plugin p in loadedPlugins)
-                                {
-		                            IceChatPlugin ipc = p as IceChatPlugin;
-                                    if (ipc != null)
-                                    {
-                                        if (ipc.plugin.Enabled == true)
-                                            args = ipc.plugin.AutoJoinChannel(args);
-                                    }
-                                }
-                                if (args.Channel.Length > 0)
-                                    ParseOutGoingCommand(connection, "/timer rejoin 1 " + (x + 6) + " /join " + args.Channel);
-                            }
-                            else
-                            {
-                                args.Channel = tw.TabCaption;
-                                foreach (Plugin p in loadedPlugins)
-                                {
-		                            IceChatPlugin ipc = p as IceChatPlugin;
-                                    if (ipc != null)
-                                    {
-                                        if (ipc.plugin.Enabled == true)
-                                            args = ipc.plugin.AutoJoinChannel(args);
-                                    }
-                                }
-                                if (args.Channel.Length > 0)
-                                    ParseOutGoingCommand(connection, "/timer rejoin 1 6 /join " + args.Channel);
-                            }
-                        }
-                        else
-                        {
-                            if (connection.ServerSetting.AutoJoinDelayBetween)
-                            {
-                                args.Channel = tw.TabCaption;
-                                foreach (Plugin p in loadedPlugins)
-                                {
-		                            IceChatPlugin ipc = p as IceChatPlugin;
-                                    if (ipc != null)
-                                    {
-                                        if (ipc.plugin.Enabled == true)
-                                            args = ipc.plugin.RejoinChannel(args);
-                                    }
-                                }
-                                if (args.Channel.Length > 0)
-                                    ParseOutGoingCommand(connection, "/timer autojoin 1 " + (x + 1) + " /join " + args.Channel);
+                    {                        
+                        //check if a channel is in the AutoJoin list
+                        bool channelFound = false;
 
+                        for (int i = 0; i < connection.ServerSetting.AutoJoinChannels.Length; i++)
+                        {
+                            if (!connection.ServerSetting.AutoJoinChannels[i].StartsWith(";"))
+                            {
+                                //System.Diagnostics.Debug.WriteLine("rejoin:" + connection.ServerSetting.AutoJoinChannels[i] + ":" + tw.TabCaption);
+                                if (connection.ServerSetting.AutoJoinChannels[i].IndexOf(' ') > -1)
+                                {
+                                    //has a channel key
+                                    //System.Diagnostics.Debug.WriteLine(connection.ServerSetting.AutoJoinChannels[i].Substring(0, connection.ServerSetting.AutoJoinChannels[i].IndexOf(' ')).ToLower() + ":");
+                                    if (connection.ServerSetting.AutoJoinChannels[i].Substring(0, connection.ServerSetting.AutoJoinChannels[i].IndexOf(' ')).ToLower() == tw.TabCaption.ToLower())
+                                        channelFound = true;
+                                }
+                                else
+                                {
+                                    if (connection.ServerSetting.AutoJoinChannels[i].ToLower() == tw.TabCaption.ToLower())
+                                        channelFound = true;
+                                }
+                            }                        
+                        }
+                        
+                        if (channelFound == false)
+                        {
+                            if (connection.ServerSetting.AutoJoinDelay)
+                            {
+                                if (connection.ServerSetting.AutoJoinDelayBetween)
+                                {
+                                    args.Channel = tw.TabCaption;
+                                    foreach (Plugin p in loadedPlugins)
+                                    {
+                                        IceChatPlugin ipc = p as IceChatPlugin;
+                                        if (ipc != null)
+                                        {
+                                            if (ipc.plugin.Enabled == true)
+                                                args = ipc.plugin.AutoJoinChannel(args);
+                                        }
+                                    }
+                                    if (args.Channel.Length > 0)
+                                        ParseOutGoingCommand(connection, "/timer rejoin 1 " + (x + 6) + " /join " + args.Channel);
+                                }
+                                else
+                                {
+                                    args.Channel = tw.TabCaption;
+                                    foreach (Plugin p in loadedPlugins)
+                                    {
+                                        IceChatPlugin ipc = p as IceChatPlugin;
+                                        if (ipc != null)
+                                        {
+                                            if (ipc.plugin.Enabled == true)
+                                                args = ipc.plugin.AutoJoinChannel(args);
+                                        }
+                                    }
+                                    if (args.Channel.Length > 0)
+                                        ParseOutGoingCommand(connection, "/timer rejoin 1 6 /join " + args.Channel);
+                                }
                             }
                             else
                             {
-                                args.Channel = tw.TabCaption;
-                                foreach (Plugin p in loadedPlugins)
+                                if (connection.ServerSetting.AutoJoinDelayBetween)
                                 {
-		                            IceChatPlugin ipc = p as IceChatPlugin;
-                                    if (ipc != null)
+                                    args.Channel = tw.TabCaption;
+                                    foreach (Plugin p in loadedPlugins)
                                     {
-                                        if (ipc.plugin.Enabled == true)
-                                            args = ipc.plugin.RejoinChannel(args);
+                                        IceChatPlugin ipc = p as IceChatPlugin;
+                                        if (ipc != null)
+                                        {
+                                            if (ipc.plugin.Enabled == true)
+                                                args = ipc.plugin.RejoinChannel(args);
+                                        }
                                     }
+                                    if (args.Channel.Length > 0)
+                                        ParseOutGoingCommand(connection, "/timer autojoin 1 " + (x + 1) + " /join " + args.Channel);
+
                                 }
-                                if (args.Channel.Length > 0)
-                                    connection.SendData("JOIN " + args.Channel);
+                                else
+                                {
+                                    args.Channel = tw.TabCaption;
+                                    foreach (Plugin p in loadedPlugins)
+                                    {
+                                        IceChatPlugin ipc = p as IceChatPlugin;
+                                        if (ipc != null)
+                                        {
+                                            if (ipc.plugin.Enabled == true)
+                                                args = ipc.plugin.RejoinChannel(args);
+                                        }
+                                    }
+                                    if (args.Channel.Length > 0)
+                                        connection.SendData("JOIN " + args.Channel);
+                                }
                             }
                         }
                     }
@@ -548,7 +578,25 @@ namespace IceChat
                                     }
                                 }
                                 if (args.Channel.Length > 0)
+                                {
+                                    if (args.Channel.IndexOf(' ') > -1)
+                                    {
+                                        string[] c = args.Channel.Split(new char[] { ' ' }, 2);
+                                        if (connection.ServerSetting.ChannelJoins.ContainsKey(c[0]))
+                                            connection.ServerSetting.ChannelJoins[c[0]] = c[1];
+                                        else
+                                            connection.ServerSetting.ChannelJoins.Add(c[0], c[1]);
+                                    }
+                                    else
+                                    {
+                                        if (!connection.ServerSetting.ChannelJoins.ContainsKey(args.Channel))
+                                            connection.ServerSetting.ChannelJoins.Add(args.Channel, "");
+                                        else
+                                            connection.ServerSetting.ChannelJoins[args.Channel] = "";
+                                    }
+                                    
                                     connection.SendData("JOIN " + args.Channel);
+                                }
                             }
                         }
                     }
@@ -587,27 +635,55 @@ namespace IceChat
             }
         }
 
+        private void OnBuddyRemove(IRCConnection connection, BuddyListItem buddy)
+        {
+            System.Diagnostics.Debug.WriteLine("Remove:" + buddy.Nick);
+            buddyList.RemoveBuddy(connection, buddy);
+        }
+
         private void OnBuddyListClear(IRCConnection connection)
         {
             buddyList.ClearBuddyList(connection);
         }
 
-        private void OnMonitorListData(IRCConnection connection, string buddy, bool online, string timeStamp)
+        private void OnMonitorListData(IRCConnection connection, string buddyList, bool online, string timeStamp)
         {
-            //PluginArgs args = new PluginArgs(connection);
-            
-            foreach (BuddyListItem b in connection.ServerSetting.BuddyList)
+            //buddyList can be comma seperated
+            string[] buddies = buddyList.Split(',');
+            foreach (string buddy in buddies)
             {
-                if (b.Nick.ToLower() == NickFromFullHost(buddy).ToLower())
+                System.Diagnostics.Debug.WriteLine("Checking buddy: " + buddy);
+
+                foreach (BuddyListItem b in connection.ServerSetting.BuddyList)
                 {
-                    //online or offline
-                    b.Connected = online;
-                    //this doesnt remove the offline one if now online
-                    this.buddyList.UpdateBuddy(connection, b);
+                    if (b.Nick.ToLower() == NickFromFullHost(buddy).ToLower())
+                    {
+                        //online or offline
+                        b.Connected = online;
+                        System.Diagnostics.Debug.WriteLine(b.Nick + " - " + online);
+
+                        //this doesnt remove the offline one if now online
+                        this.buddyList.UpdateBuddy(connection, b);
+                        b.IsOnReceived = true;
+                        
+                        string msg = GetMessageFormat("Server Message");
+                        if (connection.ServerSetting.RealServerName.Length > 0)
+                            msg = msg.Replace("$server", connection.ServerSetting.RealServerName);
+                        else
+                            msg = msg.Replace("$server", connection.ServerSetting.ServerName);
+
+                        if (online)
+                            msg = msg.Replace("$message", b.Nick + " is online");
+                        else
+                            msg = msg.Replace("$message", b.Nick + " is offline");
+
+                        mainChannelBar.GetTabPage("Console").AddText(connection, msg, timeStamp, false, ServerMessageType.BuddyNotice);
+                        mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.BuddyNotice;
+
+                    }
                 }
             }
         }
-
 
         private void OnBuddyList(IRCConnection connection, string[] buddies, string timeStamp)
         {
@@ -626,7 +702,6 @@ namespace IceChat
                             if (!b.Connected)
                             {
                                 //send message we are now online
-                                //OnServerMessage(connection, b.Nick + " is online", "");
                                 string msg = GetMessageFormat("Server Message");
                                 if (connection.ServerSetting.RealServerName.Length > 0)
                                     msg = msg.Replace("$server", connection.ServerSetting.RealServerName);
@@ -634,7 +709,6 @@ namespace IceChat
                                     msg = msg.Replace("$server", connection.ServerSetting.ServerName);
 
                                 msg = msg.Replace("$message", b.Nick + " is online");
-
                                 
                                 mainChannelBar.GetTabPage("Console").AddText(connection, msg, timeStamp, false, ServerMessageType.BuddyNotice);
                                 mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.BuddyNotice;
@@ -662,12 +736,9 @@ namespace IceChat
                     }
                     if (!isFound)
                     {
-                        //System.Diagnostics.Debug.WriteLine(b.Nick + " offline:" + b.PreviousState);
-                        
                         if (!b.IsOnReceived && b.Connected)
                         {
                             //send message we are now online
-                            //OnServerMessage(connection, b.Nick + " is offline", "");
                             string msg = GetMessageFormat("Server Message");
                             if (connection.ServerSetting.RealServerName.Length > 0)
                                 msg = msg.Replace("$server", connection.ServerSetting.RealServerName);
@@ -699,6 +770,8 @@ namespace IceChat
                     }
                 }
             }
+            
+            //System.Diagnostics.Debug.WriteLine("Clear Buddy List Status");
 
             if (connection.buddiesIsOnSent == connection.ServerSetting.BuddyList.Length)
             {
@@ -741,13 +814,12 @@ namespace IceChat
         
         private void OnWhoReply(IRCConnection connection, string channel, string nick, string host, string flags, string message)
         {
-            IceTabPage t = FormMain.Instance.GetWindow(connection, channel, IceTabPage.WindowType.Channel);
+            IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
             if (t != null)
             {
                 //user flags in ircData[8] H-here G-gone(away) *-irc operator x-hiddenhost d-deaf
 
                 bool away = false;
-                //bool ircop = false;
 
                 if (flags.Contains("G")) away = true;
 
@@ -783,8 +855,7 @@ namespace IceChat
             string nickTest = "";
             try
             {
-
-                IceTabPage t = FormMain.Instance.GetWindow(connection, channel, IceTabPage.WindowType.Channel);
+                IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
                 if (t != null)
                 {
                     if (t.IsFullyJoined)
@@ -1016,7 +1087,7 @@ namespace IceChat
         {
             if (message.ToUpper().StartsWith("DCC CHAT"))
             {
-                if (FormMain.Instance.IceChatOptions.DCCChatIgnore)
+                if (iceChatOptions.DCCChatIgnore)
                     return;
             }
             
@@ -1391,7 +1462,8 @@ namespace IceChat
                 msg = msg.Replace("$nick", nick).Replace("$host", host);
                 msg = msg.Replace("$message", message);
                 bool disableEvents = false;
-                    
+                bool playedSound = false;
+    
                 if (loadedPlugins.Count > 0)
                 {
                     PluginArgs args = new PluginArgs(t.TextWindow, "", nick, host, msg);
@@ -1415,10 +1487,13 @@ namespace IceChat
                         if (args.Message.Contains(connection.ServerSetting.CurrentNickName))
                         {
                             //check if sounds are disabled for this window
-                            if (!t.DisableSounds)
+                            if (!t.DisableSounds && !connection.ServerSetting.DisableSounds)
                             {
                                 if ((CurrentWindow != t || iceChatOptions.SoundPlayActive) || this.notifyIcon.Visible == true)
+                                {
                                     PlaySoundFile("nickpriv");
+                                    playedSound = true;
+                                }
                             }
                         }
                     }
@@ -1450,11 +1525,14 @@ namespace IceChat
                     }
                 }
 
-                if (!t.DisableSounds)
+                if (!t.DisableSounds && !connection.ServerSetting.DisableSounds)
                 {
                     //only play sound if out of focus , or on tray
                     if ((CurrentWindow != t || iceChatOptions.SoundPlayActive) || this.notifyIcon.Visible == true)
-                        PlaySoundFile("privmsg");
+                    {
+                        if (playedSound == false)
+                            PlaySoundFile("privmsg");
+                    }
                 }
 
                 if (connection.ServerSetting.Away && iceChatOptions.SendAwayPrivateMessage)
@@ -1507,6 +1585,8 @@ namespace IceChat
                 if (t.TabCaption != nick)
                     t.TabCaption = nick;
 
+                bool playedSound = false;
+
                 foreach (Plugin p in loadedPlugins)
                 {
                     IceChatPlugin ipc = p as IceChatPlugin;
@@ -1523,10 +1603,13 @@ namespace IceChat
                 if (args.Message.Contains(connection.ServerSetting.CurrentNickName))
                 {
                     //check if sounds are disabled for this window
-                    if (!t.DisableSounds)
+                    if (!t.DisableSounds && !connection.ServerSetting.DisableSounds)
                     {
                         if ((CurrentWindow != t || iceChatOptions.SoundPlayActive) || this.notifyIcon.Visible == true)
+                        {
                             PlaySoundFile("nickpriv");
+                            playedSound = true;
+                        }
                     }
                 }
 
@@ -1545,11 +1628,14 @@ namespace IceChat
                 //make the tabcaption proper case
                 t.LastMessageType = ServerMessageType.Message;
 
-                if (!t.DisableSounds)
+                if (!t.DisableSounds && !connection.ServerSetting.DisableSounds)
                 {
                     //only play sound if out of focus , or on tray
                     if ((CurrentWindow != t || iceChatOptions.SoundPlayActive) || this.notifyIcon.Visible == true)
-                        PlaySoundFile("privmsg");
+                    {
+                        if (playedSound == false)
+                            PlaySoundFile("privmsg");
+                    }
                 }
 
                 if (connection.ServerSetting.Away && iceChatOptions.SendAwayPrivateMessage)
@@ -1597,10 +1683,10 @@ namespace IceChat
                     //get the nick color
                     if (u.nickColor == -1)
                     {
-                        if (FormMain.Instance.IceChatColors.RandomizeNickColors == true)
+                        if (iceChatColors.RandomizeNickColors == true)
                         {
                             int randColor = new Random().Next(0, 71);
-                            if (randColor == FormMain.Instance.IceChatColors.NickListBackColor)
+                            if (randColor == iceChatColors.NickListBackColor)
                                 randColor = new Random().Next(0, 71);
 
                             u.nickColor = randColor;
@@ -1615,22 +1701,22 @@ namespace IceChat
                                     switch (connection.ServerSetting.StatusModes[0][y])
                                     {
                                         case 'q':
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelOwnerColor;
+                                            u.nickColor = iceChatColors.ChannelOwnerColor;
                                             break;
                                         case 'a':
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelAdminColor;
+                                            u.nickColor = iceChatColors.ChannelAdminColor;
                                             break;
                                         case 'o':
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelOpColor;
+                                            u.nickColor = iceChatColors.ChannelOpColor;
                                             break;
                                         case 'h':
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelHalfOpColor;
+                                            u.nickColor = iceChatColors.ChannelHalfOpColor;
                                             break;
                                         case 'v':
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelVoiceColor;
+                                            u.nickColor = iceChatColors.ChannelVoiceColor;
                                             break;
                                         default:
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelRegularColor;
+                                            u.nickColor = iceChatColors.ChannelRegularColor;
                                             break;
                                     }
 
@@ -1639,7 +1725,7 @@ namespace IceChat
                             }
 
                             if (u.nickColor == -1)
-                                u.nickColor = FormMain.Instance.IceChatColors.ChannelRegularColor;
+                                u.nickColor = iceChatColors.ChannelRegularColor;
                         }
 
                     }
@@ -1668,13 +1754,18 @@ namespace IceChat
                 if (args.DisableEvent == true)
                     return;
 
+                bool playedSound = false;
+
                 if (args.Message.Contains(connection.ServerSetting.CurrentNickName))
                 {
                     //check if sounds are disabled for this window
-                    if (!t.DisableSounds)
+                    if (!t.DisableSounds && !connection.ServerSetting.DisableSounds)
                     {
                         if ((CurrentWindow != t || iceChatOptions.SoundPlayActive) || this.notifyIcon.Visible == true)
+                        {
                             PlaySoundFile("nickchan");
+                            playedSound = true;
+                        }
                     }
                 }
 
@@ -1695,10 +1786,13 @@ namespace IceChat
                     t.TextWindow.AppendText(args.Message, timeStamp);
                     t.LastMessageType = ServerMessageType.Action;
 
-                    if (!t.DisableSounds)
+                    if (!t.DisableSounds && !connection.ServerSetting.DisableSounds)
                     {
                         if ((CurrentWindow != t || iceChatOptions.SoundPlayActive) || this.notifyIcon.Visible == true)
-                            PlaySoundFile("chanmsg");
+                        {
+                            if (playedSound == false)
+                                PlaySoundFile("chanmsg");
+                        }
                     }
                 }
                 else if (iceChatOptions.ChannelActionEventLocation == 1)
@@ -1708,6 +1802,23 @@ namespace IceChat
                 }
 
             }
+        }
+
+        private string ReplaceColorCodes(string line)
+        {
+            //strip out all the color codes, bold , underline and reverse codes
+            StringBuilder sLine = new StringBuilder();
+            sLine.Append(line);
+
+            Match m = StaticMethods.ParseAllCodes.Match(sLine.ToString());
+
+            while (m.Success)
+            {
+                sLine.Remove(m.Index, m.Length);
+                m = StaticMethods.ParseAllCodes.Match(sLine.ToString(), m.Index);
+            }
+
+            return sLine.ToString();
         }
 
         /// <summary>
@@ -1734,10 +1845,10 @@ namespace IceChat
                     //get the nick color
                     if (u.nickColor == -1)
                     {
-                        if (FormMain.Instance.IceChatColors.RandomizeNickColors == true)
+                        if (iceChatColors.RandomizeNickColors == true)
                         {
                             int randColor = new Random().Next(0,71);
-                            if (randColor == FormMain.Instance.IceChatColors.NickListBackColor)
+                            if (randColor == iceChatColors.NickListBackColor)
                                 randColor = new Random().Next(0,71);
 
                             u.nickColor = randColor;
@@ -1752,22 +1863,22 @@ namespace IceChat
                                     switch (connection.ServerSetting.StatusModes[0][y])
                                     {
                                         case 'q':
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelOwnerColor;
+                                            u.nickColor = iceChatColors.ChannelOwnerColor;
                                             break;
                                         case 'a':
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelAdminColor;
+                                            u.nickColor = iceChatColors.ChannelAdminColor;
                                             break;
                                         case 'o':
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelOpColor;
+                                            u.nickColor = iceChatColors.ChannelOpColor;
                                             break;
                                         case 'h':
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelHalfOpColor;
+                                            u.nickColor = iceChatColors.ChannelHalfOpColor;
                                             break;
                                         case 'v':
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelVoiceColor;
+                                            u.nickColor = iceChatColors.ChannelVoiceColor;
                                             break;
                                         default:
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelRegularColor;
+                                            u.nickColor = iceChatColors.ChannelRegularColor;
                                             break;
                                     }
 
@@ -1776,7 +1887,7 @@ namespace IceChat
                             }
 
                             if (u.nickColor == -1)
-                                u.nickColor = FormMain.Instance.IceChatColors.ChannelRegularColor;
+                                u.nickColor = iceChatColors.ChannelRegularColor;
                         }
 
                     }
@@ -1787,7 +1898,12 @@ namespace IceChat
                 {
                     msg = msg.Replace("$color", string.Empty);
                 }
-                
+
+                if (t.TextWindow.NoColorMode)
+                {
+                    //replace the colors
+                }
+
                 //check if the nickname exists
                 if (t.NickExists(nick))
                     msg = msg.Replace("$status", t.GetNick(nick).ToString().Replace(nick, ""));
@@ -1814,14 +1930,19 @@ namespace IceChat
                     return;
 
                 args.Message = args.Message.Replace("$message", message);
-                
+
+                bool playedSound = false;
+
                 if (args.Message.Contains(connection.ServerSetting.CurrentNickName))
                 {                    
                     //check if sounds are disabled for this window
-                    if (!t.DisableSounds)
+                    if (!t.DisableSounds && !connection.ServerSetting.DisableSounds)
                     {
-                        if ((CurrentWindow != t || iceChatOptions.SoundPlayActive)  || this.notifyIcon.Visible == true)
+                        if ((CurrentWindow != t || iceChatOptions.SoundPlayActive) || this.notifyIcon.Visible == true)
+                        {
                             PlaySoundFile("nickchan");
+                            playedSound = true;
+                        }
                     }
                 }
 
@@ -1838,11 +1959,10 @@ namespace IceChat
                 if (iceChatOptions.ChannelMessageEventLocation == 0)
                 {
                     //send it to the channel                    
-                    //t.TextWindow.AppendText(args.Message, 1);
                     t.TextWindow.AppendText(args.Message, timeStamp);
                     t.LastMessageType = ServerMessageType.Message;
 
-                    if (!t.DisableSounds)
+                    if (!t.DisableSounds && playedSound == false && !connection.ServerSetting.DisableSounds)
                     {
                         if ((CurrentWindow != t || iceChatOptions.SoundPlayActive) || this.notifyIcon.Visible == true)
                             PlaySoundFile("chanmsg");
@@ -1895,19 +2015,37 @@ namespace IceChat
             args.Extra = reason;
             args.Connection = connection;
 
-            foreach (Plugin p in loadedPlugins)
+            try
             {
-                IceChatPlugin ipc = p as IceChatPlugin;
-                if (ipc != null)
-                {
-                    if (ipc.plugin.Enabled == true)
-                        args = ipc.plugin.ServerQuit(args);
-                }
-            }
 
-            if (args.DisableEvent == true && !args.DisableNicklist)
-            {
-                //return after removing the nick
+                foreach (Plugin p in loadedPlugins)
+                {
+                    IceChatPlugin ipc = p as IceChatPlugin;
+                    if (ipc != null)
+                    {
+                        if (ipc.plugin.Enabled == true)
+                            args = ipc.plugin.ServerQuit(args);
+                    }
+                }
+
+                if (args.DisableEvent == true && !args.DisableNicklist)
+                {
+                    //return after removing the nick
+                    foreach (IceTabPage t in mainChannelBar.TabPages)
+                    {
+                        if (t.Connection == connection)
+                        {
+                            if (t.WindowStyle == IceTabPage.WindowType.Channel)
+                            {
+                                if (t.NickExists(nick) == true)
+                                    t.RemoveNick(nick);
+
+                            }
+                        }
+                    }
+                    return;
+                }
+
                 foreach (IceTabPage t in mainChannelBar.TabPages)
                 {
                     if (t.Connection == connection)
@@ -1915,48 +2053,41 @@ namespace IceChat
                         if (t.WindowStyle == IceTabPage.WindowType.Channel)
                         {
                             if (t.NickExists(nick) == true)
-                                t.RemoveNick(nick);
-
-                        }
-                    }
-                }
-                return;
-            }
-
-            foreach (IceTabPage t in mainChannelBar.TabPages)
-            {
-                if (t.Connection == connection)
-                {
-                    if (t.WindowStyle == IceTabPage.WindowType.Channel)
-                    {
-                        if (t.NickExists(nick) == true)
-                        {
-                            if (iceChatOptions.QuitEventLocation == 0)
                             {
-                                //send it to the channel
+                                int QuitEventLocation = iceChatOptions.QuitEventLocation;
+                                if (t.QuitEventLocationOverload)
+                                    QuitEventLocation = t.QuitEventLocation;
+
+                                if (QuitEventLocation == 0)
+                                {
+                                    //send it to the channel
+                                    t.TextWindow.AppendText(args.Message, timeStamp);
+                                    t.LastMessageType = ServerMessageType.QuitServer;
+                                }
+                                if (!args.DisableNicklist)
+                                    t.RemoveNick(nick);
+                            }
+                        }
+                        if (t.WindowStyle == IceTabPage.WindowType.Query)
+                        {
+                            if (t.TabCaption == nick)
+                            {
                                 t.TextWindow.AppendText(args.Message, timeStamp);
                                 t.LastMessageType = ServerMessageType.QuitServer;
                             }
-                            if (!args.DisableNicklist)
-                                t.RemoveNick(nick);
-                        }
-                    }
-                    if (t.WindowStyle == IceTabPage.WindowType.Query)
-                    {
-                        if (t.TabCaption == nick)
-                        {
-                            t.TextWindow.AppendText(args.Message, timeStamp);
-                            t.LastMessageType = ServerMessageType.QuitServer;
                         }
                     }
                 }
-            }
 
-            if (iceChatOptions.QuitEventLocation == 1)
-            {
-                //send the message to the Console
-                if (args != null)
-                    mainChannelBar.GetTabPage("Console").AddText(connection, args.Message, timeStamp, false, ServerMessageType.QuitServer);
+                if (iceChatOptions.QuitEventLocation == 1)
+                {
+                    //send the message to the Console
+                    if (args != null)
+                        mainChannelBar.GetTabPage("Console").AddText(connection, args.Message, timeStamp, false, ServerMessageType.QuitServer);
+                }
+            }
+            catch(Exception) {
+                //
             }
         }
 
@@ -1987,6 +2118,7 @@ namespace IceChat
 
 
                         PluginArgs args = new PluginArgs(t.TextWindow, channel, nick, host, msg);
+                        args.Extra = account;
                         args.Connection = connection;
 
                         foreach (Plugin p in loadedPlugins)
@@ -2000,15 +2132,18 @@ namespace IceChat
                         }
 
                         if (args.DisableEvent == false)
-                        {
-                            if (iceChatOptions.JoinEventLocation == 0)
+                        {                            
+                            int JoinEventLocation = iceChatOptions.JoinEventLocation;
+                            if (t.JoinEventLocationOverload)
+                                JoinEventLocation = t.JoinEventLocation;
+
+                            if (JoinEventLocation == 0)
                             {
                                 //send to the channel window                       
-
                                 t.TextWindow.AppendText(args.Message, timeStamp);
                                 t.LastMessageType = ServerMessageType.JoinChannel;
                             }
-                            else if (iceChatOptions.JoinEventLocation == 1)
+                            else if (JoinEventLocation == 1)
                             {
                                 //send to the console
                                 mainChannelBar.GetTabPage("Console").AddText(connection, args.Message, timeStamp, false, ServerMessageType.JoinChannel);
@@ -2062,13 +2197,17 @@ namespace IceChat
 
                 if (args.DisableEvent == false)
                 {
-                    if (iceChatOptions.PartEventLocation == 0)
+                    int PartEventLocation = iceChatOptions.PartEventLocation;
+                    if (t.PartEventLocationOverload)
+                        PartEventLocation = t.PartEventLocation;
+                    
+                    if (PartEventLocation == 0)
                     {
                         //send it to the channel
                         t.TextWindow.AppendText(args.Message, timeStamp);
                         t.LastMessageType = ServerMessageType.PartChannel;
                     }
-                    else if (iceChatOptions.PartEventLocation == 1)
+                    else if (PartEventLocation == 1)
                     {
                         //send to the console
                         mainChannelBar.GetTabPage("Console").AddText(connection, args.Message, timeStamp, false, ServerMessageType.PartChannel);
@@ -2145,7 +2284,15 @@ namespace IceChat
             if (t == null)
             {
                 t = AddWindow(connection, channel, IceTabPage.WindowType.Channel);
-            
+
+                //System.Diagnostics.Debug.WriteLine("joined:" + channel);
+                if (connection.ServerSetting.ChannelJoins.ContainsKey(channel))
+                {
+                    //System.Diagnostics.Debug.WriteLine("key exists:" + channel + ":" + connection.ServerSetting.ChannelJoins[channel]);
+                    t.ChannelKey = connection.ServerSetting.ChannelJoins[channel];
+                    connection.ServerSetting.ChannelJoins.Remove(channel);
+                }
+
                 PluginArgs args = new PluginArgs(t.TextWindow, channel, connection.ServerSetting.CurrentNickName, host, "");
                 args.Connection = connection;
                 args.Extra = "self";
@@ -2183,7 +2330,11 @@ namespace IceChat
                 serverTree.Invalidate();
 
                 string msg = GetMessageFormat("Self Channel Join");
+
+                System.Diagnostics.Debug.WriteLine(msg);
+                System.Diagnostics.Debug.WriteLine(host);
                 msg = msg.Replace("$nick", connection.ServerSetting.CurrentNickName).Replace("$channel", t.TabCaption);
+                msg = msg.Replace("$host", host);
 
                 t.TextWindow.AppendText(msg, timeStamp);
 
@@ -2233,6 +2384,7 @@ namespace IceChat
             {
                 if (!t.ChannelHop)
                 {
+                    //
                     RemoveWindow(connection, channel, IceTabPage.WindowType.Channel);
                     mainChannelBar.GetTabPage("Console").AddText(connection, args.Message, timeStamp, false, ServerMessageType.PartChannel);
                 }
@@ -2272,7 +2424,7 @@ namespace IceChat
                         if (CurrentWindow == t)
                             nickList.Header = t.TabCaption + ":0";
 
-                        FormMain.Instance.NickList.Invalidate();
+                        nickList.Invalidate();
                     }
                 }
                 else
@@ -2335,6 +2487,9 @@ namespace IceChat
                 if (connection.ServerSetting.NetworkName.Length > 0)
                     network = " (" + connection.ServerSetting.NetworkName + ")";
 
+                string away = "";
+                if (connection.ServerSetting.Away == true)
+                    away = " {AWAY}";
 
                 if (CurrentWindowStyle == IceTabPage.WindowType.Console)
                 {
@@ -2346,9 +2501,9 @@ namespace IceChat
                             ssl = " {SSL}";
                         
                         if (inputPanel.CurrentConnection.ServerSetting.UseBNC)
-                            StatusText(inputPanel.CurrentConnection.ServerSetting.CurrentNickName + " connected to " + inputPanel.CurrentConnection.ServerSetting.RealServerName + " {BNC}" + ssl + network);
+                            StatusText(inputPanel.CurrentConnection.ServerSetting.CurrentNickName + " connected to " + inputPanel.CurrentConnection.ServerSetting.RealServerName + " {BNC}" + ssl + network + away);
                         else
-                            StatusText(inputPanel.CurrentConnection.ServerSetting.CurrentNickName + " connected to " + inputPanel.CurrentConnection.ServerSetting.RealServerName + ssl + network);
+                            StatusText(inputPanel.CurrentConnection.ServerSetting.CurrentNickName + " connected to " + inputPanel.CurrentConnection.ServerSetting.RealServerName + ssl + network + away);
 
                         if (connection.ServerSetting.CurrentNickName == newnick)
                         {
@@ -2411,11 +2566,9 @@ namespace IceChat
                                         {
                                             User uu = t.GetNick(t.Connection.ServerSetting.CurrentNickName);
                                             if (uu != null)
-                                                StatusText(uu.ToString() + " in channel " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network);
+                                                StatusText(uu.ToString() + " in channel " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network + away);
                                             else
-                                                StatusText(t.Connection.ServerSetting.CurrentNickName + " in channel " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network);
-
-                                            //StatusText(t.Connection.ServerSetting.CurrentNickName + " in " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network);
+                                                StatusText(t.Connection.ServerSetting.CurrentNickName + " in channel " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network + away);
                                         }
                                     }
                                 }
@@ -2458,8 +2611,11 @@ namespace IceChat
                         else if (t.WindowStyle == IceTabPage.WindowType.Query)
                         {
                             if (t.TabCaption == oldnick)
-                            {
-                                t.TabCaption = newnick;
+                            {                                
+                                //check if a tab for the new newnick exists
+                                IceTabPage tCheck = GetWindow(connection, newnick, IceTabPage.WindowType.Query);
+                                if (tCheck == null)
+                                    t.TabCaption = newnick;
 
                                 string msg = GetMessageFormat("Channel Nick Change");
                                 msg = msg.Replace("$nick", oldnick);
@@ -2478,10 +2634,9 @@ namespace IceChat
                                     {
                                         User u = t.GetNick(t.Connection.ServerSetting.CurrentNickName);
                                         if (u != null)
-                                            StatusText(u.ToString() + " in channel " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network);
+                                            StatusText(u.ToString() + " in channel " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network + away);
                                         else
-                                            StatusText(t.Connection.ServerSetting.CurrentNickName + " in channel " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network);
-                                        //StatusText(t.Connection.ServerSetting.CurrentNickName + " in private chat with " + t.TabCaption + " on {" + t.Connection.ServerSetting.RealServerName + "}" + network);
+                                            StatusText(t.Connection.ServerSetting.CurrentNickName + " in channel " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network + away);
                                     }
                                 }
 
@@ -2812,24 +2967,6 @@ namespace IceChat
                                     }
                                 }
 
-                                /*
-                                //check if the mode has a parameter (CHANMODES= from 005)
-                                if (connection.ServerSetting.ChannelModeParam.Contains(mode[i].ToString()))
-                                {
-                                    //even though mode l requires a param to add it, it does not to remove it
-                                    //if (!addMode && mode[i] != 'l')
-                                    {
-                                        //mode has parameter
-                                        temp = (string)parametersEnumerator.Current;
-                                        parametersEnumerator.MoveNext();
-                                    }
-                                    chan.UpdateChannelMode(mode[i], temp, addMode);
-                                }
-                                else
-                                    //check if it is an actual channel mode, and not a user mode
-                                    if (connection.ServerSetting.ChannelModeNoParam.Contains(mode[i].ToString()))
-                                        chan.UpdateChannelMode(mode[i], addMode);
-                                */
                                 break;
 
                         }
@@ -2848,8 +2985,6 @@ namespace IceChat
                                 StatusText(u.ToString() + " in channel " + chan.TabCaption + " [" + chan.ChannelModes + "] {" + connection.ServerSetting.RealServerName + "}" + network);
                             else
                                 StatusText(connection.ServerSetting.CurrentNickName + " in channel " + chan.TabCaption + " [" + chan.ChannelModes + "] {" + connection.ServerSetting.RealServerName + "}" + network);
-
-                            //StatusText(connection.ServerSetting.CurrentNickName + " in " + chan.TabCaption + " [" + chan.ChannelModes + "] {" + chan.Connection.ServerSetting.RealServerName + "}" + network);
                         }
                     }
                 }
@@ -3057,8 +3192,11 @@ namespace IceChat
                 if (connection.ServerSetting.StatusModes == null) return;
                 if (connection.ServerSetting.StatusModes.Length == 0) return;
 
+                //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
+                //    nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
                 for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-                    nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+                    if (nick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
+                        nick = nick.Substring(1);
 
                 InternalAddressList ial = new InternalAddressList(nick, host, channel);
                 if (!connection.ServerSetting.IAL.ContainsKey(nick))
@@ -3087,8 +3225,11 @@ namespace IceChat
                 if (!connection.IsFullyConnected) return;
                 if (connection.ServerSetting.StatusModes == null) return;
                 
+                //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
+                //    nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
                 for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-                    nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+                    if (nick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
+                        nick = nick.Substring(1);
 
                 InternalAddressList ial = new InternalAddressList(nick, host, channel);
                 if (!connection.ServerSetting.IAL.ContainsKey(nick))
@@ -3117,8 +3258,11 @@ namespace IceChat
             if (!connection.IsFullyConnected) return;
             if (connection.ServerSetting.StatusModes == null) return;
 
+            //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
+            //    nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
             for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-                nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+                if (nick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
+                    nick = nick.Substring(1);
 
             InternalAddressList ial = new InternalAddressList(nick, away, awayMessage);
             if (!connection.ServerSetting.IAL.ContainsKey(nick))
@@ -3135,8 +3279,8 @@ namespace IceChat
             if (CurrentWindowStyle == IceTabPage.WindowType.Channel)
             {
                 if (CurrentWindow.NickExists(nick))
-                    if (FormMain.Instance.CurrentWindow == CurrentWindow)
-                        FormMain.Instance.NickList.RefreshList(CurrentWindow);
+                    if (CurrentWindow == CurrentWindow)
+                        nickList.RefreshList(CurrentWindow);
             }
 
         }
@@ -3268,7 +3412,7 @@ namespace IceChat
                     FormDCCFileAccept dccAccept = new FormDCCFileAccept(connection, nick, host, port, ip, file, fileSize, resume, filePos);
                     dccAccept.DCCFileAcceptResult += new FormDCCFileAccept.DCCFileAcceptDelegate(OnDCCFileAcceptResult);
                     dccAccept.StartPosition = FormStartPosition.CenterParent;
-                    dccAccept.Show(FormMain.Instance);
+                    dccAccept.Show(this);
 
                 }
                 else if (iceChatOptions.DCCFileAutoAccept || resume == true)
@@ -3359,7 +3503,7 @@ namespace IceChat
                 FormDCCFileAccept dccAccept = new FormDCCFileAccept(connection, nick, host, "", ip, file, fileSize, filePos, resume, id);
                 dccAccept.DCCFileAcceptResult += new FormDCCFileAccept.DCCFileAcceptDelegate(OnDCCPassiveAcceptResult);
                 dccAccept.StartPosition = FormStartPosition.CenterParent;
-                dccAccept.Show(FormMain.Instance);
+                dccAccept.Show(this);
             
             }
         }
@@ -3438,8 +3582,10 @@ namespace IceChat
 
         private void OnServerFullyConnected(IRCConnection connection)
         {
-            if (iceChatOptions.AutoAway)
+            if (iceChatOptions.AutoAway && iceChatOptions.AutoAwayTime > 0)
+            {
                 connection.SetAutoAwayTimer(iceChatOptions.AutoAwayTime);
+            }
             else
                 connection.DisableAutoAwayTimer();
 

@@ -12,7 +12,7 @@ namespace IceChat
         private Point DragStartPosition = Point.Empty;
         private int dockWidth = 24;
 
-        public IceDockPanel()
+        public IceDockPanel(FormMain parent)
         {
             InitializeComponent();
         }

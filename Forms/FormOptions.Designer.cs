@@ -232,6 +232,10 @@ namespace IceChat
             this.checkAutoAwayTray = new System.Windows.Forms.CheckBox();
             this.checkAutoReturn = new System.Windows.Forms.CheckBox();
             this.checkAutoAway = new System.Windows.Forms.CheckBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label37 = new System.Windows.Forms.Label();
+            this.textAutoPerformStartup = new System.Windows.Forms.TextBox();
+            this.checkAutoPerformStartup = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -283,6 +287,7 @@ namespace IceChat
             this.tabEmoticon.SuspendLayout();
             this.tabEvents.SuspendLayout();
             this.tabPageAway.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.panelButtons.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -298,6 +303,7 @@ namespace IceChat
             this.tabControlOptions.Controls.Add(this.tabEmoticon);
             this.tabControlOptions.Controls.Add(this.tabEvents);
             this.tabControlOptions.Controls.Add(this.tabPageAway);
+            this.tabControlOptions.Controls.Add(this.tabPage1);
             this.tabControlOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlOptions.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlOptions.Location = new System.Drawing.Point(0, 0);
@@ -334,11 +340,12 @@ namespace IceChat
             this.tabMain.Padding = new System.Windows.Forms.Padding(4);
             this.tabMain.Size = new System.Drawing.Size(757, 289);
             this.tabMain.TabIndex = 0;
-            this.tabMain.Text = "Main Settings";
+            this.tabMain.Text = "Main";
             this.tabMain.UseVisualStyleBackColor = true;
             // 
             // pictureTSHelp
             // 
+            this.pictureTSHelp.Cursor = System.Windows.Forms.Cursors.Help;
             this.pictureTSHelp.Location = new System.Drawing.Point(613, 115);
             this.pictureTSHelp.Name = "pictureTSHelp";
             this.pictureTSHelp.Size = new System.Drawing.Size(16, 16);
@@ -892,7 +899,7 @@ namespace IceChat
             this.tabLogging.Padding = new System.Windows.Forms.Padding(3);
             this.tabLogging.Size = new System.Drawing.Size(757, 289);
             this.tabLogging.TabIndex = 6;
-            this.tabLogging.Text = "Logging";
+            this.tabLogging.Text = "Logs";
             this.tabLogging.UseVisualStyleBackColor = true;
             // 
             // checkReloadLogs
@@ -1691,7 +1698,7 @@ namespace IceChat
             this.tabSounds.Padding = new System.Windows.Forms.Padding(4);
             this.tabSounds.Size = new System.Drawing.Size(757, 289);
             this.tabSounds.TabIndex = 3;
-            this.tabSounds.Text = "Sounds";
+            this.tabSounds.Text = "Sound";
             this.tabSounds.UseVisualStyleBackColor = true;
             // 
             // checkPlayActive
@@ -1810,7 +1817,7 @@ namespace IceChat
             this.tabEmoticon.Padding = new System.Windows.Forms.Padding(3);
             this.tabEmoticon.Size = new System.Drawing.Size(757, 289);
             this.tabEmoticon.TabIndex = 7;
-            this.tabEmoticon.Text = "Emoticons";
+            this.tabEmoticon.Text = "Emoticon";
             this.tabEmoticon.UseVisualStyleBackColor = true;
             // 
             // buttonResetEmoticons
@@ -2157,7 +2164,7 @@ namespace IceChat
             "In Channel",
             "In Console",
             "Hide"});
-            this.comboTopicEvent.Location = new System.Drawing.Point(67, 181);
+            this.comboTopicEvent.Location = new System.Drawing.Point(580, 147);
             this.comboTopicEvent.Name = "comboTopicEvent";
             this.comboTopicEvent.Size = new System.Drawing.Size(121, 24);
             this.comboTopicEvent.TabIndex = 62;
@@ -2165,7 +2172,7 @@ namespace IceChat
             // labelTopicEvent
             // 
             this.labelTopicEvent.AutoSize = true;
-            this.labelTopicEvent.Location = new System.Drawing.Point(8, 184);
+            this.labelTopicEvent.Location = new System.Drawing.Point(460, 150);
             this.labelTopicEvent.Name = "labelTopicEvent";
             this.labelTopicEvent.Size = new System.Drawing.Size(57, 16);
             this.labelTopicEvent.TabIndex = 10;
@@ -2435,6 +2442,49 @@ namespace IceChat
             this.checkAutoAway.TabIndex = 3;
             this.checkAutoAway.Text = "Auto away";
             this.checkAutoAway.UseVisualStyleBackColor = true;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label37);
+            this.tabPage1.Controls.Add(this.textAutoPerformStartup);
+            this.tabPage1.Controls.Add(this.checkAutoPerformStartup);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(757, 289);
+            this.tabPage1.TabIndex = 11;
+            this.tabPage1.Text = "Startup";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label37
+            // 
+            this.label37.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label37.Location = new System.Drawing.Point(6, 175);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(358, 40);
+            this.label37.TabIndex = 59;
+            this.label37.Text = "These commands are run at IceChat Startup    Place a ; before the command to disa" +
+                "ble it";
+            // 
+            // textAutoPerformStartup
+            // 
+            this.textAutoPerformStartup.Location = new System.Drawing.Point(8, 6);
+            this.textAutoPerformStartup.Multiline = true;
+            this.textAutoPerformStartup.Name = "textAutoPerformStartup";
+            this.textAutoPerformStartup.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textAutoPerformStartup.Size = new System.Drawing.Size(406, 130);
+            this.textAutoPerformStartup.TabIndex = 58;
+            // 
+            // checkAutoPerformStartup
+            // 
+            this.checkAutoPerformStartup.AutoSize = true;
+            this.checkAutoPerformStartup.Location = new System.Drawing.Point(8, 141);
+            this.checkAutoPerformStartup.Margin = new System.Windows.Forms.Padding(2);
+            this.checkAutoPerformStartup.Name = "checkAutoPerformStartup";
+            this.checkAutoPerformStartup.Size = new System.Drawing.Size(189, 20);
+            this.checkAutoPerformStartup.TabIndex = 57;
+            this.checkAutoPerformStartup.Text = "Auto Perform on Startup";
+            this.checkAutoPerformStartup.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -2814,6 +2864,8 @@ namespace IceChat
             this.tabEvents.PerformLayout();
             this.tabPageAway.ResumeLayout(false);
             this.tabPageAway.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.panelButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -3061,5 +3113,9 @@ namespace IceChat
         private System.Windows.Forms.CheckBox checkSingleRowCB;
         private System.Windows.Forms.PictureBox pictureTSHelp;
         private System.Windows.Forms.CheckBox checkFlashPrivate;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox textAutoPerformStartup;
+        private System.Windows.Forms.CheckBox checkAutoPerformStartup;
+        private System.Windows.Forms.Label label37;
     }
 }

@@ -1,7 +1,7 @@
 ﻿/***********************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,10 +74,12 @@ namespace IceChat
 
         internal delegate void TabClosedDelegate(int nIndex);
         internal event TabClosedDelegate OnTabClosed;
+        private FormMain _parent;
 
-        public ChannelBar()
+        public ChannelBar(FormMain parent)
         {
             InitializeComponent();
+            this._parent = parent;
 
             this.MouseDown += new MouseEventHandler(OnMouseDown);
             this.MouseMove += new MouseEventHandler(OnMouseMove);
@@ -204,7 +206,7 @@ namespace IceChat
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (FormMain.Instance != null)
+            if (_parent != null)
                 DrawControl(e.Graphics);
         }
 
@@ -214,7 +216,7 @@ namespace IceChat
             try
             {
                 //draw the background
-                g.Clear(IrcColor.colors[FormMain.Instance.IceChatColors.TabbarBackColor]);
+                g.Clear(IrcColor.colors[_parent.IceChatColors.TabbarBackColor]);
 
                 if (this._TabPages.Count == 0) return;
 
@@ -312,7 +314,7 @@ namespace IceChat
             catch (Exception)
             {
                 //System.Diagnostics.Debug.WriteLine("IceChatControl DrawControl Error:" + e.Message);
-                //FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection, "IceTabControl DrawControl", e);
+                //_parent.WriteErrorFile(_parent.InputPanel.CurrentConnection, "IceTabControl DrawControl", e);
             }
         }
 
@@ -330,11 +332,11 @@ namespace IceChat
                 bool bHovered = (this._hoveredIndex == nIndex);
 
                 if (bSelected)
-                    brBack = new LinearGradientBrush(recBounds, IrcColor.colors[FormMain.Instance.IceChatColors.TabBarCurrentBG1], IrcColor.colors[FormMain.Instance.IceChatColors.TabBarCurrentBG2], 90);
+                    brBack = new LinearGradientBrush(recBounds, IrcColor.colors[_parent.IceChatColors.TabBarCurrentBG1], IrcColor.colors[_parent.IceChatColors.TabBarCurrentBG2], 90);
                 else if (bHovered)
-                    brBack = new LinearGradientBrush(recBounds, IrcColor.colors[FormMain.Instance.IceChatColors.TabBarHoverBG1], IrcColor.colors[FormMain.Instance.IceChatColors.TabBarHoverBG2], 90);
+                    brBack = new LinearGradientBrush(recBounds, IrcColor.colors[_parent.IceChatColors.TabBarHoverBG1], IrcColor.colors[_parent.IceChatColors.TabBarHoverBG2], 90);
                 else
-                    brBack = new LinearGradientBrush(recBounds, IrcColor.colors[FormMain.Instance.IceChatColors.TabBarOtherBG1], IrcColor.colors[FormMain.Instance.IceChatColors.TabBarOtherBG2], 90);
+                    brBack = new LinearGradientBrush(recBounds, IrcColor.colors[_parent.IceChatColors.TabBarOtherBG1], IrcColor.colors[_parent.IceChatColors.TabBarOtherBG2], 90);
 
                 pt = new Point[7];
                 pt[0] = new Point(recBounds.Left + 1, recBounds.Bottom);
@@ -402,7 +404,7 @@ namespace IceChat
                     if (tabPage.PinnedTab)
                         br = brBack;
                     else
-                        br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarCurrent]);                    
+                        br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarCurrent]);                    
 
                     tabPage.LastMessageType = FormMain.ServerMessageType.Default;
                 }
@@ -411,37 +413,37 @@ namespace IceChat
                     switch (tabPage.LastMessageType)
                     {
                         case FormMain.ServerMessageType.JoinChannel:
-                            br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarChannelJoin]);
+                            br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarChannelJoin]);
                             break;
                         case FormMain.ServerMessageType.PartChannel:
-                            br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarChannelPart]);
+                            br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarChannelPart]);
                             break;
                         case FormMain.ServerMessageType.Message:
-                            br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarNewMessage]);
+                            br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarNewMessage]);
                             break;
                         case FormMain.ServerMessageType.Action:
-                            br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarNewAction]);
+                            br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarNewAction]);
                             break;
                         case FormMain.ServerMessageType.QuitServer:
-                            br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarServerQuit]);
+                            br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarServerQuit]);
                             break;
                         case FormMain.ServerMessageType.ServerMessage:
-                            br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarServerMessage]);
+                            br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarServerMessage]);
                             break;
                         case FormMain.ServerMessageType.ServerNotice:
-                            br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarServerNotice]);
+                            br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarServerNotice]);
                             break;
                         case FormMain.ServerMessageType.BuddyNotice:
-                            br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarBuddyNotice]);
+                            br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarBuddyNotice]);
                             break;
                         case FormMain.ServerMessageType.Other:
-                            br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarOtherMessage]);
+                            br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarOtherMessage]);
                             break;
                         default:
                             if (tabPage.PinnedTab)
                                 br = brBack;
                             else
-                                br = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarDefault]);                            
+                                br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarDefault]);                            
                             break;
                     }
                 }
@@ -457,7 +459,7 @@ namespace IceChat
                     }
                     else
                     {
-                        g.DrawString(FormMain.Instance.IceChatLanguage.consoleTabTitle, _tabFont, br, tabTextArea, stringFormat);
+                        g.DrawString(_parent.IceChatLanguage.consoleTabTitle, _tabFont, br, tabTextArea, stringFormat);
                     }
                 }
                 else
@@ -559,7 +561,7 @@ namespace IceChat
                     recTextArea.Height = (int)g.MeasureString(_TabPages[i].TabCaption, _tabFont).Height + 10;
                     
                     //check if we should go to the next row
-                    if (totalWidth > 0 && ((totalWidth + recBounds.Width) > (this.Width - 10)))
+                    if (totalWidth > 0 && ((totalWidth + recBounds.Width) > (this.Width)))
                     {
                         totalWidth = 0;
                         if (singleRow == false)
@@ -593,13 +595,13 @@ namespace IceChat
             }
             catch (Exception)
             {
-                //FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection, "CalculateTabSizes", e);
+                //_parent.WriteErrorFile(_parent.InputPanel.CurrentConnection, "CalculateTabSizes", e);
             }
         }
 
         internal void SelectTab(IceTabPage page)
         {
-            FormMain.Instance.TabMain.BringFront(page);
+            _parent.TabMain.BringFront(page);
 
             for (int i = 0; i < _TabPages.Count; i++)
             {
@@ -668,7 +670,7 @@ namespace IceChat
             {
                 if (this.SelectedIndexChanged != null)
                 {
-                    FormMain.Instance.TabMain.BringFront(_TabPages[_selectedIndex]);
+                    _parent.TabMain.BringFront(_TabPages[_selectedIndex]);
 
                     TabEventArgs e = new TabEventArgs();
                     SelectedIndexChanged(this, e);
@@ -779,7 +781,7 @@ namespace IceChat
                             else if (_TabPages[i].WindowStyle == IceTabPage.WindowType.Console)
                             {
                                 int x = 0;
-                                foreach (IRCConnection c in FormMain.Instance.ServerTree.ServerConnections.Values)
+                                foreach (IRCConnection c in _parent.ServerTree.ServerConnections.Values)
                                 {
                                     if (c.IsConnected)
                                     {
@@ -802,9 +804,9 @@ namespace IceChat
 
                 this.Invalidate();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection, "ChannelBar MouseMove:" + e.Y + ":" + e.X + ":i=" + i + ":HoverIndex=" + _hoveredIndex + ":TabRectCount=" + _tabSizeRects.Count + ":TabCount=" + _TabPages.Count + ":" + ex.Message, ex);
+                //_parent.WriteErrorFile(_parent.InputPanel.CurrentConnection, "ChannelBar MouseMove:" + e.Y + ":" + e.X + ":i=" + i + ":HoverIndex=" + _hoveredIndex + ":TabRectCount=" + _tabSizeRects.Count + ":TabCount=" + _TabPages.Count + ":" + ex.Message, ex);
             }
 
         }
@@ -896,9 +898,9 @@ namespace IceChat
                     AddPopupMenu("Console", _popupMenu);
 
                     //add dynamic menu items
-                    if (FormMain.Instance != null && FormMain.Instance.LoadedPlugins != null)
+                    if (_parent != null && _parent.LoadedPlugins != null)
                     {
-                        foreach (Plugin p in FormMain.Instance.LoadedPlugins)
+                        foreach (Plugin p in _parent.LoadedPlugins)
                         {
                             IceChatPlugin ipc = p as IceChatPlugin;
                             if (ipc != null)
@@ -972,9 +974,9 @@ namespace IceChat
                         events.DropDownItems.Add(disableFlash);
                         events.DropDownItems.Add(disableSounds);
 
+                        colorMode.Click += new EventHandler(OnPopupExtraMenuClick);
                         disableSounds.Click += new EventHandler(OnPopupExtraMenuClick);
                         disableFlash.Click += new EventHandler(OnPopupExtraMenuClick);
-                        disableSounds.Click += new EventHandler(OnPopupExtraMenuClick);
                         disableLog.Click += new EventHandler(OnPopupExtraMenuClick);
                         openLog.Click += new EventHandler(OnPopupExtraMenuClick);                        
 
@@ -983,9 +985,9 @@ namespace IceChat
                         _popupMenu.Items.Add(events);
 
                         //add dynamic menu items                        
-                        if (FormMain.Instance != null && FormMain.Instance.LoadedPlugins != null)
+                        if (_parent != null && _parent.LoadedPlugins != null)
                          {
-                            foreach (Plugin p in FormMain.Instance.LoadedPlugins)
+                            foreach (Plugin p in _parent.LoadedPlugins)
                             {
                                 IceChatPlugin ipc = p as IceChatPlugin;
                                 if (ipc != null)
@@ -1026,14 +1028,14 @@ namespace IceChat
 
                         _popupMenu.Items.Add(new ToolStripSeparator());
 
-                        _popupMenu.Items.Add(NewMenuItem("Clear Window", "/clear $1"));
-                        _popupMenu.Items.Add(NewMenuItem("Close Window", "/part $1"));
+                        _popupMenu.Items.Add(NewMenuItem("Clear Query", "/clear $1"));
+                        _popupMenu.Items.Add(NewMenuItem("Close Query", "/part $1"));
                         _popupMenu.Items.Add(NewMenuItem("User Information", "/userinfo $1"));
                         _popupMenu.Items.Add(NewMenuItem("Silence User", "/silence +$1"));
 
-                        if (FormMain.Instance != null && FormMain.Instance.LoadedPlugins != null)
+                        if (_parent != null && _parent.LoadedPlugins != null)
                         {
-                            foreach (Plugin p in FormMain.Instance.LoadedPlugins)
+                            foreach (Plugin p in _parent.LoadedPlugins)
                             {
                                 IceChatPlugin ipc = p as IceChatPlugin;
                                 if (ipc != null)
@@ -1097,7 +1099,7 @@ namespace IceChat
                             _popupMenu.Items.Add(new ToolStripSeparator());
 
                             //add extra items
-                            foreach (IRCConnection c in FormMain.Instance.ServerTree.ServerConnections.Values)
+                            foreach (IRCConnection c in _parent.ServerTree.ServerConnections.Values)
                             {
                                 if (c.IsConnected)
                                 {
@@ -1112,7 +1114,6 @@ namespace IceChat
                                         t.Tag = "/debug disable " + +c.ServerSetting.ID;
                                         t.Checked = true;
                                         _popupMenu.Items.Add(t);
-
                                     }
                                     else
                                     {
@@ -1129,7 +1130,7 @@ namespace IceChat
             }
 
             _dragTab = null;
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
         private void SwapTabPages(IceTabPage drag, IceTabPage hover)
@@ -1152,24 +1153,23 @@ namespace IceChat
 
             string command = e.ClickedItem.Tag.ToString();
             
-            //System.Diagnostics.Debug.WriteLine(command);
-            
             ((ContextMenuStrip)(sender)).Close();
 
             if (GetTabPage(_selectedIndex).WindowStyle == IceTabPage.WindowType.Console)
             {
                 //a console command, find out which is the current tab
                 command = command.Replace("$1", "Console");
-                FormMain.Instance.ParseOutGoingCommand(GetTabPage("Console").CurrentConnection, command);
+                _parent.ParseOutGoingCommand(GetTabPage("Console").CurrentConnection, command);
             }
             else
             {
 
-                IceTabPage t = FormMain.Instance.ChannelBar.TabPages[_selectedIndex];
+                IceTabPage t = _parent.ChannelBar.TabPages[_selectedIndex];
                 if (t != null)
                 {
                     command = command.Replace("$1", t.TabCaption);
-                    FormMain.Instance.ParseOutGoingCommand(t.Connection, command);
+                    command = command.Replace("$chan", t.TabCaption);
+                    _parent.ParseOutGoingCommand(t.Connection, command);
                 }
                 else
                 {
@@ -1259,11 +1259,11 @@ namespace IceChat
         private void AddPopupMenu(string PopupType, ContextMenuStrip mainMenu)
         {
             //add the console menu popup
-            if (FormMain.Instance == null) return;
+            if (_parent == null) return;
 
-            if (FormMain.Instance.IceChatPopupMenus == null) return;
+            if (_parent.IceChatPopupMenus == null) return;
 
-            foreach (PopupMenuItem p in FormMain.Instance.IceChatPopupMenus.listPopups)
+            foreach (PopupMenuItem p in _parent.IceChatPopupMenus.listPopups)
             {
                 if (p.PopupType == PopupType && p.Menu.Length > 0)
                 {
@@ -1389,7 +1389,7 @@ namespace IceChat
                 //a console command, find out which is the current tab
                 command = command.Replace("$1", "Console");
                 System.Diagnostics.Debug.WriteLine("Parse1:" + command);
-                FormMain.Instance.ParseOutGoingCommand(GetTabPage("Console").CurrentConnection, command);
+                _parent.ParseOutGoingCommand(GetTabPage("Console").CurrentConnection, command);
             }
             else
             {
@@ -1398,7 +1398,7 @@ namespace IceChat
                 {
                     command = command.Replace("$1", t.TabCaption);
                     System.Diagnostics.Debug.WriteLine("Parse2:" + command);
-                    FormMain.Instance.ParseOutGoingCommand(t.Connection, command);
+                    _parent.ParseOutGoingCommand(t.Connection, command);
                 }
             }
         }
@@ -1411,7 +1411,7 @@ namespace IceChat
                 _flashValue = 0;
 
             this.Invalidate();
-            FormMain.Instance.ServerTree.Invalidate();
+            _parent.ServerTree.Invalidate();
         }
 
         internal bool WindowExists(IRCConnection connection, string windowName, IceTabPage.WindowType windowType)

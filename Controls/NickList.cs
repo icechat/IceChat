@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,6 +64,7 @@ namespace IceChat
         private string _backgroundImageFile;
 
         private Bitmap _buffer = null;
+        private FormMain _parent;
 
         internal class Nick : IComparable
         {
@@ -126,9 +127,10 @@ namespace IceChat
             }
         }
 
-        public NickList()
+        public NickList(FormMain parent)
         {
             InitializeComponent();
+            this._parent = parent;
             this.MouseUp += new MouseEventHandler(OnMouseUp);
             this.MouseDown += new MouseEventHandler(OnMouseDown);
             this.MouseWheel += new MouseEventHandler(OnMouseWheel);            
@@ -226,8 +228,9 @@ namespace IceChat
 
         internal void ApplyLanguage()
         {
-            IceChatLanguage iceChatLanguage = FormMain.Instance.IceChatLanguage;
-            if (FormMain.Instance.ChannelBar.CurrentTab == FormMain.Instance.ChannelBar.GetTabPage("Console")) Header = FormMain.Instance.IceChatLanguage.consoleTabTitle;
+            IceChatLanguage iceChatLanguage = _parent.IceChatLanguage;
+            if (_parent.ChannelBar.CurrentTab == _parent.ChannelBar.GetTabPage("Console")) 
+                Header = _parent.IceChatLanguage.consoleTabTitle;
             // TODO: add code to load button texts from language class
         }
 
@@ -303,10 +306,13 @@ namespace IceChat
                 string nick = sortedNickNames[selectedIndex].nick;
 
                 //replace any of the modes
+                //for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
+                //    nick = nick.Replace(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
                 for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
-                    nick = nick.Replace(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+                    if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
+                        nick = nick.Substring(1);
 
-                FormMain.Instance.ParseOutGoingCommand(currentWindow.Connection, "/query " + nick);
+                _parent.ParseOutGoingCommand(currentWindow.Connection, "/query " + nick);
             }
         }
 
@@ -349,86 +355,96 @@ namespace IceChat
         
         private void OnMouseDown(object sender, MouseEventArgs e)
         {
-            if (this.Parent.Parent.GetType() != typeof(FormFloat))
+            int nickNumber = 0;
+            try
             {
+                if (this.Parent.Parent.GetType() != typeof(FormFloat))
+                {
+                    if (e.Y <= headerHeight && e.Button == MouseButtons.Left)
+                    {
+                        //which side are we docked on
+                        if (((IceDockPanel)this.Parent.Parent.Parent.Parent).Dock == DockStyle.Right && e.X < 22)
+                        {
+                            ((IceDockPanel)this.Parent.Parent.Parent.Parent).DockControl();
+                            return;
+                        }
+                        else if (((IceDockPanel)this.Parent.Parent.Parent.Parent).Dock == DockStyle.Left && e.X > (this.Width - 22))
+                        {
+                            ((IceDockPanel)this.Parent.Parent.Parent.Parent).DockControl();
+                            return;
+                        }
+                    }
+                }
+
                 if (e.Y <= headerHeight)
                 {
-                    //which side are we docked on
-                    if (((IceDockPanel)this.Parent.Parent.Parent.Parent).Dock == DockStyle.Right && e.X < 22)
-                    {
-                        ((IceDockPanel)this.Parent.Parent.Parent.Parent).DockControl();
-                        return;
-                    }
-                    else if (((IceDockPanel)this.Parent.Parent.Parent.Parent).Dock == DockStyle.Left && e.X > (this.Width - 22))
-                    {
-                        ((IceDockPanel)this.Parent.Parent.Parent.Parent).DockControl();
-                        return;
-                    }
-                }
-            }
-            
-            if (e.Y <= headerHeight)
-            {
-                //de-select any previous items
-                DeSelectAllNicks();
-                totalSelected = 0;
-
-                Invalidate();
-
-                return;
-            }
-            
-            if (currentWindow != null && currentWindow.WindowStyle == IceTabPage.WindowType.Channel)
-            {
-                //do the math
-                Graphics g = this.CreateGraphics();
-
-                int _lineSize = Convert.ToInt32(this.Font.GetHeight(g));
-                //find the nickname number, add 1 to it to make it a non-zero value
-                int nickNumber = Convert.ToInt32((e.Location.Y - headerHeight) / _lineSize) + topIndex;
-
-                if (nickNumber < currentWindow.Nicks.Count)
-                {
-                    selectedIndex = nickNumber;
-                    bool selected = sortedNickNames[selectedIndex].selected;
-
-                    if (selected)
-                        totalSelected--;
-                    else
-                        totalSelected++;
-
-                    //if the CTRL-Key is down, we can do a multi-select
-                    if (controlKeyDown)
-                    {
-                        sortedNickNames[selectedIndex].selected = !selected;
-                        currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = !selected;
-                    }
-                    else
-                    {
-                        if (totalSelected > 1)
-                        {
-                            //deselect all the previous ones
-                            DeSelectAllNicks();
-
-                            totalSelected = 1;
-                        }
-
-                        sortedNickNames[selectedIndex].selected = !selected;
-                        currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = !selected;
-
-                    }
-                }
-                else
-                {
+                    //de-select any previous items
                     DeSelectAllNicks();
-                    totalSelected = 0;                
-                    selectedIndex = -1;
+                    totalSelected = 0;
+
+                    Invalidate();
+
+                    return;
                 }
 
-                g.Dispose();
-                Invalidate();
+                if (currentWindow != null && currentWindow.WindowStyle == IceTabPage.WindowType.Channel)
+                {
+                    //do the math
+                    Graphics g = this.CreateGraphics();
+
+                    int _lineSize = Convert.ToInt32(this.Font.GetHeight(g));
+                    //find the nickname number, add 1 to it to make it a non-zero value
+                    nickNumber = Convert.ToInt32((e.Location.Y - headerHeight) / _lineSize) + topIndex;
+
+                    if (nickNumber < currentWindow.Nicks.Count && nickNumber < sortedNickNames.Count)
+                    {
+                        selectedIndex = nickNumber;
+                        bool selected = sortedNickNames[selectedIndex].selected;
+
+                        if (selected)
+                            totalSelected--;
+                        else
+                            totalSelected++;
+
+                        //if the CTRL-Key is down, we can do a multi-select
+                        if (controlKeyDown)
+                        {
+                            sortedNickNames[selectedIndex].selected = !selected;
+                            currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = !selected;
+                        }
+                        else
+                        {
+                            if (totalSelected > 1)
+                            {
+                                //deselect all the previous ones
+                                DeSelectAllNicks();
+
+                                totalSelected = 1;
+                            }
+
+                            sortedNickNames[selectedIndex].selected = !selected;
+                            currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = !selected;
+
+                        }
+                    }
+                    else
+                    {
+                        DeSelectAllNicks();
+                        totalSelected = 0;
+                        selectedIndex = -1;
+                    }
+
+                    g.Dispose();
+                    Invalidate();
+                }
             }
-            
+            catch (Exception ex)
+            {
+                if (currentWindow != null)
+                    _parent.WriteErrorFile(currentWindow.Connection, "NickList OnMouseDown:" + nickNumber + ":" + sortedNickNames.Count + ":" + currentWindow.Nicks.Count, ex);
+                else
+                    _parent.WriteErrorFile(currentWindow.Connection, "NickList OnMouseDown: null:" + nickNumber + ":" + sortedNickNames.Count, ex);
+            }
         }
 
         private void DeSelectAllNicks()
@@ -465,16 +481,15 @@ namespace IceChat
                     {
                         string nick = sortedNickNames[nickNumber].nick;
                         for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
-                            nick = nick.Replace(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+                            if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
+                                nick = nick.Substring(1);
+
+                            //    nick = nick.Replace(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
 
                         toolTip.ToolTipTitle = "User Information";
                         if (sortedNickNames[nickNumber].host.Length > 0)
                         {
-                            //if (sortedNickNames[nickNumber].Away == true)
-                            //    toolTip.SetToolTip(this, nick + " (away)" + Environment.NewLine + sortedNickNames[nickNumber].host);
-                            //else
-                                toolTip.SetToolTip(this, nick + Environment.NewLine + sortedNickNames[nickNumber].host);
-                        
+                            toolTip.SetToolTip(this, nick + Environment.NewLine + sortedNickNames[nickNumber].host);                        
                         }
                         else
                         {
@@ -501,7 +516,7 @@ namespace IceChat
             if (command.Length > 0)
             {
                 System.Diagnostics.Debug.WriteLine(command);
-                FormMain.Instance.ParseOutGoingCommand(currentWindow.Connection, command);
+                _parent.ParseOutGoingCommand(currentWindow.Connection, command);
             }
         }
 
@@ -571,7 +586,7 @@ namespace IceChat
             int i = 0;
             try
             {
-                if (FormMain.Instance == null)
+                if (_parent == null)
                     return;
 
                 if (_buffer == null)
@@ -588,7 +603,7 @@ namespace IceChat
                 if (_backgroundImage != null)
                     g.DrawImage((Image)_backgroundImage, listR);
                 else
-                    g.FillRectangle(new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.NickListBackColor]), listR);
+                    g.FillRectangle(new SolidBrush(IrcColor.colors[_parent.IceChatColors.NickListBackColor]), listR);
 
                 howFar = 1;
 
@@ -603,7 +618,7 @@ namespace IceChat
                 
                 Rectangle headerR = new Rectangle(0, 0, this.Width, headerHeight);
                 //get the header colors here
-                Brush l = new LinearGradientBrush(headerR, IrcColor.colors[FormMain.Instance.IceChatColors.PanelHeaderBG1], IrcColor.colors[FormMain.Instance.IceChatColors.PanelHeaderBG2], 300);
+                Brush l = new LinearGradientBrush(headerR, IrcColor.colors[_parent.IceChatColors.PanelHeaderBG1], IrcColor.colors[_parent.IceChatColors.PanelHeaderBG2], 300);
                 g.FillRectangle(l, headerR);
 
                 StringFormat sf = new StringFormat();
@@ -638,7 +653,7 @@ namespace IceChat
                             if (totalWidth > (this.Width - 22))
                             {
                                 tempHeader += ".." + endCaption;
-                                g.DrawString(tempHeader, headerFont, new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.PanelHeaderForeColor]), centered, sf);
+                                g.DrawString(tempHeader, headerFont, new SolidBrush(IrcColor.colors[_parent.IceChatColors.PanelHeaderForeColor]), centered, sf);
                                 break;
                             }
                         }
@@ -655,7 +670,7 @@ namespace IceChat
                             if (totalWidth > (this.Width - 22))
                             {
                                 tempHeader += "..";
-                                g.DrawString(tempHeader, headerFont, new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.PanelHeaderForeColor]),centered, sf);
+                                g.DrawString(tempHeader, headerFont, new SolidBrush(IrcColor.colors[_parent.IceChatColors.PanelHeaderForeColor]),centered, sf);
                                 break;
                             }
                         }
@@ -663,7 +678,7 @@ namespace IceChat
                     }
                 }
                 else
-                    g.DrawString(headerCaption, headerFont, new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.PanelHeaderForeColor]), centered, sf);
+                    g.DrawString(headerCaption, headerFont, new SolidBrush(IrcColor.colors[_parent.IceChatColors.PanelHeaderForeColor]), centered, sf);
 
                 howFar = 3;
 
@@ -715,186 +730,188 @@ namespace IceChat
 
                     PluginArgs args = new PluginArgs(currentWindow.Connection);
                     args.Channel = currentWindow.TabCaption;
-
-                    if (FormMain.Instance.IceChatColors.RandomizeNickColors == true)
+                    
+                    if (sortedNickNames != null)
                     {
-                        for (int ii = 0; ii < sortedNickNames.Count; ii++)
+                        if (_parent.IceChatColors.RandomizeNickColors == true)
                         {
-                            randColor++;
-                            if (randColor > (IrcColor.colors.Length - 1))
-                                randColor = 0;
-
-                            //make sure its not the same color as the background
-                            if (randColor == FormMain.Instance.IceChatColors.NickListBackColor)
+                            for (int ii = 0; ii < sortedNickNames.Count; ii++)
                             {
                                 randColor++;
-
                                 if (randColor > (IrcColor.colors.Length - 1))
-                                    randColor = 1;
-                            }
+                                    randColor = 0;
 
-                            currentWindow.GetNick(sortedNickNames[ii].nick).nickColor = randColor;
+                                //make sure its not the same color as the background
+                                if (randColor == _parent.IceChatColors.NickListBackColor)
+                                {
+                                    randColor++;
+
+                                    if (randColor > (IrcColor.colors.Length - 1))
+                                        randColor = 1;
+                                }
+
+                                currentWindow.GetNick(sortedNickNames[ii].nick).nickColor = randColor;
+                            }
                         }
                     }
-
+                    
                     howFar = 6;
 
                     System.Drawing.Font rFont = this.Font;
                     System.Drawing.Font iFont = new Font(this.Font, FontStyle.Italic);    //for away nicks
-
-                    for (i = topIndex; i < sortedNickNames.Count; i++)
+                    
+                    //this will error if sortedNickNames is null
+                    if (sortedNickNames != null)
                     {
-                        Brush b = null;
-                        args.Extra = "";
-
-                        User u = currentWindow.GetNick(sortedNickNames[i].nick);
-                        howFar = 7;
-                        if (u == null)
+                        howFar = 62;
+                        for (i = topIndex; i < sortedNickNames.Count; i++)
                         {
-                            System.Diagnostics.Debug.WriteLine("Null Nick:" + sortedNickNames[i].nick);
-                        }
-                        if (FormMain.Instance.IceChatColors.RandomizeNickColors == true)
-                        {
-                            /*
-                            randColor++;
-                            if (randColor > (IrcColor.colors.Length-1))
-                                randColor = 0;
+                            Brush b = null;
+                            args.Extra = "";
 
-                            //make sure its not the same color as the background
-                            if (randColor == FormMain.Instance.IceChatColors.NickListBackColor)
+                            User u = currentWindow.GetNick(sortedNickNames[i].nick);
+                            howFar = 72;
+                            if (u == null)
                             {
-                                randColor++;
-
-                                if (randColor > (IrcColor.colors.Length-1))
-                                    randColor = 1;
+                                //System.Diagnostics.Debug.WriteLine("Null Nick:" + sortedNickNames[i].nick);
                             }
-                            */
-                            b = new SolidBrush(IrcColor.colors[u.nickColor]);
-                        }
-                        else
-                        {
-                            //get the correct nickname color for channel status
-                            for (int y = 0; y < u.Level.Length; y++)
+                            if (_parent.IceChatColors.RandomizeNickColors == true)
                             {
-                                if (u.Level[y])
+                                b = new SolidBrush(IrcColor.colors[u.nickColor]);
+                            }
+                            else
+                            {
+                                //get the correct nickname color for channel status
+                                for (int y = 0; y < u.Level.Length; y++)
                                 {
-                                    switch (currentWindow.Connection.ServerSetting.StatusModes[0][y])
+                                    if (u.Level[y])
                                     {
-                                        case 'q':
-                                            args.Extra = FormMain.Instance.IceChatColors.ChannelOwnerColor.ToString();
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelOwnerColor;
-                                            break;
-                                        case 'a':
-                                            args.Extra = FormMain.Instance.IceChatColors.ChannelAdminColor.ToString();
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelAdminColor;
-                                            break;
-                                        case 'o':
-                                            args.Extra = FormMain.Instance.IceChatColors.ChannelOpColor.ToString();
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelOpColor;
-                                            break;
-                                        case 'h':
-                                            args.Extra = FormMain.Instance.IceChatColors.ChannelHalfOpColor.ToString();
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelHalfOpColor;
-                                            break;
-                                        case 'v':
-                                            args.Extra = FormMain.Instance.IceChatColors.ChannelVoiceColor.ToString();
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelVoiceColor;
-                                            break;
-                                        default:
-                                            args.Extra = FormMain.Instance.IceChatColors.ChannelRegularColor.ToString();
-                                            u.nickColor = FormMain.Instance.IceChatColors.ChannelRegularColor;
-                                            break;
+                                        switch (currentWindow.Connection.ServerSetting.StatusModes[0][y])
+                                        {
+                                            case 'q':
+                                                args.Extra = _parent.IceChatColors.ChannelOwnerColor.ToString();
+                                                u.nickColor = _parent.IceChatColors.ChannelOwnerColor;
+                                                break;
+                                            case 'a':
+                                                args.Extra = _parent.IceChatColors.ChannelAdminColor.ToString();
+                                                u.nickColor = _parent.IceChatColors.ChannelAdminColor;
+                                                break;
+                                            case 'o':
+                                                args.Extra = _parent.IceChatColors.ChannelOpColor.ToString();
+                                                u.nickColor = _parent.IceChatColors.ChannelOpColor;
+                                                break;
+                                            case 'h':
+                                                args.Extra = _parent.IceChatColors.ChannelHalfOpColor.ToString();
+                                                u.nickColor = _parent.IceChatColors.ChannelHalfOpColor;
+                                                break;
+                                            case 'v':
+                                                args.Extra = _parent.IceChatColors.ChannelVoiceColor.ToString();
+                                                u.nickColor = _parent.IceChatColors.ChannelVoiceColor;
+                                                break;
+                                            default:
+                                                args.Extra = _parent.IceChatColors.ChannelRegularColor.ToString();
+                                                u.nickColor = _parent.IceChatColors.ChannelRegularColor;
+                                                break;
+                                        }
+
+                                        break;
                                     }
-
-                                    break;
                                 }
-                            }
 
-                            if (args.Extra.Length == 0)
-                            {
-                                args.Extra = FormMain.Instance.IceChatColors.ChannelRegularColor.ToString();
-                                u.nickColor = FormMain.Instance.IceChatColors.ChannelRegularColor;
-                            }
-                        }
-
-                        howFar = 10;
-
-
-                        //have ability to override this
-                        args.Nick = sortedNickNames[i].nick;
-                        args.Host = sortedNickNames[i].host;
-
-                        howFar = 11;
-                        foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
-                        {
-                            IceChatPlugin ipc = p as IceChatPlugin;
-                            if (ipc != null)
-                            {
-                                if (ipc.plugin.Enabled == true)
-                                    args = ipc.plugin.NickListDraw(args);
-                            }
-                        }
-
-                        howFar = 12;
-
-                        //check if selected, if so, draw the selector bar
-                        if (sortedNickNames[i].selected == true)
-                        {
-                            g.FillRectangle(new SolidBrush(SystemColors.Highlight), 0, currentY, this.Width, _lineSize);
-                            b = new SolidBrush(SystemColors.HighlightText);
-                        }
-                        else
-                        {
-                            //check if args.Extra is numeric and within color range                            
-                            int result;
-                            if (Int32.TryParse(args.Extra, out result))
-                            {
-                                if (result >= 0 && result < 72)
+                                if (args.Extra.Length == 0)
                                 {
-                                    b = new SolidBrush(IrcColor.colors[result]);
-                                    u.nickColor = result;
+                                    args.Extra = _parent.IceChatColors.ChannelRegularColor.ToString();
+                                    u.nickColor = _parent.IceChatColors.ChannelRegularColor;
                                 }
                             }
 
-                            if (b == null)
+                            howFar = 10;
+
+                            //have ability to override this
+                            args.Nick = sortedNickNames[i].nick;
+                            args.Host = sortedNickNames[i].host;
+
+                            howFar = 11;
+                            foreach (Plugin p in _parent.LoadedPlugins)
                             {
-                                b = new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.ChannelRegularColor]);
-                                u.nickColor = FormMain.Instance.IceChatColors.ChannelRegularColor;
+                                IceChatPlugin ipc = p as IceChatPlugin;
+                                if (ipc != null)
+                                {
+                                    if (ipc.plugin.Enabled == true)
+                                        args = ipc.plugin.NickListDraw(args);
+                                }
                             }
-                        }
 
-                        howFar = 13;
+                            howFar = 12;
 
-                        if (sortedNickNames[i].Away == true)
-                        {
-                            //user is away.. italic
-                            g.DrawString(args.Nick, iFont, b, 2, currentY);
-                        }
-                        else
-                            g.DrawString(args.Nick, rFont, b, 2, currentY);
-
-                        howFar = 14;
-
-                        //draw the host
-                        if (FormMain.Instance.IceChatOptions.ShowNickHost)
-                        {
-                            if (currentWindow.Connection.ServerSetting.IAL.ContainsKey(u.NickName))
+                            //check if selected, if so, draw the selector bar
+                            if (sortedNickNames[i].selected == true)
                             {
-                                //string host = args.Host;
-                                if (args.Host.Length > 0)
-                                    g.DrawString(args.Host, rFont, b, (rFont.SizeInPoints * 14), currentY);
+                                g.FillRectangle(new SolidBrush(SystemColors.Highlight), 0, currentY, this.Width, _lineSize);
+                                b = new SolidBrush(SystemColors.HighlightText);
                             }
-                        }
+                            else
+                            {
+                                //check if args.Extra is numeric and within color range                            
+                                int result;
+                                if (Int32.TryParse(args.Extra, out result))
+                                {
+                                    if (result >= 0 && result < 72)
+                                    {
+                                        b = new SolidBrush(IrcColor.colors[result]);
+                                        u.nickColor = result;
+                                    }
+                                }
 
-                        howFar = 15;
+                                if (b == null)
+                                {
+                                    b = new SolidBrush(IrcColor.colors[_parent.IceChatColors.ChannelRegularColor]);
+                                    u.nickColor = _parent.IceChatColors.ChannelRegularColor;
+                                }
+                            }
 
-                        currentY += _lineSize;
-                        if (currentY >= (listR.Height + listR.Y))
-                        {
-                            vScrollBar.Maximum = sortedNickNames.Count - 2;
-                            vScrollBar.LargeChange = ((listR.Height - _lineSize) / _lineSize);
-                            break;
-                        }
+                            howFar = 13;
+
+                            if (sortedNickNames[i].Away == true)
+                            {
+                                //user is away.. italic
+                                g.DrawString(args.Nick, iFont, b, 2, currentY);
+                            }
+                            else
+                                g.DrawString(args.Nick, rFont, b, 2, currentY);
+
+                            howFar = 14;
+
+                            //draw the host
+                            if (_parent.IceChatOptions.ShowNickHost)
+                            {
+                                howFar = 21;
+                                if (currentWindow.Connection.ServerSetting.IAL.ContainsKey(u.NickName))
+                                {
+                                    howFar = 22;                                    
+                                    if (args.Host != null && args.Host.Length > 0)
+                                    {                                        
+                                        howFar = 23;
+                                        if (g != null)
+                                            howFar = 24;
+                                        else
+                                            howFar = 25;
+                                        g.DrawString(args.Host, rFont, b, (rFont.SizeInPoints * 14), currentY);
+
+                                    }
+                                }
+                            }
+
+                            howFar = 15;
+
+                            currentY += _lineSize;
+                            if (currentY >= (listR.Height + listR.Y))
+                            {
+                                vScrollBar.Maximum = sortedNickNames.Count - 2;
+                                vScrollBar.LargeChange = ((listR.Height - _lineSize) / _lineSize);
+                                break;
+                            }
+                        } //end of for (i)
                     }
 
                     howFar = 17;
@@ -926,9 +943,9 @@ namespace IceChat
             catch (Exception ee)
             {
                 if (currentWindow != null)
-                    FormMain.Instance.WriteErrorFile(currentWindow.Connection, "NickList OnPaint:H=" + howFar + ":i=" + i + ":ti=" + topIndex + ":" + headerCaption + ":NickCount=" + currentWindow.Nicks.Values.Count + ":NC=" + sortedNickNames.Count, ee);
+                    _parent.WriteErrorFile(currentWindow.Connection, "NickList OnPaint:H=" + howFar + ":i=" + i + ":ti=" + topIndex + ":" + headerCaption + ":NickCount=" + currentWindow.Nicks.Values.Count + ":NC=" + sortedNickNames.Count, ee);
                 else
-                    FormMain.Instance.WriteErrorFile(null, "NickList OnPaint: null", ee);
+                    _parent.WriteErrorFile(null, "NickList OnPaint: null", ee);
             }
         }
 
@@ -942,7 +959,7 @@ namespace IceChat
             if (e.Button == MouseButtons.Right && selectedIndex != -1)
             {
                 //show the popup menu
-                foreach (PopupMenuItem p in FormMain.Instance.IceChatPopupMenus.listPopups)
+                foreach (PopupMenuItem p in _parent.IceChatPopupMenus.listPopups)
                 {
                     if (p.PopupType == "NickList")
                     {
@@ -964,8 +981,12 @@ namespace IceChat
                         
                         string nick = sortedNickNames[selectedIndex].ToString();
                         //replace any of the modes
+                        //for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
+                        //    nick = nick.Replace(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+
                         for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
-                            nick = nick.Replace(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+                            if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
+                                nick = nick.Substring(1);
 
                         Nick u = sortedNickNames[selectedIndex];
 
@@ -1046,7 +1067,7 @@ namespace IceChat
 
         internal void SelectNick(string nick)
         {
-            System.Diagnostics.Debug.WriteLine("select nick:" + currentWindow.TabCaption + ":" + nick);
+            //System.Diagnostics.Debug.WriteLine("select nick:" + currentWindow.TabCaption + ":" + nick);
             if (sortedNickNames == null) return;
 
             //select a specific nickname in the nicklist
@@ -1065,27 +1086,21 @@ namespace IceChat
 
                         if ((topIndex + vScrollBar.LargeChange) < selectedIndex && vScrollBar.Visible)
                         {
-                            //System.Diagnostics.Debug.WriteLine("1:" + topIndex);
                             topIndex += (p * vScrollBar.LargeChange);
 
                             if ((selectedIndex - vScrollBar.LargeChange) < topIndex)
                             {
-                                //System.Diagnostics.Debug.WriteLine("fix:" + topIndex + ":" + (selectedIndex - vScrollBar.LargeChange));
-                                //System.Diagnostics.Debug.WriteLine("fix:" + topIndex + ":" + selectedIndex);
-                                //topIndex = selectedIndex - vScrollBar.LargeChange;
                                 topIndex = selectedIndex;
                             }
                         }
                         else if ((topIndex > selectedIndex) && vScrollBar.Visible)
                         {
-                            //System.Diagnostics.Debug.WriteLine("2:" + topIndex);
                             topIndex = (p * vScrollBar.LargeChange);
                         }
 
                         //see if it is on the last page
                         if (vScrollBar.Visible && (topIndex > (vScrollBar.Maximum - vScrollBar.LargeChange)))
                         {
-                            //System.Diagnostics.Debug.WriteLine("reset:" + topIndex + ":" + vScrollBar.LargeChange + ":" + vScrollBar.Maximum);
                             topIndex = (vScrollBar.Maximum - vScrollBar.LargeChange) + 1;
                         }
 
@@ -1106,7 +1121,6 @@ namespace IceChat
                             }
 
                         }
-                        //    vScrollBar.Value = selectedIndex - vScrollBar.LargeChange;
 
                         Invalidate();
 
@@ -1125,7 +1139,7 @@ namespace IceChat
                             topIndex += (p * vScrollBar.LargeChange);
                             if ((selectedIndex - vScrollBar.LargeChange) < topIndex)
                             {
-                                System.Diagnostics.Debug.WriteLine("fix2:" + topIndex + ":" + (selectedIndex - vScrollBar.LargeChange));
+                                //System.Diagnostics.Debug.WriteLine("fix2:" + topIndex + ":" + (selectedIndex - vScrollBar.LargeChange));
                                 topIndex = selectedIndex - vScrollBar.LargeChange;
                             }
                         }
@@ -1147,7 +1161,6 @@ namespace IceChat
         /// <summary>
         /// Erase the Nicklist and change the Header to the Console
         /// </summary>
-        /// <param name="cwindow"></param>
         internal void RefreshList()
         {
             this.currentWindow = null;
@@ -1205,9 +1218,6 @@ namespace IceChat
 
                                     if ((selectedIndex - vScrollBar.LargeChange) < topIndex)
                                     {
-                                        //System.Diagnostics.Debug.WriteLine("fix:" + topIndex + ":" + (selectedIndex - vScrollBar.LargeChange));
-                                        //System.Diagnostics.Debug.WriteLine("fix:" + topIndex + ":" + selectedIndex);
-                                        //topIndex = selectedIndex - vScrollBar.LargeChange;
                                         topIndex = selectedIndex;
                                     }
                                 }
@@ -1251,7 +1261,7 @@ namespace IceChat
             else if (page.WindowStyle == IceTabPage.WindowType.Query)
             {
                 this.currentWindow = page;
-                UpdateHeader("Query:" + page.TabCaption);
+                UpdateHeader(page.TabCaption);
                 if (sortedNickNames != null)
                     sortedNickNames.Clear();
                 DeSelectNick();
@@ -1328,6 +1338,7 @@ namespace IceChat
                     return 0;
             }
         }
+
         /// <summary>
         /// Returns the Header of the Nicklist
         /// </summary>
@@ -1342,7 +1353,9 @@ namespace IceChat
                 UpdateHeader(value);
             }
         }
-
+        /// <summary>
+        /// Set or return the Background image for the nicklist
+        /// </summary>
         internal string BackGroundImage
         {
             get
@@ -1362,7 +1375,14 @@ namespace IceChat
             }
         }
 
-        
+        internal void SetListColors()
+        {
+            this.panelButtons.BackColor = IrcColor.colors[_parent.IceChatColors.TabbarBackColor];
+        }
+
+        /// <summary>
+        /// Toggle showing the nicklist buttons
+        /// </summary>
         internal bool ShowNickButtons
         {
             get { return this.panelButtons.Visible; }
@@ -1456,12 +1476,12 @@ namespace IceChat
                         totalModes += removeNicks;
 
                     if (totalModes.Length > 0)
-                        FormMain.Instance.ParseOutGoingCommand(currentWindow.Connection, "/mode " + currentWindow.TabCaption + " " + totalModes);
+                        _parent.ParseOutGoingCommand(currentWindow.Connection, "/mode " + currentWindow.TabCaption + " " + totalModes);
 
                 }
             }
 
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
         private void buttonVoice_Click(object sender, EventArgs e)
@@ -1528,11 +1548,11 @@ namespace IceChat
                         totalModes += removeNicks;
 
                     if (totalModes.Length > 0)
-                        FormMain.Instance.ParseOutGoingCommand(currentWindow.Connection, "/mode " + currentWindow.TabCaption + " " + totalModes);
+                        _parent.ParseOutGoingCommand(currentWindow.Connection, "/mode " + currentWindow.TabCaption + " " + totalModes);
                 }
             }
             
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
         private void buttonQuery_Click(object sender, EventArgs e)
@@ -1556,18 +1576,17 @@ namespace IceChat
                                     nickName = nickName.Substring(1);
                             }
 
-
-                            if (!FormMain.Instance.ChannelBar.WindowExists(FormMain.Instance.CurrentWindow.Connection, nickName, IceTabPage.WindowType.Query))
-                                FormMain.Instance.AddWindow(FormMain.Instance.CurrentWindow.Connection, nickName, IceTabPage.WindowType.Query);
+                            if (!_parent.ChannelBar.WindowExists(_parent.CurrentWindow.Connection, nickName, IceTabPage.WindowType.Query))
+                                _parent.AddWindow(_parent.CurrentWindow.Connection, nickName, IceTabPage.WindowType.Query);
                             else
-                                FormMain.Instance.ChannelBar.SelectTab(FormMain.Instance.GetWindow(currentWindow.Connection, nickName, IceTabPage.WindowType.Query));
+                                _parent.ChannelBar.SelectTab(_parent.GetWindow(currentWindow.Connection, nickName, IceTabPage.WindowType.Query));
 
                             return;
                         }
                     }
                 }
             }
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
         private void buttonHop_Click(object sender, EventArgs e)
@@ -1634,12 +1653,12 @@ namespace IceChat
                         totalModes += removeNicks;
 
                     if (totalModes.Length > 0)
-                        FormMain.Instance.ParseOutGoingCommand(currentWindow.Connection, "/mode " + currentWindow.TabCaption + " " + totalModes);
+                        _parent.ParseOutGoingCommand(currentWindow.Connection, "/mode " + currentWindow.TabCaption + " " + totalModes);
 
                 }
             }
 
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
         private void buttonInfo_Click(object sender, EventArgs e)
@@ -1663,15 +1682,15 @@ namespace IceChat
                             }
 
 
-                            FormMain.Instance.ParseOutGoingCommand(currentWindow.Connection, "/userinfo " + nickName);
+                            _parent.ParseOutGoingCommand(currentWindow.Connection, "/userinfo " + nickName);
                             
-                            FormMain.Instance.FocusInputBox();
+                            _parent.FocusInputBox();
                             return;                            
                         }
                     }
                 }
             }
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
         private void buttonBan_Click(object sender, EventArgs e)
@@ -1696,17 +1715,17 @@ namespace IceChat
                             }
 
                             if (u.host.Length > 0)
-                                FormMain.Instance.ParseOutGoingCommand(currentWindow.Connection, "/mode " + currentWindow.TabCaption + " +b *!" + u.host);
+                                _parent.ParseOutGoingCommand(currentWindow.Connection, "/mode " + currentWindow.TabCaption + " +b *!" + u.host);
                             else
-                                FormMain.Instance.ParseOutGoingCommand(currentWindow.Connection, "/mode " + currentWindow.TabCaption + " +b " + nickName); ;
+                                _parent.ParseOutGoingCommand(currentWindow.Connection, "/mode " + currentWindow.TabCaption + " +b " + nickName); ;
 
-                            FormMain.Instance.FocusInputBox();
+                            _parent.FocusInputBox();
                             return;
                         }
                     }
                 }
             }
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
         private void buttonKick_Click(object sender, EventArgs e)
@@ -1730,15 +1749,15 @@ namespace IceChat
                             }
 
 
-                            FormMain.Instance.ParseOutGoingCommand(currentWindow.Connection, "/kick " + currentWindow.TabCaption + " " + nickName);
+                            _parent.ParseOutGoingCommand(currentWindow.Connection, "/kick " + currentWindow.TabCaption + " " + nickName);
 
-                            FormMain.Instance.FocusInputBox();
+                            _parent.FocusInputBox();
                             return;
                         }
                     }
                 }
             }
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
         private void buttonWhois_Click(object sender, EventArgs e)
@@ -1762,16 +1781,16 @@ namespace IceChat
                             }
 
 
-                            FormMain.Instance.ParseOutGoingCommand(currentWindow.Connection, "/whois " + nickName + " " + nickName); ;
+                            _parent.ParseOutGoingCommand(currentWindow.Connection, "/whois " + nickName + " " + nickName); ;
 
-                            FormMain.Instance.FocusInputBox();
+                            _parent.FocusInputBox();
                             return;
                         }
                     }
                 }
             }
             
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
     }

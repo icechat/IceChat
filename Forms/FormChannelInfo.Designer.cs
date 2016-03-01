@@ -47,6 +47,8 @@
             this.listViewBans = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.contextMenuStripBans = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.buttonRemoveException = new System.Windows.Forms.Button();
             this.listViewExceptions = new System.Windows.Forms.ListView();
@@ -54,13 +56,11 @@
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonApply = new System.Windows.Forms.Button();
-            this.contextMenuStripBans = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.contextMenuStripBans.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -74,7 +74,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(445, 312);
+            this.tabControl1.Size = new System.Drawing.Size(445, 339);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -93,14 +93,14 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(437, 283);
+            this.tabPage1.Size = new System.Drawing.Size(437, 310);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Channel Info";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // textChannelKey
             // 
-            this.textChannelKey.Location = new System.Drawing.Point(185, 245);
+            this.textChannelKey.Location = new System.Drawing.Point(185, 277);
             this.textChannelKey.Name = "textChannelKey";
             this.textChannelKey.Size = new System.Drawing.Size(128, 23);
             this.textChannelKey.TabIndex = 11;
@@ -108,16 +108,16 @@
             // checkModek
             // 
             this.checkModek.AutoSize = true;
-            this.checkModek.Location = new System.Drawing.Point(6, 248);
+            this.checkModek.Location = new System.Drawing.Point(6, 280);
             this.checkModek.Name = "checkModek";
-            this.checkModek.Size = new System.Drawing.Size(108, 20);
+            this.checkModek.Size = new System.Drawing.Size(141, 20);
             this.checkModek.TabIndex = 10;
-            this.checkModek.Text = "Channel Key";
+            this.checkModek.Text = "Channel Key (+k)";
             this.checkModek.UseVisualStyleBackColor = true;
             // 
             // textMaxUsers
             // 
-            this.textMaxUsers.Location = new System.Drawing.Point(185, 216);
+            this.textMaxUsers.Location = new System.Drawing.Point(185, 248);
             this.textMaxUsers.Name = "textMaxUsers";
             this.textMaxUsers.Size = new System.Drawing.Size(48, 23);
             this.textMaxUsers.TabIndex = 9;
@@ -125,69 +125,68 @@
             // checkModel
             // 
             this.checkModel.AutoSize = true;
-            this.checkModel.Location = new System.Drawing.Point(6, 219);
+            this.checkModel.Location = new System.Drawing.Point(6, 251);
             this.checkModel.Name = "checkModel";
-            this.checkModel.Size = new System.Drawing.Size(127, 20);
+            this.checkModel.Size = new System.Drawing.Size(156, 20);
             this.checkModel.TabIndex = 8;
-            this.checkModel.Text = "Maximum Users";
+            this.checkModel.Text = "Maximum Users (+l)";
             this.checkModel.UseVisualStyleBackColor = true;
             // 
             // checkModes
             // 
             this.checkModes.AutoSize = true;
-            this.checkModes.Location = new System.Drawing.Point(6, 193);
+            this.checkModes.Location = new System.Drawing.Point(6, 225);
             this.checkModes.Name = "checkModes";
-            this.checkModes.Size = new System.Drawing.Size(71, 20);
+            this.checkModes.Size = new System.Drawing.Size(104, 20);
             this.checkModes.TabIndex = 7;
-            this.checkModes.Text = "Secret";
+            this.checkModes.Text = "Secret (+s)";
             this.checkModes.UseVisualStyleBackColor = true;
             // 
             // checkModem
             // 
             this.checkModem.AutoSize = true;
-            this.checkModem.Location = new System.Drawing.Point(6, 167);
+            this.checkModem.Location = new System.Drawing.Point(6, 199);
             this.checkModem.Name = "checkModem";
-            this.checkModem.Size = new System.Drawing.Size(97, 20);
+            this.checkModem.Size = new System.Drawing.Size(134, 20);
             this.checkModem.TabIndex = 6;
-            this.checkModem.Text = "Moderated";
+            this.checkModem.Text = "Moderated (+m)";
             this.checkModem.UseVisualStyleBackColor = true;
             // 
             // checkModei
             // 
             this.checkModei.AutoSize = true;
-            this.checkModei.Location = new System.Drawing.Point(6, 141);
+            this.checkModei.Location = new System.Drawing.Point(6, 173);
             this.checkModei.Name = "checkModei";
-            this.checkModei.Size = new System.Drawing.Size(99, 20);
+            this.checkModei.Size = new System.Drawing.Size(128, 20);
             this.checkModei.TabIndex = 5;
-            this.checkModei.Text = "Invite Only";
+            this.checkModei.Text = "Invite Only (+i)";
             this.checkModei.UseVisualStyleBackColor = true;
             // 
             // checkModen
             // 
             this.checkModen.AutoSize = true;
-            this.checkModen.Location = new System.Drawing.Point(6, 115);
+            this.checkModen.Location = new System.Drawing.Point(6, 147);
             this.checkModen.Name = "checkModen";
-            this.checkModen.Size = new System.Drawing.Size(171, 20);
+            this.checkModen.Size = new System.Drawing.Size(205, 20);
             this.checkModen.TabIndex = 4;
-            this.checkModen.Text = "No external messages";
+            this.checkModen.Text = "No external messages (+n)";
             this.checkModen.UseVisualStyleBackColor = true;
             // 
             // checkModet
             // 
             this.checkModet.AutoSize = true;
-            this.checkModet.Location = new System.Drawing.Point(6, 89);
+            this.checkModet.Location = new System.Drawing.Point(6, 121);
             this.checkModet.Name = "checkModet";
-            this.checkModet.Size = new System.Drawing.Size(204, 20);
+            this.checkModet.Size = new System.Drawing.Size(236, 20);
             this.checkModet.TabIndex = 3;
-            this.checkModet.Text = "Only ops can change topic";
+            this.checkModet.Text = "Only ops can change topic (+t)";
             this.checkModet.UseVisualStyleBackColor = true;
             // 
             // labelTopicSetBy
             // 
-            this.labelTopicSetBy.AutoSize = true;
-            this.labelTopicSetBy.Location = new System.Drawing.Point(3, 47);
+            this.labelTopicSetBy.Location = new System.Drawing.Point(3, 82);
             this.labelTopicSetBy.Name = "labelTopicSetBy";
-            this.labelTopicSetBy.Size = new System.Drawing.Size(99, 16);
+            this.labelTopicSetBy.Size = new System.Drawing.Size(428, 31);
             this.labelTopicSetBy.TabIndex = 1;
             this.labelTopicSetBy.Text = "Topic Set By:";
             // 
@@ -196,8 +195,10 @@
             this.textTopic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textTopic.Location = new System.Drawing.Point(6, 6);
+            this.textTopic.Multiline = true;
             this.textTopic.Name = "textTopic";
-            this.textTopic.Size = new System.Drawing.Size(425, 23);
+            this.textTopic.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textTopic.Size = new System.Drawing.Size(425, 70);
             this.textTopic.TabIndex = 0;
             // 
             // tabPage2
@@ -207,7 +208,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(437, 283);
+            this.tabPage2.Size = new System.Drawing.Size(437, 310);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Ban List";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -249,7 +250,21 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Added By";
-            this.columnHeader2.Width = 308;
+            this.columnHeader2.Width = 400;
+            // 
+            // contextMenuStripBans
+            // 
+            this.contextMenuStripBans.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToClipboardToolStripMenuItem});
+            this.contextMenuStripBans.Name = "contextMenuStripBans";
+            this.contextMenuStripBans.Size = new System.Drawing.Size(172, 26);
+            // 
+            // copyToClipboardToolStripMenuItem
+            // 
+            this.copyToClipboardToolStripMenuItem.Name = "copyToClipboardToolStripMenuItem";
+            this.copyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.copyToClipboardToolStripMenuItem.Text = "Copy to Clipboard";
+            this.copyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem_Click);
             // 
             // tabPage3
             // 
@@ -258,7 +273,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(437, 283);
+            this.tabPage3.Size = new System.Drawing.Size(437, 310);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Exception List";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -299,13 +314,13 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Added By";
-            this.columnHeader4.Width = 308;
+            this.columnHeader4.Width = 400;
             // 
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.AutoSize = true;
-            this.buttonClose.Location = new System.Drawing.Point(348, 320);
+            this.buttonClose.Location = new System.Drawing.Point(348, 347);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(93, 26);
             this.buttonClose.TabIndex = 1;
@@ -317,7 +332,7 @@
             // 
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApply.AutoSize = true;
-            this.buttonApply.Location = new System.Drawing.Point(249, 320);
+            this.buttonApply.Location = new System.Drawing.Point(249, 347);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(93, 26);
             this.buttonApply.TabIndex = 2;
@@ -325,25 +340,11 @@
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
-            // contextMenuStripBans
-            // 
-            this.contextMenuStripBans.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToClipboardToolStripMenuItem});
-            this.contextMenuStripBans.Name = "contextMenuStripBans";
-            this.contextMenuStripBans.Size = new System.Drawing.Size(172, 26);
-            // 
-            // copyToClipboardToolStripMenuItem
-            // 
-            this.copyToClipboardToolStripMenuItem.Name = "copyToClipboardToolStripMenuItem";
-            this.copyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.copyToClipboardToolStripMenuItem.Text = "Copy to Clipboard";
-            this.copyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem_Click);
-            // 
             // FormChannelInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 355);
+            this.ClientSize = new System.Drawing.Size(443, 382);
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.tabControl1);
@@ -360,9 +361,9 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.contextMenuStripBans.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.contextMenuStripBans.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

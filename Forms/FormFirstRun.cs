@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -209,7 +209,6 @@ namespace IceChat
 
             FormMain.Instance.IceChatOptions.CurrentTheme = "Default";
 
-
             if (comboData.Text.Length > 0)
             {
                 ServerSetting s = new ServerSetting();
@@ -342,7 +341,7 @@ namespace IceChat
             ofd.CheckPathExists = true;
             ofd.AddExtension = true;
             ofd.AutoUpgradeEnabled = true;
-            ofd.Filter = "IceChat INI Setting (*.ini)|*.ini";
+            ofd.Filter = "IceChat Setting (*.ini)|icechat.ini";
             ofd.Title = "Locate the IceChat.ini settings file?";
 
             string directory = Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "IceChat";
@@ -656,6 +655,9 @@ namespace IceChat
                                         AliasItem a = new AliasItem();
                                         string name = alias.Substring(0, alias.IndexOf(" ")).Trim();
                                         string command = alias.Substring(alias.IndexOf(" ") + 1);
+                                        if (!command.StartsWith("/"))
+                                            command = "/" + command;
+
                                         a.AliasName = name;
                                         a.Command = new String[] { command };
 
@@ -873,8 +875,6 @@ namespace IceChat
 
                                 if (keyPair.Length > 1)
                                     value = keyPair[1];
-
-                                //System.Diagnostics.Debug.WriteLine(value + ":" + keyPair[0] + ":" + currentRoot);
                                 
                                 keyPairs.Add(sectionPair, value);
                             }
@@ -944,7 +944,24 @@ namespace IceChat
                 if (pair.Section.ToUpper() == sectionName.ToUpper())
                 {
                     //these are added out of order, we need to sort them
-                    tmpArray.Add(keyPairs[pair].ToString().Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace( ((char)0).ToString(), ""));
+                    string keyPair = keyPairs[pair].ToString();
+                    //see if there is a / after the : key
+                    if (keyPair.IndexOf(":") > -1)
+                    {
+                        int colon = keyPair.IndexOf(":");
+                        //check if next chat is a /
+                        if (colon < keyPair.Length)
+                        {
+                            if (keyPair.Substring(colon + 1, 1) != "/")
+                            {
+                                //add the // in front of the command
+                                keyPair = keyPair.Substring(0, colon) + "://" + keyPair.Substring(colon + 1);
+                            }
+                        }
+                    }
+                    
+                    keyPair = keyPair.Replace("$$?", "$?");
+                    tmpArray.Add(keyPair.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace( ((char)0).ToString(), ""));
                 }
             }
             

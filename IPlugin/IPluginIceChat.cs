@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,11 +62,12 @@ namespace IceChatPlugin
         public MenuStrip MainMenuStrip { get; set; }
         //the bottom panel of the main window
         public Panel BottomPanel { get; set; }
-
+        
         public TabControl LeftPanel { get; set; }
         public TabControl RightPanel { get; set; }
         public double CurrentVersion { get; set; }
-        
+
+
         public virtual bool HaveSettingsForm() { return false; }
         public virtual void ShowSettingsForm() { }
 
@@ -83,6 +84,7 @@ namespace IceChatPlugin
         public virtual Panel[] AddMainPanel() { return null; }
 
         public IceChat.IRCConnection ServerTreeCurrentConnection { get; set; }
+        //public IceChat.IceChatServers Connections { get; set; }
         public string ServerTreeCurrentTab { get; set; }
 
         public virtual void MainProgramLoaded() { }                                   //the main icechat form/program has loaded
@@ -143,6 +145,8 @@ namespace IceChatPlugin
         public virtual void NickChange(PluginArgs args) { }
         public virtual void ServerError(PluginArgs args) { }
         public virtual void ServerRaw(PluginArgs args) { }
+
+        public virtual void NewWindow(PluginArgs args) { }
 
 
         public void SendCommand(PluginArgs args)

@@ -37,6 +37,7 @@
             this.comboScriptEvent = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textChannelMatch = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -69,7 +70,7 @@
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(12, 213);
+            this.buttonUpdate.Location = new System.Drawing.Point(12, 223);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(116, 23);
             this.buttonUpdate.TabIndex = 4;
@@ -122,11 +123,23 @@
             this.textChannelMatch.Size = new System.Drawing.Size(275, 23);
             this.textChannelMatch.TabIndex = 2;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(13, 198);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(127, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "(use .* for wild card)";
+            // 
             // FormScriptItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(318, 248);
+            this.ClientSize = new System.Drawing.Size(318, 258);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.textChannelMatch);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboScriptEvent);
@@ -161,5 +174,6 @@
         private System.Windows.Forms.ComboBox comboScriptEvent;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textChannelMatch;
+        private System.Windows.Forms.Label label5;
     }
 }

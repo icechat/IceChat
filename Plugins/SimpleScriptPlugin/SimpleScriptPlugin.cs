@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2011 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2015 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,9 +63,9 @@ namespace IceChatPlugin
         public Plugin()
         {
             //set your default values here
-            m_Name = "Simple Script Plugin (Beta)";
+            m_Name = "Simple Script Plugin";
             m_Author = "Snerf";
-            m_Version = "1.0";
+            m_Version = "1.2";
         }
 
         public override void Dispose()
@@ -349,16 +349,22 @@ namespace IceChatPlugin
                         case "Channel Join":
                             Regex regChannel3 = new Regex(scr.ChannelMatch, RegexOptions.IgnoreCase);                           
                             if (args.Channel != null && regChannel3.IsMatch(args.Channel))
-                            {
-                                command = scr.Command.Replace("$chan", args.Channel);
-                                command = command.Replace("$nick", args.Nick);
-                                command = command.Replace("$match", scr.TextMatch);
+                            {                                
+                                Regex regMatch = new Regex(scr.TextMatch, RegexOptions.IgnoreCase);
+                                //args.Extra = account
+                                if (regMatch.IsMatch(args.Nick) || regMatch.IsMatch(args.Host) || (args.Extra.Length > 0 && regMatch.IsMatch(args.Extra))) 
+                                {
+                                    command = scr.Command.Replace("$chan", args.Channel);
+                                    command = command.Replace("$nick", args.Nick);
+                                    command = command.Replace("$host", args.Host);
+                                    command = command.Replace("$account", args.Extra);
+                                    command = command.Replace("$match", scr.TextMatch);
 
-                                args.Command = command;
+                                    args.Command = command;
 
-                                if (OnCommand != null)
-                                    OnCommand(args);
-                            
+                                    if (OnCommand != null)
+                                        OnCommand(args);
+                                }
                             } 
                             break;
                         case "Channel Kick":
@@ -415,7 +421,31 @@ namespace IceChatPlugin
                             args.Command = scr.Command;
                             if (OnCommand != null)
                                 OnCommand(args);                            
-                            
+                            break;
+
+                        case "New Channel":
+                            Regex regChannel7 = new Regex(scr.ChannelMatch, RegexOptions.IgnoreCase);
+                            if (args.Channel != null && regChannel7.IsMatch(args.Channel))
+                            {
+                                command = scr.Command.Replace("$chan", args.Channel);
+                                args.Command = command;
+
+                                if (OnCommand != null)
+                                    OnCommand(args);
+                                
+                            }
+                            break;
+                        case "New Private":
+                            Regex regChannel8 = new Regex(scr.ChannelMatch, RegexOptions.IgnoreCase);
+                            if (args.Channel != null && regChannel8.IsMatch(args.Channel))
+                            {
+                                command = scr.Command.Replace("$nick", args.Channel);
+                                args.Command = command;
+
+                                if (OnCommand != null)
+                                    OnCommand(args);
+
+                            }
                             break;
                     }
 
@@ -423,6 +453,20 @@ namespace IceChatPlugin
             }
            
             return args;
+        }
+
+        public override void NewWindow(PluginArgs args)
+        {
+            switch (args.Extra)
+            {
+                case "Channel":
+                    CheckScripts(args, "New Channel");
+                    break;
+                case "Query":
+                    CheckScripts(args, "New Private");
+                    break;
+            }
+
         }
 
         public override PluginArgs ChannelMessage(PluginArgs args)
@@ -461,9 +505,10 @@ namespace IceChatPlugin
             return args;            
         }
 
-        public override void ChannelInvite(PluginArgs args)
+        public override PluginArgs ChannelInvite(PluginArgs args)
         {
             args = CheckScripts(args, "Channel Invite");
+            return args;
         }
 
         public override PluginArgs ChannelKick(PluginArgs args)

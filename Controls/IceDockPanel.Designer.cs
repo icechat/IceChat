@@ -32,29 +32,34 @@ namespace IceChat
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this._tabControl = new System.Windows.Forms.TabControl();
+            this.SuspendLayout();
+            // 
+            // _tabControl
+            // 
+            this._tabControl.Alignment = System.Windows.Forms.TabAlignment.Left;
+            this._tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._tabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this._tabControl.Location = new System.Drawing.Point(0, 0);
+            this._tabControl.Margin = new System.Windows.Forms.Padding(0);
+            this._tabControl.Multiline = true;
+            this._tabControl.Name = "_tabControl";
+            this._tabControl.Padding = new System.Drawing.Point(15, 5);
+            this._tabControl.SelectedIndex = 0;
+            this._tabControl.Size = new System.Drawing.Size(200, 100);
+            this._tabControl.TabIndex = 0;
+            this._tabControl.TabStop = false;
+            this._tabControl.DoubleClick += new System.EventHandler(this.OnDoubleClick);
+            this._tabControl.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
+            this._tabControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnMouseMove);
+            this._tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OnDrawItem);
+            this._tabControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseDown);
+            // 
+            // IceDockPanel
+            // 
+            this.Controls.Add(this._tabControl);
+            this.ResumeLayout(false);
 
-            _tabControl = new TabControl();
-            _tabControl.Dock = DockStyle.Fill;
-            _tabControl.Multiline = true;
-            _tabControl.TabStop = false;
-            //_tabControl.AllowDrop = true;
-            //_tabControl.SizeMode = TabSizeMode.Fixed;
-            _tabControl.Padding = new Point(15, 5);
-            _tabControl.SizeMode = TabSizeMode.Normal;
-           
-            _tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
-            _tabControl.Alignment = TabAlignment.Left;
-            _tabControl.DrawItem += new DrawItemEventHandler(OnDrawItem);
-            _tabControl.DoubleClick += new EventHandler(OnDoubleClick);
-            _tabControl.MouseDown += new MouseEventHandler(OnMouseDown);
-            _tabControl.MouseMove += new MouseEventHandler(OnMouseMove);
-            _tabControl.DragOver += new DragEventHandler(OnDragOver);
-            
-            _docked = false;
-
-            this.Controls.Add(_tabControl);
-        
         }
 
 

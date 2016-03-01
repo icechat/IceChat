@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("IceChat Networks")]
 [assembly: AssemblyProduct("IceChat 9")]
-[assembly: AssemblyCopyright("Copyright © 2000-2015 Paul Vanderzee")]
+[assembly: AssemblyCopyright("Copyright © 2000-2016 Paul Vanderzee")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("9.0.0.0")]
-[assembly: AssemblyFileVersion("9.00.2015.0102")]
+[assembly: AssemblyVersion("9.08.0.0")]
+[assembly: AssemblyFileVersion("9.08.2016.0117")]

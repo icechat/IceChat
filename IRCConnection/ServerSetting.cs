@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,11 +28,151 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
+
 namespace IceChat
 {
+    [XmlRoot("IceChatServers")]
+    public class IceChatServers
+    {
+        [XmlArray("Servers")]
+        [XmlArrayItem("Item", typeof(ServerSetting))]
+        public List<ServerSetting> listServers;
+
+        public IceChatServers()
+        {
+            listServers = new List<ServerSetting>();
+        }
+
+        public void AddServer(ServerSetting server)
+        {
+            listServers.Add(server);
+        }
+
+        public void RemoveServer(ServerSetting server)
+        {
+            listServers.Remove(server);
+        }
+
+        public int GetNextID()
+        {
+            if (listServers.Count == 0)
+                return 1;
+            return listServers[listServers.Count - 1].ID + 1;
+        }
+    }
+
+    public class Variable
+    {
+        public string name;
+        public object value;
+        public Type type;
+    }
+
+    public class Variables
+    {
+        private List<Variable> _variables;
+        
+        public Variables()
+        {
+            _variables = new List<Variable>();
+        }
+
+        public void AddVariable(string name, object value)
+        {
+            if (!name.StartsWith("%")) return;
+            
+            if (name.Length > 0)
+            {
+                //check if we have this variable already
+                Variable v = _variables.Find(
+                    delegate(Variable var)
+                    {
+                        return var.name == name;
+                    }
+                );
+                if (v != null)
+                {
+                    //set the new value?
+                    v.value = value;
+                }
+                else
+                {
+                    Variable item = new Variable();
+                    item.name = name;
+                    item.value = value;
+
+                    //is this really necessary ?
+                    int result;
+                    if (Int32.TryParse(value.ToString(), out result))
+                        item.type = typeof(int);
+                    else
+                        item.type = typeof(string);
+                    
+                    _variables.Add(item);
+                }
+            }
+        }
+        
+        public void AddVariable(Variable variable)
+        {
+            if (!variable.name.StartsWith("%")) return;
+
+            Variable v = _variables.Find(
+                delegate(Variable var)
+                {
+                    return var.name == variable.name;
+                }
+            );
+            if (v == null)
+                _variables.Add(variable);
+            else
+                v.value = variable.value;
+
+        }
+
+        public void RemoveVariable(string name)
+        {
+            if (!name.StartsWith("%")) return;
+
+            //remove the variable with the name
+            Variable v = _variables.Find(
+                delegate(Variable var)
+                {
+                    return var.name == name;
+                }
+            );
+            if (v != null)
+                _variables.Remove(v);
+        }
+        
+        public object ReturnValue(string name)
+        {
+            if (!name.StartsWith("%")) return "";
+
+            Variable v = _variables.Find(
+                delegate(Variable var)
+                {
+                    return var.name == name;
+                }
+            );
+
+            if (v != null)
+                return v.value;
+            else
+                return "$null";
+        }
+        
+        /*
+        public List<Variable> AllVariables
+        { 
+            get { return this._variables; } 
+            set { this._variables = value; } 
+        }
+        */
+    }
+    
     public class ServerSetting
     {
-
         //set the default values (only for specific settings)
         private string _serverPort = "6667";
         private string _displayName = "";
@@ -44,12 +184,19 @@ namespace IceChat
         private int _pingTimerMinutes = 5;
         private int _maxNickLength = 15;
         private int _maxModes = 5;
+        private int _reconnectTime = 60;
         private bool _ircv3 = false;
-        private bool _extendedJoin = true;
-        private bool _awayNotify = true;
-        private bool _accountNotify = true;
+        private bool _extendedJoin = false;
+        private bool _awayNotify = false;
+        private bool _accountNotify = false;
+        private string _fullName = "The Chat Cool People Use";
+        private string _quitMessage = "$randquit";
+        private string _identName = "IceChat9";
 
-        private List<string> _tabs = new List<string>();
+        //private List<string> _tabs = new List<string>();
+        //private List<Variable> _variables = new List<Variable>();
+        private Variables _variables = new Variables();
+        private Dictionary<string, string> _channelJoins = new Dictionary<string,string>();
 
         [XmlAttribute("ServerID")]
         public int ID
@@ -89,15 +236,15 @@ namespace IceChat
 
         [XmlElement("QuitMessage")]
         public string QuitMessage
-        { get; set; }
+        { get { return this._quitMessage; } set { this._quitMessage = value; } }
 
         [XmlElement("FullName")]
         public string FullName
-        { get; set; }
+        { get { return this._fullName; } set { this._fullName = value; } }
 
         [XmlElement("IdentName")]
         public string IdentName
-        { get; set; }
+        { get { return this._identName; } set { this._identName = value; } }
 
         [XmlElement("SetModeI")]
         public bool SetModeI
@@ -181,6 +328,10 @@ namespace IceChat
 
         [XmlElement("UseSSL")]
         public bool UseSSL
+        { get; set; }
+
+        [XmlElement("UseTLS")]
+        public bool UseTLS
         { get; set; }
 
         [XmlElement("SSLAcceptInvalidCertificate")]
@@ -271,6 +422,10 @@ namespace IceChat
         { get { return this._awayNotify; } set { this._awayNotify = value; } }
         
         //these are all temporary server settings, not saved to the XML file
+
+        [XmlElement("ReconnectTime")]
+        public int ReconnectTime
+        { get { return this._reconnectTime; } set { this._reconnectTime = value; } }
 
         [XmlIgnore()]
         public string RealServerName
@@ -407,11 +562,20 @@ namespace IceChat
         { get; set; }
 
         [XmlIgnore()]
+        public Variables Variables
+        { get { return _variables; } set { this._variables = value; } }
+
+        [XmlIgnore()]
+        public Dictionary<string, string> ChannelJoins
+        { get { return _channelJoins; } set { this._channelJoins = value; } }
+
+        /*
+        [XmlIgnore()]
         [XmlArray("TabOrder")]
         [XmlArrayItem("Tab", typeof(String))]
         public List<String> TabOrder
         { get { return this._tabs; } set { this._tabs = value; } }
-
+        */
     }
 
 }

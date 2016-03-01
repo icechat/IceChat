@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -77,10 +77,11 @@ namespace IceChat
             this.textQuitMessage.Text = textDefaultQuitMessage.Text;
             this.textPingTimer.Text = "5";
             this.textServerPort.Text = "6667";
+            this.textReconnectTime.Text = "60";
 
-            this.checkAccountNotify.Checked = true;
-            this.checkAwayNotify.Checked = true;
-            this.checkExtendedJoin.Checked = true;
+            this.checkAccountNotify.Checked = false;
+            this.checkAwayNotify.Checked = false;
+            this.checkExtendedJoin.Checked = false;
             this.checkRejoinChannel.Checked = true;
             this.checkModeI.Checked = true;
 
@@ -129,7 +130,7 @@ namespace IceChat
             newServer = false;
             LoadSettings();
 
-            this.Text = "Server Editor: " + s.ServerName;
+            this.Text = "Server Editor: " + s.ServerName + " - " + s.ID;
             
             LoadDefaultServerSettings();
 
@@ -237,7 +238,7 @@ namespace IceChat
             this.checkUseIPv6.Checked = serverSetting.UseIPv6;
             this.checkInvalidCertificate.Checked = serverSetting.SSLAcceptInvalidCertificate;
             this.textPingTimer.Text = serverSetting.PingTimerMinutes.ToString();
-
+            this.textReconnectTime.Text = serverSetting.ReconnectTime.ToString();
 
             this.checkUseSASL.Checked = serverSetting.UseSASL;
             this.textSASLUser.Text = serverSetting.SASLUser;
@@ -245,6 +246,8 @@ namespace IceChat
             this.checkExtendedJoin.Checked = serverSetting.ExtendedJoin;
             this.checkAccountNotify.Checked = serverSetting.AccountNotify;
             this.checkAwayNotify.Checked = serverSetting.AwayNotify;
+            this.checkUseTLS.Checked = serverSetting.UseTLS;
+
 
             if (serverSetting.AutoJoinChannels != null)
             {
@@ -375,10 +378,7 @@ namespace IceChat
             else
                 serverSetting.AltNickName = textNickName.Text + "_";
 
-            if (textAwayNick.Text.Length > 0)
-                serverSetting.AwayNickName = textAwayNick.Text;
-            else
-                serverSetting.AwayNickName = textNickName.Text + "[A]";
+            serverSetting.AwayNickName = textAwayNick.Text;
 
             serverSetting.ServerName = textServername.Text;
             serverSetting.DisplayName = textDisplayName.Text.Replace(((char)3).ToString(), "&#x3;");
@@ -438,6 +438,8 @@ namespace IceChat
                     serverSetting.IgnoreList[i] = listIgnore.Items[i].Text;
             }
 
+            BuddyListItem[] oldList = serverSetting.BuddyList;
+
             serverSetting.BuddyList = new BuddyListItem[listBuddyList.Items.Count];
             for (int i = 0; i < listBuddyList.Items.Count; i++)
             {
@@ -451,7 +453,33 @@ namespace IceChat
                 {
                     b.Nick = listBuddyList.Items[i].Text;
                 }
-                //b.Note = serverSetting.ServerName;
+                
+                //check if was sent on old list
+                foreach (BuddyListItem bo in oldList)
+                {
+                    if (bo.IsOnSent)    //was sent, so was used
+                    {
+                        //now check for match
+                        if (bo.Nick == b.Nick)
+                        {
+                            b.IsOnSent = true;
+                            b.IsOnReceived = bo.IsOnReceived;
+                            b.Connected = bo.Connected;
+
+                            System.Diagnostics.Debug.WriteLine("matched:" + bo.Nick);
+                        }
+                        else if (b.Nick.StartsWith(";") &&  bo.Nick == b.Nick.Substring(1))
+                        {
+                            //nick is now disabled
+                            b.Connected = bo.Connected;
+                            b.IsOnReceived = bo.IsOnReceived;
+                            b.IsOnSent = false;
+                            
+                            System.Diagnostics.Debug.WriteLine("matched DIS:" + bo.Nick);
+                        }
+                    }
+                }
+
                 serverSetting.BuddyList[i] = b;
             }
 
@@ -470,16 +498,28 @@ namespace IceChat
             serverSetting.Encoding = comboEncoding.Text;
             
             int result;
-            if (Int32.TryParse(textPingTimer.Text, out result)) {
+            if (Int32.TryParse(textPingTimer.Text, out result))
+            {
                 serverSetting.PingTimerMinutes = Convert.ToInt32(textPingTimer.Text);
             }
-            
+            else
+                serverSetting.PingTimerMinutes = 5;
+
+            if (Int32.TryParse(textReconnectTime.Text, out result))
+            {
+                serverSetting.ReconnectTime = Convert.ToInt32(textReconnectTime.Text);
+            }
+            else
+                serverSetting.ReconnectTime = 60;
+
+
             serverSetting.UseSASL = checkUseSASL.Checked; 
             serverSetting.SASLUser = textSASLUser.Text;
             serverSetting.SASLPass = textSASLPass.Text;
             serverSetting.ExtendedJoin = checkExtendedJoin.Checked;
             serverSetting.AccountNotify = checkAccountNotify.Checked;
             serverSetting.AwayNotify = checkAwayNotify.Checked;
+            serverSetting.UseTLS = checkUseTLS.Checked;
 
             serverSetting.UseProxy = checkUseProxy.Checked;
             serverSetting.ProxyIP = textProxyIP.Text;
@@ -937,6 +977,37 @@ namespace IceChat
             }
         }
 
+        private void buttonMoveUp_Click(object sender, EventArgs e)
+        {
+            //move item up the list, if not at the top
+            if (listChannel.SelectedItems.Count == 1 && listChannel.Items.Count > 1)
+            {
+                if (listChannel.SelectedItems[0].Index > 0)
+                {
+                    int newIndex = listChannel.SelectedItems[0].Index - 1;
+                    ListViewItem item = listChannel.SelectedItems[0];
+                    listChannel.Items.RemoveAt(item.Index);
+                    listChannel.Items.Insert(newIndex, item);
+                }
+            }
+            listChannel.Focus();
 
+        }
+
+        private void buttonMoveDown_Click(object sender, EventArgs e)
+        {
+            //move the item down the list, if not at bottom
+            if (listChannel.SelectedItems.Count == 1 && listChannel.Items.Count > 1)
+            {
+                if (listChannel.SelectedItems[0].Index < (listChannel.Items.Count - 1))
+                {
+                    int newIndex = listChannel.SelectedItems[0].Index + 1;
+                    ListViewItem item = listChannel.SelectedItems[0];
+                    listChannel.Items.RemoveAt(item.Index);
+                    listChannel.Items.Insert(newIndex, item);
+                }
+            }
+            listChannel.Focus();
+        }
     }
 }

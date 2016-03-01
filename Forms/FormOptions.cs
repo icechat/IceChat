@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -263,6 +263,12 @@ namespace IceChat
             checkAutoAwayTray.Checked = iceChatOptions.AutoAwaySystemTray;
             textAutoAwayMessage.Text = iceChatOptions.AutoAwayMessage;
 
+            checkAutoPerformStartup.Checked = iceChatOptions.AutoPerformStartupEnable;
+            if (iceChatOptions.AutoPerformStartup != null)
+            {
+                foreach (string command in iceChatOptions.AutoPerformStartup)
+                    textAutoPerformStartup.AppendText(command + Environment.NewLine);
+            }
 
             trackTransparency.Value = Convert.ToInt32(FormMain.Instance.Opacity * 100);
 
@@ -386,6 +392,7 @@ namespace IceChat
             iceChatOptions.WhoisNewQuery = checkWhoisNewQuery.Checked;
             iceChatOptions.AskQuit = checkAskQuit.Checked;
             iceChatOptions.SingleRowTabBar = checkSingleRowCB.Checked;
+            iceChatOptions.Transparency = trackTransparency.Value;
 
             iceChatOptions.FlashTaskBarChannel = checkFlashChannelMessage.Checked;
             iceChatOptions.FlashTaskBarChannelAction = checkFlashChannelAction.Checked;
@@ -508,9 +515,30 @@ namespace IceChat
             iceChatOptions.PrivateAwayMessage = textAwayPrivateMessage.Text;
             iceChatOptions.AutoAway = checkAutoAway.Checked;
             iceChatOptions.AutoReturn = checkAutoReturn.Checked;
-            iceChatOptions.AutoAwayTime = Convert.ToInt32(textAutoAwayMinutes.Text);
+            
+            if (textAutoAwayMinutes.Text.Length == 0)
+            {
+                iceChatOptions.AutoAwayTime = 0;
+                iceChatOptions.AutoAway = false;
+            }
+            else
+            {
+                //check if value is an integer
+                int result;
+                if (Int32.TryParse(textAutoAwayMinutes.Text, out result))
+                    iceChatOptions.AutoAwayTime = result;
+                else
+                {
+                    iceChatOptions.AutoAwayTime = 0;
+                    iceChatOptions.AutoAway = false;
+                }
+            }
+            
             iceChatOptions.AutoAwaySystemTray = checkAutoAwayTray.Checked;
             iceChatOptions.AutoAwayMessage = textAutoAwayMessage.Text;
+
+            iceChatOptions.AutoPerformStartupEnable = checkAutoPerformStartup.Checked;
+            iceChatOptions.AutoPerformStartup = textAutoPerformStartup.Text.Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None);
 
             foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
             {
@@ -538,7 +566,7 @@ namespace IceChat
             fd.FontMustExist = true;
             fd.AllowVectorFonts = false;
             fd.AllowVerticalFonts = false;
-                        
+            
             //fd.FixedPitchOnly = true; monospace
 
             fd.Font = new Font(textConsoleFont.Text,float.Parse( textConsoleFontSize.Text) , FontStyle.Regular);

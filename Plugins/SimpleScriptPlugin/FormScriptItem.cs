@@ -28,6 +28,8 @@ namespace IceChatPlugin
             comboScriptEvent.Items.Add("Channel Part");
             comboScriptEvent.Items.Add("Channel Invite");
             comboScriptEvent.Items.Add("Channel Kick");
+            comboScriptEvent.Items.Add("New Channel");
+            comboScriptEvent.Items.Add("New Private");
             comboScriptEvent.Items.Add("IceChat Startup");
 
             this.scriptItem = src;
@@ -53,7 +55,7 @@ namespace IceChatPlugin
             }
 
             if (scriptItem.TextMatch.Length == 0)
-                scriptItem.TextMatch = "*";
+                scriptItem.TextMatch = ".*";
 
             
             //update or add new item

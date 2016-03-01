@@ -13,6 +13,7 @@ namespace IceChat
         private IceTabPage dockedControl;
         private bool kickedChannel;
         private bool selectTabActivate = true;
+        private bool allowClose = false;
 
         public FormWindow(IceTabPage tab)
         {
@@ -72,9 +73,16 @@ namespace IceChat
         private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
             //need to send the part message
+            //System.Diagnostics.Debug.WriteLine("closing form:" + this.Text + ":" + this.Controls.Count + ":" + e.CloseReason);
+            
+            if (e.CloseReason == CloseReason.MdiFormClosing)
+            {
+                //e.Cancel = true;
+                //return;
+            }
+
             try
             {
-                System.Diagnostics.Debug.WriteLine("closing form:" + this.Text + ":" + this.Controls.Count );
                 if (this.Controls.Count == 2)
                 {
                     if (dockedControl.WindowStyle == IceTabPage.WindowType.Console)
@@ -117,6 +125,8 @@ namespace IceChat
                     {
                         if (FormMain.Instance.IceChatOptions.SaveWindowPosition == true)
                         {
+                            //System.Diagnostics.Debug.WriteLine("closing channel:" + this.Location);
+                            
                             ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(dockedControl.TabCaption, dockedControl.Connection.ServerSetting.NetworkName);
                             if (cs != null)
                             {
@@ -235,6 +245,12 @@ namespace IceChat
 
         }
 
+        internal bool AllowClose
+        {
+            get { return allowClose; }
+            set { allowClose = value;}
+        }
+
         internal MenuStrip MainMenu
         {
             get { return menuStrip; }
@@ -297,6 +313,7 @@ namespace IceChat
             menuStrip.Hide();
         }
     }
+    
     [System.ComponentModel.DesignerCategory("code")]
     [System.Windows.Forms.Design.ToolStripItemDesignerAvailability(System.Windows.Forms.Design.ToolStripItemDesignerAvailability.ContextMenuStrip | System.Windows.Forms.Design.ToolStripItemDesignerAvailability.MenuStrip)]
     public partial class ToolStripMenuItemTB : ToolStripControlHost

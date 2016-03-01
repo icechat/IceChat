@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,14 +41,16 @@ namespace IceChat
 
         private delegate void UpdateBuddyListDelegate(IRCConnection connection, BuddyListItem buddy);
         private delegate void ClearBuddyListDelegate(IRCConnection connection);
+        private delegate void ClearBuddyDelegate(IRCConnection connection, BuddyListItem buddy);
+        
+        private FormMain _parent;
 
-
-        public BuddyList()
+        public BuddyList(FormMain parent)
         {
             InitializeComponent();
+            this._parent = parent;
 
             this.Paint += new PaintEventHandler(OnHeaderPaint);
-            //this.DoubleClick += new EventHandler(OnDoubleClick);
             this.panelButtons.Resize += new EventHandler(panelButtons_Resize);
             this.Resize += new EventHandler(OnResize);
             this.MouseDown += new MouseEventHandler(OnMouseDown);
@@ -64,7 +66,7 @@ namespace IceChat
 
         private void treeBuddies_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            FormMain.Instance.ParseOutGoingCommand((IRCConnection)e.Node.Tag, "/query " + e.Node.Text);            
+            _parent.ParseOutGoingCommand((IRCConnection)e.Node.Tag, "/query " + e.Node.Text);            
         }
 
         private void OnResize(object sender, EventArgs e)
@@ -79,7 +81,7 @@ namespace IceChat
             if (this.Parent.Parent.GetType() == typeof(TabPage))
             {
                 if (this.Parent.Parent.GetType() != typeof(FormFloat))
-                    FormMain.Instance.UnDockPanel((Panel)this.Parent);
+                    _parent.UnDockPanel((Panel)this.Parent);
                 return;
             }
             */ 
@@ -87,7 +89,7 @@ namespace IceChat
 
         internal void ApplyLanguage()
         {
-            IceChatLanguage iceChatLanguage = FormMain.Instance.IceChatLanguage;
+            IceChatLanguage iceChatLanguage = _parent.IceChatLanguage;
             headerCaption = iceChatLanguage.buddyListHeader;
             buttonAdd.Text = iceChatLanguage.favChanbuttonAdd;
             buttonMessage.Text = iceChatLanguage.buddyListbuttonMessage;
@@ -107,8 +109,8 @@ namespace IceChat
 
         internal void SetListColors()
         {
-            this.treeBuddies.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.ChannelListBackColor];
-            this.treeBuddies.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.ChannelListForeColor];
+            this.treeBuddies.BackColor = IrcColor.colors[_parent.IceChatColors.ChannelListBackColor];
+            this.treeBuddies.ForeColor = IrcColor.colors[_parent.IceChatColors.ChannelListForeColor];
         }
 
         /// <summary>
@@ -121,7 +123,7 @@ namespace IceChat
 
             //draw the header
             Rectangle headerR = new Rectangle(0, 0, this.Width, headerHeight);
-            Brush l = new LinearGradientBrush(headerR, IrcColor.colors[FormMain.Instance.IceChatColors.PanelHeaderBG1], IrcColor.colors[FormMain.Instance.IceChatColors.PanelHeaderBG2], 300);
+            Brush l = new LinearGradientBrush(headerR, IrcColor.colors[_parent.IceChatColors.PanelHeaderBG1], IrcColor.colors[_parent.IceChatColors.PanelHeaderBG2], 300);
 
             g.FillRectangle(l, headerR);
             // http://www.scip.be/index.php?Page=ArticlesNET01&Lang=EN
@@ -153,8 +155,8 @@ namespace IceChat
 
             Rectangle centered = headerR;
             centered.Offset(0, (int)(headerR.Height - g.MeasureString(headerCaption, headerFont).Height) / 2);
-            
-            g.DrawString(headerCaption, headerFont, new SolidBrush(Color.Black), centered, sf);
+
+            g.DrawString(headerCaption, headerFont, new SolidBrush(IrcColor.colors[_parent.IceChatColors.PanelHeaderForeColor]), centered, sf);
 
             e.Graphics.DrawImageUnscaled(buffer, 0, 0);
             buffer.Dispose();
@@ -222,6 +224,7 @@ namespace IceChat
                     if (treeBuddies.Nodes[1].Nodes[i-1].Tag == connection)
                         treeBuddies.Nodes[1].Nodes[i-1].Remove();
                 }
+                //clear all DISCONNECTED
                 for (int i = treeBuddies.Nodes[0].Nodes.Count; i > 0; i--)
                 {
                     if (treeBuddies.Nodes[0].Nodes[i-1].Tag == connection)
@@ -229,6 +232,57 @@ namespace IceChat
                 }
                     
             }
+        }
+
+        internal void RemoveBuddy(IRCConnection connection, BuddyListItem buddy)
+        {
+            if (this.InvokeRequired)
+            {
+                ClearBuddyDelegate cbl = new ClearBuddyDelegate(RemoveBuddy);
+                this.Invoke(cbl, new object[] { connection, buddy });
+            }
+            else
+            {
+                //remove buddy from list with this connection
+                //check CONNECTED
+                for (int i = treeBuddies.Nodes[1].Nodes.Count; i > 0; i--)
+                {
+                    if (treeBuddies.Nodes[1].Nodes[i - 1].Tag == connection)
+                    {
+                        //nick could start with a ;
+                        if (buddy.Nick.StartsWith(";"))
+                        {
+                            if (treeBuddies.Nodes[1].Nodes[i - 1].Text == buddy.Nick.Substring(1))
+                                treeBuddies.Nodes[1].Nodes[i - 1].Remove();
+                        }
+                        else
+                        {
+                            if (treeBuddies.Nodes[1].Nodes[i - 1].Text == buddy.Nick)
+                                treeBuddies.Nodes[1].Nodes[i - 1].Remove();
+                        }
+                    }                    
+                }
+                //check DISCONNECTED
+                for (int i = treeBuddies.Nodes[0].Nodes.Count; i > 0; i--)
+                {
+                    if (treeBuddies.Nodes[0].Nodes[i - 1].Tag == connection)
+                    {
+                        //nick could start with a ;
+                        if (buddy.Nick.StartsWith(";"))
+                        {
+                            if (treeBuddies.Nodes[0].Nodes[i - 1].Text == buddy.Nick.Substring(1))
+                                treeBuddies.Nodes[0].Nodes[i - 1].Remove();
+                        }
+                        else
+                        {
+                            if (treeBuddies.Nodes[0].Nodes[i - 1].Text == buddy.Nick)
+                                treeBuddies.Nodes[0].Nodes[i - 1].Remove();
+                        }
+
+                    }
+                }
+
+            }        
         }
 
         internal void UpdateBuddy(IRCConnection connection, BuddyListItem buddy)
@@ -240,6 +294,9 @@ namespace IceChat
             }
             else
             {
+                //check if buddy is already in list
+                RemoveBuddy(connection, buddy);
+                
                 TreeNode t = new TreeNode();
                 t.Text = buddy.Nick;
                 t.Tag = connection;
@@ -250,10 +307,10 @@ namespace IceChat
                     this.treeBuddies.Nodes[1].Nodes.Add(t);
                     if (buddy.PreviousState == false)
                     {
-                        FormMain.Instance.PlaySoundFile("buddy");
+                        _parent.PlaySoundFile("buddy");
 
-                        if (FormMain.Instance.IceChatOptions.SystemTrayBuddyOnline == true && FormMain.Instance.IceChatOptions.SystemTrayServerMessage)
-                            FormMain.Instance.ShowTrayNotification("Your buddy " + buddy.Nick + " has come online on " + connection.ServerSetting.RealServerName);
+                        if (_parent.IceChatOptions.SystemTrayBuddyOnline == true && _parent.IceChatOptions.SystemTrayServerMessage)
+                            _parent.ShowTrayNotification("Your buddy " + buddy.Nick + " has come online on " + connection.ServerSetting.RealServerName);
 
                     }
                     buddy.PreviousState = true;

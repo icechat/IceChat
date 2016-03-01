@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@ namespace IceChat
         {
             InitializeComponent();
             this.Text = FormMain.ProgramID + " " + FormMain.VersionID + " | " + FormMain.BuildDate;
+            labelVersion.Text = FormMain.ProgramID + " " + FormMain.VersionID + " | " + FormMain.BuildDate;
             this.Load += new EventHandler(OnLoad);
             this.Click += new EventHandler(OnClick);
             ApplyLanguage();

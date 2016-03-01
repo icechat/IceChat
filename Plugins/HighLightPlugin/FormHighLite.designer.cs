@@ -43,6 +43,7 @@
             this.textExclude = new System.Windows.Forms.TextBox();
             this.textPlaySound = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -52,8 +53,8 @@
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(117, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Text to highlight";
+            this.label1.TabIndex = 1;
+            this.label1.Text = "&Text to highlight";
             // 
             // textHiLite
             // 
@@ -61,7 +62,7 @@
             this.textHiLite.Margin = new System.Windows.Forms.Padding(4);
             this.textHiLite.Name = "textHiLite";
             this.textHiLite.Size = new System.Drawing.Size(275, 23);
-            this.textHiLite.TabIndex = 1;
+            this.textHiLite.TabIndex = 2;
             // 
             // label2
             // 
@@ -70,16 +71,16 @@
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(190, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Command to run  (optional)";
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Command to &run  (optional)";
             // 
             // buttonUpdate
             // 
             this.buttonUpdate.Location = new System.Drawing.Point(12, 471);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(116, 23);
-            this.buttonUpdate.TabIndex = 3;
-            this.buttonUpdate.Text = "Update Item";
+            this.buttonUpdate.TabIndex = 15;
+            this.buttonUpdate.Text = "&Update Item";
             this.buttonUpdate.UseVisualStyleBackColor = true;
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
@@ -98,7 +99,7 @@
             this.panelColorPicker.Location = new System.Drawing.Point(16, 339);
             this.panelColorPicker.Name = "panelColorPicker";
             this.panelColorPicker.Size = new System.Drawing.Size(288, 122);
-            this.panelColorPicker.TabIndex = 21;
+            this.panelColorPicker.TabIndex = 14;
             // 
             // label3
             // 
@@ -107,8 +108,8 @@
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(147, 16);
-            this.label3.TabIndex = 22;
-            this.label3.Text = "Select highlight color";
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Select highlight &color";
             // 
             // checkFlashTab
             // 
@@ -116,8 +117,8 @@
             this.checkFlashTab.Location = new System.Drawing.Point(15, 297);
             this.checkFlashTab.Name = "checkFlashTab";
             this.checkFlashTab.Size = new System.Drawing.Size(225, 20);
-            this.checkFlashTab.TabIndex = 23;
-            this.checkFlashTab.Text = "Flash channel tab on highlight";
+            this.checkFlashTab.TabIndex = 12;
+            this.checkFlashTab.Text = "&Flash channel tab on highlight";
             this.checkFlashTab.UseVisualStyleBackColor = true;
             // 
             // label4
@@ -127,8 +128,8 @@
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(218, 16);
-            this.label4.TabIndex = 24;
-            this.label4.Text = "Highlight only for selected nicks";
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Highlight only for selected &nicks";
             // 
             // textInclude
             // 
@@ -136,7 +137,7 @@
             this.textInclude.Margin = new System.Windows.Forms.Padding(4);
             this.textInclude.Name = "textInclude";
             this.textInclude.Size = new System.Drawing.Size(275, 23);
-            this.textInclude.TabIndex = 25;
+            this.textInclude.TabIndex = 8;
             // 
             // label5
             // 
@@ -145,8 +146,8 @@
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(255, 16);
-            this.label5.TabIndex = 26;
-            this.label5.Text = "Highlight for all except selected nicks";
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Highlight for all e&xcept selected nicks";
             // 
             // label6
             // 
@@ -165,7 +166,7 @@
             this.textExclude.Margin = new System.Windows.Forms.Padding(4);
             this.textExclude.Name = "textExclude";
             this.textExclude.Size = new System.Drawing.Size(275, 23);
-            this.textExclude.TabIndex = 28;
+            this.textExclude.TabIndex = 10;
             // 
             // textPlaySound
             // 
@@ -173,7 +174,7 @@
             this.textPlaySound.Margin = new System.Windows.Forms.Padding(4);
             this.textPlaySound.Name = "textPlaySound";
             this.textPlaySound.Size = new System.Drawing.Size(275, 23);
-            this.textPlaySound.TabIndex = 30;
+            this.textPlaySound.TabIndex = 6;
             // 
             // label7
             // 
@@ -182,14 +183,28 @@
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(257, 16);
-            this.label7.TabIndex = 29;
-            this.label7.Text = "Sound to play  (files in sounds folder)";
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Sound to &play  (files in sounds folder)";
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(229, 471);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 16;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // FormHighLite
             // 
+            this.AcceptButton = this.buttonUpdate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(318, 507);
+            this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.textPlaySound);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textExclude);
@@ -236,5 +251,6 @@
         private System.Windows.Forms.TextBox textExclude;
         private System.Windows.Forms.TextBox textPlaySound;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }

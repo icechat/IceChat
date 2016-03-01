@@ -8,7 +8,7 @@ namespace IceChat
     {
         public static string[] RandomQuitMessages = new string[] { 
             "IceChat - Keeping PC's cool since 2000",
-            "There's nothing dirtier then a giant ball of oil",
+            "There's nothing dirtier than a giant ball of oil",
             "Why is the alphabet in that order? Is it because of that song?",
             "Give a man a fish and he will eat for a day. Teach him how to fish, and he will sit in a boat and drink beer all day",
             "Never put off till tomorrow, what you can do the day after tomorrow",
@@ -23,21 +23,21 @@ namespace IceChat
             "Friends help you move. Real friends help you move bodies.",
             "Few women admit their age.  Few men act theirs.",
             "Clap on! , Clap off! Clap@#&$NO CARRIER",
-            "Copywight 2014 Elmer Fudd. All wights wesewved.",
+            "Copywight 2015 Elmer Fudd. All wights wesewved.",
             "I used to think I was indecisive, but now I'm not too sure.",
             "Beware of programmers who carry screwdrivers.",
             "Relax, its only ONES and ZEROS!",
             "If you can't laugh at yourself, make fun of other people.",
             "On the other hand, you have different fingers.",
             "Some folks are wise, and some otherwise.",
-            "IceChat - Its what Cool People use",
-            "We be chillin - IceChat style",
+            "IceChat - It's what Cool People use",
+            "We be chillin' - IceChat style",
             "Say What?",
             "Do fish get thirsty?",
             "REALITY.SYS Corrupted: Re-boot universe? (Y/N/Q)",
             "I cna ytpe 300 wrods pre mniuet!!!",
             "The early bird may get the worm, but the second mouse gets the cheese",
-            "If your not living on the edge, you're taking up too much space",
+            "If you're not living on the edge, you're taking up too much space",
             "Now if you will excuse me, I have a giant ball of oil to throw out my window",
             "Not that there is anything wrong with that",
             "Take my advice. I don't use it anyway",
@@ -62,7 +62,10 @@ namespace IceChat
             "Never underestimate the power of stupid people in large groups.",
             "Strange women lying in ponds distributing swords is no basis for a system of government!",
             "Wink, Wink, nudge, nudge. Know what I mean?",
-            "Tis but a scratch"};
+            "Tis but a scratch",
+            "Live long and prosper \\v//",
+            "First shalt thou take out the Holy Pin. Then, shalt thou count to three. No more. No less.",
+            "Nobody, and I mean NOBODY makes Sheriff Buford T. Justice look like a possum's pecker."};
 
     }
 }

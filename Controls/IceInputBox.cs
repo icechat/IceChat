@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,17 +30,17 @@ using System.Windows.Forms;
 
 namespace IceChat
 {
-	public partial class IceInputBox : System.Windows.Forms.TextBox
-	{
-		private System.ComponentModel.Container components = null;
+    public partial class IceInputBox : System.Windows.Forms.TextBox
+    {
+        private System.ComponentModel.Container components = null;
 
-		//Nick complete variables
+        //Nick complete variables
         private int _nickNumber = -1;
         private string _partialNick;
         private List<NickList.Nick> _nickCompleteNames;
 
-		internal delegate void SendCommand(object sender, string data);
-		internal event SendCommand OnCommand;
+        internal delegate void SendCommand(object sender, string data);
+        internal event SendCommand OnCommand;
 
         private delegate void ScrollWindowDelegate(bool scrollup);
         private delegate void ScrollConsoleWindowDelegate(bool scrollup);
@@ -53,16 +53,16 @@ namespace IceChat
         public IceInputBox() { }
 
         public IceInputBox(InputPanel _parent)
-		{
-			InitializeComponent();
+        {
+            InitializeComponent();
 
             this.MouseWheel += new MouseEventHandler(OnMouseWheel);
 
             _nickCompleteNames = new List<NickList.Nick>();
 
             this.parent = _parent;
-		}
-        
+        }
+
         private void OnMouseWheel(object sender, MouseEventArgs e)
         {
             //120 -- scroll up
@@ -76,7 +76,7 @@ namespace IceChat
             {
                 //make a scroll window for the console
                 //find the current window for the console
-                ScrollConsoleWindow(e.Delta > 0);                
+                ScrollConsoleWindow(e.Delta > 0);
             }
         }
 
@@ -139,10 +139,10 @@ namespace IceChat
             else
             {
                 IceTabPage currentWindow;
-                if (parent.Parent.Name =="FormMain")
+                if (parent.Parent.Name == "FormMain")
                     currentWindow = FormMain.Instance.CurrentWindow;
                 else
-                    currentWindow = (IceTabPage) parent.Parent;
+                    currentWindow = (IceTabPage)parent.Parent;
 
                 if (currentWindow.WindowStyle != IceTabPage.WindowType.ChannelList)
                     currentWindow.TextWindow.ScrollWindowPage(scrollUp);
@@ -150,39 +150,39 @@ namespace IceChat
         }
 
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if( components != null )
-					components.Dispose();
-			}
-			base.Dispose( disposing );
-			
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                    components.Dispose();
+            }
+            base.Dispose(disposing);
+
             //_buffer = null;
-		}
+        }
 
-		#region Component Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			// 
-			// IRCInputBox
-			// 
-			this.Size = new System.Drawing.Size(272, 20);
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            // 
+            // IRCInputBox
+            // 
+            this.Size = new System.Drawing.Size(272, 20);
 
-		}
-				
-		#endregion
-		
-		protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, System.Windows.Forms.Keys keyData)
-		{
+        }
+
+        #endregion
+
+        protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, System.Windows.Forms.Keys keyData)
+        {
             if ((keyData == (Keys.Control | Keys.V)) || keyData == (Keys.Shift | Keys.Insert))
             {
                 string data = Clipboard.GetText(TextDataFormat.UnicodeText);
@@ -207,11 +207,11 @@ namespace IceChat
 
             return false;
         }
-        
+
         private void NickComplete()
         {
             string afterComplete = FormMain.Instance.IceChatOptions.NickCompleteAfter.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
-            
+
             if (FormMain.Instance.CurrentWindowStyle == IceTabPage.WindowType.Console)
             {
                 //tab complete in Console, just send current nick
@@ -227,23 +227,35 @@ namespace IceChat
                     return;
 
                 string boxText = this.Text;
+                int selectionStart = this.SelectionStart;
+                int tabStart = 0;
+
                 if (boxText.EndsWith(afterComplete) && afterComplete.Length > 0)
                 {
-                    boxText = boxText.Substring(0, boxText.Length - afterComplete.Length);        
+                    boxText = boxText.Substring(0, boxText.Length - afterComplete.Length);
+                    selectionStart = selectionStart - afterComplete.Length;
                 }
 
                 //get the partial nick
                 if (boxText.IndexOf(' ') == -1)
                     _partialNick = boxText;
                 else
-                    _partialNick = boxText.Substring(boxText.LastIndexOf(' ') + 1);
-
+                {
+                    //at the end of the inputbox
+                    if (selectionStart == boxText.Length)
+                        _partialNick = boxText.Substring(boxText.LastIndexOf(' ') + 1);
+                    else
+                    {
+                        tabStart = boxText.Substring(0, selectionStart).LastIndexOf(' ') + 1;
+                        _partialNick = boxText.Substring(tabStart, selectionStart - tabStart);
+                        if (tabStart == 0)
+                            tabStart = _partialNick.Length;
+                    }
+                }
                 if (_partialNick.Length == 0)
                     return;
 
                 //get the current window
-                //if this is FormMain - it is not docked 
-
                 if (Array.IndexOf(FormMain.Instance.CurrentWindow.Connection.ServerSetting.ChannelTypes, _partialNick[0]) != -1)
                 {
                     //channel name complete
@@ -252,7 +264,7 @@ namespace IceChat
                     this._nickNumber = -1;
                     return;
                 }
-                
+
                 if (_nickNumber == -1)
                 {
                     _nickCompleteNames.Clear();
@@ -272,7 +284,7 @@ namespace IceChat
                     }
                     if (_nickCompleteNames.Count == 0)
                         return;
-                    
+
                     _nickCompleteNames.Sort();
 
                     _nickNumber = 0;
@@ -284,14 +296,24 @@ namespace IceChat
                         _nickNumber = -1;
                         return;
                     }
-                    
+
                     _nickNumber++;
-                    if ( _nickNumber > (_nickCompleteNames.Count - 1))
+
+                    if (_nickNumber > (_nickCompleteNames.Count - 1))
                         _nickNumber = 0;
                 }
-
-                this.Text = boxText.Substring(0, boxText.Length - _partialNick.Length) + _nickCompleteNames[_nickNumber] + afterComplete;
-                this.SelectionStart = this.Text.Length;
+                //add to the end of the box
+                if (tabStart == 0)
+                {
+                    this.Text = boxText.Substring(0, boxText.Length - _partialNick.Length) + _nickCompleteNames[_nickNumber] + afterComplete;
+                    this.SelectionStart = this.Text.Length;
+                }
+                else
+                {
+                    string firstPart = boxText.Substring(0, selectionStart - _partialNick.Length) + _nickCompleteNames[_nickNumber];
+                    this.Text = firstPart + boxText.Substring(selectionStart);
+                    this.SelectionStart = firstPart.Length;
+                }
 
             }
             else if (FormMain.Instance.CurrentWindowStyle == IceTabPage.WindowType.Query || FormMain.Instance.CurrentWindowStyle == IceTabPage.WindowType.DCCChat)
@@ -306,28 +328,25 @@ namespace IceChat
                     _partialNick = boxText;
                 else
                     _partialNick = boxText.Substring(boxText.LastIndexOf(' ') + 1);
- 
+
                 if (_partialNick.Length == 0)
                     this.Text += FormMain.Instance.CurrentWindow.TabCaption;
                 else
                     this.Text = boxText.Substring(0, this.Text.Length - _partialNick.Length) + FormMain.Instance.CurrentWindow.TabCaption + afterComplete;
-                
+
                 this.SelectionStart = this.Text.Length;
 
             }
         }
         protected override void OnKeyUp(KeyEventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine("key up:" + e.Alt + ":" + e.Modifiers);
             //key up:False:None
-
             if (e.Alt)
             {
                 //show the menu bar if we are in a FormWindow
                 if (parent.Parent.Name == "IceTabPage")
                 {
                     FormWindow fw = (FormWindow)parent.Parent.Parent;
-                    System.Diagnostics.Debug.WriteLine(fw.MainMenu.Visible);
                     if (fw.MainMenu.Visible)
                         fw.MainMenu.Visible = false;
                     else
@@ -336,25 +355,25 @@ namespace IceChat
                 }
             }
         }
-		protected override void OnKeyDown(KeyEventArgs e)
-		{			
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
             if (e.Modifiers == Keys.Control)
-			{
-				if (e.KeyCode == Keys.K)
-				{
+            {
+                if (e.KeyCode == Keys.K)
+                {
                     base.SelectedText = "\x0003";
-					e.Handled=true;
-				}
-				else if (e.KeyCode == Keys.B)
-				{
-					base.SelectedText = "\x0002";
-					e.Handled=true;
-				}
-				else if (e.KeyCode == Keys.U)
-				{
+                    e.Handled = true;
+                }
+                else if (e.KeyCode == Keys.B)
+                {
+                    base.SelectedText = "\x0002";
+                    e.Handled = true;
+                }
+                else if (e.KeyCode == Keys.U)
+                {
                     base.SelectedText = "\x001F";
-					e.Handled=true;
-				}
+                    e.Handled = true;
+                }
                 else if (e.KeyCode == Keys.R)
                 {
                     base.SelectedText = "\x0016";
@@ -373,7 +392,7 @@ namespace IceChat
                 else if (e.KeyCode == Keys.D)
                 {
                     FormMain.Instance.debugWindowToolStripMenuItem.PerformClick();
-                    e.Handled = true;                
+                    e.Handled = true;
                 }
                 else if (e.KeyCode == Keys.S)
                 {
@@ -475,7 +494,8 @@ namespace IceChat
                             if (parent.Buffer.Count == 1)
                                 parent.CurrentHistoryItem = 1;
                             else
-                                return;                        }
+                                return;
+                        }
 
                         if ((parent.CurrentHistoryItem != parent.Buffer.Count - 1) || (base.Text.ToString() == parent.Buffer[parent.Buffer.Count - 1]))
                         {
@@ -492,7 +512,7 @@ namespace IceChat
                             base.SelectionStart = base.Text.Length;
                         }
                         return;
-                        
+
                     }
 
                     if (e.KeyCode == Keys.Down)
@@ -526,11 +546,9 @@ namespace IceChat
                         base.SelectionLength = base.Text.Length;
 
                         e.Handled = true;
-                        e.SuppressKeyPress = true;
-
                     }
                 }
-			}
+            }
 
 
             if (e.KeyCode == Keys.Tab && (e.KeyData & Keys.Control) != Keys.None)
@@ -545,12 +563,12 @@ namespace IceChat
                 }
             }
 
-			//code below is for the single line Inputbox
-			//UP Key
+            //code below is for the single line Inputbox
             if (base.Multiline == false)
             {
                 if (e.KeyCode == Keys.Up)
                 {
+                    //UP Key
                     e.Handled = true;
 
                     if (parent.CurrentHistoryItem <= 0)
@@ -643,7 +661,6 @@ namespace IceChat
             if (e.KeyCode == Keys.F3)
             {
                 e.Handled = true;
-
             }
 
             if (e.KeyCode == Keys.F5)
@@ -664,38 +681,40 @@ namespace IceChat
             }
 
             if (e.KeyCode == Keys.Escape)
-			{
-				e.Handled = true;				
-				base.Text = "";
-				return;
-			}
+            {
+                e.Handled = true;
+                base.Text = "";
+                return;
+            }
 
             if (base.Multiline == true)
             {
                 if (e.KeyCode == Keys.Enter && e.Modifiers != Keys.Shift)
                 {
                     e.Handled = true;
-                    e.SuppressKeyPress = true;
-    
+
                     if (base.Text.Length > 0)
                     {
                         parent.SendButtonClick();
                     }
-                    return;
                 }
             }
-			base.OnKeyDown (e);			
-		
-		}
-        
+
+            if (e.Handled)
+                e.SuppressKeyPress = true;
+
+            base.OnKeyDown(e);
+
+        }
+
         internal void OnEnterKey()
         {
             OnKeyPress(new KeyPressEventArgs((char)13));
         }
 
-		protected override void OnKeyPress(KeyPressEventArgs e)
-		{
-			string command = base.Text;
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+            string command = base.Text;
 
             bool ctrlKeyUsed = false;
             if (base.Multiline == false)
@@ -743,26 +762,26 @@ namespace IceChat
             {
                 base.OnKeyPress(e);
             }
-		}
-		
-		internal void addToBuffer(string data)
-		{
-			//add text to back _buffer
-			if (data.Length == 0) return;
+        }
+
+        internal void addToBuffer(string data)
+        {
+            //add text to back _buffer
+            if (data.Length == 0) return;
 
             //check for maximum back _buffer history here
-			//remove 1st item if exceeded size
-			if (parent.Buffer.Count > parent.MaxBufferSize)
+            //remove 1st item if exceeded size
+            if (parent.Buffer.Count > parent.MaxBufferSize)
                 parent.Buffer.Remove(parent.Buffer[0]);
-			
-			//check what the last value that was added, no need to duplicate
+
+            //check what the last value that was added, no need to duplicate
             if (parent.Buffer.Count > 0)
                 if (parent.Buffer[parent.Buffer.Count - 1].ToString() == data)
                     return;
 
             parent.Buffer.Add(data);
             parent.CurrentHistoryItem = parent.Buffer.Count - 1;
-		}
+        }
 
-	}
+    }
 }

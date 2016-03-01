@@ -44,6 +44,18 @@
             this.eventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableSoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.joinEventLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.partEventLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inChannelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.inConsoleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.quitEventLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inChannelToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.inConsoleToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.loggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openChannelLogFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableLoggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +64,7 @@
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forceDisconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemBlank = new System.Windows.Forms.ToolStripSeparator();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +90,6 @@
             this.contextMenuDebug = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuClearDebug = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuCloseDebug = new System.Windows.Forms.ToolStripMenuItem();
-            this.autoStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelButtons.SuspendLayout();
             this.contextMenuChannel.SuspendLayout();
             this.contextMenuServer.SuspendLayout();
@@ -248,7 +260,10 @@
             // 
             this.eventsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.disableEventsToolStripMenuItem,
-            this.disableSoundsToolStripMenuItem});
+            this.disableSoundsToolStripMenuItem,
+            this.joinEventLocationToolStripMenuItem,
+            this.partEventLocationToolStripMenuItem,
+            this.quitEventLocationToolStripMenuItem});
             this.eventsToolStripMenuItem.Name = "eventsToolStripMenuItem";
             this.eventsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.eventsToolStripMenuItem.Text = "Events";
@@ -256,16 +271,109 @@
             // disableEventsToolStripMenuItem
             // 
             this.disableEventsToolStripMenuItem.Name = "disableEventsToolStripMenuItem";
-            this.disableEventsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.disableEventsToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.disableEventsToolStripMenuItem.Text = "Disable Flashing";
             this.disableEventsToolStripMenuItem.Click += new System.EventHandler(this.disableEventsToolStripMenuItem_Click);
             // 
             // disableSoundsToolStripMenuItem
             // 
             this.disableSoundsToolStripMenuItem.Name = "disableSoundsToolStripMenuItem";
-            this.disableSoundsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.disableSoundsToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.disableSoundsToolStripMenuItem.Text = "Disable Sounds";
             this.disableSoundsToolStripMenuItem.Click += new System.EventHandler(this.disableSoundsToolStripMenuItem_Click);
+            // 
+            // joinEventLocationToolStripMenuItem
+            // 
+            this.joinEventLocationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inChannelToolStripMenuItem,
+            this.inConsoleToolStripMenuItem,
+            this.hideToolStripMenuItem});
+            this.joinEventLocationToolStripMenuItem.Name = "joinEventLocationToolStripMenuItem";
+            this.joinEventLocationToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.joinEventLocationToolStripMenuItem.Text = "Join Event Location";
+            // 
+            // inChannelToolStripMenuItem
+            // 
+            this.inChannelToolStripMenuItem.Name = "inChannelToolStripMenuItem";
+            this.inChannelToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.inChannelToolStripMenuItem.Text = "In Channel";
+            this.inChannelToolStripMenuItem.Click += new System.EventHandler(this.inChannelToolStripMenuItem_Click);
+            // 
+            // inConsoleToolStripMenuItem
+            // 
+            this.inConsoleToolStripMenuItem.Name = "inConsoleToolStripMenuItem";
+            this.inConsoleToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.inConsoleToolStripMenuItem.Text = "In Console";
+            this.inConsoleToolStripMenuItem.Click += new System.EventHandler(this.inConsoleToolStripMenuItem_Click);
+            // 
+            // hideToolStripMenuItem
+            // 
+            this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
+            this.hideToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.hideToolStripMenuItem.Text = "Hide";
+            this.hideToolStripMenuItem.Click += new System.EventHandler(this.hideToolStripMenuItem_Click);
+            // 
+            // partEventLocationToolStripMenuItem
+            // 
+            this.partEventLocationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inChannelToolStripMenuItem1,
+            this.inConsoleToolStripMenuItem1,
+            this.hideToolStripMenuItem1});
+            this.partEventLocationToolStripMenuItem.Name = "partEventLocationToolStripMenuItem";
+            this.partEventLocationToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.partEventLocationToolStripMenuItem.Text = "Part Event Location";
+            // 
+            // inChannelToolStripMenuItem1
+            // 
+            this.inChannelToolStripMenuItem1.Name = "inChannelToolStripMenuItem1";
+            this.inChannelToolStripMenuItem1.Size = new System.Drawing.Size(131, 22);
+            this.inChannelToolStripMenuItem1.Text = "In Channel";
+            this.inChannelToolStripMenuItem1.Click += new System.EventHandler(this.inChannelToolStripMenuItem1_Click);
+            // 
+            // inConsoleToolStripMenuItem1
+            // 
+            this.inConsoleToolStripMenuItem1.Name = "inConsoleToolStripMenuItem1";
+            this.inConsoleToolStripMenuItem1.Size = new System.Drawing.Size(131, 22);
+            this.inConsoleToolStripMenuItem1.Text = "In Console";
+            this.inConsoleToolStripMenuItem1.Click += new System.EventHandler(this.inConsoleToolStripMenuItem1_Click);
+            // 
+            // hideToolStripMenuItem1
+            // 
+            this.hideToolStripMenuItem1.Name = "hideToolStripMenuItem1";
+            this.hideToolStripMenuItem1.Size = new System.Drawing.Size(131, 22);
+            this.hideToolStripMenuItem1.Text = "Hide";
+            this.hideToolStripMenuItem1.Click += new System.EventHandler(this.hideToolStripMenuItem1_Click);
+            // 
+            // quitEventLocationToolStripMenuItem
+            // 
+            this.quitEventLocationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inChannelToolStripMenuItem2,
+            this.inConsoleToolStripMenuItem2,
+            this.hideToolStripMenuItem2});
+            this.quitEventLocationToolStripMenuItem.Name = "quitEventLocationToolStripMenuItem";
+            this.quitEventLocationToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.quitEventLocationToolStripMenuItem.Text = "Quit Event Location";
+            // 
+            // inChannelToolStripMenuItem2
+            // 
+            this.inChannelToolStripMenuItem2.Name = "inChannelToolStripMenuItem2";
+            this.inChannelToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
+            this.inChannelToolStripMenuItem2.Text = "In Channel";
+            this.inChannelToolStripMenuItem2.Click += new System.EventHandler(this.inChannelToolStripMenuItem2_Click);
+            // 
+            // inConsoleToolStripMenuItem2
+            // 
+            this.inConsoleToolStripMenuItem2.Name = "inConsoleToolStripMenuItem2";
+            this.inConsoleToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
+            this.inConsoleToolStripMenuItem2.Text = "In Console";
+            this.inConsoleToolStripMenuItem2.Click += new System.EventHandler(this.inConsoleToolStripMenuItem2_Click);
+            // 
+            // hideToolStripMenuItem2
+            // 
+            this.hideToolStripMenuItem2.Name = "hideToolStripMenuItem2";
+            this.hideToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
+            this.hideToolStripMenuItem2.Text = "Hide";
+            this.hideToolStripMenuItem2.Click += new System.EventHandler(this.hideToolStripMenuItem2_Click);
             // 
             // loggingToolStripMenuItem
             // 
@@ -294,7 +402,7 @@
             // 
             this.autoPerformToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.autoPerformToolStripMenuItem.Name = "autoPerformToolStripMenuItem";
-            this.autoPerformToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.autoPerformToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.autoPerformToolStripMenuItem.Text = "Auto Perform";
             this.autoPerformToolStripMenuItem.Click += new System.EventHandler(this.autoPerformToolStripMenuItem_Click);
             // 
@@ -314,13 +422,13 @@
             this.autoPerformToolStripMenuItem,
             this.openLogFolderToolStripMenuItem});
             this.contextMenuServer.Name = "contextMenuServer";
-            this.contextMenuServer.Size = new System.Drawing.Size(177, 236);
+            this.contextMenuServer.Size = new System.Drawing.Size(177, 214);
             // 
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
@@ -328,7 +436,7 @@
             // 
             this.disconnectToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.disconnectToolStripMenuItem.Text = "Disconnect";
             this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
             // 
@@ -340,10 +448,17 @@
             this.forceDisconnectToolStripMenuItem.Text = "Force disconnect";
             this.forceDisconnectToolStripMenuItem.Click += new System.EventHandler(this.forceDisconnectToolStripMenuItem_Click);
             // 
+            // autoStartToolStripMenuItem
+            // 
+            this.autoStartToolStripMenuItem.Name = "autoStartToolStripMenuItem";
+            this.autoStartToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.autoStartToolStripMenuItem.Text = "Connect on startup";
+            this.autoStartToolStripMenuItem.Click += new System.EventHandler(this.autoStartToolStripMenuItem_Click);
+            // 
             // toolStripMenuItemBlank
             // 
             this.toolStripMenuItemBlank.Name = "toolStripMenuItemBlank";
-            this.toolStripMenuItemBlank.Size = new System.Drawing.Size(162, 6);
+            this.toolStripMenuItemBlank.Size = new System.Drawing.Size(173, 6);
             // 
             // editToolStripMenuItem
             // 
@@ -364,13 +479,13 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(162, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(173, 6);
             // 
             // autoJoinToolStripMenuItem
             // 
             this.autoJoinToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.autoJoinToolStripMenuItem.Name = "autoJoinToolStripMenuItem";
-            this.autoJoinToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.autoJoinToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.autoJoinToolStripMenuItem.Text = "Auto Join";
             this.autoJoinToolStripMenuItem.Click += new System.EventHandler(this.autoJoinToolStripMenuItem_Click);
             // 
@@ -378,7 +493,7 @@
             // 
             this.openLogFolderToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.openLogFolderToolStripMenuItem.Name = "openLogFolderToolStripMenuItem";
-            this.openLogFolderToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.openLogFolderToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.openLogFolderToolStripMenuItem.Text = "Open Log Folder";
             this.openLogFolderToolStripMenuItem.Click += new System.EventHandler(this.openLogFolderToolStripMenuItem_Click);
             // 
@@ -392,14 +507,14 @@
             this.silenceUserToolStripMenuItem,
             this.eventsQueryMenuItem});
             this.contextMenuQuery.Name = "contextMenuQuery";
-            this.contextMenuQuery.Size = new System.Drawing.Size(164, 114);
+            this.contextMenuQuery.Size = new System.Drawing.Size(164, 136);
             // 
             // clearQueryToolStripMenuItem
             // 
             this.clearQueryToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.clearQueryToolStripMenuItem.Name = "clearQueryToolStripMenuItem";
             this.clearQueryToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.clearQueryToolStripMenuItem.Text = "Clear Window";
+            this.clearQueryToolStripMenuItem.Text = "Clear Query";
             this.clearQueryToolStripMenuItem.Click += new System.EventHandler(this.clearQueryToolStripMenuItem_Click);
             // 
             // closeQueryToolStripMenuItem
@@ -407,7 +522,7 @@
             this.closeQueryToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.closeQueryToolStripMenuItem.Name = "closeQueryToolStripMenuItem";
             this.closeQueryToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.closeQueryToolStripMenuItem.Text = "Close Window";
+            this.closeQueryToolStripMenuItem.Text = "Close Query";
             this.closeQueryToolStripMenuItem.Click += new System.EventHandler(this.closeQueryToolStripMenuItem_Click);
             // 
             // userInformationToolStripMenuItem
@@ -535,13 +650,6 @@
             this.toolStripMenuCloseDebug.Text = "Close Window";
             this.toolStripMenuCloseDebug.Click += new System.EventHandler(this.toolStripMenuCloseDebug_Click);
             // 
-            // autoStartToolStripMenuItem
-            // 
-            this.autoStartToolStripMenuItem.Name = "autoStartToolStripMenuItem";
-            this.autoStartToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.autoStartToolStripMenuItem.Text = "Connect on startup";
-            this.autoStartToolStripMenuItem.Click += new System.EventHandler(this.autoStartToolStripMenuItem_Click);
-            // 
             // ServerTree
             // 
             this.AccessibleDescription = "List of servers and channels associated with them once connected";
@@ -618,5 +726,17 @@
         private System.Windows.Forms.ToolStripMenuItem eventsQueryMenuItem;
         private System.Windows.Forms.ToolStripMenuItem disableSoundsQueryMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autoStartToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem joinEventLocationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inChannelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inConsoleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem partEventLocationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inChannelToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem inConsoleToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem quitEventLocationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inChannelToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem inConsoleToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem2;
     }
 }

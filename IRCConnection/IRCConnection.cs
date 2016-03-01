@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
+using System.Security.Authentication;
 
 namespace IceChat
 {
@@ -81,19 +82,21 @@ namespace IceChat
         public delegate string ParseIdentifierDelegate(IRCConnection connection, string message);
         public event ParseIdentifierDelegate ParseIdentifier;
 
-
         public IRCConnection(ServerSetting ss)
         {
             commandQueue = new ArrayList();
             sendBuffer = new Queue<string>();
             serverSetting = ss;
 
-            reconnectTimer = new System.Timers.Timer(60000);
+            reconnectTimer = new System.Timers.Timer(ss.ReconnectTime * 1000);
             reconnectTimer.Elapsed += new System.Timers.ElapsedEventHandler(OnReconnectTimerElapsed);
 
-            buddyListTimer = new System.Timers.Timer(60000);
-            buddyListTimer.Elapsed += new System.Timers.ElapsedEventHandler(OnBuddyListTimerElapsed);
-            
+            if (!ss.MonitorSupport)
+            {
+                buddyListTimer = new System.Timers.Timer(60000);
+                buddyListTimer.Elapsed += new System.Timers.ElapsedEventHandler(OnBuddyListTimerElapsed);
+            }
+
             if (ss.PingTimerMinutes < 1)    //force to 1 minute minimum
                 ss.PingTimerMinutes = 1;
             
@@ -103,9 +106,6 @@ namespace IceChat
             autoAwayTimer = new System.Timers.Timer();
             autoAwayTimer.Elapsed += new System.Timers.ElapsedEventHandler(OnAutoAwayTimerElapsed);
             autoAwayTimer.Enabled = false;
-
-            //buddyListTimer.Enabled = true;
-            //buddyListTimer.Start();
 
             ircTimers = new List<IrcTimer>();
         }
@@ -130,44 +130,104 @@ namespace IceChat
         {
             if (ParseIdentifier != null)
                 msg = ParseIdentifier(this, msg);
+            
             return msg;
         }
 
+        public void MonitorListCheck()
+        {
+            if (serverSetting.BuddyListEnable)
+            {
+                string isOn = string.Empty;
+                string isNotOn = string.Empty;
+
+                foreach (BuddyListItem buddy in serverSetting.BuddyList)
+                {
+                    if (!buddy.IsOnSent)
+                    {
+                        if (!buddy.Nick.StartsWith(";"))
+                        {
+                            if (isOn == string.Empty)
+                                isOn = buddy.Nick;
+                            else
+                                isOn += "," + buddy.Nick;
+
+                            buddy.IsOnSent = true;
+                            buddy.IsOnReceived = false;
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("remove:" + buddy.Nick + ":" + buddy.IsOnSent + ":" + buddy.IsOnReceived + ":" + buddy.Connected);
+
+                            //remove from list --if it was 
+                            if (buddy.IsOnReceived)
+                            {
+                                if (isNotOn == string.Empty)
+                                    isNotOn = buddy.Nick.Substring(1);
+                                else
+                                    isNotOn += "," + buddy.Nick.Substring(1);
+
+                                buddy.IsOnSent = true;
+                                buddy.IsOnReceived = false;
+                            
+                                //need to remove from the buddy list
+                                BuddyRemove(this, buddy);
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        //buddy has been sent, see if it has been disabled
+                        if (buddy.Nick.StartsWith(";"))
+                        {
+                            System.Diagnostics.Debug.WriteLine("Buddy Sent but Disabled:" + buddy.Nick);
+                        }
+
+                    }
+
+                }
+                if (isOn != string.Empty)
+                {
+                    System.Diagnostics.Debug.WriteLine("MONITOR + " + isOn + " *");
+                    SendData("MONITOR + " +isOn+ " *");
+                }
+                
+                if (isNotOn != string.Empty)
+                {
+                    System.Diagnostics.Debug.WriteLine("MONITOR - " + isNotOn + " *");
+                    SendData("MONITOR - " + isNotOn + " *");
+                }
+            }
+        }
 
         public void BuddyListCheck()
         {
-            //System.Diagnostics.Debug.WriteLine("buddy list:" + serverSetting.BuddyListEnable + ":" + serverSetting.BuddyList.Length);
             if (serverSetting.BuddyListEnable)
             {
                 string ison = string.Empty;
 
                 foreach (BuddyListItem buddy in serverSetting.BuddyList)
                 {
-                    //System.Diagnostics.Debug.WriteLine("check:" + buddy.Nick + ":" + buddy.IsOnSent);
                     if (ison.Length > 200)
                         break;
                     else if (!buddy.IsOnSent)
                     {
                         if (!buddy.Nick.StartsWith(";"))
                         {
-                            if (serverSetting.MonitorSupport)
-                                ison += "," + buddy.Nick;
-                            else
-                                ison += " " + buddy.Nick;
+                            ison += " " + buddy.Nick;
 
                             buddy.IsOnSent = true;
                             buddy.IsOnReceived = false;
                         }
+
                         buddiesIsOnSent++;
                     }
                 }
 
                 if (ison != string.Empty)
                 {
-                    if (serverSetting.MonitorSupport)
-                        ison = "MONITOR + " + ison;
-                    else
-                        ison = "ISON" + ison;
+                    ison = "ISON" + ison;
 
                     SendData(ison);
                 }
@@ -222,7 +282,6 @@ namespace IceChat
 
         public void AddToCommandQueue(string command)
         {
-            //System.Diagnostics.Debug.WriteLine("queue:" + command);
             commandQueue.Add(command);
         }
 
@@ -299,72 +358,102 @@ namespace IceChat
 
             ServerDisconnect(this);
 
-            System.Diagnostics.Debug.WriteLine("ondisconnect");
-            
-            //OnDisconnected();            
-            //ServerForceDisconnect(this);
         }
 
         private void OnDisconnected()
         {
-            System.Diagnostics.Debug.WriteLine("onDisconnected");
-            
-            RefreshServerTree(this);
+            int howFar = 0;
 
-            if (serverSetting.UseBNC == true)
-                StatusText(this, serverSetting.CurrentNickName + " disconnected (" + serverSetting.BNCIP + ")");
-            else
-                StatusText(this, serverSetting.CurrentNickName + " disconnected (" + serverSetting.ServerName + ")");
-            
-            serverSocket = null;
-            serverSetting.ConnectedTime = DateTime.Now;
-
-            commandQueue.Clear();
-            pongTimer.Enabled = false;
-
-            buddyListTimer.Stop();
-            BuddyListClear(this);
-
-            if (serverSetting.BuddyList != null)
+            try
             {
-                foreach (BuddyListItem buddy in serverSetting.BuddyList)
+                RefreshServerTree(this);
+
+                howFar = 2;
+
+                if (serverSetting.UseBNC == true)
+                    StatusText(this, serverSetting.CurrentNickName + " disconnected (" + serverSetting.BNCIP + ")");
+                else
+                    StatusText(this, serverSetting.CurrentNickName + " disconnected (" + serverSetting.ServerName + ")");
+
+                howFar = 3;
+
+                serverSocket = null;
+                serverSetting.ConnectedTime = DateTime.Now;
+
+                howFar = 4;
+
+                commandQueue.Clear();
+                pongTimer.Enabled = false;
+
+                howFar = 5;
+                if (buddyListTimer != null)
+                    buddyListTimer.Stop();
+
+                howFar = 6;
+                
+                BuddyListClear(this);
+
+                howFar = 6;
+
+                if (serverSetting.BuddyList != null)
                 {
-                    buddy.Connected = false;
-                    buddy.PreviousState = false;
-                    buddy.IsOnSent = false;
-                    buddy.IsOnReceived = false;
+                    foreach (BuddyListItem buddy in serverSetting.BuddyList)
+                    {
+                        buddy.Connected = false;
+                        buddy.PreviousState = false;
+                        buddy.IsOnSent = false;
+                        buddy.IsOnReceived = false;
+                    }
                 }
+
+                howFar = 7;
+
+                initialLogon = false;
+
+                serverSetting.TriedAltNick = false;
+                serverSetting.ChannelJoins.Clear();
+
+                howFar = 8;
+
+                fullyConnected = false;
+
+                if (serverSetting.IAL != null)
+                    serverSetting.IAL.Clear();
+
+                howFar = 9;
+
+                serverSetting.Away = false;
+                serverSetting.RealServerName = "";
+                serverSetting.CurrentNickName = "";
+
+                howFar = 10;
+
+                pongTimer.Stop();
+                autoAwayTimer.Stop();
+
+                howFar = 11;
+
+                if (serverSetting.UseProxy)
+                    proxyAuthed = false;
+
+                howFar = 12;
+
+                //disable and remove all timers
+                foreach (IrcTimer t in ircTimers)
+                    t.DisableTimer();
+
+                howFar = 13;
+
+                ircTimers.Clear();
+                
+                howFar = 14;
+
             }
-
-            initialLogon = false;
-            
-            serverSetting.TriedAltNick = false;
-
-            fullyConnected = false;
-
-            if (serverSetting.IAL != null)
-                serverSetting.IAL.Clear();
-
-            serverSetting.Away = false;
-            serverSetting.RealServerName = "";
-            serverSetting.CurrentNickName = "";
-
-            pongTimer.Stop();
-            autoAwayTimer.Stop();
-
-            if (serverSetting.UseProxy)
-                proxyAuthed = false;
-
-            //disable and remove all timers
-            foreach (object key in ircTimers)
+            catch (Exception ex)
             {
-                ((IrcTimer)key).DisableTimer();
+                ServerError(this, "OnDisconnected Exception Error: " + ex.Message.ToString() + ":" + howFar, false);
             }
-            ircTimers.Clear();
-
-
         }
-
 
         /// <summary>
         /// Event for Server Connection
@@ -424,7 +513,18 @@ namespace IceChat
                 try
                 {
                     sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
-                    sslStream.AuthenticateAsClient(serverSetting.ServerName);
+                    //sslStream.AuthenticateAsClient(serverSetting.ServerName);
+
+                    //System.Diagnostics.Debug.WriteLine("attempt start tls");
+
+                    SslProtocols enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
+                    //SslProtocols enabledSslProtocols = SslProtocols.Tls;
+                    
+                    bool checkCertificateRevocation = true;
+
+                    //sslStream.AuthenticateAsClient(serverSetting.ServerName, null, System.Security.Authentication.SslProtocols.Tls ,false);
+                    sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, checkCertificateRevocation);
+
                     ServerMessage(this, "*** You are connected to this server with " + sslStream.SslProtocol.ToString().ToUpper() + "-" + sslStream.CipherAlgorithm.ToString().ToUpper() + sslStream.CipherStrength + "-" + sslStream.HashAlgorithm.ToString().ToUpper() + "-" + sslStream.HashStrength + "bits", "");
                 }
                 catch (System.Security.Authentication.AuthenticationException ae)
@@ -436,18 +536,18 @@ namespace IceChat
                     ForceDisconnect();
                     return;
                 }
-                catch(System.IO.IOException ex)
+                catch (System.IO.IOException ex)
                 {
                     if (ServerError != null)
                         ServerError(this, "SSL IO Exception Error :" + ex.Message.ToString(), false);
-                    
+
                     disconnectError = true;
                     ForceDisconnect();
                     return;
 
                 }
                 catch (Exception e)
-                {                    
+                {
                     if (ServerError != null)
                         ServerError(this, "SSL Exception Error :" + e.Message.ToString(), false);
 
@@ -584,18 +684,20 @@ namespace IceChat
                     if (serverSetting.UseBNC == true && serverSetting.BNCPass != null && serverSetting.BNCPass.Length > 0)
                         SendData("PASS " + serverSetting.BNCPass);
 
+                    //check for IRCv3 capability
                     SendData("CAP LS");
-                    //should we wait for a response to this?
 
-                    //send the USER / NICK stuff
+                    //send the USER / NICK stuff                    
+                    
                     SendData("NICK " + serverSetting.NickName);
 
                     if (serverSetting.UseBNC == true && serverSetting.BNCUser != null && serverSetting.BNCUser.Length > 0)
                         SendData("USER " + serverSetting.BNCUser + " \"localhost\" \"" + serverSetting.BNCIP + "\" :" + serverSetting.FullName);
                     else
                         SendData("USER " + serverSetting.IdentName + " \"localhost\" \"" + serverSetting.ServerName + "\" :" + serverSetting.FullName);
-
+                    
                     ServerMessage(this, "Sending User Registration Information", "");
+                    
 
                     whichAddressinList = whichAddressCurrent;
                     
@@ -699,8 +801,6 @@ namespace IceChat
                         try
                         {
                             //raise an event for the debug window
-                            //System.Diagnostics.Debug.WriteLine("pending ssl " + m_PendingWriteSSL + ":" + sendBuffer.Count);
-
                             if (m_PendingWriteSSL == false)
                             {
                                 if (sendBuffer.Count > 0)
@@ -967,17 +1067,12 @@ namespace IceChat
         {
             int bytesRead;
             
-            //NetworkStream ns = (NetworkStream)ar.AsyncState;
-            //System.IO.Stream stream;
-            
             try
             {
                 if (serverSetting.UseSSL == true)
                     bytesRead = sslStream.EndRead(ar);
                 else
                     bytesRead = socketStream.EndRead(ar);
-
-                //bytesRead = ns.EndRead(ar);
 
                 if (serverSetting.UseProxy && !proxyAuthed)
                 {
@@ -1475,7 +1570,6 @@ namespace IceChat
 
                             serverSocket.SetSocketOption(SocketOptionLevel.IPv6, (SocketOptionName)27, 0);
                             serverSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, 1);                            
-                            //serverSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
 
                             System.Diagnostics.Debug.WriteLine("ipv6 connect:" + ipe.AddressFamily.ToString() + ":" + ipAddress.ToString());
 
@@ -1647,29 +1741,25 @@ namespace IceChat
 
         public void DestroyTimer(string id)
         {
-            IrcTimer remove = null;
-
-            foreach (IrcTimer timer in ircTimers)
-            {
-                if (timer.TimerID == id)
+            IrcTimer timer = ircTimers.Find(
+                delegate(IrcTimer t)
                 {
-                    timer.DisableTimer();
-                    remove = timer;
+                    return t.TimerID == id;
                 }
-            }
-            if (remove != null)
-                ircTimers.Remove(remove);
+            );
+
+            if (timer != null)
+               ircTimers.Remove(timer);
 
         }
 
-        private void OnTimerElapsed(string command)
+        private void OnTimerElapsed(string timerID, string command)
         {
             OutGoingCommand(this, command);
         }
 
         public void SetAutoAwayTimer(int minutes)
         {
-            System.Diagnostics.Debug.WriteLine("set auto away " + minutes);
             autoAwayTimer.Stop();
             autoAwayTimer.Interval = minutes * 60000;
             autoAwayTimer.Start();

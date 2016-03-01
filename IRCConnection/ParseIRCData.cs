@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -93,6 +93,7 @@ namespace IceChat
 
         public event BuddyListDelegate BuddyListData;
         public event BuddyListClearDelegate BuddyListClear;
+        public event BuddyRemoveDelegate BuddyRemove;
         public event MonitorListDelegate MonitorListData;
 
         public event AutoJoinDelegate AutoJoin;
@@ -164,6 +165,9 @@ namespace IceChat
                         //remove server time from ircData, and re-split
                         data = data.Substring(ircData[0].Length + 1);
                         ircData = data.Split(' ');
+
+                        //System.Diagnostics.Debug.WriteLine("Time:" + serverTimeValue);
+
                     }
                 }
 
@@ -244,6 +248,33 @@ namespace IceChat
                             break;
 
                         case "004":
+                            ServerMessage(this, JoinString(ircData, 3, false), serverTimeValue);
+                            //<server> <version> <usermode> <chanmode> <chanmode params> <usermode params> <servermode> <servermode params>
+
+                            //System.Diagnostics.Debug.WriteLine("004:" + ircData.Length);
+                            //8 == dioswkgxRXInP biklmnopstvrDcCNuMT bklov
+                            
+                            string chanModes = "";
+                            switch (ircData.Length)
+                            {
+                                case 7:
+                                    // <usermode> <chanmode>
+                                    chanModes = ircData[5];
+                                    break;
+                                case 8:
+                                    // <usermode> <chanmode> <chanmode params>
+                                    chanModes = ircData[6];
+                                    //remove the param chars
+                                    foreach(char c in ircData[7])
+                                        chanModes = chanModes.Replace(c.ToString(),"");
+
+                                    serverSetting.ChannelModeNoParam = chanModes;
+                                    //System.Diagnostics.Debug.WriteLine(chanMode);
+                                    
+                                    break;
+
+                            }
+                            break;
                         case "005":
                             ServerMessage(this, JoinString(ircData, 3, false), serverTimeValue);
 
@@ -290,13 +321,17 @@ namespace IceChat
                                         client; when sent by a client, they may be specified without a
                                         parameter, which requests the server to display the current
                                         contents of the corresponding list on the channel to the client.
+                                        
                                         Type B: Modes that change a setting on the channel. These modes
                                         always take a parameter.
+                                        
                                         Type C: Modes that change a setting on the channel. These modes
                                         take a parameter only when set; the parameter is absent when the
                                         mode is removed both in the client's and server's MODE command.
+                                        
                                         Type D: Modes that change a setting on the channel. These modes
                                         never take a parameter.
+                                        
                                         */
 
                                         //CHANMODES=b,k,l,imnpstrDducCNMT
@@ -307,7 +342,10 @@ namespace IceChat
                                             serverSetting.ChannelModeAddress = modes[0];
                                             serverSetting.ChannelModeParam = modes[1];
                                             serverSetting.ChannelModeParamNotRemove = modes[2];
-                                            serverSetting.ChannelModeNoParam = modes[3];
+                                            serverSetting.ChannelModeNoParam += modes[3];
+
+                                            serverSetting.ChannelModeNoParam = RemoveDuplicates(serverSetting.ChannelModeNoParam);
+
                                         }
                                     }
                                 }
@@ -840,8 +878,15 @@ namespace IceChat
                                 return;
                             }
 
-                            BuddyListCheck();
-                            buddyListTimer.Start();
+                            if (serverSetting.MonitorSupport)
+                            {
+                                MonitorListCheck();
+                            }
+                            else
+                            {
+                                BuddyListCheck();
+                                buddyListTimer.Start();
+                            }
 
                             if (fullyConnected)
                                 return;
@@ -1452,65 +1497,52 @@ namespace IceChat
                             if (ircData[3] == "LS")
                             {
                                 ServerMessage(this, "Capabilities supported: " + tempValue, serverTimeValue);
-                                
-                                string sendREQ = "";
 
-                                //identify-msg has been deprecated
-                                //if (this.serverSetting.UseIdentifyMsg)
-                                //    if (tempValue.IndexOf("identify-msg") > -1)
-                                //        sendREQ += "identify-msg ";
-                                
-                                if (tempValue.IndexOf("account-notify") > -1)
-                                    if (serverSetting.AccountNotify)
-                                        sendREQ += "account-notify ";
+                                string sendREQ = CapREQ(tempValue);
 
-                                if (tempValue.IndexOf("away-notify") > -1)
-                                    if (serverSetting.AwayNotify)
-                                        sendREQ += "away-notify ";
-
-                                if (tempValue.IndexOf("extended-join") > -1)
-                                    if (serverSetting.ExtendedJoin)
-                                        sendREQ += "extended-join ";
-
-                                if (tempValue.IndexOf("multi-prefix") > -1)
-                                    sendREQ += "multi-prefix ";                                                               
-
-                                if (tempValue.IndexOf("sasl") > -1)
-                                    if (serverSetting.UseSASL)
-                                        sendREQ += "sasl ";
-
-                                if (tempValue.IndexOf("userhost-in-names") > -1)
-                                {
-                                    //dont enable if BNC
-                                    //has issues with http://pastebin.com/yh0esuCU
-                                    //if (!serverSetting.UseBNC)
-                                        //sendREQ += "userhost-in-names ";
-                                }
-
-                                if (tempValue.IndexOf("znc.in/server-time-iso") > -1)
-                                {
-                                    //:@time=2014-03-18T01:55:08.596Z :dickson.freenode.net 
-                                    sendREQ += "znc.in/server-time-iso ";
-                                    serverSetting.UseServerTime = true;
-                                }
-
-                                //no use for TLS
-                                //if (tempValue.IndexOf("tls") > -1)
-                                //    sendREQ += "tls ";
-
-                                //sendREQ += "server-time ";
+                                // Server: CAP * LS * :capabailirty .. check for the *    
 
                                 if (sendREQ.Length > 0)
                                 {
                                     ServerMessage(this, "Capabilities requested: " + sendREQ.Trim(), serverTimeValue);
                                     SendData("CAP REQ :" + sendREQ.Trim());
                                 }
+                                else
+                                    SendData("CAP END");
                             }
                             else if (ircData[3] == "NAK")
                             {
                                 //REJECTED - FAILED
 
                                 SendData("CAP END");
+                            }
+                            //:irc.dereferenced.org CAP Snerf LIST cap-notify
+                            else if (ircData[3] == "LIST")
+                            {
+                                // check for a *
+                                ServerMessage(this, "Capabilities List: " + tempValue, serverTimeValue);                            
+                            }
+                            else if (ircData[3] == "NEW")
+                            {
+                                // check for a *
+                                ServerMessage(this, "Capabilities New Capability: " + tempValue, serverTimeValue);
+                                
+                                // send a CAP REQ ?
+                                string sendREQ = CapREQ(tempValue);
+
+                                // Server: CAP * LS * :capabailirty .. check for the *    
+                                if (sendREQ.Length > 0)
+                                {
+                                    ServerMessage(this, "Capabilities requested: " + sendREQ.Trim(), serverTimeValue);
+                                    SendData("CAP REQ :" + sendREQ.Trim());
+                                }
+                            }
+                            else if (ircData[3] == "DEL")
+                            {
+                                // check for a *
+                                ServerMessage(this, "Capabilities Removed Capability: " + tempValue, serverTimeValue);
+                                // split them up, disable settings
+
                             }
                             else if (ircData[3] == "ACK")
                             {
@@ -1532,6 +1564,12 @@ namespace IceChat
                                     //extended away is enabled
                                 }
 
+                                if (tempValue.IndexOf("cap-notify") > -1)
+                                {
+                                    //cap notify is enabled - http://ircv3.net/specs/extensions/cap-notify-3.2.html
+                                
+                                }
+
                                 if (tempValue.IndexOf("userhost-in-names") > -1)
                                 {
                                     //userhost is passed along in NAMES (353)
@@ -1540,13 +1578,18 @@ namespace IceChat
                                         serverSetting.UserhostInName = true;  
                                 }
                                 
-                                
+                                /*
                                 if (tempValue.IndexOf("tls") > -1)
                                 {
                                     //tls will not be enabled
+                                    if (serverSetting.UseTLS && !serverSetting.UseSSL) // dont use TLS if alrerady using SSL
+                                    {
+                                        System.Diagnostics.Debug.WriteLine("Enable tls handshake");
+                                        SendData("STARTTLS");
+                                    }
                                 }
+                                */
 
-                                //::sendak.freenode.net CAP Snerf_ ACK :multi-prefix 
                                 if (tempValue.IndexOf("sasl") > -1)
                                 {
                                     //sasl is enabled
@@ -1555,14 +1598,25 @@ namespace IceChat
                                         SendData("AUTHENTICATE PLAIN");
                                 }
                                 else
+                                    //dont send a CAP END if we have not authenticated
                                     SendData("CAP END");
 
                             }
                             break;
                         case "670": //RPL_STARTTLS
-                            //totoro.staticbox.net 670 Snerf :STARTTLS successful, proceed with TLS handshake
-                            //http://ircv3.org/extensions/tls-3.1
-                            ServerMessage(this, JoinString(ircData, 3, true), serverTimeValue);                            
+                            // totoro.staticbox.net 670 Snerf :STARTTLS successful, proceed with TLS handshake
+                            // http://ircv3.net/specs/extensions/tls-3.1.html
+                            ServerMessage(this, JoinString(ircData, 3, true), serverTimeValue);                   
+         
+                            // Start the TLS Handshake here
+                            // the connection is waiting for a TLS handshake
+                            
+
+                            break;
+                        case "691": // RPL_STARTTLSFAIL
+                            // STARTTLS failure
+                            ServerMessage(this, JoinString(ircData, 3, true), serverTimeValue);                   
+
                             break;
 
                         case "900": //SASL logged in as ..
@@ -1584,11 +1638,12 @@ namespace IceChat
                             break;
                         
                         case "730": //monitor response for ONLINE
-                            //ServerMessage(this, JoinString(ircData, 3, true) +" is online", serverTimeValue);
+                            // :rajaniemi.freenode.net 730 Snerf9 :Bubi!~Bubi@p5DE95D59.dip0.t-ipconnect.de,Snerf!IceCha t9@unaffiliated/Snerf
+                            //[02:26.05] ->2 :rajaniemi.freenode.net 731 Snerf9 :madmn,IceCold101
+                            
                             MonitorListData(this, JoinString(ircData, 3, true), true, serverTimeValue);
                             break;
                         case "731": //monitor response for OFFLINE
-                            //ServerMessage(this, JoinString(ircData, 3, true) + " is offline", serverTimeValue);
                             MonitorListData(this, JoinString(ircData, 3, true), false, serverTimeValue);                            
                             break;
 
@@ -1598,6 +1653,17 @@ namespace IceChat
                             ServerMessage(this, JoinString(ircData, 3, true), serverTimeValue);
                             break;
                         
+                        case "CHGHOST": // change host
+                            // http://ircv3.net/specs/extensions/chghost-3.2.html
+                            // :nick!user@host CHGHOST newuser host
+                            // change host in IAL
+                            nick = ircData[2];
+                            // get the ident??
+                            //IALUserData(this, nick, ircData[3], "");
+
+                            ServerMessage(this, JoinString(ircData, 3, true), serverTimeValue); 
+                            break;
+
                         /*************  IRCV3 extras *******************/
 
 
@@ -1668,34 +1734,10 @@ namespace IceChat
                                     }
                                     else
                                     {
-                                        OutGoingCommand(this, "/addtext /nick ");
-                                        ServerMessage(this, "Choose a new nickname", "");
+                                        ServerMessage(this, "Nick and Alt Nick both in use. Please choose a new nickname", "");
                                     }
                                 }
                             }
-                            else
-                            {
-                                //pick a random nick
-                                /*
-                                Random r = new Random();
-                                string randNick = r.Next(10, 99).ToString();
-                                if (serverSetting.NickName.Length + 2 <= serverSetting.MaxNickLength)
-                                {
-                                    serverSetting.NickName = serverSetting.NickName + randNick;
-                                    SendData("NICK " + serverSetting.NickName);
-                                }
-                                else
-                                {
-                                    serverSetting.NickName = serverSetting.NickName.Substring(0, serverSetting.MaxNickLength - 2);
-                                    serverSetting.NickName = serverSetting.NickName + randNick;
-                                    SendData("NICK " + serverSetting.NickName);
-                                }
-                                */
-
-                                //OutGoingCommand(this, "/addtext /nick "); 
-                                //ServerMessage(this,"Choose a new nickname");
-                            }
-
                             break;
                         case "465": //no open proxies
                         case "513": //if you can not connect, type /quote PONG ...
@@ -1727,6 +1769,8 @@ namespace IceChat
             if (!this.serverSetting.IgnoreListEnable) return false; //if ignore list is disabled, no match
             if (this.serverSetting.IgnoreList.Length == 0) return false;    //if no items in list, no match
 
+            string onlyHost = host.Substring(host.IndexOf("@") + 1).ToLower();
+
             foreach (string ignore in serverSetting.IgnoreList)
             {
                 if (!ignore.StartsWith(";"))    //check to make sure its not disabled
@@ -1735,9 +1779,27 @@ namespace IceChat
                     if (nick.ToLower() == ignore.ToLower()) return true;
 
                     //check if we are looking for a host match
-                    if (ignore.Contains("!") && ignore.Contains("@"))
+                    if (ignore.Contains("@"))
                     {
+                        //do a host match
+                        string hostMatch = ignore.Substring(ignore.IndexOf("@") + 1).ToLower();
 
+                        // exact match
+                        if (ignore.ToLower() == onlyHost.ToLower()) return true;
+
+                        if (hostMatch == onlyHost) return true;
+
+                        if (hostMatch.StartsWith("*"))
+                        {
+                            //match the end
+                            if (onlyHost.EndsWith(hostMatch.TrimStart('*'))) return true;
+                        }
+                        else if (hostMatch.EndsWith("*"))
+                        {
+                            //match the start
+                            if (onlyHost.StartsWith(hostMatch.TrimEnd('*'))) return true;
+                        }
+                        
                     }
                     else
                     {
@@ -1748,6 +1810,107 @@ namespace IceChat
             }
 
             return false;
+        }
+
+        private string RemoveDuplicates(string input)
+        {
+            string result = "";
+            foreach (char c in input)
+            {
+                if (!result.Contains(c.ToString()) || c == ' ')
+                    result += c;
+            }
+            return result;
+        }
+
+
+        private string CapREQ(string tempValue)
+        {
+            string sendREQ = "";
+
+            //identify-msg has been deprecated
+            //if (this.serverSetting.UseIdentifyMsg)
+            //    if (tempValue.IndexOf("identify-msg") > -1)
+            //        sendREQ += "identify-msg ";
+
+
+            if (tempValue.IndexOf("account-notify") > -1)
+                if (serverSetting.AccountNotify)
+                    sendREQ += "account-notify ";
+
+            if (tempValue.IndexOf("away-notify") > -1)
+                if (serverSetting.AwayNotify)
+                    sendREQ += "away-notify ";
+
+            if (tempValue.IndexOf("extended-join") > -1)
+                if (serverSetting.ExtendedJoin)
+                    sendREQ += "extended-join ";
+
+            if (tempValue.IndexOf("multi-prefix") > -1)
+                sendREQ += "multi-prefix ";
+
+            if (tempValue.IndexOf("sasl") > -1)
+                if (serverSetting.UseSASL)
+                    sendREQ += "sasl ";
+
+            if (tempValue.IndexOf("userhost-in-names") > -1)
+            {
+                //dont enable if BNC
+                //has issues with http://pastebin.com/yh0esuCU
+                //if (!serverSetting.UseBNC)
+                //sendREQ += "userhost-in-names ";
+            }
+
+            if (tempValue.IndexOf("cap-notify") > -1)
+            {
+                // ircv3.2 
+                //sendREQ += "cap-notify ";
+            }
+
+            if (tempValue.IndexOf("chghost") > -1)
+            {
+                // ircv3.2                 
+                //sendREQ += "chghost ";
+            }
+
+            if (tempValue.IndexOf("account-tag") > -1)
+            {
+                // ircv3.2                 
+                //sendREQ += "account-tag ";
+            }
+
+            if (tempValue.IndexOf("echo-message") > -1)
+            {
+                // ircv3.2                 
+                // sends back NOTICE and PRIVMSG back to client that sent them
+                // make this an option
+                //sendREQ += "echo-message ";
+            }
+
+            if (tempValue.IndexOf("znc.in/server-time-iso") > -1)
+            {
+                //:@time=2014-03-18T01:55:08.596Z :dickson.freenode.net 
+                sendREQ += "znc.in/server-time-iso ";
+                serverSetting.UseServerTime = true;
+            }
+            else if (tempValue.IndexOf("server-time") > -1)
+            {                
+                sendREQ += "server-time ";
+                serverSetting.UseServerTime = true;
+            }
+
+            // no use for TLS
+            // http://ircv3.net/specs/extensions/tls-3.1.html
+            if (tempValue.IndexOf("tls") > -1)
+            {
+            //    sendREQ += "tls ";
+            }
+
+
+            
+
+            return sendREQ;
+
         }
 
 

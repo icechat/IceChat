@@ -1,4 +1,4 @@
-IceChat 9 Copyright (c) 2009-2012, Paul Vanderzee
+IceChat 9 Copyright (c) 2009-2016, Paul Vanderzee
 
 
 Copyright (C) 1989, 1991 Free Software Foundation, Inc.

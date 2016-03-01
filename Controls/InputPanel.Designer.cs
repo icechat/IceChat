@@ -47,11 +47,11 @@
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.panelWideText = new System.Windows.Forms.Panel();
-            this.textBoxWide = new IceChat.IceInputBox(this);
+            this.textBoxWide = new IceInputBox(this);
             this.panelSend = new System.Windows.Forms.Panel();
             this.buttonSend = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
-            this.textInput = new IceChat.IceInputBox(this);
+            this.textInput = new IceInputBox(this);
             this.contextHelpMenu.SuspendLayout();
             this.panelWideText.SuspendLayout();
             this.panelSend.SuspendLayout();

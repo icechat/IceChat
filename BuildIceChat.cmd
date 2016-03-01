@@ -10,6 +10,7 @@ XCOPY .\bin\Debug\IceChat2009.exe .\IceChatBuild\
 XCOPY .\bin\Debug\IPluginIceChat.dll .\IceChatBuild\ 
 XCOPY .\bin\Debug\IRCConnection.dll .\IceChatBuild\ 
 XCOPY .\bin\Debug\IThemeIceChat.dll .\IceChatBuild\ 
+XCOPY .\bin\Debug\Newtonsoft.Json.dll .\IceChatBuild\ 
 
 
 echo IceChat files copied to the IceChatBuild folder

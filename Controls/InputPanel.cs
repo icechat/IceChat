@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,13 +54,13 @@ namespace IceChat
             _buffer = new List<String>();
 
             InitializeComponent();
-            
+
             this.buttonEmoticonPicker.Image = StaticMethods.LoadResourceImage("Smile.png");
             this.buttonColorPicker.Image = StaticMethods.LoadResourceImage("color.png");
 
             textInput.OnCommand += new IceInputBox.SendCommand(textInput_OnCommand);
             textBoxWide.OnCommand += new IceInputBox.SendCommand(textBoxWide_OnCommand);
-                       
+
         }
 
         internal int CurrentHistoryItem
@@ -118,7 +118,7 @@ namespace IceChat
                     buttonEmoticonPicker.Visible = false;
                 else
                     this.buttonEmoticonPicker.Visible = !value;
-                
+
                 if (this._showColorPicker == false)
                     buttonColorPicker.Visible = false;
                 else
@@ -166,11 +166,11 @@ namespace IceChat
                     this.textInput.Focus();
                     if (this.textBoxWide.Text.Length > 0)
                         textInput.Text = textBoxWide.Text;
-                    
+
                     FormMain.Instance.IceChatOptions.ShowMultilineEditbox = false;
                     FormMain.Instance.multilineEditboxToolStripMenuItem.Checked = false;
                 }
-            }            
+            }
         }
 
         internal bool ShowEmoticonPicker
@@ -194,8 +194,9 @@ namespace IceChat
         internal bool ShowSendButton
         {
             get { return this._showSendButton; }
-            set { 
-                this._showSendButton = value; 
+            set
+            {
+                this._showSendButton = value;
                 this.panelSend.Visible = value;
             }
         }
@@ -203,7 +204,8 @@ namespace IceChat
         internal Font InputBoxFont
         {
             get { return textInput.Font; }
-            set { 
+            set
+            {
                 textInput.Font = value;
                 textBoxWide.Font = value;
             }
@@ -213,10 +215,10 @@ namespace IceChat
         {
             this.textInput.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxBackColor];
             this.textInput.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxForeColor];
-            
+
             this.textBoxWide.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxBackColor];
             this.textBoxWide.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxForeColor];
-            
+
             this.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxBackColor];
         }
 
@@ -237,15 +239,15 @@ namespace IceChat
         private void textBoxWide_OnCommand(object sender, string data)
         {
             if (OnCommand != null)
-            {                
-                 string[] lines = data.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                 foreach (string line in lines)
-                 {
-                     if (line.Length > 0)
-                     {
-                         OnCommand(this, line);
-                     }
-                 }
+            {
+                string[] lines = data.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string line in lines)
+                {
+                    if (line.Length > 0)
+                    {
+                        OnCommand(this, line);
+                    }
+                }
             }
         }
 
@@ -258,7 +260,7 @@ namespace IceChat
                 {
                     //just 1 line, add to end of text box
                     //if (lines[0].Length < 350)
-                        OnCommand(this, lines[0]);
+                    OnCommand(this, lines[0]);
                     //else
                     //{
                     //}
@@ -308,7 +310,7 @@ namespace IceChat
         {
             if (textInput.Visible)
             {
-                textInput.Clear();        
+                textInput.Clear();
             }
             else
             {
@@ -388,7 +390,7 @@ namespace IceChat
             fe.Top = (FormMain.Instance.Top + FormMain.Instance.Height) - 220;
             fe.Left = FormMain.Instance.Left + 10;
             fe.ShowDialog(this);
-            
+
             FormMain.Instance.FocusInputBox();
         }
 
@@ -398,7 +400,7 @@ namespace IceChat
             fc.Top = (FormMain.Instance.Top + FormMain.Instance.Height) - 220;
             fc.Left = FormMain.Instance.Left + 10;
             fc.ShowDialog(this);
-            
+
             FormMain.Instance.FocusInputBox();
         }
 
@@ -416,7 +418,7 @@ namespace IceChat
         {
             contextHelpMenu.Show(buttonHelp, e.Location);
         }
-        
+
         private void toolStripHelpMenuOnClick(object sender, System.EventArgs e)
         {
             OnCommand(this, "//addtext " + ((System.Windows.Forms.ToolStripMenuItem)sender).Tag.ToString());

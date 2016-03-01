@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2015 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,8 +67,9 @@ namespace IceChatPlugin
         private ColumnHeader columnTime;
         private ColumnHeader columnChannel;
         private ColumnHeader columnMessage;
+        private ColumnHeader columnServerID;
 
-        private delegate void UpdateMonitorDelegate(string Channel, string Message);
+        private delegate void UpdateMonitorDelegate(string Channel, string Message, bool highlight, int serverID);
         public override event OutGoingCommandHandler OnCommand;
 
         private const char colorChar = (char)3;
@@ -91,29 +92,27 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Channel Monitor Plugin";
             m_Author = "Snerf";
-            m_Version = "1.3";
+            m_Version = "1.5";
         }
 
         public override void Dispose()
         {
             //remove the listview/panel
-            //BottomPanel.Controls.Remove(panel);
         }
 
         public override void Initialize()
         {
 
-            if (CurrentVersion < 20140221)
+            if (CurrentVersion < 90020140221)
             {
 
                 //send back a message that we need to update!
                 PluginArgs a = new PluginArgs();
-                a.Command = "/echo Channel Monitor Plugin v1.3 requires IceChat 9 RC 8.22 or newer";
+                a.Command = "/echo Channel Monitor Plugin v1.3 requires IceChat 9 RC 8.22 or newer (" + CurrentVersion+")";
                 OnCommand(a);
                 this.Enabled = false;
                 return;
-            }
-            
+            }            
             
             settingsFile = CurrentFolder + System.IO.Path.DirectorySeparatorChar + "IceChatChannelMonitor.xml";
             LoadSettings();
@@ -126,6 +125,7 @@ namespace IceChatPlugin
             columnTime = new ColumnHeader();
             columnChannel = new ColumnHeader();
             columnMessage = new ColumnHeader();
+            columnServerID = new ColumnHeader();
 
             columnTime.Width = 175;
             columnTime.Text = "Time";
@@ -136,16 +136,25 @@ namespace IceChatPlugin
             columnMessage.Width = 1000;
             columnMessage.Text = "Message";
 
+            columnServerID.Width = 0;   //hidden
 
             listMonitor.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnTime,
             columnChannel,
-            columnMessage});
+            columnMessage,
+            columnServerID});
 
             listMonitor.View = System.Windows.Forms.View.Details;
+            listMonitor.FullRowSelect = true;
             listMonitor.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             listMonitor.Dock = DockStyle.Fill;
             panel.Controls.Add(listMonitor);
+
+
+            if (CurrentVersion > 90220150213)
+            {
+                listMonitor.DoubleClick += new EventHandler(listMonitor_DoubleClick);
+            }
 
             m_EnableMonitor = new ToolStripMenuItem();
             m_EnableMonitor.Text = "Toggle Monitor";
@@ -153,6 +162,19 @@ namespace IceChatPlugin
             m_EnableMonitor.Click += new EventHandler(OnEnableMonitor_Click);
 
 
+        }
+
+        private void listMonitor_DoubleClick(object sender, EventArgs e)
+        {
+            //use the /switch #channel serverID to open that channel
+            //will require icechat 9.03+
+            if (listMonitor.SelectedItems.Count == 1)
+            {
+                ListViewItem lvi = listMonitor.SelectedItems[0];
+                PluginArgs a = new PluginArgs();
+                a.Command = "/switch " + lvi.SubItems[1].Text + " " + lvi.SubItems[3].Text;
+                OnCommand(a);
+            }
         }
 
         public override void MainProgramLoaded(SortedList ServerConnections)
@@ -169,7 +191,7 @@ namespace IceChatPlugin
                         if (monitoredChannels.IndexOf(newChan) == -1)
                         {
                             monitoredChannels.Add(newChan);
-                            AddMonitorMessage(newChan.channel, "Started Monitoring channel:" + monitoredChannels.Count);
+                            AddMonitorMessage(newChan.channel, "Started Monitoring channel:" + monitoredChannels.Count, false, c.ServerSetting.ID);
                         }
                     }                
                 }
@@ -201,7 +223,7 @@ namespace IceChatPlugin
                 if (monitoredChannels.IndexOf(newChan) > -1)
                 {
                     monitoredChannels.Remove(newChan);
-                    AddMonitorMessage(newChan.channel, "Stopped Monitoring channel:" + monitoredChannels.Count);
+                    AddMonitorMessage(newChan.channel, "Stopped Monitoring channel:" + monitoredChannels.Count, false, ServerTreeCurrentConnection.ServerSetting.ID);
                 }
                 ((ToolStripMenuItem)sender).CheckState = CheckState.Unchecked;
 
@@ -213,7 +235,7 @@ namespace IceChatPlugin
                 if (monitoredChannels.IndexOf(newChan) == -1)
                 {
                     monitoredChannels.Add(newChan);
-                    AddMonitorMessage(newChan.channel, "Started Monitoring channel:" + monitoredChannels.Count);
+                    AddMonitorMessage(newChan.channel, "Started Monitoring channel:" + monitoredChannels.Count, false, ServerTreeCurrentConnection.ServerSetting.ID);
                 }
                 ((ToolStripMenuItem)sender).CheckState = CheckState.Checked;
                 mEnabled = true;
@@ -238,12 +260,12 @@ namespace IceChatPlugin
         }
 
        
-        private void AddMonitorMessage(string Channel, string Message)
+        private void AddMonitorMessage(string Channel, string Message, bool highlight, int serverID)
         {
             if (panel.InvokeRequired)
             {
                 UpdateMonitorDelegate umd = new UpdateMonitorDelegate(AddMonitorMessage);
-                panel.Invoke(umd, new object[] { Channel, Message });
+                panel.Invoke(umd, new object[] { Channel, Message, highlight, serverID });
             }
             else
             {
@@ -252,8 +274,14 @@ namespace IceChatPlugin
                 
                 lvi.SubItems.Add(Channel);
                 lvi.SubItems.Add(Message);
+                lvi.SubItems.Add(serverID.ToString());
 
+                if (highlight)
+                    lvi.ForeColor = System.Drawing.Color.Red;
+                
                 listMonitor.Items.Add(lvi);
+
+
 
                 //scroll the listview to the bottom
                 listMonitor.EnsureVisible(listMonitor.Items.Count - 1);
@@ -325,7 +353,14 @@ namespace IceChatPlugin
             //check if monitoring is enabled for this channel
             cMonitor newChan = new cMonitor(args.Connection, args.Channel);
             if (monitoredChannels.IndexOf(newChan) > -1)
-                AddMonitorMessage(args.Channel, StripColorCodes(args.Message));
+            {
+                //check if nick is said
+                string message = StripColorCodes(args.Message);
+                if (message.IndexOf(args.Connection.ServerSetting.CurrentNickName) > -1)
+                    AddMonitorMessage(args.Channel, message, true, args.Connection.ServerSetting.ID);
+                else
+                    AddMonitorMessage(args.Channel, message, false, args.Connection.ServerSetting.ID);
+            }
             return args;
         }
 
@@ -333,7 +368,13 @@ namespace IceChatPlugin
         {
             cMonitor newChan = new cMonitor(args.Connection, args.Channel);
             if (monitoredChannels.IndexOf(newChan) > -1)
-                AddMonitorMessage(args.Channel, StripColorCodes(args.Message));
+            {
+                string message = StripColorCodes(args.Message);
+                if (message.IndexOf(args.Connection.ServerSetting.CurrentNickName) > -1)
+                    AddMonitorMessage(args.Channel, message, true, args.Connection.ServerSetting.ID);
+                else
+                    AddMonitorMessage(args.Channel, message, false, args.Connection.ServerSetting.ID);
+            }
             return args;
         }
         
@@ -357,7 +398,7 @@ namespace IceChatPlugin
                     cMonitor newChan = new cMonitor(args.Connection, args.Channel);
                     monitoredChannels.Add(newChan);
 
-                    AddMonitorMessage(args.Channel, "Started Monitoring channel:" + monitoredChannels.Count);
+                    AddMonitorMessage(args.Channel, "Started Monitoring channel:" + monitoredChannels.Count, false, args.Connection.ServerSetting.ID);
                 }
 
                 if (monitorChannels.ChannelExist(args.Channel) != null)
@@ -388,7 +429,7 @@ namespace IceChatPlugin
                 if (monitoredChannels.IndexOf(newChan) > -1)
                 {
                     monitoredChannels.Remove(newChan);
-                    AddMonitorMessage(args.Channel, "Stopped Monitoring channel:" + monitoredChannels.Count);
+                    AddMonitorMessage(args.Channel, "Stopped Monitoring channel:" + monitoredChannels.Count, false, args.Connection.ServerSetting.ID);
                 }
 
             }
@@ -399,7 +440,7 @@ namespace IceChatPlugin
         public override PluginArgs CtcpMessage(PluginArgs args)
         {
             //args.Extra        -- ctcp message 
-            AddMonitorMessage(args.Nick, "CTCP : " + args.Extra);
+            AddMonitorMessage(args.Nick, "CTCP : " + args.Extra, false, args.Connection.ServerSetting.ID);
 
             return args;
         }

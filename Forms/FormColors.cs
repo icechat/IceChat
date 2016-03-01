@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1587,16 +1587,13 @@ namespace IceChat
 
                     //add in the theme name into IceChatOptions
                     
-                    
-                    //comboTheme.Items.Add(i.InputResponse);
                     //make it the current theme
-
                     ComboItem item = new ComboItem();
                     item.ThemeName = fileName;
                     item.ThemeType = "XML";
                     comboTheme.Items.Add(item);
                     
-                    comboTheme.Text = i.InputResponse;
+                    comboTheme.Text = fileName;
                     
                 }
 
@@ -1706,6 +1703,7 @@ namespace IceChat
                 
                 FormMain.Instance.IceChatOptions.CurrentTheme = item.ThemeName;
                 FormMain.Instance.ColorsFile = themeColorsFile;
+                
                 UpdateColorSettings();
             }
 
@@ -1718,6 +1716,7 @@ namespace IceChat
                 textReader.Dispose();
                 
                 FormMain.Instance.MessagesFile = themeMessagesFile;
+                
                 UpdateMessageSettings();
 
             }
@@ -1732,7 +1731,7 @@ namespace IceChat
             ofd.CheckPathExists = true;
             ofd.AddExtension = true;
             ofd.AutoUpgradeEnabled = true;
-            ofd.Filter = "XML file (*.xml)|*.xml";
+            ofd.Filter = "XML file (*.xml)|Colors-*.xml";
             ofd.Title = "Which Theme File do you want to load?";
             ofd.InitialDirectory = FormMain.Instance.CurrentFolder;
 
@@ -1761,7 +1760,10 @@ namespace IceChat
                     item.ThemeType = "XML";
                     comboTheme.Items.Add(item);
 
+                    //make new theme default theme
+                    comboTheme.Text = themeName;
                 }
+
             }
         }
 

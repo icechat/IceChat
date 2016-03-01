@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2014 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -107,6 +107,14 @@ namespace IceChat
         private bool _dockControl;
         private bool _disableLogs;
 
+        private bool _joinEventOverload;
+        private int _joinEventLocation;
+        private bool _partEventOverload;
+        private int _partEventLocation;
+        private bool _quitEventOverload;
+        private int _quitEventLocation;
+
+
         private System.Drawing.Size windowSize;
         private System.Drawing.Point windowLocation;
 
@@ -114,6 +122,8 @@ namespace IceChat
         private bool isDetached;
         private string _tabCaption;
         private int _windowIndex;
+        private Panel searchPanel = null;
+        private FormMain _parent;
 
         public enum WindowType
         {
@@ -127,9 +137,10 @@ namespace IceChat
             Debug = 99
         }
 
-
-        public IceTabPage(WindowType windowType, string sCaption) 
+        public IceTabPage(WindowType windowType, string sCaption, FormMain parent) 
         {
+            this._parent = parent;
+
             if (windowType == WindowType.Channel)
             {
                 InitializeChannel();
@@ -172,17 +183,17 @@ namespace IceChat
             this.inputPanel.Dock = DockStyle.Bottom;
 
             inputPanel.OnCommand += new InputPanel.OnCommandDelegate(inputPanel_OnCommand);
-            inputPanel.InputBoxFont = new Font(FormMain.Instance.IceChatFonts.FontSettings[5].FontName, FormMain.Instance.IceChatFonts.FontSettings[5].FontSize);
-            inputPanel.ShowColorPicker = FormMain.Instance.IceChatOptions.ShowColorPicker;
-            inputPanel.ShowEmoticonPicker = FormMain.Instance.IceChatOptions.ShowEmoticonPicker;
-            inputPanel.ShowBasicCommands = FormMain.Instance.IceChatOptions.ShowBasicCommands;
-            inputPanel.ShowSendButton = FormMain.Instance.IceChatOptions.ShowSendButton;
+            inputPanel.InputBoxFont = new Font(_parent.IceChatFonts.FontSettings[5].FontName, _parent.IceChatFonts.FontSettings[5].FontSize);
+            inputPanel.ShowColorPicker = _parent.IceChatOptions.ShowColorPicker;
+            inputPanel.ShowEmoticonPicker = _parent.IceChatOptions.ShowEmoticonPicker;
+            inputPanel.ShowBasicCommands = _parent.IceChatOptions.ShowBasicCommands;
+            inputPanel.ShowSendButton = _parent.IceChatOptions.ShowSendButton;
 
-            inputPanel.ShowWideTextPanel = FormMain.Instance.IceChatOptions.ShowMultilineEditbox;
+            inputPanel.ShowWideTextPanel = _parent.IceChatOptions.ShowMultilineEditbox;
 
             inputPanel.SetInputBoxColors();
 
-            if (FormMain.Instance.IceChatOptions.ShowEmoticons == false)
+            if (_parent.IceChatOptions.ShowEmoticons == false)
                 inputPanel.ShowEmoticonPicker = false;
 
             this.Controls.Add(this.inputPanel);
@@ -235,10 +246,10 @@ namespace IceChat
 
             if (page.WindowStyle == WindowType.Channel)
             {
-                ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(page.TabCaption, page.connection.ServerSetting.NetworkName);
+                ChannelSetting cs = _parent.ChannelSettings.FindChannel(page.TabCaption, page.connection.ServerSetting.NetworkName);
                 if (cs != null)
                 {
-                    System.Diagnostics.Debug.WriteLine("sort:" + this.TabCaption + ":" + page.TabCaption + ":" + _windowIndex + ":" + page.WindowIndex);
+                    //System.Diagnostics.Debug.WriteLine("sort:" + this.TabCaption + ":" + page.TabCaption + ":" + _windowIndex + ":" + page.WindowIndex);
                     if (page.WindowIndex > _windowIndex)
                         return -1;
                     else if (page._windowIndex < _windowIndex)
@@ -257,7 +268,7 @@ namespace IceChat
                 if (this.windowType == WindowType.Channel || this.windowType == WindowType.Query)
                 {
                     textWindow.SaveDumpFile();
-                    System.Diagnostics.Debug.WriteLine("dispose text window for:" + this.TabCaption);
+                    //System.Diagnostics.Debug.WriteLine("dispose text window for:" + this.TabCaption);
                     textWindow.Dispose();
                 }
 
@@ -280,7 +291,6 @@ namespace IceChat
                     }
                     if (listenThread != null)
                     {
-                        //System.Diagnostics.Debug.WriteLine("abort listen thread");                    
                         listenThread.Abort();
                         if (listenThread.IsAlive)
                         {
@@ -323,12 +333,6 @@ namespace IceChat
         internal void AddConsoleTab(IRCConnection connection)
         {
             this.UIThread(delegate
-            //if (this.InvokeRequired)
-            //{
-            //    AddConsoleTabDelegate act = new AddConsoleTabDelegate(AddConsoleTab);
-            //    this.Invoke(act, new object[] { connection });
-            //}
-            //else            
             {
                 ConsoleTab t;
                 if (connection.ServerSetting.UseBNC)
@@ -340,8 +344,8 @@ namespace IceChat
 
                 TextWindow w = new TextWindow();
                 w.Dock = DockStyle.Fill;
-                w.Font = new System.Drawing.Font(FormMain.Instance.IceChatFonts.FontSettings[0].FontName, FormMain.Instance.IceChatFonts.FontSettings[0].FontSize);
-                w.IRCBackColor = FormMain.Instance.IceChatColors.ConsoleBackColor;
+                w.Font = new System.Drawing.Font(_parent.IceChatFonts.FontSettings[0].FontName, _parent.IceChatFonts.FontSettings[0].FontSize);
+                w.IRCBackColor = _parent.IceChatColors.ConsoleBackColor;
                 w.NoEmoticons = true;
 
                 AddConsole(t, w);
@@ -351,15 +355,9 @@ namespace IceChat
         private void AddConsole(ConsoleTab tab, TextWindow window)
         {
             this.UIThread(delegate
-            //if (this.InvokeRequired)
-            //{
-            //    AddConsoleDelegate add = new AddConsoleDelegate(AddConsole);
-            //    this.Invoke(add, new object[] { tab, window });
-            //}
-            //else
             {
                 tab.Controls.Add(window);
-                if (FormMain.Instance.IceChatOptions.LogConsole)
+                if (_parent.IceChatOptions.LogConsole)
                     window.SetLogFile(false);
 
                 consoleTab.TabPages.Add(tab);
@@ -379,8 +377,8 @@ namespace IceChat
 
             TextWindow w = new TextWindow();
             w.Dock = DockStyle.Fill;
-            w.Font = new System.Drawing.Font(FormMain.Instance.IceChatFonts.FontSettings[0].FontName, FormMain.Instance.IceChatFonts.FontSettings[0].FontSize);
-            w.IRCBackColor = FormMain.Instance.IceChatColors.ConsoleBackColor;
+            w.Font = new System.Drawing.Font(_parent.IceChatFonts.FontSettings[0].FontName, _parent.IceChatFonts.FontSettings[0].FontSize);
+            w.IRCBackColor = _parent.IceChatColors.ConsoleBackColor;
 
             t.Controls.Add(w);
             consoleTab.TabPages.Add(t);
@@ -463,7 +461,7 @@ namespace IceChat
             }
             catch (Exception e)
             {
-                FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection,"IceTabPage UpdateChannelMode", e);
+                _parent.WriteErrorFile(_parent.InputPanel.CurrentConnection,"IceTabPage UpdateChannelMode", e);
             }
         }
 
@@ -489,6 +487,15 @@ namespace IceChat
                         channelModes.Add(mode, c);
                 }
 
+                //System.Diagnostics.Debug.WriteLine("update mode:" + mode + ":" + addMode + ":" + param);
+                if (mode == 'k' && param != "*")
+                {
+                    if (addMode)
+                        this.channelKey = param;
+                    else
+                        this.channelKey = "";
+                }
+
                 string modes = "";
                 string prms = " ";
                 foreach (channelMode cm in channelModes.Values)
@@ -497,6 +504,7 @@ namespace IceChat
                     if (cm.param != null)
                         prms += cm.param + " ";
                 }
+                
                 if (modes.Trim().Length > 0)
                     ChannelModes = "+" + modes.Trim() + prms.TrimEnd();
                 else
@@ -504,7 +512,7 @@ namespace IceChat
             }
             catch (Exception e)
             {
-                FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection,"IceTabPage UpdateChannelMode2", e);
+                _parent.WriteErrorFile(_parent.InputPanel.CurrentConnection,"IceTabPage UpdateChannelMode2", e);
             }
         }
 
@@ -512,8 +520,13 @@ namespace IceChat
         {
             string justNick = nick;
 
+            //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
+            //    justNick = justNick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+
             for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-                justNick = justNick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+                if (justNick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
+                    justNick = justNick.Substring(1);
+
 
             if (nicks.ContainsKey(justNick))
             {
@@ -529,36 +542,39 @@ namespace IceChat
                             switch (connection.ServerSetting.StatusModes[0][i])
                             {
                                 case 'q':
-                                    u.nickColor = FormMain.Instance.IceChatColors.ChannelOwnerColor;
+                                    u.nickColor = _parent.IceChatColors.ChannelOwnerColor;
                                     break;
                                 case 'a':
-                                    u.nickColor = FormMain.Instance.IceChatColors.ChannelAdminColor;
+                                    u.nickColor = _parent.IceChatColors.ChannelAdminColor;
                                     break;
                                 case 'o':
-                                    u.nickColor = FormMain.Instance.IceChatColors.ChannelOpColor;
+                                    u.nickColor = _parent.IceChatColors.ChannelOpColor;
                                     break;
                                 case 'h':
-                                    u.nickColor = FormMain.Instance.IceChatColors.ChannelHalfOpColor;
+                                    u.nickColor = _parent.IceChatColors.ChannelHalfOpColor;
                                     break;
                                 case 'v':
-                                    u.nickColor = FormMain.Instance.IceChatColors.ChannelVoiceColor;
+                                    u.nickColor = _parent.IceChatColors.ChannelVoiceColor;
                                     break;
                                 default:
-                                    u.nickColor = FormMain.Instance.IceChatColors.ChannelRegularColor;
+                                    u.nickColor = _parent.IceChatColors.ChannelRegularColor;
                                     break;
                              }
                              break;
                         }                
                     }
-                if (FormMain.Instance.CurrentWindow == this)
-                    FormMain.Instance.NickList.RefreshList(this);
+                if (_parent.CurrentWindow == this)
+                    _parent.NickList.RefreshList(this);
             }
         }
 
         internal User GetNick(string nick)
         {
+            //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
+            //    nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
             for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-                nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+                if (nick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
+                    nick = nick.Substring(1);
 
             if (nicks.ContainsKey(nick))
                 return (User)nicks[nick];
@@ -588,8 +604,11 @@ namespace IceChat
             //replace any user modes from the nick
             string justNick = nick;
             if (connection != null)
+            //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
+            //    justNick = justNick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
             for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-                justNick = justNick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
+                if (justNick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
+                    justNick = justNick.Substring(1);
 
             if (nicks.ContainsKey(justNick))
                 return null;
@@ -599,8 +618,8 @@ namespace IceChat
             nicks.Add(justNick, u);
             if (refresh)
             {
-                if (FormMain.Instance.CurrentWindow == this)
-                    FormMain.Instance.NickList.RefreshList(this);
+                if (_parent.CurrentWindow == this)
+                    _parent.NickList.RefreshList(this);
             }
 
             return u;
@@ -609,8 +628,8 @@ namespace IceChat
         internal void RemoveNick(string nick)
         {
             nicks.Remove(nick);
-            if (FormMain.Instance.CurrentWindow == this)
-                FormMain.Instance.NickList.RefreshList(this);
+            if (_parent.CurrentWindow == this)
+                _parent.NickList.RefreshList(this);
             
         }
 
@@ -634,6 +653,162 @@ namespace IceChat
             get { return this.textTopic; }
         }
 
+        internal bool JoinEventLocationOverload
+        {
+            get { return _joinEventOverload; }
+            set
+            {
+                _joinEventOverload = value;
+                if (this.windowType == WindowType.Channel)
+                {
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    if (cs != null)
+                    {
+                        cs.JoinEventOverload = value;
+                    }
+                    else
+                    {
+                        ChannelSetting cs1 = new ChannelSetting();
+                        cs1.JoinEventOverload = value;
+                        cs1.ChannelName = this.TabCaption;
+                        cs1.NetworkName = this.connection.ServerSetting.NetworkName;
+                        _parent.ChannelSettings.AddChannel(cs1);
+                    }
+                    _parent.SaveChannelSettings();
+                }
+            }
+        }
+
+        internal int JoinEventLocation
+        {
+            get { return _joinEventLocation; }
+            set
+            {
+                _joinEventLocation = value;
+                if (this.windowType == WindowType.Channel)
+                {
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    if (cs != null)
+                    {
+                        cs.JoinEventLocation = value;
+                    }
+                    else
+                    {
+                        ChannelSetting cs1 = new ChannelSetting();
+                        cs1.JoinEventLocation = value;
+                        cs1.ChannelName = this.TabCaption;
+                        cs1.NetworkName = this.connection.ServerSetting.NetworkName;
+                        _parent.ChannelSettings.AddChannel(cs1);
+                    }
+                    _parent.SaveChannelSettings();
+                }
+            }
+        }
+
+        internal bool PartEventLocationOverload
+        {
+            get { return _partEventOverload; }
+            set
+            {
+                _partEventOverload = value;
+                if (this.windowType == WindowType.Channel)
+                {
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    if (cs != null)
+                    {
+                        cs.PartEventOverload = value;
+                    }
+                    else
+                    {
+                        ChannelSetting cs1 = new ChannelSetting();
+                        cs1.PartEventOverload = value;
+                        cs1.ChannelName = this.TabCaption;
+                        cs1.NetworkName = this.connection.ServerSetting.NetworkName;
+                        _parent.ChannelSettings.AddChannel(cs1);
+                    }
+                    _parent.SaveChannelSettings();
+                }
+            }
+        }
+
+        internal int PartEventLocation
+        {
+            get { return _partEventLocation; }
+            set
+            {
+                _partEventLocation = value;
+                if (this.windowType == WindowType.Channel)
+                {
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    if (cs != null)
+                    {
+                        cs.PartEventLocation = value;
+                    }
+                    else
+                    {
+                        ChannelSetting cs1 = new ChannelSetting();
+                        cs1.PartEventLocation = value;
+                        cs1.ChannelName = this.TabCaption;
+                        cs1.NetworkName = this.connection.ServerSetting.NetworkName;
+                        _parent.ChannelSettings.AddChannel(cs1);
+                    }
+                    _parent.SaveChannelSettings();
+                }
+            }
+        }
+
+        internal bool QuitEventLocationOverload
+        {
+            get { return _quitEventOverload; }
+            set
+            {
+                _quitEventOverload = value;
+                if (this.windowType == WindowType.Channel)
+                {
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    if (cs != null)
+                    {
+                        cs.QuitEventOverload = value;
+                    }
+                    else
+                    {
+                        ChannelSetting cs1 = new ChannelSetting();
+                        cs1.QuitEventOverload = value;
+                        cs1.ChannelName = this.TabCaption;
+                        cs1.NetworkName = this.connection.ServerSetting.NetworkName;
+                        _parent.ChannelSettings.AddChannel(cs1);
+                    }
+                    _parent.SaveChannelSettings();
+                }
+            }
+        }
+
+        internal int QuitEventLocation
+        {
+            get { return _quitEventLocation; }
+            set
+            {
+                _quitEventLocation = value;
+                if (this.windowType == WindowType.Channel)
+                {
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    if (cs != null)
+                    {
+                        cs.QuitEventLocation = value;
+                    }
+                    else
+                    {
+                        ChannelSetting cs1 = new ChannelSetting();
+                        cs1.QuitEventLocation = value;
+                        cs1.ChannelName = this.TabCaption;
+                        cs1.NetworkName = this.connection.ServerSetting.NetworkName;
+                        _parent.ChannelSettings.AddChannel(cs1);
+                    }
+                    _parent.SaveChannelSettings();
+                }
+            }
+        }
+
         //for disabling flashing
         internal bool EventOverLoad
         {
@@ -642,7 +817,7 @@ namespace IceChat
                 _eventOverLoad = value;
                 if (this.windowType == WindowType.Channel)
                 {                    
-                    ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
                     if (cs != null)
                     {
                         cs.EventsDisable = value;
@@ -653,9 +828,9 @@ namespace IceChat
                         cs1.EventsDisable = value;
                         cs1.ChannelName = this.TabCaption;
                         cs1.NetworkName = this.connection.ServerSetting.NetworkName;
-                        FormMain.Instance.ChannelSettings.AddChannel(cs1);
+                        _parent.ChannelSettings.AddChannel(cs1);
                     }
-                    FormMain.Instance.SaveChannelSettings();
+                    _parent.SaveChannelSettings();
                 }
             }
         }
@@ -669,7 +844,7 @@ namespace IceChat
                 _disableSounds = value;
                 if (this.windowType == WindowType.Channel)
                 {
-                    ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
                     if (cs != null)
                     {
                         cs.SoundsDisable = value;
@@ -681,9 +856,9 @@ namespace IceChat
                         cs1.ChannelName = this.TabCaption;
                         cs1.NetworkName = this.connection.ServerSetting.NetworkName;
 
-                        FormMain.Instance.ChannelSettings.AddChannel(cs1);
+                        _parent.ChannelSettings.AddChannel(cs1);
                     }
-                    FormMain.Instance.SaveChannelSettings();
+                    _parent.SaveChannelSettings();
 
                 }
 
@@ -698,7 +873,7 @@ namespace IceChat
                 //do something??
                 if (this.windowType == WindowType.Channel)
                 {
-                    ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
                     if (cs != null)
                     {
                         cs.LoggingDisable = value;
@@ -710,22 +885,14 @@ namespace IceChat
                         cs1.ChannelName = this.TabCaption;
                         cs1.NetworkName = this.connection.ServerSetting.NetworkName;
 
-                        FormMain.Instance.ChannelSettings.AddChannel(cs1);
+                        _parent.ChannelSettings.AddChannel(cs1);
                     }
                     
-                    FormMain.Instance.SaveChannelSettings();
+                    _parent.SaveChannelSettings();
                 }
 
             }
         }
-
-        /*
-        internal bool SoundOverLoad
-        {
-            get { return _soundOverLoad; }
-            set { _soundOverLoad = value; }
-        }
-        */
         
         internal bool IsConnected
         {
@@ -796,7 +963,7 @@ namespace IceChat
         {
             if (windowType == WindowType.Channel)
             {
-                ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(_tabCaption, network);
+                ChannelSetting cs = _parent.ChannelSettings.FindChannel(_tabCaption, network);
                 if (cs != null)
                 {
                     _eventOverLoad = cs.EventsDisable;
@@ -804,12 +971,18 @@ namespace IceChat
                     textWindow.NoColorMode = cs.NoColorMode;
                     _disableLogs = cs.LoggingDisable;
                     _windowIndex = cs.WindowIndex;
+                    _joinEventOverload = cs.JoinEventOverload;
+                    _joinEventLocation = cs.JoinEventLocation;
+                    _partEventOverload = cs.PartEventOverload;
+                    _partEventLocation = cs.PartEventLocation;
+                    _quitEventOverload = cs.QuitEventOverload;
+                    _quitEventLocation = cs.QuitEventLocation;
 
                     ShowTopicBar = !cs.HideTopicBar;
                     pinnedTab = cs.PinnedTab;
 
                     //set the window size
-                    if (setWindowSize == true && FormMain.Instance.IceChatOptions.SaveWindowPosition == true)
+                    if (setWindowSize == true && _parent.IceChatOptions.SaveWindowPosition == true)
                     {
                         if (this.Parent.GetType() == typeof(FormWindow))
                         {
@@ -821,13 +994,13 @@ namespace IceChat
             }
             else if (windowType == WindowType.Query)
             {
-                ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(_tabCaption, network);
+                ChannelSetting cs = _parent.ChannelSettings.FindChannel(_tabCaption, network);
                 if (cs != null)
                 {
                     pinnedTab = cs.PinnedTab;
 
                     //set the window size
-                    if (setWindowSize == true && FormMain.Instance.IceChatOptions.SaveWindowPosition == true)
+                    if (setWindowSize == true && _parent.IceChatOptions.SaveWindowPosition == true)
                     {
                         if (this.Parent.GetType() == typeof(FormWindow))
                         {
@@ -841,13 +1014,13 @@ namespace IceChat
 
         internal void dccTimeOutTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            string msg = FormMain.Instance.GetMessageFormat("DCC Chat Timeout");
+            string msg = _parent.GetMessageFormat("DCC Chat Timeout");
             msg = msg.Replace("$nick", _tabCaption);
 
             PluginArgs args = new PluginArgs(this.textWindow, "", _tabCaption, "", msg);
             args.Connection = this.connection;
 
-            foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
+            foreach (Plugin p in  _parent.LoadedPlugins)
             {
                 IceChatPlugin ipc = p as IceChatPlugin;
                 if (ipc != null)
@@ -880,16 +1053,16 @@ namespace IceChat
         {
             //send out a dcc chat request
             string localIP = "";
-            if (FormMain.Instance.IceChatOptions.DCCLocalIP != null && FormMain.Instance.IceChatOptions.DCCLocalIP.Length > 0)
+            if (_parent.IceChatOptions.DCCLocalIP != null && _parent.IceChatOptions.DCCLocalIP.Length > 0)
             {
-                localIP = IPAddressToLong(IPAddress.Parse(FormMain.Instance.IceChatOptions.DCCLocalIP)).ToString();
+                localIP = IPAddressToLong(IPAddress.Parse(_parent.IceChatOptions.DCCLocalIP)).ToString();
             }
             else
             {
                 if (connection.ServerSetting.LocalIP == null || connection.ServerSetting.LocalIP.ToString().Length == 0)
                 {
                     //error. no local IP found
-                    FormMain.Instance.WindowMessage(connection, _tabCaption, "\x000304DCC ERROR, no Router/Firewall IP Address specified in DCC Settings", "", true);
+                    _parent.WindowMessage(connection, _tabCaption, "\x000304DCC ERROR, no Router/Firewall IP Address specified in DCC Settings", "", true);
                     this.LastMessageType = FormMain.ServerMessageType.ServerMessage; 
                     return;
                 }
@@ -901,7 +1074,7 @@ namespace IceChat
             
             
             Random port = new Random();
-            int p = port.Next(FormMain.Instance.IceChatOptions.DCCPortLower, FormMain.Instance.IceChatOptions.DCCPortUpper);
+            int p = port.Next(_parent.IceChatOptions.DCCPortLower, _parent.IceChatOptions.DCCPortUpper);
 
             dccSocketListener = new TcpListener(new IPEndPoint(IPAddress.Any, Convert.ToInt32(p)));
 
@@ -914,7 +1087,7 @@ namespace IceChat
             System.Diagnostics.Debug.WriteLine("dcc chat outgoing :" + localIP.ToString() + ":port:" + p.ToString());
             //connection.SendData("PRIVMSG " + _tabCaption + " :DCC CHAT chat " + localIP + " " + p.ToString() + "");
             dccTimeOutTimer = new System.Timers.Timer();
-            dccTimeOutTimer.Interval = 1000 * FormMain.Instance.IceChatOptions.DCCChatTimeOut;
+            dccTimeOutTimer.Interval = 1000 * _parent.IceChatOptions.DCCChatTimeOut;
             dccTimeOutTimer.Elapsed += new System.Timers.ElapsedEventHandler(dccTimeOutTimer_Elapsed);
             dccTimeOutTimer.Start();
         }
@@ -946,13 +1119,13 @@ namespace IceChat
                     dccTimeOutTimer.Stop();
                     
 
-                    string msg = FormMain.Instance.GetMessageFormat("DCC Chat Connect");
+                    string msg = _parent.GetMessageFormat("DCC Chat Connect");
                     msg = msg.Replace("$nick", _tabCaption);
 
                     PluginArgs args = new PluginArgs(this.textWindow, "", this.connection.ServerSetting.CurrentNickName, "", msg);
                     args.Connection = this.connection;
 
-                    foreach (Plugin p in FormMain.Instance.LoadedPlugins)
+                    foreach (Plugin p in _parent.LoadedPlugins)
                     {
                         IceChatPlugin ipc = p as IceChatPlugin;
                         if (ipc != null)
@@ -1000,14 +1173,14 @@ namespace IceChat
                 dccSocket.Connect(ep);
                 if (dccSocket.Connected)
                 {
-                    string msg = FormMain.Instance.GetMessageFormat("DCC Chat Connect");
+                    string msg = _parent.GetMessageFormat("DCC Chat Connect");
                     msg = msg.Replace("$nick", nick).Replace("$ip", ip).Replace("$port", port);
 
                     PluginArgs args = new PluginArgs(this.textWindow, "", nick, ip, msg);
                     args.Extra = port;
                     args.Connection = this.connection;
 
-                    foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
+                    foreach (Plugin p in  _parent.LoadedPlugins)
                     {
                         IceChatPlugin ipc = p as IceChatPlugin;
                         if (ipc != null)
@@ -1093,13 +1266,13 @@ namespace IceChat
                 }
             }
 
-            string msg = FormMain.Instance.GetMessageFormat("DCC Chat Disconnect");
+            string msg = _parent.GetMessageFormat("DCC Chat Disconnect");
             msg = msg.Replace("$nick", _tabCaption);
 
             PluginArgs args = new PluginArgs(this.textWindow, "", _tabCaption, "", msg);
             args.Connection = this.connection;
 
-            foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
+            foreach (Plugin p in  _parent.LoadedPlugins)
             {
                 IceChatPlugin ipc = p as IceChatPlugin;
                 if (ipc != null)
@@ -1130,14 +1303,14 @@ namespace IceChat
                 {
                     if (line[0] != (char)0 && line[0] != (char)1)
                     {
-                        string msg = FormMain.Instance.GetMessageFormat("DCC Chat Message");
+                        string msg = _parent.GetMessageFormat("DCC Chat Message");
                         msg = msg.Replace("$nick", _tabCaption);
                         msg = msg.Replace("$message", line);
 
                         PluginArgs args = new PluginArgs(this.textWindow, "", _tabCaption, "", msg);
                         args.Connection = this.connection;
 
-                        foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
+                        foreach (Plugin p in  _parent.LoadedPlugins)
                         {
 		                    IceChatPlugin ipc = p as IceChatPlugin;
                             if (ipc != null)
@@ -1157,14 +1330,14 @@ namespace IceChat
                         string action = line.Substring(8);
                         action = action.Substring(0, action.Length - 1);
                         
-                        string msg = FormMain.Instance.GetMessageFormat("DCC Chat Action");
+                        string msg = _parent.GetMessageFormat("DCC Chat Action");
                         msg = msg.Replace("$nick", _tabCaption);
                         msg = msg.Replace("$message", action);
 
                         PluginArgs args = new PluginArgs(this.textWindow, "", _tabCaption, "", msg);
                         args.Connection = this.connection;
 
-                        foreach (Plugin p in FormMain.Instance.LoadedPlugins)
+                        foreach (Plugin p in _parent.LoadedPlugins)
                         {
                             IceChatPlugin ipc = p as IceChatPlugin;
                             if (ipc != null)
@@ -1255,12 +1428,12 @@ namespace IceChat
                 else if (windowType == WindowType.Channel)
                 {
                     panelTopic.Visible = true;
-                    textWindow.IRCBackColor = FormMain.Instance.IceChatColors.ChannelBackColor;
-                    textTopic.IRCBackColor = FormMain.Instance.IceChatColors.ChannelBackColor;
+                    textWindow.IRCBackColor = _parent.IceChatColors.ChannelBackColor;
+                    textTopic.IRCBackColor = _parent.IceChatColors.ChannelBackColor;
                 }
                 else if (windowType == WindowType.Query)
                 {
-                    textWindow.IRCBackColor = FormMain.Instance.IceChatColors.QueryBackColor;
+                    textWindow.IRCBackColor = _parent.IceChatColors.QueryBackColor;
                 }
                 else if (windowType == WindowType.ChannelList)
                 {
@@ -1268,7 +1441,7 @@ namespace IceChat
                 }
                 else if (windowType == WindowType.DCCChat)
                 {
-                    textWindow.IRCBackColor = FormMain.Instance.IceChatColors.QueryBackColor;
+                    textWindow.IRCBackColor = _parent.IceChatColors.QueryBackColor;
                 }
                 else if (windowType == WindowType.DCCFile)
                 {
@@ -1298,7 +1471,7 @@ namespace IceChat
                 
                 if (this.windowType == WindowType.Channel || this.windowType == WindowType.Query)
                 {                    
-                    ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
                     if (cs != null)
                     {
                         cs.PinnedTab = value;
@@ -1310,12 +1483,12 @@ namespace IceChat
                         cs1.ChannelName = this.TabCaption;
                         cs1.NetworkName = this.connection.ServerSetting.NetworkName;
                         
-                        FormMain.Instance.ChannelSettings.AddChannel(cs1);
+                        _parent.ChannelSettings.AddChannel(cs1);
                     }
                 }
                 else if (this.windowType == WindowType.Console || this.windowType == WindowType.Debug || this.windowType == WindowType.Window)
                 {
-                    ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(this.TabCaption, "");
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, "");
 
                     if (cs != null)
                     {
@@ -1328,12 +1501,12 @@ namespace IceChat
                         cs1.ChannelName = this.TabCaption;
                         cs1.NetworkName = "";
 
-                        FormMain.Instance.ChannelSettings.AddChannel(cs1);
+                        _parent.ChannelSettings.AddChannel(cs1);
                     }
                 }
 
-                FormMain.Instance.SaveChannelSettings();
-                FormMain.Instance.ChannelBar.Invalidate();
+                _parent.SaveChannelSettings();
+                _parent.ChannelBar.Invalidate();
             }
         }
 
@@ -1345,7 +1518,7 @@ namespace IceChat
                 _windowIndex = value;
                 if (this.windowType == WindowType.Channel)
                 {
-                    ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
+                    ChannelSetting cs = _parent.ChannelSettings.FindChannel(this.TabCaption, this.Connection.ServerSetting.NetworkName);
                     if (cs != null)
                     {
                         cs.WindowIndex = value;
@@ -1356,7 +1529,7 @@ namespace IceChat
                         cs1.ChannelName = this.TabCaption;
                         cs1.NetworkName = this.connection.ServerSetting.NetworkName;
                         cs1.WindowIndex = value;
-                        FormMain.Instance.ChannelSettings.AddChannel(cs1);
+                        _parent.ChannelSettings.AddChannel(cs1);
                     }
                 }
             }            
@@ -1460,6 +1633,7 @@ namespace IceChat
             set
             {
                 channelListComplete = value;
+                ShowSearchPanel();
             }
         }
 
@@ -1471,7 +1645,7 @@ namespace IceChat
             }
             set
             {
-                if (FormMain.Instance.IceChatOptions.ShowTopic == false)
+                if (_parent.IceChatOptions.ShowTopic == false)
                 {
                     //dont allow to update
 
@@ -1499,7 +1673,7 @@ namespace IceChat
                 if (lastMessageType != value)
                 {
                     //check if we are the current window or not
-                    if (this == FormMain.Instance.CurrentWindow)
+                    if (this == _parent.CurrentWindow)
                     {
                         lastMessageType = FormMain.ServerMessageType.Default;
                         return;
@@ -1510,9 +1684,22 @@ namespace IceChat
                     {
                         if (this._eventOverLoad == false)
                         {
-                            lastMessageType = value;
-                            FormMain.Instance.ChannelBar.Invalidate();
-                            FormMain.Instance.ServerTree.Invalidate();
+                            if (lastMessageType == FormMain.ServerMessageType.Action)
+                            {
+                                if (value == FormMain.ServerMessageType.Message)
+                                {
+                                    //only allow action to be over riden by message
+                                    lastMessageType = value;
+                                    _parent.ChannelBar.Invalidate();
+                                    _parent.ServerTree.Invalidate();
+                                }
+                            }
+                            else
+                            {
+                                lastMessageType = value;
+                                _parent.ChannelBar.Invalidate();
+                                _parent.ServerTree.Invalidate();
+                            }
                         }
                     }
                 }
@@ -1575,7 +1762,7 @@ namespace IceChat
             {
                 channelTopic = topic;
                 textTopic.ClearTextWindow();
-                string msgt = FormMain.Instance.GetMessageFormat("Channel Topic Text");
+                string msgt = _parent.GetMessageFormat("Channel Topic Text");
                 msgt = msgt.Replace("$channel", this.TabCaption);
                 msgt = msgt.Replace("$topic", topic);
                 textTopic.AppendText(msgt, "");
@@ -1629,12 +1816,12 @@ namespace IceChat
             //resize the font for the topic, and make the box size accordingly
             textTopic.Font = new Font(fontName, fontSize);
             this.panelTopic.Size = new System.Drawing.Size(panelTopic.Width,(int) fontSize * 2);
-            this.panelTopic.Visible = FormMain.Instance.IceChatOptions.ShowTopic;
+            this.panelTopic.Visible = _parent.IceChatOptions.ShowTopic;
         }
 
         private void StatusChange()
         {
-            FormMain.Instance.InputPanel.CurrentConnection = ((ConsoleTab)consoleTab.SelectedTab).Connection;
+            _parent.InputPanel.CurrentConnection = ((ConsoleTab)consoleTab.SelectedTab).Connection;
 
             string network = "";
             if (((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.NetworkName.Length > 0)
@@ -1647,21 +1834,22 @@ namespace IceChat
                     ssl = " {SSL}";
 
                 if (((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.UseBNC)
-                    FormMain.Instance.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.CurrentNickName + " connected to " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.BNCIP +  " {BNC}" + ssl);
+                    //_parent.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.CurrentNickName + " connected to " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.BNCIP +  " {BNC}" + ssl);
+                    _parent.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.CurrentNickName + " connected to " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.RealServerName +  " {BNC " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.BNCIP + "} " + ssl);
                 else
                 {
                     if (((ConsoleTab)consoleTab.SelectedTab).Connection.IsFullyConnected == true)
-                        FormMain.Instance.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.CurrentNickName + " connected to " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.RealServerName + ssl + network);
+                        _parent.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.CurrentNickName + " connected to " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.RealServerName + ssl + network);
                     else
-                        FormMain.Instance.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.CurrentNickName + " connecting to " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.ServerName + ssl);
+                        _parent.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.CurrentNickName + " connecting to " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.ServerName + ssl);
                 }
             }
             else
             {
                 if (((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.UseBNC)
-                    FormMain.Instance.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.NickName + " disconnected from " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.BNCIP);
+                    _parent.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.NickName + " disconnected from " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.BNCIP);
                 else
-                    FormMain.Instance.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.NickName + " disconnected from " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.ServerName + network);
+                    _parent.StatusText(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.NickName + " disconnected from " + ((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting.ServerName + network);
             }
         }
 
@@ -1674,18 +1862,18 @@ namespace IceChat
                 StatusChange();
                 
                 //highlite the proper item in the server tree
-                FormMain.Instance.ServerTree.SelectTab(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting, false);                
+                _parent.ServerTree.SelectTab(((ConsoleTab)consoleTab.SelectedTab).Connection.ServerSetting, false);                
             }
             else
             {
-                FormMain.Instance.InputPanel.CurrentConnection = null;
-                FormMain.Instance.StatusText("Welcome to " + FormMain.ProgramID + " " + FormMain.VersionID);
+                _parent.InputPanel.CurrentConnection = null;
+                _parent.StatusText("Welcome to " + FormMain.ProgramID + " " + FormMain.VersionID);
             }            
         }
 
         private void OnTabConsoleMouseUp(object sender, MouseEventArgs e)
         {
-            FormMain.Instance.FocusInputBox();
+            _parent.FocusInputBox();
         }
 
         /// <summary>
@@ -1712,7 +1900,7 @@ namespace IceChat
                                     if (((ConsoleTab)consoleTab.TabPages[i]).Connection.IsFullyConnected)
                                     {
                                         ((ConsoleTab)consoleTab.TabPages[i]).Connection.AttemptReconnect = false;
-                                        FormMain.Instance.ParseOutGoingCommand(((ConsoleTab)consoleTab.TabPages[i]).Connection, "//quit " + ((ConsoleTab)consoleTab.TabPages[i]).Connection.ServerSetting.QuitMessage);
+                                        _parent.ParseOutGoingCommand(((ConsoleTab)consoleTab.TabPages[i]).Connection, "//quit " + ((ConsoleTab)consoleTab.TabPages[i]).Connection.ServerSetting.QuitMessage);
                                         return;
                                     }
                                 }
@@ -1729,10 +1917,10 @@ namespace IceChat
 
         internal void RemoveConsoleTab(int index)
         {
-            FormMain.Instance.CloseAllWindows(((ConsoleTab)consoleTab.TabPages[index]).Connection);
+            _parent.CloseAllWindows(((ConsoleTab)consoleTab.TabPages[index]).Connection);
             //remove the server connection from the collection
             ((ConsoleTab)consoleTab.TabPages[index]).Connection.Dispose();
-            FormMain.Instance.ServerTree.ServerConnections.Remove(((ConsoleTab)consoleTab.TabPages[index]).Connection.ServerSetting.ID);
+            _parent.ServerTree.ServerConnections.Remove(((ConsoleTab)consoleTab.TabPages[index]).Connection.ServerSetting.ID);
             consoleTab.TabPages.RemoveAt(consoleTab.TabPages.IndexOf(consoleTab.TabPages[index]));
         }
 
@@ -1747,10 +1935,10 @@ namespace IceChat
                     if (((ConsoleTab)e.Control).Connection.ServerSetting.ID > 50000)
                     {
                         //temporary server, remove it from ServerTree
-                        FormMain.Instance.ServerTree.ServersCollection.RemoveServer(((ConsoleTab)e.Control).Connection.ServerSetting);
+                        _parent.ServerTree.ServersCollection.RemoveServer(((ConsoleTab)e.Control).Connection.ServerSetting);
                     }
                     ((TextWindow)((ConsoleTab)e.Control).Controls[0]).Dispose();
-                    FormMain.Instance.ServerTree.Invalidate();
+                    _parent.ServerTree.Invalidate();
                 }
             }
             catch { }
@@ -1767,20 +1955,20 @@ namespace IceChat
 
             Brush br;
             if (e.State == DrawItemState.Selected)
-                br = new LinearGradientBrush(bounds, IrcColor.colors[FormMain.Instance.IceChatColors.TabBarCurrentBG1], IrcColor.colors[FormMain.Instance.IceChatColors.TabBarCurrentBG2], 90);
+                br = new LinearGradientBrush(bounds, IrcColor.colors[_parent.IceChatColors.TabBarCurrentBG1], IrcColor.colors[_parent.IceChatColors.TabBarCurrentBG2], 90);
             else
-                br = new LinearGradientBrush(bounds, IrcColor.colors[FormMain.Instance.IceChatColors.TabBarOtherBG1], IrcColor.colors[FormMain.Instance.IceChatColors.TabBarOtherBG2], 90);
+                br = new LinearGradientBrush(bounds, IrcColor.colors[_parent.IceChatColors.TabBarOtherBG1], IrcColor.colors[_parent.IceChatColors.TabBarOtherBG2], 90);
 
             e.Graphics.FillRectangle(br, bounds);
 
             if (e.Index == consoleTab.SelectedIndex)
             {
-                e.Graphics.DrawString(tabName, consoleTab.Font, new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarCurrent]), textBounds);
+                e.Graphics.DrawString(tabName, consoleTab.Font, new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarCurrent]), textBounds);
             }
             else
             {
                 textBounds.Y = textBounds.Y + 2;
-                e.Graphics.DrawString(tabName, consoleTab.Font, new SolidBrush(IrcColor.colors[FormMain.Instance.IceChatColors.TabBarDefault]), textBounds);
+                e.Graphics.DrawString(tabName, consoleTab.Font, new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarDefault]), textBounds);
             }
             
             if (e.Index != 0 && e.Index == consoleTab.SelectedIndex)
@@ -1815,7 +2003,7 @@ namespace IceChat
             this.consoleTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.inputPanel = new InputPanel();
             
-            this.consoleTab.Font = new Font(FormMain.Instance.IceChatFonts.FontSettings[6].FontName, FormMain.Instance.IceChatFonts.FontSettings[6].FontSize);
+            this.consoleTab.Font = new Font(_parent.IceChatFonts.FontSettings[6].FontName, _parent.IceChatFonts.FontSettings[6].FontSize);
 
             this.consoleTab.Location = new System.Drawing.Point(0, 0);
             this.consoleTab.Name = "consoleTab";
@@ -1878,7 +2066,8 @@ namespace IceChat
             this.channelList.MultiSelect = false;
             this.channelList.FullRowSelect = true;
 
-            Panel searchPanel = new Panel();
+            searchPanel = new Panel();
+            searchPanel.Visible = false;
             searchPanel.Height = 30;
 
             Label searchLabel = new Label();
@@ -1914,6 +2103,16 @@ namespace IceChat
 
         }
 
+        private void ShowSearchPanel()
+        {
+            this.Invoke((MethodInvoker)delegate()
+            {
+                if (searchPanel != null)
+                    searchPanel.Show();
+            });
+
+        }
+
         private void searchText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -1926,12 +2125,12 @@ namespace IceChat
             {
                 if (WindowStyle == IceTabPage.WindowType.Console)
                 {
-                    FormMain.Instance.ParseOutGoingCommand(ActiveConnection, data);
+                    _parent.ParseOutGoingCommand(ActiveConnection, data);
                     CurrentConsoleWindow().ScrollToBottom();
                 }
                 else if (WindowStyle != IceTabPage.WindowType.DCCFile && WindowStyle != IceTabPage.WindowType.ChannelList)
                 {
-                    FormMain.Instance.ParseOutGoingCommand(ActiveConnection, data);
+                    _parent.ParseOutGoingCommand(ActiveConnection, data);
                     textWindow.ScrollToBottom();
                 }
 
@@ -1940,12 +2139,12 @@ namespace IceChat
                 {
                     if (data.StartsWith("/") == false)
                     {
-                        if (FormMain.Instance.IceChatOptions.AutoReturn == true)
+                        if (_parent.IceChatOptions.AutoReturn == true)
                         {
                             if (ActiveConnection.ServerSetting.Away == true)
                             {
                                 //return yourself
-                                FormMain.Instance.ParseOutGoingCommand(ActiveConnection, "/away");
+                                _parent.ParseOutGoingCommand(ActiveConnection, "/away");
                             }
                         }
                     }
@@ -1953,9 +2152,9 @@ namespace IceChat
                     //reset the auto away timer
                     if (data.StartsWith("/") == false)
                     {
-                        if (FormMain.Instance.IceChatOptions.AutoAway == true)
+                        if (_parent.IceChatOptions.AutoAway == true && _parent.IceChatOptions.AutoAwayTime > 0)
                         {
-                            ActiveConnection.SetAutoAwayTimer(FormMain.Instance.IceChatOptions.AutoAwayTime);
+                            ActiveConnection.SetAutoAwayTimer(_parent.IceChatOptions.AutoAwayTime);
                         }
                     }
                 }
@@ -2029,7 +2228,7 @@ namespace IceChat
         private void channelList_DoubleClick(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in channelList.SelectedItems)
-                FormMain.Instance.ParseOutGoingCommand(this.connection, "/join " + eachItem.Text);
+                _parent.ParseOutGoingCommand(this.connection, "/join " + eachItem.Text);
         }
 
         private void channelList_MouseDown(object sender, MouseEventArgs e)
@@ -2064,14 +2263,14 @@ namespace IceChat
         private void autoJoinChannel_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in channelList.SelectedItems)
-                FormMain.Instance.ParseOutGoingCommand(this.connection, "/autojoin " + eachItem.Text);
+                _parent.ParseOutGoingCommand(this.connection, "/autojoin " + eachItem.Text);
             
         }
 
         private void joinChannel_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in channelList.SelectedItems)
-                FormMain.Instance.ParseOutGoingCommand(this.connection, "/join " + eachItem.Text);            
+                _parent.ParseOutGoingCommand(this.connection, "/join " + eachItem.Text);            
         }
 
 
@@ -2081,8 +2280,8 @@ namespace IceChat
         private void InitializeChannel()
         {
             this.panelTopic = new System.Windows.Forms.Panel();
-            this.textTopic = new IceChat.TextWindow();
-            this.textWindow = new IceChat.TextWindow();
+            this.textTopic = new TextWindow();
+            this.textWindow = new TextWindow();
             this.inputPanel = new InputPanel();
             this.panelTopic.SuspendLayout();
             this.SuspendLayout();

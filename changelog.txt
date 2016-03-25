@@ -1,6 +1,10 @@
-Build 9.08b, January 17 2016
+Build 9.10, March 25 2016
 * Changed sound settings for the nickname in a channel to not override the channel message sound
-
+* Added /colortab #channel <color#> to allow to change the color of the tab
+* Added /emoticons #channel <on/off> to enable or disable emoticons in a specific channel
+* Fix issue with IPv6 servers not connecting
+* Fix issue with null items in the Server XML file creating errors
+* Can now use color/bold codes in Fullname, Quit message and Auto perform in Server Editor
 
 Build 9.08a, November 28 2015
 * Transparency setting is now saved

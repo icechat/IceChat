@@ -377,7 +377,7 @@ namespace IceChat
                         break;
                     case IceTabPage.WindowType.Query:
                     case IceTabPage.WindowType.DCCChat:
-                        img = StaticMethods.LoadResourceImage("new-query.ico");
+                        img = StaticMethods.LoadResourceImage("query.png");
                         break;
                     case IceTabPage.WindowType.ChannelList:
                         img = StaticMethods.LoadResourceImage("channellist.png");
@@ -439,6 +439,9 @@ namespace IceChat
                         case FormMain.ServerMessageType.Other:
                             br = new SolidBrush(IrcColor.colors[_parent.IceChatColors.TabBarOtherMessage]);
                             break;
+                        case FormMain.ServerMessageType.CustomMessage:
+                            br = new SolidBrush(IrcColor.colors[tabPage.CustomForeColor]);
+                            break;
                         default:
                             if (tabPage.PinnedTab)
                                 br = brBack;
@@ -447,6 +450,7 @@ namespace IceChat
                             break;
                     }
                 }
+
                 if (!tabPage.PinnedTab)
                 {
                     if (tabPage.WindowStyle != IceTabPage.WindowType.Console)

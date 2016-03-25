@@ -75,10 +75,6 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -475,13 +471,13 @@
     <EmbeddedResource Include="Icons\connect-icon.png" />
     <EmbeddedResource Include="Icons\disconnect-icon.png" />
     <EmbeddedResource Include="Icons\refresh-icon.png" />
-    <EmbeddedResource Include="Icons\new-query.ico" />
     <EmbeddedResource Include="Icons\mute.png" />
     <None Include="Icons\restore.png" />
     <None Include="Icons\maximize.png" />
     <EmbeddedResource Include="Icons\connect-icon-auto.png" />
     <EmbeddedResource Include="Icons\disconnect-icon-auto.png" />
     <EmbeddedResource Include="Icons\help.png" />
+    <EmbeddedResource Include="Icons\query.png" />
     <Content Include="ToDo.txt" />
     <EmbeddedResource Include="Icons\update-menu.png" />
     <EmbeddedResource Include="Icons\update.png" />

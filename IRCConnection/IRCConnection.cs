@@ -35,7 +35,7 @@ using System.Security.Authentication;
 
 namespace IceChat
 {
-    public partial class IRCConnection
+    public partial class IRCConnection : IDisposable
     {
         private Socket serverSocket = null;
         private NetworkStream socketStream = null;
@@ -112,18 +112,51 @@ namespace IceChat
 
         public void Dispose()
         {
-            try
-            {
-                if (serverSocket != null)
-                    serverSocket.Disconnect(false);
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-            }
-            catch
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-            }
+                try
+                {
+                    if (serverSocket != null)
+                        serverSocket.Disconnect(false);
 
-            reconnectTimer.Stop();
-            reconnectTimer.Dispose();
+                }
+                catch
+                {
+                }
+
+                reconnectTimer.Stop();
+                reconnectTimer.Dispose();
+
+                pongTimer.Stop();
+                pongTimer.Dispose();
+
+                autoAwayTimer.Stop();
+                autoAwayTimer.Dispose();
+
+                if (buddyListTimer != null)
+                {
+                    buddyListTimer.Stop();
+                    buddyListTimer.Dispose();
+                }
+
+                foreach (IrcTimer t in ircTimers)
+                {
+                    t.Stop();
+                    t.Dispose();
+                }
+
+                if (socketStream != null)
+                    socketStream.Dispose();
+
+                if (sslStream != null)
+                    sslStream.Dispose();
+            }
         }
 
         public string Parse(string msg)
@@ -774,244 +807,270 @@ namespace IceChat
         /// <param name="data"></param>
         public void SendData(string data)
         {
-            //check if the socket is still connected
-            if (serverSocket == null)
-            {
-                if (ServerError != null)
-                    ServerError(this, "Error: You are not connected (Socket not created) - Can not send", false);
-                
 
-                return;
-            }
-
-            if (socketStream == null)
+            try
             {
-                System.Diagnostics.Debug.WriteLine("senddata null stream");
-                return;
-            }
 
-            //set the proper encoding            
-            byte[] bytData = Encoding.GetEncoding(serverSetting.Encoding).GetBytes(data + "\r\n");
-            if (data.Length > 0)
-            {
-                if (serverSetting.UseSSL == true)
+                //check if the socket is still connected
+                if (serverSocket == null)
                 {
-                    if (sslStream.CanWrite)
+                    if (ServerError != null)
+                        ServerError(this, "Error: You are not connected (Socket not created) - Can not send", false);
+
+                    return;
+                }
+
+                if (socketStream == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("senddata null stream");
+                    return;
+                }
+
+                if (serverSetting == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("senddata null serversetting");
+                    return;
+                }
+
+                //set the proper encoding            
+                byte[] bytData = Encoding.GetEncoding(serverSetting.Encoding).GetBytes(data + "\r\n");
+                if (data.Length > 0)
+                {
+                    if (serverSetting.UseSSL == true)
                     {
-                        try
+                        if (sslStream.CanWrite)
                         {
-                            //raise an event for the debug window
-                            if (m_PendingWriteSSL == false)
+                            try
                             {
-                                if (sendBuffer.Count > 0)
-                                    m_PendingWriteSSL = true;
+                                //raise an event for the debug window
+                                if (m_PendingWriteSSL == false)
+                                {
+                                    if (sendBuffer.Count > 0)
+                                        m_PendingWriteSSL = true;
 
-                                sslStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), sslStream);
+                                    sslStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), sslStream);
 
+                                    if (RawServerOutgoingData != null)
+                                        RawServerOutgoingData(this, data);
+                                }
+                                else
+                                {
+                                    sendBuffer.Enqueue(data);
+                                }
+
+                            }
+                            catch (SocketException se)
+                            {
+                                //some kind of a socket error
+                                if (ServerError != null)
+                                    ServerError(this, "You are not Connected - Can not send (SSL):  " + se.Message, false);
+
+                                attemptReconnect = true;
+                                disconnectError = true;
+                                System.Diagnostics.Debug.WriteLine("SSL Connection Error");
+                                ForceDisconnect();
+                            }
+                            catch (NotSupportedException)
+                            {
+                                //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
+                                //System.Diagnostics.Debug.WriteLine("nse SSL:" + nse.Message);
+                                sendBuffer.Enqueue(data);
+                            }
+                            catch (Exception ex)
+                            {
+                                if (ServerError != null)
+                                    ServerError(this, "SSL Exception Error - Can not send:" + ex.Message, false);
+
+                                attemptReconnect = true;
+                                disconnectError = true;
+                                ForceDisconnect();
+                            }
+                        }
+                        else
+                        {
+                            if (ServerError != null)
+                                ServerError(this, "You are not Connected (SSL Socket Disconnected) - Can not send:" + data, false);
+
+                            System.Diagnostics.Debug.WriteLine("ssl not connected error");
+
+                            attemptReconnect = true;
+                            disconnectError = true;
+                            ForceDisconnect();
+                        }
+                    }
+                    else
+                    {
+                        if (socketStream.CanWrite && socketStream.CanRead)
+                        {
+                            try
+                            {
+                                socketStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), socketStream);
+
+                                //raise an event for the debug window
                                 if (RawServerOutgoingData != null)
                                     RawServerOutgoingData(this, data);
                             }
-                            else
+                            catch (SocketException se)
                             {
+                                //some kind of a socket error
+                                if (ServerError != null)
+                                    ServerError(this, "You are not Connected - Can not send: " + se.Message, false);
+
+                                attemptReconnect = true;
+                                disconnectError = true;
+                                ForceDisconnect();
+                            }
+                            catch (NotSupportedException)
+                            {
+                                //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
                                 sendBuffer.Enqueue(data);
                             }
+                            catch (Exception ex)
+                            {
+                                if (ServerError != null)
+                                    ServerError(this, "Exception Error - Can not send:" + ex.Message, false);
 
+                                attemptReconnect = true;
+                                disconnectError = true;
+                                ForceDisconnect();
+                            }
                         }
-                        catch (SocketException se)
-                        {
-                            //some kind of a socket error
-                            if (ServerError != null)
-                                ServerError(this, "You are not Connected - Can not send (SSL):  " + se.Message, false);
-
-                            attemptReconnect = true;
-                            disconnectError = true;
-                            System.Diagnostics.Debug.WriteLine("SSL Connection Error");
-                            ForceDisconnect();
-                        }
-                        catch (NotSupportedException)
-                        {
-                            //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
-                            //System.Diagnostics.Debug.WriteLine("nse SSL:" + nse.Message);
-                            sendBuffer.Enqueue(data);
-                        }
-                        catch (Exception ex)
+                        else
                         {
                             if (ServerError != null)
-                                ServerError(this, "SSL Exception Error - Can not send:" + ex.Message, false);
+                                ServerError(this, "You are not connected (Socket Disconnected) - Can not send:" + data, false);
 
                             attemptReconnect = true;
                             disconnectError = true;
                             ForceDisconnect();
                         }
+
+
                     }
-                    else
-                    {
-                        if (ServerError != null)
-                            ServerError(this, "You are not Connected (SSL Socket Disconnected) - Can not send:" + data, false);
-
-                        System.Diagnostics.Debug.WriteLine("ssl not connected error");
-
-                        attemptReconnect = true;
-                        disconnectError = true;
-                        ForceDisconnect();
-                    }
-                }
-                else
-                {
-                    if (socketStream.CanWrite && socketStream.CanRead)
-                    {
-                        try
-                        {
-                            socketStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), socketStream);
-
-                            //raise an event for the debug window
-                            if (RawServerOutgoingData != null)
-                                RawServerOutgoingData(this, data);
-                        }
-                        catch (SocketException se)
-                        {
-                            //some kind of a socket error
-                            if (ServerError != null)
-                                ServerError(this, "You are not Connected - Can not send: " + se.Message, false);
-
-                            attemptReconnect = true;
-                            disconnectError = true;
-                            ForceDisconnect();
-                        }
-                        catch (NotSupportedException)
-                        {
-                            //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
-                            sendBuffer.Enqueue(data);
-                        }
-                        catch (Exception ex)
-                        {
-                            if (ServerError != null)
-                                ServerError(this, "Exception Error - Can not send:" + ex.Message, false);
-
-                            attemptReconnect = true;
-                            disconnectError = true;
-                            ForceDisconnect();
-                        }
-                    }
-                    else
-                    {
-                        if (ServerError != null)
-                            ServerError(this, "You are not connected (Socket Disconnected) - Can not send:" + data, false);
-
-                        attemptReconnect = true;
-                        disconnectError = true;
-                        ForceDisconnect();
-                    }
-
 
                 }
-               
+            }
+            catch (Exception e)
+            {
+                WriteErrorFile(this, "SendData(s) Error:" + data, e);
             }
         }
 
         public void SendData(byte[] bytData)
         {
-            //check if the socket is still connected
-            if (serverSocket == null)
+            try
             {
-                if (ServerError != null)
-                    ServerError(this, "Error: You are not Connected (Socket not created) - Can not send", false);
-                return;
-            }
-
-            if (socketStream == null)
-            {
-                System.Diagnostics.Debug.WriteLine("senddata null stream");
-                return;
-            }
-
-            //get the proper encoding            
-            if (bytData.Length > 0)
-            {
-                if (serverSetting.UseSSL == true)
+                //check if the socket is still connected
+                if (serverSocket == null)
                 {
-                    if (sslStream.CanWrite == true)
+                    if (ServerError != null)
+                        ServerError(this, "Error: You are not Connected (Socket not created) - Can not send", false);
+                    return;
+                }
+
+                if (socketStream == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("senddata null stream");
+                    return;
+                }
+
+                if (serverSetting == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("senddata null serversetting");
+                    return;
+                }
+
+                //get the proper encoding            
+                if (bytData.Length > 0)
+                {
+                    if (serverSetting.UseSSL == true)
                     {
-                        try
+                        if (sslStream.CanWrite == true)
                         {
-                            //raise an event for the debug window
-                            string strData = Encoding.GetEncoding(serverSetting.Encoding).GetString(readBuffer);
-                            if (RawServerOutgoingData != null)
-                                RawServerOutgoingData(this, strData);
+                            try
+                            {
+                                //raise an event for the debug window
+                                string strData = Encoding.GetEncoding(serverSetting.Encoding).GetString(readBuffer);
+                                if (RawServerOutgoingData != null)
+                                    RawServerOutgoingData(this, strData);
 
-                            sslStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), sslStream);
+                                sslStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), sslStream);
 
+                            }
+                            catch (SocketException se)
+                            {
+                                //some kind of a socket error
+                                if (ServerError != null)
+                                    ServerError(this, "You are not Connected - Can not send (SSL):" + se.Message, false);
+
+                                attemptReconnect = true;
+                                disconnectError = true;
+                                ForceDisconnect();
+                            }
+                            catch (NotSupportedException)
+                            {
+                                //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
+                                //sendBuffer.Enqueue(data);
+                            }
                         }
-                        catch (SocketException se)
+                        else
                         {
-                            //some kind of a socket error
                             if (ServerError != null)
-                                ServerError(this, "You are not Connected - Can not send (SSL):" + se.Message, false);
+                                ServerError(this, "You are not Connected (SSL Socket Disconnected) - Can not send:" + bytData.ToString(), false);
 
                             attemptReconnect = true;
                             disconnectError = true;
                             ForceDisconnect();
                         }
-                        catch (NotSupportedException)
-                        {
-                            //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
-                            //sendBuffer.Enqueue(data);
-                        }
+
                     }
                     else
                     {
-                        if (ServerError != null)
-                            ServerError(this, "You are not Connected (SSL Socket Disconnected) - Can not send:" + bytData.ToString(), false);
-
-
-
-                        attemptReconnect = true;
-                        disconnectError = true;
-                        ForceDisconnect();
-                    }
-
-                }
-                else
-                {
-                    if (socketStream.CanWrite == true)
-                    {
-                        try
+                        if (socketStream.CanWrite == true)
                         {
-                            //raise an event for the debug window
-                            string strData = Encoding.GetEncoding(serverSetting.Encoding).GetString(readBuffer);
-                            if (RawServerOutgoingData != null)
-                                RawServerOutgoingData(this, strData);
+                            try
+                            {
+                                //raise an event for the debug window
+                                string strData = Encoding.GetEncoding(serverSetting.Encoding).GetString(readBuffer);
+                                if (RawServerOutgoingData != null)
+                                    RawServerOutgoingData(this, strData);
 
-                            socketStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), socketStream);
+                                socketStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), socketStream);
 
+                            }
+                            catch (SocketException se)
+                            {
+                                //some kind of a socket error
+                                if (ServerError != null)
+                                    ServerError(this, "You are not Connected - Can not send:" + serverSetting.UseBNC + ":" + se.Message, false);
+
+                                attemptReconnect = true;
+                                disconnectError = true;
+                                ForceDisconnect();
+                            }
+                            catch (NotSupportedException)
+                            {
+                                //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
+                                //sendBuffer.Enqueue(data);
+                            }
                         }
-                        catch (SocketException se)
+                        else
                         {
-                            //some kind of a socket error
                             if (ServerError != null)
-                                ServerError(this, "You are not Connected - Can not send:" + serverSetting.UseBNC + ":" + se.Message, false);
+                                ServerError(this, "You are not Connected (Socket Disconnected) - Can not send:" + bytData.ToString(), false);
 
                             attemptReconnect = true;
                             disconnectError = true;
                             ForceDisconnect();
                         }
-                        catch (NotSupportedException)
-                        {
-                            //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
-                            //sendBuffer.Enqueue(data);
-                        }
-                    }
-                    else
-                    {
-                        if (ServerError != null)
-                            ServerError(this, "You are not Connected (Socket Disconnected) - Can not send:" + bytData.ToString(), false);
-
-                        attemptReconnect = true;
-                        disconnectError = true;
-                        ForceDisconnect();
                     }
                 }
             }
+            catch (Exception e)
+            {
+                WriteErrorFile(this, "SendData(b) Error:" + bytData.Length, e);
+            }
+
         }
 
         /// <summary>
@@ -1512,27 +1571,65 @@ namespace IceChat
                 {
                     //connect to an IPv6 Server
                     System.Diagnostics.Debug.WriteLine("try ipv6:" + Socket.OSSupportsIPv6);
-                    IPAddress ipAddress2 = null;
                     
-                    if (IPAddress.TryParse(serverSetting.ServerName, out ipAddress2))
-                    {
-                        System.Diagnostics.Debug.WriteLine("ipv6 parsed:" + ipAddress2.ToString());
-                    }                    
-
+                    
                     hostEntry = Dns.GetHostEntry(serverSetting.ServerName);
-                    //IPAddress[] address = Dns.GetHostAddresses(serverSetting.ServerName);
                     IPHostEntry hosts = Dns.GetHostEntry(serverSetting.ServerName);
                     
-                    /*
-                    foreach (IPAddress ip in address)
-                    {
-                        System.Diagnostics.Debug.WriteLine(ip.AddressFamily.ToString() + ":" + ip.ToString() + ":" + ip.Address.ToString() + ":" + ip.IsIPv6LinkLocal);
-                    }
-                    System.Diagnostics.Debug.WriteLine("host addresses:" + address.Length);
-                    */
-                    foreach (IPAddress ip in hosts.AddressList)
+                    whichAddressCurrent = 1;
+                    totalAddressinDNS = hostEntry.AddressList.Length;
+
+                    if (whichAddressinList > totalAddressinDNS)
+                        whichAddressinList = 1; 
+
+                    foreach (IPAddress address in hosts.AddressList)
                     {                        
-                        System.Diagnostics.Debug.WriteLine(ip.AddressFamily.ToString() + ":" + ip.ToString() + ":" + ip.IsIPv6LinkLocal);
+                        System.Diagnostics.Debug.WriteLine(address.AddressFamily.ToString() + ":" + address.ToString());
+                        try
+                        {
+                            if (whichAddressCurrent == whichAddressinList)
+                            {
+                                if (address.AddressFamily == AddressFamily.InterNetworkV6)
+                                {
+                                    System.Diagnostics.Debug.WriteLine("Connect to ipv6:" + address.ToString() + ":" + whichAddressCurrent);
+                                    IPEndPoint ipe = new IPEndPoint(address, Convert.ToInt32(serverSetting.ServerPort));
+                                    serverSocket = new Socket(address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+                                    serverSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, 1);
+
+                                    serverSetting.ServerIP = address.ToString();
+                                    ServerConnect(this, address.ToString());
+
+                                    serverSocket.BeginConnect(ipe, new AsyncCallback(OnConnectionReady), serverSocket);
+                                    break;
+                                }
+                            }
+                            
+                            whichAddressCurrent++;
+                            
+                            if (whichAddressCurrent > hostEntry.AddressList.Length)
+                                    whichAddressCurrent = 1;
+
+                            
+                        }
+                        catch (Exception e)
+                        {
+                            if (ServerError != null)
+                                ServerError(this, "Connect - IPV6 Exception Error:" + e.InnerException.ToString() + ":" + e.Source + ":" + e.StackTrace.ToString() + ":" + e.Message.ToString(), false);
+
+                            whichAddressCurrent++;
+                            if (whichAddressCurrent > hostEntry.AddressList.Length)
+                                whichAddressCurrent = 1;
+
+                            disconnectError = true;
+                            ForceDisconnect();
+                        }
+                        finally
+                        {
+                            if (whichAddressCurrent > hostEntry.AddressList.Length)
+                                whichAddressCurrent = 1;
+                        }
+                        
                     }
 
                     //String[] alias = hostEntry.Aliases;
@@ -1557,7 +1654,7 @@ namespace IceChat
                     }
                     */
                     //FAULT IN THIS CODE WILL NOT PROPERLY PARSE IPv6
-                    
+                    /* // this below fails on IPV6
                     IPAddress ipAddress = null;
                     if (IPAddress.TryParse(serverSetting.ServerName, out ipAddress))
                     {
@@ -1585,7 +1682,12 @@ namespace IceChat
                     else
                     {
                         System.Diagnostics.Debug.WriteLine("can not get ip of ipv6 address");
+                        ServerError(this, "Can not resolve IPV6 Address ("+serverSetting.ServerName+")", false);
+                        disconnectError = true;                        
+                        ForceDisconnect();
+
                     }
+                    */ 
                 }
                 else
                 {

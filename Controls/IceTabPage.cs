@@ -83,6 +83,9 @@ namespace IceChat
         private TabControl consoleTab;
 
         private FormMain.ServerMessageType lastMessageType;
+        
+        private int customForeColor;
+        private int customBackColor;
 
         private bool _disableConsoleSelectChangedEvent = false;
         private bool _disableSounds = false;
@@ -1670,7 +1673,7 @@ namespace IceChat
             }
             set
             {
-                if (lastMessageType != value)
+                if (lastMessageType != value || value == FormMain.ServerMessageType.CustomMessage)
                 {
                     //check if we are the current window or not
                     if (this == _parent.CurrentWindow)
@@ -1679,8 +1682,8 @@ namespace IceChat
                         return;
                     }
                     
-                    // do not change if already a New Message
-                    if (lastMessageType != FormMain.ServerMessageType.Message)
+                    // do not change if already a New Message (or override if it is a custom color)
+                    if (lastMessageType != FormMain.ServerMessageType.Message || value == FormMain.ServerMessageType.CustomMessage)
                     {
                         if (this._eventOverLoad == false)
                         {
@@ -1703,6 +1706,30 @@ namespace IceChat
                         }
                     }
                 }
+            }
+        }
+
+        internal int CustomForeColor
+        {
+            get 
+            {
+                return this.customForeColor;   
+            }
+            set
+            {
+                this.customForeColor = value;
+            }
+        }
+
+        internal int CustomBackColor
+        {
+            get
+            {
+                return this.customBackColor;
+            }
+            set
+            {
+                this.customBackColor = value;
             }
         }
 

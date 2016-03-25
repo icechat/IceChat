@@ -219,8 +219,6 @@ namespace IceChatPlugin
                 
                 HighLiteItem hli = new HighLiteItem();
 
-
-
                 hli.Match = item.Text;
                 hli.Command = item.SubItems[1].Text.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
                 hli.Color = Convert.ToInt32(item.SubItems[2].Text);

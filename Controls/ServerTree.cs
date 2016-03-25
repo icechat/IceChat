@@ -1342,10 +1342,10 @@ namespace IceChat
                             if (((IceTabPage)value).FlashTab == true)
                             {
                                 if (((IceTabPage)value).FlashValue == 1)
-                                    g.DrawImage(StaticMethods.LoadResourceImage("new-query.ico"), x, currentY, 16, 16);
+                                    g.DrawImage(StaticMethods.LoadResourceImage("query.png"), x, currentY, 16, 16);
                             }
                             else
-                                g.DrawImage(StaticMethods.LoadResourceImage("new-query.ico"), x, currentY, 16, 16);
+                                g.DrawImage(StaticMethods.LoadResourceImage("query.png"), x, currentY, 16, 16);
                             break;
                         case "6":   //channel list
                             g.DrawImage(StaticMethods.LoadResourceImage("channellist.png"), x, currentY, 16, 16);
@@ -1498,7 +1498,9 @@ namespace IceChat
                                 if (t.Connection.ServerSetting == s && t.WindowStyle == IceTabPage.WindowType.Channel)
                                 {
                                     int color = _parent.IceChatColors.TabBarDefault;
-                                    if (t.LastMessageType == FormMain.ServerMessageType.Default)
+                                    if (t.LastMessageType == FormMain.ServerMessageType.CustomMessage)
+                                        color = t.CustomForeColor;                                    
+                                    else if (t.LastMessageType == FormMain.ServerMessageType.Default)
                                         color = _parent.IceChatColors.TabBarDefault;
                                     else if (t.LastMessageType == FormMain.ServerMessageType.JoinChannel)
                                         color = _parent.IceChatColors.TabBarChannelJoin;
@@ -1512,7 +1514,6 @@ namespace IceChat
                                     }
                                     else if (t.LastMessageType == FormMain.ServerMessageType.Action)
                                     {
-                                        //color = _parent.IceChatColors.TabBarNewAction;
                                         if (_parent.IceChatOptions.FlashServerTreeIcons && _parent.CurrentWindow != t)
                                             t.FlashTab = true;
                                         color = _parent.IceChatColors.TabBarNewAction;
@@ -1553,17 +1554,21 @@ namespace IceChat
                                         colorQ = _parent.IceChatColors.TabBarDefault;
                                     else if (t.LastMessageType == FormMain.ServerMessageType.Message)
                                     {
-                                        //colorQ = _parent.IceChatColors.TabBarNewMessage;
                                         if (_parent.IceChatOptions.FlashServerTreeIconsPrivate && _parent.CurrentWindow != t)
                                             t.FlashTab = true;
                                         colorQ = _parent.IceChatColors.TabBarNewMessage;
                                     }
                                     else if (t.LastMessageType == FormMain.ServerMessageType.Action)
                                     {
-                                        //colorQ = _parent.IceChatColors.TabBarNewAction;
                                         if (_parent.IceChatOptions.FlashServerTreeIconsPrivate && _parent.CurrentWindow != t)
                                             t.FlashTab = true;
                                         colorQ = _parent.IceChatColors.TabBarNewAction;
+                                    }
+                                    else if (t.LastMessageType == FormMain.ServerMessageType.CustomMessage)
+                                    {
+                                        if (_parent.IceChatOptions.FlashServerTreeIconsPrivate && _parent.CurrentWindow != t)
+                                            t.FlashTab = true;
+                                        colorQ = t.CustomForeColor;
                                     }
                                     else
                                         colorQ = _parent.IceChatColors.TabBarDefault;
@@ -2361,7 +2366,9 @@ namespace IceChat
 
         private void inChannelToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            //quit events in channel
+            //join events in channel
+            hideJoinPartQuitToolStripMenuItem.Checked = false;
+
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
             {
@@ -2390,7 +2397,9 @@ namespace IceChat
 
         private void inConsoleToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            //quit events in console
+            //part events in console
+            hideJoinPartQuitToolStripMenuItem.Checked = false;
+
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
             {
@@ -2417,6 +2426,8 @@ namespace IceChat
         private void hideToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             //quit events hide
+            hideJoinPartQuitToolStripMenuItem.Checked = false;
+            
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
             {
@@ -2441,6 +2452,20 @@ namespace IceChat
             }
         }
 
+        private void hideJoinPartQuitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            // hide all joins / parts / quits with 1 click
+            if (hideJoinPartQuitToolStripMenuItem.Checked)
+                hideJoinPartQuitToolStripMenuItem.Checked = false;
+            else
+                hideJoinPartQuitToolStripMenuItem.Checked = true;
+
+            hideToolStripMenuItem.PerformClick();
+            hideToolStripMenuItem1.PerformClick();
+            hideToolStripMenuItem2.PerformClick();
+
+        }
 
         private void clearQueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2563,9 +2588,7 @@ namespace IceChat
         }
 
 
-        #endregion
-
-        
+        #endregion        
 
     }
 }

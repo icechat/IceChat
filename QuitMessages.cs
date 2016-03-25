@@ -23,7 +23,7 @@ namespace IceChat
             "Friends help you move. Real friends help you move bodies.",
             "Few women admit their age.  Few men act theirs.",
             "Clap on! , Clap off! Clap@#&$NO CARRIER",
-            "Copywight 2015 Elmer Fudd. All wights wesewved.",
+            "Copywight 2016 Elmer Fudd. All wights wesewved.",
             "I used to think I was indecisive, but now I'm not too sure.",
             "Beware of programmers who carry screwdrivers.",
             "Relax, its only ONES and ZEROS!",

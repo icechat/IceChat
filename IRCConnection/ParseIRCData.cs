@@ -31,7 +31,7 @@ using System.Windows.Forms;
 
 namespace IceChat
 {
-    public partial class IRCConnection
+    public partial class IRCConnection : IDisposable
     {
 
         public event OutGoingCommandDelegate OutGoingCommand;
@@ -1712,7 +1712,7 @@ namespace IceChat
 
                         case "433": //nickname in use
                             if (fullyConnected == false)
-                                serverSetting.RealServerName = ircData[0];
+                                serverSetting.RealServerName = RemoveColon(ircData[0]);
 
                             ServerMessage(this, JoinString(ircData, 4, true), serverTimeValue);
 

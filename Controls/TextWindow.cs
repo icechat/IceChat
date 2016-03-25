@@ -183,8 +183,6 @@ namespace IceChat
             _displayLines = new DisplayLine[_maxTextLines * 5];
             _textLines = new TextLine[_maxTextLines];
             
-            //displayLines = new List<DisplayLine>();
-
             _oldWidth = this.Width;
             _oldDisplayWidth = this.ClientRectangle.Width - vScrollBar.Width - 10;
 
@@ -2193,7 +2191,6 @@ namespace IceChat
         #endregion
 
         #region Emoticon and Color Parsing
-
 
         private string ParseEmoticons(string line)
         {

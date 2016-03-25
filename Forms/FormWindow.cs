@@ -44,7 +44,7 @@ namespace IceChat
             else if (tab.WindowStyle == IceTabPage.WindowType.Channel)
                 this.Icon = System.Drawing.Icon.FromHandle(StaticMethods.LoadResourceImage("channel.png").GetHicon());
             else if (tab.WindowStyle == IceTabPage.WindowType.Query)
-                this.Icon = System.Drawing.Icon.FromHandle(StaticMethods.LoadResourceImage("new-query.ico").GetHicon());
+                this.Icon = System.Drawing.Icon.FromHandle(StaticMethods.LoadResourceImage("query.png").GetHicon());
             else if (tab.WindowStyle == IceTabPage.WindowType.ChannelList)
                 this.Icon = System.Drawing.Icon.FromHandle(StaticMethods.LoadResourceImage("channellist.png").GetHicon());
             else //for the rest

@@ -206,7 +206,7 @@
             this.MinimizeBox = false;
             this.Name = "FormUpdater";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "IceChat 9 Updater v2.0";
+            this.Text = "IceChat 9 Updater v2.01";
             this.ResumeLayout(false);
             this.PerformLayout();
 

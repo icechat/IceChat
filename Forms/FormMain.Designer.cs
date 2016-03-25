@@ -658,6 +658,7 @@ namespace IceChat
             this.showButtonsServerTreeToolStripMenuItem1.Size = new System.Drawing.Size(253, 22);
             this.showButtonsServerTreeToolStripMenuItem1.Text = "Show Buttons";
             this.showButtonsServerTreeToolStripMenuItem1.Click += new System.EventHandler(this.showButtonsServerTreeToolStripMenuItem1_Click);
+            /*
             // 
             // searchToolStripMenuItem
             // 
@@ -669,6 +670,7 @@ namespace IceChat
             this.searchToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.searchToolStripMenuItem.BackColor = System.Drawing.SystemColors.MenuBar;
             this.searchToolStripMenuItem.Text = "Search";
+            
             // 
             // searchForChannelsToolStripMenuItem
             // 
@@ -687,6 +689,7 @@ namespace IceChat
             this.searchForNetworksToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.searchForNetworksToolStripMenuItem.Text = "Search for Networks";
             this.searchForNetworksToolStripMenuItem.Click += new System.EventHandler(this.searchForNetworksToolStripMenuItem_Click);
+            */
             // 
             // helpToolStripMenuItem
             // 
@@ -768,7 +771,7 @@ namespace IceChat
             this.portableToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.portableToolStripMenuItem.Name = "portableToolStripMenuItem";
             this.portableToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.portableToolStripMenuItem.Text = "Portable";
+            this.portableToolStripMenuItem.Text = "IceChat 9 Portable";
             this.portableToolStripMenuItem.Click += new System.EventHandler(this.portableToolStripMenuItem_Click);
             // 
             // buildFromSourceToolStripMenuItem

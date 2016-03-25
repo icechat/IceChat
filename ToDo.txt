@@ -3,6 +3,8 @@
 Create ice7 theme importer (in progress)
 remember window order when opening channels (in progress)(group by order in server tree)
 
+add a command to change the text color of a tab (/colortab) good for highlights (done)
+allow /colortab command to also change the background color
 add option to save transparency (done)
 add option to auto pin new channels
 hide search feature in channel list until after the channel list is fully done

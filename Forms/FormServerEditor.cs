@@ -85,6 +85,10 @@ namespace IceChat
             this.checkRejoinChannel.Checked = true;
             this.checkModeI.Checked = true;
 
+            this.textDisplayName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
+            this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
+            this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
+            this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
 
             this.checkAdvancedSettings.CheckedChanged += new System.EventHandler(this.checkAdvancedSettings_CheckedChanged);
 
@@ -99,13 +103,20 @@ namespace IceChat
             
         }
 
-        private void textDisplayName_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void text_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Control)
             {
                 if (e.KeyCode == Keys.K)
                 {
-                    textDisplayName.SelectedText = ((char)3).ToString();
+                    TextBox txt = sender as TextBox;
+                    txt.SelectedText = ((char)3).ToString();
+                    e.Handled = true;
+                }
+                if (e.KeyCode == Keys.B)
+                {
+                    TextBox txt = sender as TextBox;
+                    txt.SelectedText = ((char)2).ToString();
                     e.Handled = true;
                 }
             }
@@ -138,6 +149,11 @@ namespace IceChat
                 RemoveAdvancedTabs();
             else
                 checkAdvancedSettings.Checked = true;
+
+            this.textDisplayName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
+            this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
+            this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
+            this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
 
             this.checkAdvancedSettings.CheckedChanged += new System.EventHandler(this.checkAdvancedSettings_CheckedChanged);
 
@@ -211,11 +227,12 @@ namespace IceChat
             this.textAwayNick.Text = serverSetting.AwayNickName;
             this.textServername.Text = serverSetting.ServerName;
             this.textServerPort.Text = serverSetting.ServerPort;
-            this.textDisplayName.Text = serverSetting.DisplayName.Replace("&#x3;",((char)3).ToString());
+            
+            this.textDisplayName.Text = serverSetting.DisplayName.Replace("&#x3;",((char)3).ToString()).Replace("&#x2;",((char)2).ToString());
+            this.textFullName.Text = serverSetting.FullName.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
+            this.textQuitMessage.Text = serverSetting.QuitMessage.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
             
             this.textIdentName.Text = serverSetting.IdentName;
-            this.textFullName.Text = serverSetting.FullName;
-            this.textQuitMessage.Text = serverSetting.QuitMessage;
             
             this.checkAutoJoin.Checked = serverSetting.AutoJoinEnable;
             this.checkAutoJoinDelay.Checked = serverSetting.AutoJoinDelay;
@@ -296,7 +313,7 @@ namespace IceChat
             if (serverSetting.AutoPerform != null)
             {
                 foreach (string command in serverSetting.AutoPerform)
-                    textAutoPerform.AppendText(command + Environment.NewLine);
+                    textAutoPerform.AppendText(command.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()) + Environment.NewLine);
             }
 
             if (serverSetting.IgnoreList != null)
@@ -318,17 +335,19 @@ namespace IceChat
             {
                 foreach (BuddyListItem buddy in serverSetting.BuddyList)
                 {
-                    if (!buddy.Nick.StartsWith(";"))
+                    if (buddy != null)
                     {
-                        ListViewItem lvi = new ListViewItem(buddy.Nick);
-                        lvi.Checked = true;
-                        listBuddyList.Items.Add(lvi);
+                        if (!buddy.Nick.StartsWith(";"))
+                        {
+                            ListViewItem lvi = new ListViewItem(buddy.Nick);
+                            lvi.Checked = true;
+                            listBuddyList.Items.Add(lvi);
+                        }
+                        else
+                            listBuddyList.Items.Add(buddy.Nick.Substring(1));
                     }
-                    else
-                        listBuddyList.Items.Add(buddy.Nick.Substring(1));
                 }
             }
-
 
             checkUseProxy.Checked = serverSetting.UseProxy;
             textProxyIP.Text = serverSetting.ProxyIP;
@@ -381,7 +400,15 @@ namespace IceChat
             serverSetting.AwayNickName = textAwayNick.Text;
 
             serverSetting.ServerName = textServername.Text;
-            serverSetting.DisplayName = textDisplayName.Text.Replace(((char)3).ToString(), "&#x3;");
+            serverSetting.DisplayName = textDisplayName.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;");
+
+            if (textFullName.Text.Length == 0)
+                textFullName.Text = textDefaultFullName.Text;
+            serverSetting.FullName = textFullName.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;");
+
+            if (textQuitMessage.Text.Length == 0)
+                textQuitMessage.Text = textDefaultQuitMessage.Text;
+            serverSetting.QuitMessage = textQuitMessage.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;");
 
             serverSetting.Password = textServerPassword.Text;
             serverSetting.NickservPassword = textNickservPassword.Text;
@@ -393,15 +420,6 @@ namespace IceChat
             if (textIdentName.Text.Length == 0)
                 textIdentName.Text = textDefaultIdent.Text;
             serverSetting.IdentName = textIdentName.Text;
-
-            if (textFullName.Text.Length == 0)
-                textFullName.Text = textDefaultFullName.Text;
-            serverSetting.FullName = textFullName.Text;
-
-            if (textQuitMessage.Text.Length == 0)
-                textQuitMessage.Text = textDefaultQuitMessage.Text;
-
-            serverSetting.QuitMessage = textQuitMessage.Text;
 
             serverSetting.AutoJoinEnable = checkAutoJoin.Checked;
             serverSetting.AutoJoinDelay = checkAutoJoinDelay.Checked;
@@ -457,25 +475,28 @@ namespace IceChat
                 //check if was sent on old list
                 foreach (BuddyListItem bo in oldList)
                 {
-                    if (bo.IsOnSent)    //was sent, so was used
+                    if (bo != null)
                     {
-                        //now check for match
-                        if (bo.Nick == b.Nick)
+                        if (bo.IsOnSent)    //was sent, so was used
                         {
-                            b.IsOnSent = true;
-                            b.IsOnReceived = bo.IsOnReceived;
-                            b.Connected = bo.Connected;
+                            //now check for match
+                            if (bo.Nick == b.Nick)
+                            {
+                                b.IsOnSent = true;
+                                b.IsOnReceived = bo.IsOnReceived;
+                                b.Connected = bo.Connected;
 
-                            System.Diagnostics.Debug.WriteLine("matched:" + bo.Nick);
-                        }
-                        else if (b.Nick.StartsWith(";") &&  bo.Nick == b.Nick.Substring(1))
-                        {
-                            //nick is now disabled
-                            b.Connected = bo.Connected;
-                            b.IsOnReceived = bo.IsOnReceived;
-                            b.IsOnSent = false;
-                            
-                            System.Diagnostics.Debug.WriteLine("matched DIS:" + bo.Nick);
+                                System.Diagnostics.Debug.WriteLine("matched:" + bo.Nick);
+                            }
+                            else if (b.Nick.StartsWith(";") && bo.Nick == b.Nick.Substring(1))
+                            {
+                                //nick is now disabled
+                                b.Connected = bo.Connected;
+                                b.IsOnReceived = bo.IsOnReceived;
+                                b.IsOnSent = false;
+
+                                System.Diagnostics.Debug.WriteLine("matched DIS:" + bo.Nick);
+                            }
                         }
                     }
                 }
@@ -483,7 +504,7 @@ namespace IceChat
                 serverSetting.BuddyList[i] = b;
             }
 
-            serverSetting.AutoPerform = textAutoPerform.Text.Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None);
+            serverSetting.AutoPerform = textAutoPerform.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None);
             
             serverSetting.SetModeI = checkModeI.Checked;
             serverSetting.ShowMOTD = checkMOTD.Checked;

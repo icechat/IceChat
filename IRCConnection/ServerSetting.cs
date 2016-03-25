@@ -193,8 +193,6 @@ namespace IceChat
         private string _quitMessage = "$randquit";
         private string _identName = "IceChat9";
 
-        //private List<string> _tabs = new List<string>();
-        //private List<Variable> _variables = new List<Variable>();
         private Variables _variables = new Variables();
         private Dictionary<string, string> _channelJoins = new Dictionary<string,string>();
 

@@ -357,7 +357,6 @@
             this.textDisplayName.Name = "textDisplayName";
             this.textDisplayName.Size = new System.Drawing.Size(220, 23);
             this.textDisplayName.TabIndex = 2;
-            this.textDisplayName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textDisplayName_KeyDown);
             // 
             // labelDisplayName
             // 

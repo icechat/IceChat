@@ -5,6 +5,7 @@ remember window order when opening channels (in progress)(group by order in serv
 
 add a command to change the text color of a tab (/colortab) good for highlights (done)
 allow /colortab command to also change the background color
+add option to disable logs on a per channel basis
 add option to save transparency (done)
 add option to auto pin new channels
 hide search feature in channel list until after the channel list is fully done

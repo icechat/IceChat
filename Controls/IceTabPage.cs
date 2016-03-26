@@ -1673,6 +1673,8 @@ namespace IceChat
             }
             set
             {
+                System.Diagnostics.Debug.WriteLine(value + ":" + lastMessageType + ":" + _eventOverLoad + ":" + this.customForeColor);
+
                 if (lastMessageType != value || value == FormMain.ServerMessageType.CustomMessage)
                 {
                     //check if we are the current window or not
@@ -1683,11 +1685,16 @@ namespace IceChat
                     }
                     
                     // do not change if already a New Message (or override if it is a custom color)
+                    
                     if (lastMessageType != FormMain.ServerMessageType.Message || value == FormMain.ServerMessageType.CustomMessage)
                     {
                         if (this._eventOverLoad == false)
                         {
-                            if (lastMessageType == FormMain.ServerMessageType.Action)
+                            if (lastMessageType == FormMain.ServerMessageType.CustomMessage)
+                            {
+                                // dont over write
+                            }
+                            else if (lastMessageType == FormMain.ServerMessageType.Action)
                             {
                                 if (value == FormMain.ServerMessageType.Message)
                                 {

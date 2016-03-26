@@ -478,7 +478,7 @@
     <EmbeddedResource Include="Icons\connect-icon.png" />
     <EmbeddedResource Include="Icons\disconnect-icon.png" />
     <EmbeddedResource Include="Icons\refresh-icon.png" />
-    <EmbeddedResource Include="Icons\new-query.ico" />
+    <EmbeddedResource Include="Icons\query.png" />
     <EmbeddedResource Include="Icons\mute.png" />
     <None Include="Icons\restore.png" />
     <None Include="Icons\maximize.png" />

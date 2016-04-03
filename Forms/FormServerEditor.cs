@@ -240,6 +240,7 @@ namespace IceChat
             this.checkAutoPerform.Checked = serverSetting.AutoPerformEnable;
             this.checkIgnore.Checked = serverSetting.IgnoreListEnable;
             this.checkBuddyList.Checked = serverSetting.BuddyListEnable;
+            this.checkDisableLogging.Checked = serverSetting.DisableLogging;
 
             this.checkModeI.Checked = serverSetting.SetModeI;
             this.checkMOTD.Checked = serverSetting.ShowMOTD;
@@ -427,6 +428,7 @@ namespace IceChat
             serverSetting.AutoPerformEnable = checkAutoPerform.Checked;
             serverSetting.IgnoreListEnable = checkIgnore.Checked;
             serverSetting.BuddyListEnable = checkBuddyList.Checked;
+            serverSetting.DisableLogging = checkDisableLogging.Checked;
 
             serverSetting.AutoJoinChannels = new string[listChannel.Items.Count];
             for (int i = 0; i < listChannel.Items.Count; i++)

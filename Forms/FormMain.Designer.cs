@@ -35,11 +35,11 @@ namespace IceChat
         private System.Windows.Forms.ToolStripMenuItem mainToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        
-        internal System.Windows.Forms.ToolStripMenuItem iceChatColorsToolStripMenuItem;        
+
+        internal System.Windows.Forms.ToolStripMenuItem iceChatColorsToolStripMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem iceChatEditorToolStripMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem iceChatSettingsToolStripMenuItem;
-        
+
         private System.Windows.Forms.ToolStrip toolStripMain;
         private System.Windows.Forms.ToolStripButton toolStripQuickConnect;
         private System.Windows.Forms.ToolStripButton toolStripSettings;
@@ -118,6 +118,7 @@ namespace IceChat
             this.buildFromSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forumsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.codePlexPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gitHubPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facebookFanPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadPluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -157,15 +158,15 @@ namespace IceChat
             this.nickListTab = new System.Windows.Forms.TabPage();
             this.nickPanel = new System.Windows.Forms.Panel();
             this.nickList = new NickList(this);
-            
+
             this.serverListTab = new System.Windows.Forms.TabPage();
             this.serverPanel = new System.Windows.Forms.Panel();
             this.serverTree = new ServerTree(this);
-            
+
             this.panelDockRight = new IceDockPanel(this);
             this.panelDockLeft = new IceDockPanel(this);
             this.mainChannelBar = new ChannelBar(this);
-            
+
             this.mainTabControl = new IceChat.IceTabControl();
             this.inputPanel = new IceChat.InputPanel();
             this.menuMainStrip.SuspendLayout();
@@ -699,6 +700,7 @@ namespace IceChat
             this.iceChatWikiToolStripMenuItem,
             this.forumsToolStripMenuItem,
             this.codePlexPageToolStripMenuItem,
+            this.gitHubPageToolStripMenuItem,
             this.facebookFanPageToolStripMenuItem,
             this.downloadPluginsToolStripMenuItem,
             this.toolStripMenuItem1,
@@ -803,6 +805,17 @@ namespace IceChat
             this.codePlexPageToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.codePlexPageToolStripMenuItem.Text = "CodePlex Page";
             this.codePlexPageToolStripMenuItem.Click += new System.EventHandler(this.codePlexPageToolStripMenuItem_Click);
+            // 
+            // gitHubPageToolStripMenuItem
+            // 
+            this.gitHubPageToolStripMenuItem.BackColor = System.Drawing.SystemColors.Menu;
+            this.gitHubPageToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.gitHubPageToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.gitHubPageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("gitHubPageToolStripMenuItem.Image")));
+            this.gitHubPageToolStripMenuItem.Name = "gitHubPageToolStripMenuItem";
+            this.gitHubPageToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.gitHubPageToolStripMenuItem.Text = "GitHub Page";
+            this.gitHubPageToolStripMenuItem.Click += new System.EventHandler(this.gitHubPageToolStripMenuItem_Click);
             // 
             // facebookFanPageToolStripMenuItem
             // 
@@ -949,7 +962,7 @@ namespace IceChat
             this.updateAvailableToolStripMenuItem1.Size = new System.Drawing.Size(130, 20);
             this.updateAvailableToolStripMenuItem1.Text = "Update Available";
             this.updateAvailableToolStripMenuItem1.Visible = false;
-            this.updateAvailableToolStripMenuItem1.Click+=new EventHandler(updateAvailableToolStripMenuItem1_Click);
+            this.updateAvailableToolStripMenuItem1.Click += new EventHandler(updateAvailableToolStripMenuItem1_Click);
             // 
             // splitterLeft
             // 
@@ -1322,6 +1335,7 @@ namespace IceChat
 
         internal System.Windows.Forms.ToolStripMenuItem debugWindowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem codePlexPageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gitHubPageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iceChatHomePageToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuNotify;
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
@@ -1336,7 +1350,7 @@ namespace IceChat
         private System.Windows.Forms.ToolStripMenuItem facebookFanPageToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem browseDataFolderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem browsePluginsFolderToolStripMenuItem;        
+        private System.Windows.Forms.ToolStripMenuItem browsePluginsFolderToolStripMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem closeCurrentWindowToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem selectNickListToolStripMenuItem;
@@ -1359,7 +1373,7 @@ namespace IceChat
         private System.Windows.Forms.ToolStripMenuItem office2007ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultToolStripMenuItem1;
 
-        
+
         //added
         private System.Windows.Forms.ToolStripMenuItem nickListImageMenu;
         private System.Windows.Forms.ToolStripMenuItem serverTreeImageMenu;
@@ -1376,7 +1390,7 @@ namespace IceChat
         private ChannelList channelList;
         private BuddyList buddyList;
         private NickList nickList;
-        
+
         private Panel serverPanel;
         private Panel nickPanel;
 

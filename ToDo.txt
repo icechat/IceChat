@@ -3,36 +3,22 @@
 Create ice7 theme importer (in progress)
 remember window order when opening channels (in progress)(group by order in server tree)
 
-add a command to change the text color of a tab (/colortab) good for highlights (done)
 allow /colortab command to also change the background color
-add option to disable logs on a per channel basis
-add option to save transparency (done)
 add option to auto pin new channels
-hide search feature in channel list until after the channel list is fully done
-Plugin Update System (started in 9.08)
-fix server tree coloring for servers (only colors channel tab) (done)
-| for hightlighter breaks the regex (fixed in 2.7) (or is it)
 Add splitter for topic to change height
 Add tooltip for topic
 Add Server Wide No Color Mode
 Add 5 second delay for AutoPerform option
-Show if away in status bar (done)
 Add to Nick HiLite plugin, allow different colors for different User Modes (!&@+)
 Add to Highlite Color to change background color
-Add Logging Feature to Enable/Disable Logging per server
 Allow keyboard short cut for Nicklist Popups 
-Add option to not reload channel logs for specific channels (popup/added)
 Make channel reload logs limit the size of the back buffer (max lines)
-add option to change encoding on a per channel basis (encoding is server based)
 add option to open query tabs last
 because of single click links, cant copy the url from the beginning
 add a /tab command to toggle seeing which tab in a sidebar??
-Need to fix some UTF8 character issues (what is a unicode font)
 Add ability to change font with a control code in text window
 Add ability to sort nick list by nicknames only not status
-IceChat 7 settings imported, check for / before popup menu commands
 DCC Receive Passive, locks file if no connection, need to release
-BUG: Resize window, scrolls needs to stay at bottom if at bottom (fixed?)
 Ability to add custom marker lines
 Allow multiple logging types, not just 1
 Add option for floating window always on top
@@ -47,4 +33,26 @@ Need to save the background image settings to a config file so they save on exit
 Add a background image to the nicklist, server list
 Add background color for html logging
 Add news item on loadup, for showing IceChat news
+
+
+
+Pending:
+IceChat 7 settings imported, check for / before popup menu commands (check this)
+Plugin Update System (started in 9.08)
 Add internal tracking of closing last channel, and add a /rejoin command to rejoin last closed channel
+
+
+Completed:
+Add an option to disable the Splash Screen, or with -nosplash command line
+add a command to change the text color of a tab (/colortab) good for highlights
+Add option to not reload channel logs for specific channels (popup/added)
+Show if away in status bar
+BUG: Resize window, scrolls needs to stay at bottom if at bottom (fixed?)
+Need to fix some UTF8 character issues (what is a unicode font)
+add option to change encoding on a per channel basis (encoding is server based, so cant be done)
+| for hightlighter breaks the regex (fixed in 2.7)
+Add option to disable logs on a per channel basis
+hide search feature in channel list until after the channel list is fully done (no need for)
+add option to save transparency 
+fix server tree coloring for servers (only colors channel tab)
+Add Logging Feature to Enable/Disable Logging per server

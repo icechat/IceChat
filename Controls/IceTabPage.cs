@@ -360,7 +360,7 @@ namespace IceChat
             this.UIThread(delegate
             {
                 tab.Controls.Add(window);
-                if (_parent.IceChatOptions.LogConsole)
+                if (_parent.IceChatOptions.LogConsole && tab.Connection.ServerSetting.DisableLogging == false)
                     window.SetLogFile(false);
 
                 consoleTab.TabPages.Add(tab);
@@ -1673,8 +1673,6 @@ namespace IceChat
             }
             set
             {
-                System.Diagnostics.Debug.WriteLine(value + ":" + lastMessageType + ":" + _eventOverLoad + ":" + this.customForeColor);
-
                 if (lastMessageType != value || value == FormMain.ServerMessageType.CustomMessage)
                 {
                     //check if we are the current window or not
@@ -1710,6 +1708,12 @@ namespace IceChat
                                 _parent.ChannelBar.Invalidate();
                                 _parent.ServerTree.Invalidate();
                             }
+                        } // allow event if DisableFlashing is enabled
+                        else if (value == FormMain.ServerMessageType.CustomMessage)
+                        {
+                            lastMessageType = value;
+                            _parent.ChannelBar.Invalidate();
+                            _parent.ServerTree.Invalidate();
                         }
                     }
                 }

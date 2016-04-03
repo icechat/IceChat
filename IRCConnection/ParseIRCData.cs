@@ -983,7 +983,7 @@ namespace IceChat
                                 //msg = "[" + serverTimeValue + "] " + msg;
                             }
 
-                            if (CheckIgnoreList(nick, host)) return;
+                            if (CheckIgnoreList(nick, host) == true) return;
 
                             if (channel.ToLower() == serverSetting.CurrentNickName.ToLower())
                             {
@@ -1766,7 +1766,7 @@ namespace IceChat
         
         private bool CheckIgnoreList(string nick, string host)
         {
-            if (!this.serverSetting.IgnoreListEnable) return false; //if ignore list is disabled, no match
+            if (this.serverSetting.IgnoreListEnable == false) return false; //if ignore list is disabled, no match
             if (this.serverSetting.IgnoreList.Length == 0) return false;    //if no items in list, no match
 
             string onlyHost = host.Substring(host.IndexOf("@") + 1).ToLower();
@@ -1804,7 +1804,9 @@ namespace IceChat
                     else
                     {
                         //check for wildcard/regex match for nick name
-                        if (Regex.Match(nick, ignore, RegexOptions.IgnoreCase).Success) return true;
+                        if (ignore.Contains("."))
+                            if (Regex.Match(nick, "^" + ignore, RegexOptions.IgnoreCase).Success) return true;
+
                     }
                 }
             }

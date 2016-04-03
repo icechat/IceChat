@@ -195,6 +195,8 @@ namespace IceChat
 
         private Variables _variables = new Variables();
         private Dictionary<string, string> _channelJoins = new Dictionary<string,string>();
+        private Stack<string> _lastChannelsParted = new Stack<string>();
+
 
         [XmlAttribute("ServerID")]
         public int ID
@@ -393,6 +395,10 @@ namespace IceChat
         public bool AdvancedSettings
         { get; set; }
 
+        [XmlElement("DisableLogging")]
+        public bool DisableLogging
+        { get; set; }
+
         //IRCv3 specs
 
         [XmlElement("UseSASL")]
@@ -566,6 +572,10 @@ namespace IceChat
         [XmlIgnore()]
         public Dictionary<string, string> ChannelJoins
         { get { return _channelJoins; } set { this._channelJoins = value; } }
+
+        [XmlIgnore()]
+        public Stack<string> LastChannelsParted
+        { get { return _lastChannelsParted; } set { this._lastChannelsParted = value; } }
 
         /*
         [XmlIgnore()]

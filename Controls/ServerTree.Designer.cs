@@ -274,7 +274,7 @@
             // 
             this.disableEventsToolStripMenuItem.Name = "disableEventsToolStripMenuItem";
             this.disableEventsToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.disableEventsToolStripMenuItem.Text = "Disable Flashing";
+            this.disableEventsToolStripMenuItem.Text = "Disable Flashing/Color Changes";
             this.disableEventsToolStripMenuItem.Click += new System.EventHandler(this.disableEventsToolStripMenuItem_Click);
             // 
             // disableSoundsToolStripMenuItem

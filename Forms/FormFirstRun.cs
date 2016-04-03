@@ -172,8 +172,6 @@ namespace IceChat
 
             FormMain.Instance.IceChatOptions.DefaultNick = _nickName;
 
-
-
             //check for other theme files
             int totalThemes = 1;
             
@@ -949,7 +947,7 @@ namespace IceChat
                     if (keyPair.IndexOf(":") > -1)
                     {
                         int colon = keyPair.IndexOf(":");
-                        //check if next chat is a /
+                        //check if next char is a /
                         if (colon < keyPair.Length)
                         {
                             if (keyPair.Substring(colon + 1, 1) != "/")

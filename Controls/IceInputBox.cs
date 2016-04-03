@@ -361,12 +361,12 @@ namespace IceChat
             {
                 if (e.KeyCode == Keys.K)
                 {
-                    base.SelectedText = "\x0003";
+                    base.SelectedText = "\x03";
                     e.Handled = true;
                 }
                 else if (e.KeyCode == Keys.B)
                 {
-                    base.SelectedText = "\x0002";
+                    base.SelectedText = "\x02";
                     e.Handled = true;
                 }
                 else if (e.KeyCode == Keys.U)

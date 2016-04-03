@@ -2356,6 +2356,10 @@ namespace IceChat
             else
                 msg = msg.Replace("$reason", "");
 
+            
+            // add channel to last channels parted, server and globally
+            connection.ServerSetting.LastChannelsParted.Push(channel);                        
+            this.GlobalLastChannels.Push(new KeyValuePair<string,IRCConnection>(channel, connection));
 
             IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
             if (t != null)

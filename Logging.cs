@@ -410,27 +410,7 @@ namespace IceChat
         //strip all the colors codes out
         private string StripCodes(string line)
         {
-            //line = line.Replace('\xFF0B'.ToString(), "");
-            //line = line.Replace('\xFF0C'.ToString(), "");
-            //line = line.Replace('\xFF0D'.ToString(), "");
-            //line = line.Replace("", "");
-            
-            //System.Diagnostics.Debug.WriteLine((int)'');
-            //string ParseBackColor = @"\x03([0-9]{1,2}),([0-9]{1,2})";
-            //string ParseForeColor = @"\x03[0-9]{1,2}";
-            //string ParseColorChar = @"\x03";
-
-
-            //System.Diagnostics.Debug.WriteLine((int)'');
-            
-            //Regex parseStuff = new Regex(StaticMethods.ParseIRCCodes);
-
-            //Regex parseStuff = new Regex("\xFF03[0-9]{4}");
-            //Regex parseStuff = new Regex("\xFF03[0-9]{4}|\xFF0A|\xFF0B|\xFF0C|\x000F|\x001F|\x0016|\x001D|\xFF0D|\xFF0F");
-            //Regex parseStuff = new Regex("\x03[0-9]{4}|\xFF0A|\xFF0B|\xFF0C|\x000F|\x001F|\x0016|\x001D|\xFF0D|\xFF0F");
-            
-            return StaticMethods.ParseAllCodes.Replace(line, "");
-            //return parseStuff.Replace(line, "");
+            return StaticMethods.ParseAllCodes.Replace(line, "");            
         }
 
     }

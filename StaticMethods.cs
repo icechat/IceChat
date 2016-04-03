@@ -73,11 +73,7 @@ namespace IceChat
         public static void LoadResourceImage(object sender, string resourceName)
         {
             Assembly a = Assembly.GetExecutingAssembly();
-            Stream s;
-            //if (IsRunningOnMono())
-            //    s = a.GetManifestResourceStream(@"IceChat.Icons\" + resourceName);
-            //else
-                s = a.GetManifestResourceStream("IceChat.Icons." + resourceName);
+            Stream s = a.GetManifestResourceStream("IceChat.Icons." + resourceName);
             
             if (s == null)
                 return;
@@ -102,11 +98,7 @@ namespace IceChat
         public static Bitmap LoadResourceImage(string resourceName)
         {
             Assembly a = Assembly.GetExecutingAssembly();
-            Stream s;
-            //if (IsRunningOnMono())
-            //    s = a.GetManifestResourceStream(@"IceChat.Icons\" + resourceName);
-            //else
-                s = a.GetManifestResourceStream("IceChat.Icons." + resourceName);
+            Stream s = a.GetManifestResourceStream("IceChat.Icons." + resourceName);
             
             if (s == null)
                 return null;
@@ -125,7 +117,7 @@ namespace IceChat
             return Type.GetType("Mono.Runtime") != null;
         }
 
-        static public void UIThread(this Control control, Action code)
+        static public void UIThread(this Control control, MethodInvoker code)
         {
             if (control.InvokeRequired)
             {

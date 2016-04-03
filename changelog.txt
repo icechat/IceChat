@@ -1,3 +1,13 @@
+Build 9.10b April 3 2016
+* Added -nosplash command line parameter to disable splash screen
+* Added option to disable logging for entire server. Needs to be changed before server is connected.
+* Added /rejoin command to rejoin last channel parted on server
+* Added /rejoinlist command to show all channels parted on server
+* Added /rejoinall command to rejoin last channel parted for all servers
+* Added /rejoinlistall command to show all channels parted on all servers
+* Fix issue with some nicks being ignored randomly
+* Fix issue with closing debug window closes a channel list instead
+
 Build 9.10a, March 26, 2016
 * Fix Project file for .Net 4.5 / VS 2015
 

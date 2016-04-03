@@ -50,7 +50,7 @@ namespace IceChat
         private int _lineSize;
 
         private const char colorChar = '\x03';
-        private const char underlineChar = '\x001F';    //31
+        private const char underlineChar = '\x1F';    //31
         private const char boldChar = '\x02';
         private const char cancelChar = '\x0F';
         private const char reverseChar = '\x16';      //22
@@ -63,7 +63,6 @@ namespace IceChat
 
         private const char wrapLine = '\xFF0D';
         private const char endLine = '\xFF0F';
-
 
         private DisplayLine[] _displayLines;
         private TextLine[] _textLines;
@@ -2302,10 +2301,10 @@ namespace IceChat
         /// Format the text for each line to show in the Text Window
         /// </summary>
         /// <param name="startLine"></param>
-        /// <param name="endLine"></param>
+        /// <param name="lastLine"></param>
         /// <param name="line"></param>
         /// <returns></returns>
-        private int FormatLines(int startLine, int endLine, int line)
+        private int FormatLines(int startLine, int lastLine, int line)
         {
             //this formats each line and breaks it up, to fit onto the current display
             int displayWidth = this.ClientRectangle.Width - vScrollBar.Width - 10;
@@ -2335,7 +2334,7 @@ namespace IceChat
             try
             {
 
-                for (int currentLine = endLine; currentLine <= startLine; currentLine++)
+                for (int currentLine = lastLine; currentLine <= startLine; currentLine++)
                 {
                     lastColor = "";
                     _displayLines[line].previous = false;
@@ -2346,7 +2345,7 @@ namespace IceChat
                     {
                         try
                         {
-                            _displayLines[line].line = _textLines[currentLine].line;
+                            _displayLines[line].line = _textLines[currentLine].line + endLine;
                             _displayLines[line].textLine = currentLine;
                             _displayLines[line].textColor = _textLines[currentLine].textColor;
                             _displayLines[line].lineHeight = _lineSize;
@@ -2529,9 +2528,9 @@ namespace IceChat
 
                         //get the remainder
                         if (lineSplit)
-                            _displayLines[line].line = lastColor + buildString.ToString();
+                            _displayLines[line].line = lastColor + buildString.ToString() + endLine;
                         else
-                            _displayLines[line].line = buildString.ToString();
+                            _displayLines[line].line = buildString.ToString() + endLine;
 
                         buildString = null;
 
@@ -2741,6 +2740,7 @@ namespace IceChat
                                 case wrapLine:
                                     break;
                                 case endLine:
+                                    isInUrl = false;
                                     break;
                                 
                                 case emotChar:
@@ -3273,7 +3273,7 @@ namespace IceChat
                 return "";
             if (line.Length > 0)
             {
-                Regex parseStuff = new Regex("\xFF03[0-9]{4}|\xFF0A|\xFF0B|\xFF0C|\x000F|\x001F|\x0016|\x001D|\xFF0D|\xFF0F");
+                Regex parseStuff = new Regex("\xFF03[0-9]{4}|"+emotChar+"|"+urlStart+"|"+urlEnd+"|"+cancelChar+"|"+underlineChar+"|"+reverseChar+"|"+italicChar+"|"+wrapLine+"|"+endLine);
                 line = parseStuff.Replace(line, "");
                 
                 if (stripBolds)

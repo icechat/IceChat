@@ -40,11 +40,30 @@ namespace IceChat
             //AppDomain.CurrentDomain.AssemblyLoad += new AssemblyLoadEventHandler(ShowAssemblyLoad);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            FormSplash splash = new FormSplash();
-            splash.Show();
-            Application.Run(new FormMain(args, splash));            
+            
+            bool noSplash = false;
+            if (args.Length > 0)
+            {
+                foreach (string arg in args)
+                {
+                    if (arg.ToLower() == "-nosplash")
+                    {
+                        noSplash = true;
+                    }
+                }
+            }
+            
+            if (noSplash)
+            {
+                Application.Run(new FormMain(args, null));
+            }
+            else
+            {
+                FormSplash splash = new FormSplash();
+                splash.Show();
+                Application.Run(new FormMain(args, splash));
+            }
 
-            //AppDomain.CurrentDomain.AssemblyLoad -= ShowAssemblyLoad;
         }
 
         static void ShowAssemblyLoad(object sender, AssemblyLoadEventArgs e)

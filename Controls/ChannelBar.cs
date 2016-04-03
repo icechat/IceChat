@@ -967,7 +967,7 @@ namespace IceChat
                         log.DropDownItems.Add(disableLog);
                         
                         ToolStripMenuItem events = new ToolStripMenuItem("Events");
-                        ToolStripMenuItem disableFlash = new ToolStripMenuItem("Disable Flashing");
+                        ToolStripMenuItem disableFlash = new ToolStripMenuItem("Disable Flashing/Color Changes");
                         disableFlash.Tag = "/flashing $1";
                         disableFlash.Checked = GetTabPage(_selectedIndex).EventOverLoad;
 
@@ -1167,12 +1167,12 @@ namespace IceChat
             }
             else
             {
-
                 IceTabPage t = _parent.ChannelBar.TabPages[_selectedIndex];
                 if (t != null)
                 {
                     command = command.Replace("$1", t.TabCaption);
                     command = command.Replace("$chan", t.TabCaption);
+                    System.Diagnostics.Debug.WriteLine(command);
                     _parent.ParseOutGoingCommand(t.Connection, command);
                 }
                 else

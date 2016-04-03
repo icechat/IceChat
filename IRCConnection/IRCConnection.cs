@@ -445,6 +445,7 @@ namespace IceChat
 
                 serverSetting.TriedAltNick = false;
                 serverSetting.ChannelJoins.Clear();
+                serverSetting.LastChannelsParted.Clear();
 
                 howFar = 8;
 

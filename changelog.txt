@@ -1,3 +1,7 @@
+Build 9.10c April 16 2016
+* Added conditional statement for allowing to use TLS 1.1/1.2 when compiled with .net 4
+
+
 Build 9.10b April 3 2016
 * Added -nosplash command line parameter to disable splash screen
 * Added option to disable logging for entire server. Needs to be changed before server is connected.

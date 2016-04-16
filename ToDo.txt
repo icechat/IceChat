@@ -1,8 +1,9 @@
 ﻿To Do List for IceChat 9
 
-Create ice7 theme importer (in progress)
 remember window order when opening channels (in progress)(group by order in server tree)
 
+
+Build a way to backup XML files for config files automatically
 allow /colortab command to also change the background color
 add option to auto pin new channels
 Add splitter for topic to change height
@@ -36,7 +37,8 @@ Add news item on loadup, for showing IceChat news
 
 
 
-Pending:
+Pending/In Progress:
+Create ice7 theme importer (in progress)
 IceChat 7 settings imported, check for / before popup menu commands (check this)
 Plugin Update System (started in 9.08)
 Add internal tracking of closing last channel, and add a /rejoin command to rejoin last closed channel

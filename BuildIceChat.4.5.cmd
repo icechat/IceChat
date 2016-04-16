@@ -1,9 +1,11 @@
 @echo off
+echo Building IceChat using .Net Framework v4.5
+
 rd .\IceChatBuild /S /Q
 md .\IceChatBuild
 
 set msBuildDir=%WINDIR%\Microsoft.NET\Framework\v4.0.30319
-call %msBuildDir%\msbuild.exe  IceChat9.sln /p:Configuration=Release /p:Platform="Any CPU" /l:FileLogger,Microsoft.Build.Engine;logfile=Manual_MSBuild_ReleaseVersion_LOG.log
+call %msBuildDir%\msbuild.exe IceChat9-45-VS2015.sln /p:Configuration=Release /p:Platform="Any CPU" /l:FileLogger,Microsoft.Build.Engine;logfile=Manual_MSBuild_ReleaseVersion_LOG.log
 
 set msBuildDir=
 

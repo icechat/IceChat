@@ -85,7 +85,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colors.cs" />
+    <Compile Include="Classes\Colors.cs" />
     <Compile Include="Controls\ChannelBar.cs">
       <SubType>UserControl</SubType>
     </Compile>

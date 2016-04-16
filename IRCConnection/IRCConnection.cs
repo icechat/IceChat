@@ -549,11 +549,17 @@ namespace IceChat
                     sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
                     //sslStream.AuthenticateAsClient(serverSetting.ServerName);
 
-                    //System.Diagnostics.Debug.WriteLine("attempt start tls");
+                    System.Diagnostics.Debug.WriteLine("attempt start tls");
 
-                    SslProtocols enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
-                    //SslProtocols enabledSslProtocols = SslProtocols.Tls;
-                    
+                    SslProtocols enabledSslProtocols;
+
+#if USE_NET_45
+                    enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11;
+#else
+                    enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
+#endif
+
+
                     bool checkCertificateRevocation = true;
 
                     //sslStream.AuthenticateAsClient(serverSetting.ServerName, null, System.Security.Authentication.SslProtocols.Tls ,false);

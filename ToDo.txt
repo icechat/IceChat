@@ -1,8 +1,8 @@
 ﻿To Do List for IceChat 9
 
-remember window order when opening channels (in progress)(group by order in server tree)
+Remember window order when opening channels (in progress)(group by order in server tree)
 
-
+Typing in the nicklist, does a search, bring you to those nicks.
 Build a way to backup XML files for config files automatically
 allow /colortab command to also change the background color
 add option to auto pin new channels

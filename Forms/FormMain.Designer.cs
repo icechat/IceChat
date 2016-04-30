@@ -699,7 +699,7 @@ namespace IceChat
             this.iceChatHomePageToolStripMenuItem,
             this.iceChatWikiToolStripMenuItem,
             this.forumsToolStripMenuItem,
-            this.codePlexPageToolStripMenuItem,
+            //this.codePlexPageToolStripMenuItem,
             this.gitHubPageToolStripMenuItem,
             this.facebookFanPageToolStripMenuItem,
             this.downloadPluginsToolStripMenuItem,

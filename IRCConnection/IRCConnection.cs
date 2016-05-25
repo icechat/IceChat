@@ -1858,7 +1858,10 @@ namespace IceChat
             );
 
             if (timer != null)
-               ircTimers.Remove(timer);
+            {
+                timer.Stop();
+                ircTimers.Remove(timer);
+            }
 
         }
 

@@ -346,12 +346,14 @@ namespace IceChat
 
         private void LoadOptions()
         {
+            XmlTextReader textReader = null;
+            XmlSerializer deserializer = new XmlSerializer(typeof(IceChatOptions));
+
             if (File.Exists(optionsFile))
             {
-                XmlTextReader textReader = null;
+                
                 try
                 {
-                    XmlSerializer deserializer = new XmlSerializer(typeof(IceChatOptions));
                     textReader = new XmlTextReader(optionsFile);
                     iceChatOptions = (IceChatOptions)deserializer.Deserialize(textReader);
                     textReader.Close();

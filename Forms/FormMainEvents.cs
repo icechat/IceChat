@@ -398,111 +398,117 @@ namespace IceChat
         {
             int x = 0;
             
-            PluginArgs args = new PluginArgs(connection);
-            
-            foreach (IceTabPage tw in mainChannelBar.TabPages)
+            try
             {
-                if (tw.WindowStyle == IceTabPage.WindowType.Channel)
+                PluginArgs args = new PluginArgs(connection);
+
+                foreach (IceTabPage tw in mainChannelBar.TabPages)
                 {
-                    if (tw.Connection == connection)
-                    {                        
-                        //check if a channel is in the AutoJoin list
-                        bool channelFound = false;
+                    if (tw.WindowStyle == IceTabPage.WindowType.Channel)
+                    {
+                        if (tw.Connection == connection)
+                        {
+                            //check if a channel is in the AutoJoin list
+                            bool channelFound = false;
 
-                        for (int i = 0; i < connection.ServerSetting.AutoJoinChannels.Length; i++)
-                        {
-                            if (!connection.ServerSetting.AutoJoinChannels[i].StartsWith(";"))
+                            for (int i = 0; i < connection.ServerSetting.AutoJoinChannels.Length; i++)
                             {
-                                //System.Diagnostics.Debug.WriteLine("rejoin:" + connection.ServerSetting.AutoJoinChannels[i] + ":" + tw.TabCaption);
-                                if (connection.ServerSetting.AutoJoinChannels[i].IndexOf(' ') > -1)
+                                if (!connection.ServerSetting.AutoJoinChannels[i].StartsWith(";"))
                                 {
-                                    //has a channel key
-                                    //System.Diagnostics.Debug.WriteLine(connection.ServerSetting.AutoJoinChannels[i].Substring(0, connection.ServerSetting.AutoJoinChannels[i].IndexOf(' ')).ToLower() + ":");
-                                    if (connection.ServerSetting.AutoJoinChannels[i].Substring(0, connection.ServerSetting.AutoJoinChannels[i].IndexOf(' ')).ToLower() == tw.TabCaption.ToLower())
-                                        channelFound = true;
-                                }
-                                else
-                                {
-                                    if (connection.ServerSetting.AutoJoinChannels[i].ToLower() == tw.TabCaption.ToLower())
-                                        channelFound = true;
-                                }
-                            }                        
-                        }
-                        
-                        if (channelFound == false)
-                        {
-                            if (connection.ServerSetting.AutoJoinDelay)
-                            {
-                                if (connection.ServerSetting.AutoJoinDelayBetween)
-                                {
-                                    args.Channel = tw.TabCaption;
-                                    foreach (Plugin p in loadedPlugins)
+                                    if (connection.ServerSetting.AutoJoinChannels[i].IndexOf(' ') > -1)
                                     {
-                                        IceChatPlugin ipc = p as IceChatPlugin;
-                                        if (ipc != null)
-                                        {
-                                            if (ipc.plugin.Enabled == true)
-                                                args = ipc.plugin.AutoJoinChannel(args);
-                                        }
+                                        //has a channel key
+                                        if (connection.ServerSetting.AutoJoinChannels[i].Substring(0, connection.ServerSetting.AutoJoinChannels[i].IndexOf(' ')).ToLower() == tw.TabCaption.ToLower())
+                                            channelFound = true;
                                     }
-                                    if (args.Channel.Length > 0)
-                                        ParseOutGoingCommand(connection, "/timer rejoin 1 " + (x + 6) + " /join " + args.Channel);
-                                }
-                                else
-                                {
-                                    args.Channel = tw.TabCaption;
-                                    foreach (Plugin p in loadedPlugins)
+                                    else
                                     {
-                                        IceChatPlugin ipc = p as IceChatPlugin;
-                                        if (ipc != null)
-                                        {
-                                            if (ipc.plugin.Enabled == true)
-                                                args = ipc.plugin.AutoJoinChannel(args);
-                                        }
+                                        if (connection.ServerSetting.AutoJoinChannels[i].ToLower() == tw.TabCaption.ToLower())
+                                            channelFound = true;
                                     }
-                                    if (args.Channel.Length > 0)
-                                        ParseOutGoingCommand(connection, "/timer rejoin 1 6 /join " + args.Channel);
                                 }
                             }
-                            else
-                            {
-                                if (connection.ServerSetting.AutoJoinDelayBetween)
-                                {
-                                    args.Channel = tw.TabCaption;
-                                    foreach (Plugin p in loadedPlugins)
-                                    {
-                                        IceChatPlugin ipc = p as IceChatPlugin;
-                                        if (ipc != null)
-                                        {
-                                            if (ipc.plugin.Enabled == true)
-                                                args = ipc.plugin.RejoinChannel(args);
-                                        }
-                                    }
-                                    if (args.Channel.Length > 0)
-                                        ParseOutGoingCommand(connection, "/timer autojoin 1 " + (x + 1) + " /join " + args.Channel);
 
+                            if (channelFound == false)
+                            {
+                                if (connection.ServerSetting.AutoJoinDelay)
+                                {
+                                    if (connection.ServerSetting.AutoJoinDelayBetween)
+                                    {
+                                        args.Channel = tw.TabCaption;
+                                        foreach (Plugin p in loadedPlugins)
+                                        {
+                                            IceChatPlugin ipc = p as IceChatPlugin;
+                                            if (ipc != null)
+                                            {
+                                                if (ipc.plugin.Enabled == true)
+                                                    args = ipc.plugin.AutoJoinChannel(args);
+                                            }
+                                        }
+                                        if (args.Channel.Length > 0)
+                                            ParseOutGoingCommand(connection, "/timer rejoin 1 " + (x + 6) + " /join " + args.Channel);
+                                    }
+                                    else
+                                    {
+                                        args.Channel = tw.TabCaption;
+                                        foreach (Plugin p in loadedPlugins)
+                                        {
+                                            IceChatPlugin ipc = p as IceChatPlugin;
+                                            if (ipc != null)
+                                            {
+                                                if (ipc.plugin.Enabled == true)
+                                                    args = ipc.plugin.AutoJoinChannel(args);
+                                            }
+                                        }
+                                        if (args.Channel.Length > 0)
+                                            ParseOutGoingCommand(connection, "/timer rejoin 1 6 /join " + args.Channel);
+                                    }
                                 }
                                 else
                                 {
-                                    args.Channel = tw.TabCaption;
-                                    foreach (Plugin p in loadedPlugins)
+                                    if (connection.ServerSetting.AutoJoinDelayBetween)
                                     {
-                                        IceChatPlugin ipc = p as IceChatPlugin;
-                                        if (ipc != null)
+                                        args.Channel = tw.TabCaption;
+                                        foreach (Plugin p in loadedPlugins)
                                         {
-                                            if (ipc.plugin.Enabled == true)
-                                                args = ipc.plugin.RejoinChannel(args);
+                                            IceChatPlugin ipc = p as IceChatPlugin;
+                                            if (ipc != null)
+                                            {
+                                                if (ipc.plugin.Enabled == true)
+                                                    args = ipc.plugin.RejoinChannel(args);
+                                            }
                                         }
+                                        if (args.Channel.Length > 0)
+                                            ParseOutGoingCommand(connection, "/timer autojoin 1 " + (x + 1) + " /join " + args.Channel);
+
                                     }
-                                    if (args.Channel.Length > 0)
-                                        connection.SendData("JOIN " + args.Channel);
+                                    else
+                                    {
+                                        args.Channel = tw.TabCaption;
+                                        foreach (Plugin p in loadedPlugins)
+                                        {
+                                            IceChatPlugin ipc = p as IceChatPlugin;
+                                            if (ipc != null)
+                                            {
+                                                if (ipc.plugin.Enabled == true)
+                                                    args = ipc.plugin.RejoinChannel(args);
+                                            }
+                                        }
+                                        if (args.Channel.Length > 0)
+                                            connection.SendData("JOIN " + args.Channel);
+                                    }
                                 }
                             }
                         }
+                        x++;
                     }
-                    x++;
                 }
             }
+            catch (Exception e)
+            {
+                WriteErrorFile(connection, "OnAutoJoin:" + x,e);
+            }
+
         }
 
         private void OnAutoJoin(IRCConnection connection, string[] channels)

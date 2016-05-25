@@ -792,7 +792,7 @@ namespace IceChat
             this.forumsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("forumsToolStripMenuItem.Image")));
             this.forumsToolStripMenuItem.Name = "forumsToolStripMenuItem";
             this.forumsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.forumsToolStripMenuItem.Text = "Forums";
+            this.forumsToolStripMenuItem.Text = "IceChat Forums";
             this.forumsToolStripMenuItem.Click += new System.EventHandler(this.forumsToolStripMenuItem_Click);
             // 
             // codePlexPageToolStripMenuItem
@@ -814,7 +814,7 @@ namespace IceChat
             this.gitHubPageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("gitHubPageToolStripMenuItem.Image")));
             this.gitHubPageToolStripMenuItem.Name = "gitHubPageToolStripMenuItem";
             this.gitHubPageToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.gitHubPageToolStripMenuItem.Text = "GitHub Page";
+            this.gitHubPageToolStripMenuItem.Text = "IceChat on GitHub";
             this.gitHubPageToolStripMenuItem.Click += new System.EventHandler(this.gitHubPageToolStripMenuItem_Click);
             // 
             // facebookFanPageToolStripMenuItem

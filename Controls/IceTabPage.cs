@@ -35,6 +35,8 @@ using System.Net;
 using System.Threading;
 using System.IO;
 
+using System.Runtime.InteropServices;
+
 using IceChatPlugin;
 
 namespace IceChat
@@ -140,6 +142,15 @@ namespace IceChat
             Debug = 99
         }
 
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, UIntPtr wParam, IntPtr lParam);
+
+        private const uint SB_VERT = 1;
+        private const uint ESB_DISABLE_BOTH = 0x3;
+        private const uint ESB_ENABLE_BOTH = 0x0;
+        private const int WM_VSCROLL = 0x115;
+ 
+
         public IceTabPage(WindowType windowType, string sCaption, FormMain parent) 
         {
             this._parent = parent;
@@ -220,28 +231,7 @@ namespace IceChat
 
         public int CompareTo(IceTabPage page)
         {
-            if (page == null) return 0;
-            /*
-            
-            Less than zero
-                This instance precedes obj in the sort order.
-            
-            Zero
-                This instance occurs in the same position in the sort order as obj.
-            
-            Greater than zero
-                This instance follows obj in the sort order.
-            
-            */
-            /*
-            if (page.channelSetting != null)
-            {
-                if (this.channelSetting != null)
-                    System.Diagnostics.Debug.WriteLine(this.TabCaption + ":" + this.channelSetting.WindowIndex + "::" + page.TabCaption + ":" + page.channelSetting.WindowIndex);
-                else
-                    System.Diagnostics.Debug.WriteLine(this.TabCaption + ":null::" + page.TabCaption + ":" + page.channelSetting.WindowIndex);
-            }
-            */
+            if (page == null) return 0;            
             
             if (page.WindowStyle == WindowType.Console && this.WindowStyle != WindowType.Console)   //console always first
                 return 1;
@@ -573,16 +563,12 @@ namespace IceChat
 
         internal User GetNick(string nick)
         {
-            //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-            //    nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
             for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
                 if (nick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
                     nick = nick.Substring(1);
 
             if (nicks.ContainsKey(nick))
                 return (User)nicks[nick];
-
-            //return AddNick(nick, false);
 
             return null;
         }
@@ -606,12 +592,10 @@ namespace IceChat
         {
             //replace any user modes from the nick
             string justNick = nick;
-            if (connection != null)
-            //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-            //    justNick = justNick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
-            for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-                if (justNick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
-                    justNick = justNick.Substring(1);
+            if (connection != null)            
+                for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
+                    if (justNick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
+                        justNick = justNick.Substring(1);
 
             if (nicks.ContainsKey(justNick))
                 return null;
@@ -941,11 +925,6 @@ namespace IceChat
         {
             get
             {
-                /*
-                _flashValue++;
-                if (_flashValue == 2)
-                    _flashValue = 0;
-                */
                 return _flashValue;
             }
             set
@@ -1822,11 +1801,15 @@ namespace IceChat
             }
             else
             {
+                channelList.BeginUpdate();
+                
                 ListViewItem lvi = new ListViewItem(channel);
                 lvi.ToolTipText = topic;
                 lvi.SubItems.Add(users.ToString());
                 lvi.SubItems.Add(topic);
                 channelList.Items.Add(lvi);
+
+                channelList.EndUpdate();
             }  
         }
 
@@ -2080,13 +2063,16 @@ namespace IceChat
             this.SuspendLayout();
 
             this.channelList.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            //= new Font(iceChatFonts.FontSettings[1].FontName, iceChatFonts.FontSettings[1].FontSize);
+            
             this.channelList.Location = new System.Drawing.Point(0, 0);
             this.channelList.Name = "channelList";
             this.channelList.DoubleClick += new EventHandler(channelList_DoubleClick);
             this.channelList.ColumnClick += new ColumnClickEventHandler(channelList_ColumnClick);
             this.channelList.MouseDown += new MouseEventHandler(channelList_MouseDown);
             
+            this.channelList.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.ServerListBackColor];
+            this.channelList.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.TabBarDefault];
+
             this.channelList.ShowItemToolTips = true;
 
             ColumnHeader c = new ColumnHeader();
@@ -2241,26 +2227,35 @@ namespace IceChat
 
         private void channelList_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            ListViewSorter Sorter = new ListViewSorter();
-            channelList.ListViewItemSorter = Sorter;
-            if (!(channelList.ListViewItemSorter is ListViewSorter))
-                return;
 
-            Sorter = (ListViewSorter)channelList.ListViewItemSorter;
-            if (Sorter.LastSort == e.Column)
+            this.UIThread(delegate
             {
-                if (channelList.Sorting == SortOrder.Descending)
-                    channelList.Sorting = SortOrder.Ascending;
+                channelList.BeginUpdate();
+
+                // put this in a thread
+                ListViewSorter Sorter = new ListViewSorter();
+                channelList.ListViewItemSorter = Sorter;
+                if (!(channelList.ListViewItemSorter is ListViewSorter))
+                    return;
+
+                Sorter = (ListViewSorter)channelList.ListViewItemSorter;
+                if (Sorter.LastSort == e.Column)
+                {
+                    if (channelList.Sorting == SortOrder.Descending)
+                        channelList.Sorting = SortOrder.Ascending;
+                    else
+                        channelList.Sorting = SortOrder.Descending;
+                }
                 else
-                    channelList.Sorting = SortOrder.Descending;
-            }
-            else
-            {
-                channelList.Sorting = SortOrder.Ascending;
-            }
-            Sorter.ByColumn = e.Column;
-            
-            channelList.Sort();
+                {
+                    channelList.Sorting = SortOrder.Ascending;
+                }
+                Sorter.ByColumn = e.Column;
+
+                channelList.Sort();
+
+                channelList.EndUpdate();
+            });
         }
 
         private void channelList_DoubleClick(object sender, EventArgs e)
@@ -2310,6 +2305,27 @@ namespace IceChat
             foreach (ListViewItem eachItem in channelList.SelectedItems)
                 _parent.ParseOutGoingCommand(this.connection, "/join " + eachItem.Text);            
         }
+
+
+        internal void ScrollListWindow(bool scrollUp)
+        {
+            try
+            {
+
+                if (scrollUp)
+                {
+                    SendMessage(this.channelList.Handle, (uint)WM_VSCROLL, (System.UIntPtr)ScrollEventType.SmallDecrement, (System.IntPtr)0);
+                }
+                else
+                {
+                    SendMessage(this.channelList.Handle, (uint)WM_VSCROLL, (System.UIntPtr)ScrollEventType.SmallIncrement, (System.IntPtr)0);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
 
 
         /// <summary>

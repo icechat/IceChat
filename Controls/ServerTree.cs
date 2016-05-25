@@ -692,7 +692,16 @@ namespace IceChat
                                     ToolStripItem[] popServer = ipc.plugin.AddServerPopups();
                                     if (popServer != null && popServer.Length > 0)
                                     {
-                                        this.contextMenuServer.Items.AddRange(popServer);
+                                        List<ToolStripItem> col = new List<ToolStripItem>();
+
+                                        foreach (ToolStripMenuItem t in popServer)
+                                        {
+                                            ToolStripMenuItem ti = ipc.plugin.MenuItemShow(t);
+                                            col.Add(ti);
+                                        }
+
+                                        this.contextMenuChannel.Items.AddRange(col.ToArray());
+
                                     }
                                 }
                             }
@@ -720,8 +729,6 @@ namespace IceChat
                             this.noColorModeToolStripMenuItem, 
                             this.loggingToolStripMenuItem,
                             this.eventsToolStripMenuItem});
-
-                            //System.Diagnostics.Debug.WriteLine("popup:" + ((IceTabPage)findNode).DisableSounds + ":" + ((IceTabPage)findNode).TabCaption);
 
                             this.noColorModeToolStripMenuItem.Checked = ((IceTabPage)findNode).TextWindow.NoColorMode;
                             this.disableEventsToolStripMenuItem.Checked = ((IceTabPage)findNode).EventOverLoad;
@@ -827,7 +834,16 @@ namespace IceChat
                                         ToolStripItem[] popChan = ipc.plugin.AddChannelPopups();
                                         if (popChan != null && popChan.Length > 0)
                                         {
-                                            this.contextMenuChannel.Items.AddRange(popChan);
+                                            // run a refresh on the popup item
+                                            List<ToolStripItem> col = new List<ToolStripItem>();
+
+                                            foreach (ToolStripMenuItem t in popChan)
+                                            {
+                                                ToolStripMenuItem ti = ipc.plugin.MenuItemShow(t);
+                                                col.Add(ti);
+                                            }
+                                            
+                                            this.contextMenuChannel.Items.AddRange(col.ToArray());
                                         }
                                     }
                                 }
@@ -865,7 +881,16 @@ namespace IceChat
                                         ToolStripItem[] popQuery = ipc.plugin.AddQueryPopups();
                                         if (popQuery != null && popQuery.Length > 0)
                                         {
-                                            this.contextMenuQuery.Items.AddRange(popQuery);
+                                            //this.contextMenuQuery.Items.AddRange(popQuery);
+                                            List<ToolStripItem> col = new List<ToolStripItem>();
+
+                                            foreach (ToolStripMenuItem t in popQuery)
+                                            {
+                                                ToolStripMenuItem ti = ipc.plugin.MenuItemShow(t);
+                                                col.Add(ti);
+                                            }
+
+                                            this.contextMenuChannel.Items.AddRange(col.ToArray());
                                         }
                                     }
                                 }
@@ -915,14 +940,13 @@ namespace IceChat
 
                                     if (c.ShowDebug)
                                     {
-                                        t.Tag = "/debug disable " + +c.ServerSetting.ID;
+                                        t.Tag = "/debug disable " + c.ServerSetting.ID;
                                         t.Checked = true;
                                         this.contextMenuDebug.Items.Add(t);
-
                                     }
                                     else
                                     {
-                                        t.Tag = "/debug enable " + +c.ServerSetting.ID;
+                                        t.Tag = "/debug enable " + c.ServerSetting.ID;
                                         this.contextMenuDebug.Items.Add(t);
                                     }
                                 }
@@ -1030,7 +1054,6 @@ namespace IceChat
                                         {
                                             caption = caption.Replace("$server", ((ServerSetting)findNode).RealServerName);
                                             command = command.Replace("$server", ((ServerSetting)findNode).RealServerName);
-                                            //
                                         }
                                         else
                                         {
@@ -1711,27 +1734,67 @@ namespace IceChat
             serializer.Serialize(textWriter, servers);
             textWriter.Close();
             textWriter.Dispose();
+
+            // validate the server settings.. if good.. Save to backup
+            System.IO.File.Copy(_parent.ServersFile,_parent.BackupFolder + Path.DirectorySeparatorChar + "IceChatServer.xml", true);
+
         }
 
         private IceChatServers LoadServers()
         {
-            IceChatServers servers;
-
+            IceChatServers servers = null;
             XmlSerializer deserializer = new XmlSerializer(typeof(IceChatServers));
-            if (File.Exists(_parent.ServersFile))
+            TextReader textReader = null;
+            try
+            {                
+
+                if (File.Exists(_parent.ServersFile))
+                {
+                    textReader = new StreamReader(_parent.ServersFile);
+                    servers = (IceChatServers)deserializer.Deserialize(textReader);
+                    textReader.Close();
+                    textReader.Dispose();
+                }
+                else
+                {
+                    //create default server settings
+                    servers = new IceChatServers();
+                    SaveServers(servers);
+                }
+            }
+            catch (InvalidOperationException e)
             {
-                TextReader textReader = new StreamReader(_parent.ServersFile);
-                servers = (IceChatServers)deserializer.Deserialize(textReader);
+                // we have an error!  -- lets see if we have a backup!
                 textReader.Close();
-                textReader.Dispose();
+
+                string backupFile = _parent.CurrentFolder + Path.DirectorySeparatorChar + "Backups" + Path.DirectorySeparatorChar + "IceChatServer.xml";
+                if (File.Exists(backupFile))
+                {
+                    System.Diagnostics.Debug.WriteLine("We have backup, lets restore it");
+
+                    textReader = new StreamReader(backupFile);
+                    servers = (IceChatServers)deserializer.Deserialize(textReader);
+                    textReader.Close();
+                    textReader.Dispose();
+
+                    _parent.loadErrors.Add("There was a problem with IceChatServer.xml, restored from backup");
+
+                    File.Copy(backupFile, _parent.ServersFile, true);
+
+                }
+                else
+                {
+                    //create default server settings
+                    servers = new IceChatServers();
+                    SaveServers(servers);
+
+                    _parent.loadErrors.Add("There was a problem with IceChatServer.xml, no backup to restore");
+
+                }
             }
-            else
-            {
-                //create default server settings
-                servers = new IceChatServers();
-                SaveServers(servers);
-            }
+
             return servers;
+
         }
         
         internal SortedList ServerConnections

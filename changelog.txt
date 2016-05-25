@@ -1,3 +1,9 @@
+Build 9.10e May 23 2016
+* Fixed tabs flashing issue, was not flashing channels on server tree when channel bar was hidden
+* /dns command now does a reverse dns if passed an IP Address
+* Fix with Menu's for Plugins not properly refreshing , added a new event before menu shows
+* Channel lists for larger networks made a little more efficient in listing speed
+
 Build 9.10d April 29 2016
 * Update some error extra handling for parsing identifiers
 * Removed link to Codeplex

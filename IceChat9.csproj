@@ -194,6 +194,12 @@
     <Compile Include="Forms\FormList.Designer.cs">
       <DependentUpon>FormList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormLogs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormLogs.Designer.cs">
+      <DependentUpon>FormLogs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormMainEvents.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -458,6 +464,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormList.resx">
       <DependentUpon>FormList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormLogs.resx">
+      <DependentUpon>FormLogs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormWindow.resx">
       <DependentUpon>FormWindow.cs</DependentUpon>

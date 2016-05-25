@@ -88,6 +88,15 @@ namespace IceChat
 
             this.plugin.Enabled = !this.plugin.Enabled;
 
+            if (this.plugin.Enabled == false)
+            {
+                this.plugin.Dispose();
+            }
+            else
+            {
+                this.plugin.Initialize();
+            }
+
             FormMain.Instance.StatusPlugin(menuItem, this.plugin.Enabled);
             this.Close();
         }

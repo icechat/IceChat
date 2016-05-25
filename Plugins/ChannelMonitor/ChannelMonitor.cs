@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2015 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ namespace IceChatPlugin
 
         List<cMonitor> monitoredChannels = new List<cMonitor>();
 
-        private ListView listMonitor;
+        private ListView listMonitor = null;
         private ColumnHeader columnTime;
         private ColumnHeader columnChannel;
         private ColumnHeader columnMessage;
@@ -79,7 +79,7 @@ namespace IceChatPlugin
         private const char reverseChar = (char)22;
         private const char italicChar = (char)29;
 
-        Panel panel;
+        Panel panel = null;
 
         private IceChatChannelMonitor monitorChannels;
         private string settingsFile;
@@ -92,12 +92,18 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Channel Monitor Plugin";
             m_Author = "Snerf";
-            m_Version = "1.5";
+            m_Version = "1.51";
         }
 
         public override void Dispose()
         {
             //remove the listview/panel
+            if (panel != null)
+            {
+                listMonitor.Dispose();
+                panel.Dispose();
+            }
+
         }
 
         public override void Initialize()
@@ -105,7 +111,6 @@ namespace IceChatPlugin
 
             if (CurrentVersion < 90020140221)
             {
-
                 //send back a message that we need to update!
                 PluginArgs a = new PluginArgs();
                 a.Command = "/echo Channel Monitor Plugin v1.3 requires IceChat 9 RC 8.22 or newer (" + CurrentVersion+")";
@@ -150,7 +155,6 @@ namespace IceChatPlugin
             listMonitor.Dock = DockStyle.Fill;
             panel.Controls.Add(listMonitor);
 
-
             if (CurrentVersion > 90220150213)
             {
                 listMonitor.DoubleClick += new EventHandler(listMonitor_DoubleClick);
@@ -161,7 +165,25 @@ namespace IceChatPlugin
             m_EnableMonitor.Checked = true;
             m_EnableMonitor.Click += new EventHandler(OnEnableMonitor_Click);
 
+        }
 
+        public override ToolStripMenuItem MenuItemShow(ToolStripMenuItem menu)
+        {
+            if (menu == m_EnableMonitor)
+            {
+                // check if this needs to be checked or not
+                cMonitor newChan = new cMonitor(ServerTreeCurrentConnection, ServerTreeCurrentTab);
+                if (monitoredChannels.IndexOf(newChan) > -1)
+                {
+                    menu.Checked = true;
+                }
+                else
+                {
+                    menu.Checked = false;
+                }
+            }
+            
+            return menu;
         }
 
         private void listMonitor_DoubleClick(object sender, EventArgs e)

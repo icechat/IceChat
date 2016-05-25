@@ -128,6 +128,8 @@ namespace IceChatPlugin
 
         public virtual PluginArgs ChannelInvite(PluginArgs args) { return args; }
 
+        public virtual ToolStripMenuItem MenuItemShow(ToolStripMenuItem menu) { return menu; }
+        
         public virtual void DCCFileStart(PluginArgs args) { }
         public virtual void DCCFileResume(PluginArgs args) { }
         public virtual void DCCFileComplete(PluginArgs args) { }

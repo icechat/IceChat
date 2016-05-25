@@ -114,6 +114,12 @@ namespace IceChat
                     }
                     FormMain.Instance.CurrentWindow.TextWindow.ScrollWindow(scrollUp);
                 }
+                else
+                {
+                    // scroll the channel list
+                    FormMain.Instance.CurrentWindow.ScrollListWindow(scrollUp);
+
+                }
             }
         }
 

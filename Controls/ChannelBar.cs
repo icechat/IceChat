@@ -75,6 +75,7 @@ namespace IceChat
         internal delegate void TabClosedDelegate(int nIndex);
         internal event TabClosedDelegate OnTabClosed;
         private FormMain _parent;
+        private bool hideBar;
 
         public ChannelBar(FormMain parent)
         {
@@ -117,6 +118,19 @@ namespace IceChat
                 this.singleRow = value;
                 this.Invalidate();                
             }
+        }
+
+        internal bool HideBar
+        {
+            get
+            {
+                return this.hideBar;
+            }
+            set
+            {
+                this.hideBar = value;
+            }
+
         }
 
         internal int TabCount
@@ -243,10 +257,7 @@ namespace IceChat
 
                     if ((rectTab.X + rectTab.Width) < (this.Width - 44))
                     {
-                        //845:1056
-                        //int d = 
                         _tabStartXtra = _tabStartXtra + rectTab.Width;
-
                         CalculateTabSizes(g);                        
                     }
                 }
@@ -305,10 +316,18 @@ namespace IceChat
                     //limit drawing area
                     g.Clip = new Region(new Rectangle(0, 0, this.Width - 44, this.Height));
                 }
-                
-                for (int i = 0; i < _TabPages.Count; i++)
-                    DrawTab(g, _TabPages[i], i);
 
+                for (int i = 0; i < _TabPages.Count; i++)
+                {
+                    if (!hideBar)
+                        DrawTab(g, _TabPages[i], i);
+                    else
+                    {
+                        Graphics gg = this.CreateGraphics();                        
+                        DrawTab(gg, _TabPages[i], i);
+                        gg.Dispose();
+                    }
+                }
 
             }
             catch (Exception)
@@ -459,7 +478,6 @@ namespace IceChat
                             g.DrawString(tabPage.TabCaption, _tabFont, br, tabTextArea, stringFormat);
                         else
                             g.DrawString(tabPage.TabCaption + "(" + tabPage.TotalChannels + ")", _tabFont, br, tabTextArea, stringFormat);
-
                     }
                     else
                     {
@@ -593,8 +611,10 @@ namespace IceChat
                     xPos = xPos + recBounds.Width;
                     totalWidth = totalWidth + recBounds.Width;
                 }
-
-                this.Height = (_TabRowHeight + 6) * _TotalTabRows;
+                if (this.hideBar)
+                    this.Height = 1;
+                else
+                    this.Height = (_TabRowHeight + 6) * _TotalTabRows;
 
             }
             catch (Exception)

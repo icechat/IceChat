@@ -210,6 +210,22 @@ namespace IceChat
                 //right mouse key
                 this.OnMouseUp(new MouseEventArgs(MouseButtons.Right, 1, 0, 0, 0));
             }
+            else
+            {
+                // find a nickname that starts with letter?
+                if (currentWindow != null && sortedNickNames != null)
+                {
+                    for (int i = 0; i < sortedNickNames.Count; i++)
+                    {
+                        if (sortedNickNames[i].nick.ToLower().StartsWith(e.KeyCode.ToString().ToLower()))
+                        {
+                            this.topIndex = i;
+                            Invalidate();
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)
@@ -288,26 +304,11 @@ namespace IceChat
 
         private void OnDoubleClick(object sender, EventArgs e)
         {
-            //check if header was double clicked
-            /*
-            Point p = this.PointToClient(Cursor.Position);
-            if (p.Y <= headerHeight)
-            {
-                if (this.Parent.Parent.GetType() == typeof(TabPage))
-                {
-                    FormMain.Instance.UnDockPanel((Panel)this.Parent);
-                    return;
-                }
-            }
-            */
-
             if (selectedIndex >= 0)
             {
                 string nick = sortedNickNames[selectedIndex].nick;
 
                 //replace any of the modes
-                //for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
-                //    nick = nick.Replace(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
                 for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
                     if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
                         nick = nick.Substring(1);
@@ -347,7 +348,6 @@ namespace IceChat
                         vScrollBar.Value -= 1;
                     }
                 }
-                //System.Diagnostics.Debug.WriteLine("wheel:" + vScrollBar.Value + ":" + vScrollBar.Maximum + ":" + e.Delta);
                 topIndex = vScrollBar.Value;
                 Invalidate();
             }
@@ -414,7 +414,7 @@ namespace IceChat
                         }
                         else
                         {
-                            if (totalSelected > 1)
+                            if (totalSelected > 0)
                             {
                                 //deselect all the previous ones
                                 DeSelectAllNicks();
@@ -438,12 +438,14 @@ namespace IceChat
                     Invalidate();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                /*
                 if (currentWindow != null)
                     _parent.WriteErrorFile(currentWindow.Connection, "NickList OnMouseDown:" + nickNumber + ":" + sortedNickNames.Count + ":" + currentWindow.Nicks.Count, ex);
                 else
                     _parent.WriteErrorFile(currentWindow.Connection, "NickList OnMouseDown: null:" + nickNumber + ":" + sortedNickNames.Count, ex);
+                */ 
             }
         }
 
@@ -451,7 +453,6 @@ namespace IceChat
         {
             if (sortedNickNames == null) return;
             if (currentWindow == null) return;
-            if (sortedNickNames == null) return;
 
             for (int i = 0; i < sortedNickNames.Count; i++)
             {
@@ -484,8 +485,6 @@ namespace IceChat
                             if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
                                 nick = nick.Substring(1);
 
-                            //    nick = nick.Replace(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
-
                         toolTip.ToolTipTitle = "User Information";
                         if (sortedNickNames[nickNumber].host.Length > 0)
                         {
@@ -515,7 +514,6 @@ namespace IceChat
             string command = ((ToolStripMenuItem)sender).Tag.ToString();
             if (command.Length > 0)
             {
-                System.Diagnostics.Debug.WriteLine(command);
                 _parent.ParseOutGoingCommand(currentWindow.Connection, command);
             }
         }
@@ -940,12 +938,14 @@ namespace IceChat
                 howFar = 20;
 
             }
-            catch (Exception ee)
+            catch (Exception)
             {
+                /*
                 if (currentWindow != null)
                     _parent.WriteErrorFile(currentWindow.Connection, "NickList OnPaint:H=" + howFar + ":i=" + i + ":ti=" + topIndex + ":" + headerCaption + ":NickCount=" + currentWindow.Nicks.Values.Count + ":NC=" + sortedNickNames.Count, ee);
                 else
                     _parent.WriteErrorFile(null, "NickList OnPaint: null", ee);
+                */ 
             }
         }
 
@@ -981,9 +981,6 @@ namespace IceChat
                         
                         string nick = sortedNickNames[selectedIndex].ToString();
                         //replace any of the modes
-                        //for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
-                        //    nick = nick.Replace(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
-
                         for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
                             if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
                                 nick = nick.Substring(1);
@@ -1067,7 +1064,6 @@ namespace IceChat
 
         internal void SelectNick(string nick)
         {
-            //System.Diagnostics.Debug.WriteLine("select nick:" + currentWindow.TabCaption + ":" + nick);
             if (sortedNickNames == null) return;
 
             //select a specific nickname in the nicklist
@@ -1104,7 +1100,6 @@ namespace IceChat
                             topIndex = (vScrollBar.Maximum - vScrollBar.LargeChange) + 1;
                         }
 
-
                         sortedNickNames[selectedIndex].selected = true;
                         currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = true;
 
@@ -1117,7 +1112,7 @@ namespace IceChat
                             }
                             catch (Exception)
                             {
-                                System.Diagnostics.Debug.WriteLine("scrollbar error:" + topIndex + ":" + vScrollBar.Maximum);
+                                //System.Diagnostics.Debug.WriteLine("scrollbar error:" + topIndex + ":" + vScrollBar.Maximum);
                             }
 
                         }
@@ -1206,14 +1201,12 @@ namespace IceChat
                             if (sortedNickNames[i].selected == true)
                             {
                                 selectedIndex = i;
-                                //System.Diagnostics.Debug.WriteLine("select " + i + ":" + topIndex + ":" + sortedNickNames[i].nick + ":" + page.TabCaption);
                                 //change the topindex if needed
 
                                 int p = (selectedIndex / vScrollBar.LargeChange);
 
                                 if ((topIndex + vScrollBar.LargeChange) < selectedIndex && vScrollBar.Visible)
                                 {
-                                    //System.Diagnostics.Debug.WriteLine("1:" + topIndex);
                                     topIndex += (p * vScrollBar.LargeChange);
 
                                     if ((selectedIndex - vScrollBar.LargeChange) < topIndex)
@@ -1242,7 +1235,7 @@ namespace IceChat
                                     }
                                     catch (Exception)
                                     {
-                                        System.Diagnostics.Debug.WriteLine("2scrollbar error:" + topIndex + ":" + vScrollBar.Maximum);
+                                       // System.Diagnostics.Debug.WriteLine("2scrollbar error:" + topIndex + ":" + vScrollBar.Maximum);
                                     }
                                 }
 
@@ -1251,11 +1244,13 @@ namespace IceChat
                         }
                     }
                 }
-                catch (Exception ee)
+                catch (Exception)
                 {
+                    /*
                     System.Diagnostics.Debug.WriteLine(ee.Message + ":" + ee.StackTrace);
                     System.Diagnostics.Debug.WriteLine(sortedNickNames != null);
                     System.Diagnostics.Debug.WriteLine("count:" + sortedNickNames.Count + ":" + i + ":" + topIndex);
+                    */ 
                 }
             }
             else if (page.WindowStyle == IceTabPage.WindowType.Query)

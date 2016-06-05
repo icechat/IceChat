@@ -1192,13 +1192,11 @@ namespace IceChat
                 {
                     command = command.Replace("$1", t.TabCaption);
                     command = command.Replace("$chan", t.TabCaption);
-                    System.Diagnostics.Debug.WriteLine(command);
                     _parent.ParseOutGoingCommand(t.Connection, command);
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine(_selectedIndex + ":null");
-
+                    //System.Diagnostics.Debug.WriteLine(_selectedIndex + ":null");
                 }
             }
         }

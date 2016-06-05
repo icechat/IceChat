@@ -3202,12 +3202,12 @@ namespace IceChat
                 if (connection.ServerSetting.StatusModes == null) return;
                 if (connection.ServerSetting.StatusModes.Length == 0) return;
 
-                //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-                //    nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
                 for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
                     if (nick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
                         nick = nick.Substring(1);
 
+                //System.Diagnostics.Debug.WriteLine("update ial for:" + nick + ":" + host);
+                //check for a FormWindow..
                 InternalAddressList ial = new InternalAddressList(nick, host, channel);
                 if (!connection.ServerSetting.IAL.ContainsKey(nick))
                 {
@@ -3268,8 +3268,6 @@ namespace IceChat
             if (!connection.IsFullyConnected) return;
             if (connection.ServerSetting.StatusModes == null) return;
 
-            //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-            //    nick = nick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
             for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
                 if (nick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))
                     nick = nick.Substring(1);

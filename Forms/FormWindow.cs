@@ -1,10 +1,35 @@
-﻿using System;
+﻿/******************************************************************************\
+ * IceChat 9 Internet Relay Chat Client
+ *
+ * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
+ *                                    <www.icechat.net> 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ * Please consult the LICENSE.txt file included with this project for
+ * more details
+ *
+\******************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace IceChat
 {
@@ -14,6 +39,25 @@ namespace IceChat
         private bool kickedChannel;
         private bool selectTabActivate = true;
         private bool allowClose = false;
+
+        private int SYSMENU_ATTACH_MENU = 0x1;
+        private int SYSMENU_DETACH_MENU = 0x2;
+
+        // P/Invoke constants
+        private const int WM_SYSCOMMAND = 0x112;
+        private const int MF_STRING = 0x0;
+        private const int MF_SEPARATOR = 0x800;
+
+        // P/Invoke declarations
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool AppendMenu(IntPtr hMenu, int uFlags, int uIDNewItem, string lpNewItem);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool InsertMenu(IntPtr hMenu, int uPosition, int uFlags, int uIDNewItem, string lpNewItem);
+
 
         public FormWindow(IceTabPage tab)
         {
@@ -50,6 +94,41 @@ namespace IceChat
             else //for the rest
                 this.Icon = System.Drawing.Icon.FromHandle(StaticMethods.LoadResourceImage("window-icon.ico").GetHicon());
 
+
+        }
+
+        internal void CreateAttachMenu()
+        {
+            IntPtr hSysMenu = GetSystemMenu(this.Handle, false);
+
+            // Add a separator
+            AppendMenu(hSysMenu, MF_SEPARATOR, 0, string.Empty);
+            AppendMenu(hSysMenu, MF_STRING, SYSMENU_ATTACH_MENU, "Attach Tab");
+        }
+
+        internal void CreateDetachMenu()
+        {
+            IntPtr hSysMenu = GetSystemMenu(this.Handle, false);
+
+            // Add a separator
+            AppendMenu(hSysMenu, MF_SEPARATOR, 0, string.Empty);
+            AppendMenu(hSysMenu, MF_STRING, SYSMENU_DETACH_MENU, "Detach Tab");
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_SYSCOMMAND) {
+                if ((int)m.WParam == SYSMENU_ATTACH_MENU)
+                {
+                    FormMain.Instance.ParseOutGoingCommand(dockedControl.Connection, "/attach");
+                }
+                if ((int)m.WParam == SYSMENU_DETACH_MENU)
+                {
+                    FormMain.Instance.ParseOutGoingCommand(dockedControl.Connection, "/detach");
+                }
+            }
         }
 
         private void TrackBar_ValueChanged(object sender, EventArgs e)
@@ -73,7 +152,7 @@ namespace IceChat
         private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
             //need to send the part message
-            //System.Diagnostics.Debug.WriteLine("closing form:" + this.Text + ":" + this.Controls.Count + ":" + e.CloseReason);
+            // System.Diagnostics.Debug.WriteLine("closing form:" + this.Text + ":" + this.Controls.Count + ":" + e.CloseReason);
             
             if (e.CloseReason == CloseReason.MdiFormClosing)
             {
@@ -125,8 +204,6 @@ namespace IceChat
                     {
                         if (FormMain.Instance.IceChatOptions.SaveWindowPosition == true)
                         {
-                            //System.Diagnostics.Debug.WriteLine("closing channel:" + this.Location);
-                            
                             ChannelSetting cs = FormMain.Instance.ChannelSettings.FindChannel(dockedControl.TabCaption, dockedControl.Connection.ServerSetting.NetworkName);
                             if (cs != null)
                             {
@@ -217,6 +294,17 @@ namespace IceChat
         private void OnActivated(object sender, EventArgs e)
         {
             FormMain.Instance.ChannelBar.SelectTab(dockedControl);
+            
+            if (dockedControl.WindowStyle == IceTabPage.WindowType.Query)
+            {
+                if (dockedControl.Connection.ServerSetting.IAL.ContainsKey(dockedControl.TabCaption)) {
+
+                    this.UIThread(delegate
+                    {
+                        this.Text = dockedControl.TabCaption + " (" + ((InternalAddressList)dockedControl.Connection.ServerSetting.IAL[dockedControl.TabCaption]).Host + ") {" + dockedControl.Connection.ServerSetting.NetworkName + "}";
+                    });
+                }
+            }
 
             if (this.Text == "Console")
             {

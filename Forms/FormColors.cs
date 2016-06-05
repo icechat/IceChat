@@ -104,6 +104,7 @@ namespace IceChat
             this.pictureTabBarOther1.Click += new EventHandler(OnColor_Click);
             this.pictureTabBarOther2.Click += new EventHandler(OnColor_Click);
             this.pictureTabBackground.Click += new EventHandler(OnColor_Click);
+            this.pictureConsoleTabHighlite.Click += new EventHandler(OnColor_Click);
 
             this.pictureTabBarHover1.Click += new EventHandler(OnColor_Click);
             this.pictureTabBarHover2.Click += new EventHandler(OnColor_Click);
@@ -1161,6 +1162,8 @@ namespace IceChat
             this.pictureTabBackground.BackColor = IrcColor.colors[iceChatColors.TabbarBackColor];
             this.pictureTabBackground.Tag = iceChatColors.TabbarBackColor;
 
+            this.pictureConsoleTabHighlite.BackColor = IrcColor.colors[iceChatColors.ConsoleTabHighlite];
+            this.pictureConsoleTabHighlite.Tag = iceChatColors.ConsoleTabHighlite;
 
             this.picturePanelHeaderBG1.BackColor = IrcColor.colors[iceChatColors.PanelHeaderBG1];
             this.picturePanelHeaderBG1.Tag = iceChatColors.PanelHeaderBG1;
@@ -1256,6 +1259,8 @@ namespace IceChat
             iceChatColors.TabBarHoverBG1 = (int)pictureTabBarHover1.Tag;
             iceChatColors.TabBarHoverBG2 = (int)pictureTabBarHover2.Tag;
             iceChatColors.TabbarBackColor = (int)pictureTabBackground.Tag;
+
+            iceChatColors.ConsoleTabHighlite = (int)pictureConsoleTabHighlite.Tag;
 
             iceChatColors.PanelHeaderBG1 = (int)picturePanelHeaderBG1.Tag;
             iceChatColors.PanelHeaderBG2 = (int)picturePanelHeaderBG2.Tag;

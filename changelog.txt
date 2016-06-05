@@ -1,3 +1,9 @@
+Build 9.10f June 5 2016
+* Added /aquery command to message all open queries on a server
+* Fixed issue with removing a tab ion the console, did not remove windows, while in windowed mode
+* Started with making backups of XML files on start up, used for restoring if XML file goes corrupt
+* Fix bug with popupmenus from Server Tree not working when server was disconnected
+
 Build 9.10e May 23 2016
 * Fixed tabs flashing issue, was not flashing channels on server tree when channel bar was hidden
 * /dns command now does a reverse dns if passed an IP Address

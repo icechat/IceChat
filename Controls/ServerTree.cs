@@ -66,6 +66,8 @@ namespace IceChat
         private string _backgroundImageFile;
         private FormMain _parent;
 
+        private bool mouseFocus = false;
+
         public ServerTree(FormMain parent)
         {
             InitializeComponent();
@@ -88,7 +90,10 @@ namespace IceChat
             this.panelButtons.VisibleChanged += new EventHandler(panelButtons_VisibleChanged);
             this.vScrollBar.Scroll += new ScrollEventHandler(OnScroll);
             this.DoubleBuffered = true;
-            
+
+            this.MouseEnter += new EventHandler(OnMouseEnter);
+            this.MouseLeave += new EventHandler(OnMouseLeave);
+
             SetStyle(ControlStyles.ResizeRedraw | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
             
             this.UpdateStyles();
@@ -149,6 +154,21 @@ namespace IceChat
             return true;
         }
 
+        private void OnMouseLeave(object sender, EventArgs e)
+        {
+            mouseFocus = false;
+        }
+
+        private void OnMouseEnter(object sender, EventArgs e)
+        {
+            mouseFocus = true;
+        }
+
+        internal bool MouseHasFocus
+        {
+            get { return mouseFocus; }
+        }
+
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Up)
@@ -166,6 +186,30 @@ namespace IceChat
                 //right mouse key
                 this.OnMouseUp(new MouseEventArgs(MouseButtons.Right, 1,0,0,0));
             }
+        }
+
+        internal void ScrollWindow(bool scrollUp)
+        {
+            try
+            {
+                if (vScrollBar.Visible)
+                {
+                    if (scrollUp && (topIndex > 0))
+                    {
+                        topIndex--;
+                        vScrollBar.Value--;
+                        Invalidate();
+                    }
+                    else if (!scrollUp && (topIndex + vScrollBar.LargeChange) < vScrollBar.Maximum)
+                    {
+                        topIndex++;
+                        vScrollBar.Value++;
+                        Invalidate();
+                    }
+                }
+            }
+
+            catch (Exception)  { }
         }
 
         private void OnResize(object sender, EventArgs e)
@@ -718,7 +762,22 @@ namespace IceChat
                         if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Channel)
                         {
                             contextMenuChannel.Items.Clear();
+
+                            ToolStripMenuItem attachMenu; // = new ToolStripMenuItem(caption);
+                            //t.Tag = command;
+                            if (((IceTabPage)findNode).Detached)
+                            {
+                                attachMenu = new ToolStripMenuItem("Attach Tab");
+                                attachMenu.Tag = "/attach";
+                            }
+                            else
+                            {
+                                attachMenu  = new ToolStripMenuItem("Detach Tab");
+                                attachMenu.Tag = "/detach";
+                            }
                             
+                            attachMenu.Click += new EventHandler(OnPopupMenuClick);
+
                             this.contextMenuChannel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                             this.clearChannelToolStripMenuItem,
                             this.closeChannelToolStripMenuItem,
@@ -728,7 +787,10 @@ namespace IceChat
                             this.channelFontToolStripMenuItem,
                             this.noColorModeToolStripMenuItem, 
                             this.loggingToolStripMenuItem,
-                            this.eventsToolStripMenuItem});
+                            this.eventsToolStripMenuItem,
+                            attachMenu});
+
+
 
                             this.noColorModeToolStripMenuItem.Checked = ((IceTabPage)findNode).TextWindow.NoColorMode;
                             this.disableEventsToolStripMenuItem.Checked = ((IceTabPage)findNode).EventOverLoad;
@@ -1103,10 +1165,7 @@ namespace IceChat
             IRCConnection c = (IRCConnection)serverConnections[selectedServerID];
             if (c != null)
             {
-                if (c.IsConnected)
-                {
-                    _parent.ParseOutGoingCommand(c, command);
-                }
+                _parent.ParseOutGoingCommand(c, command);
                 return;
             }
 

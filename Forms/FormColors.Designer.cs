@@ -138,7 +138,7 @@
             this.tabBasic = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonResetBasic = new System.Windows.Forms.Button();
-            this.textFormattedBasic = new TextWindow();
+            this.textFormattedBasic = new IceChat.TextWindow();
             this.checkChangeBGBasic = new System.Windows.Forms.CheckBox();
             this.labelFormatMessageBasic = new System.Windows.Forms.Label();
             this.labelIRCMessagesBasic = new System.Windows.Forms.Label();
@@ -146,7 +146,7 @@
             this.tabAdvanced = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonResetAdvanced = new System.Windows.Forms.Button();
-            this.textFormattedText = new TextWindow();
+            this.textFormattedText = new IceChat.TextWindow();
             this.textRawMessage = new System.Windows.Forms.TextBox();
             this.labelIRCMessagesAdvanced = new System.Windows.Forms.Label();
             this.checkBGColor = new System.Windows.Forms.CheckBox();
@@ -156,6 +156,8 @@
             this.labelIdentifiers = new System.Windows.Forms.Label();
             this.labelEditMessage = new System.Windows.Forms.Label();
             this.tabPageTree = new System.Windows.Forms.TabPage();
+            this.pictureConsoleTabHighlite = new System.Windows.Forms.PictureBox();
+            this.labelConsoleTabHighlite = new System.Windows.Forms.Label();
             this.pictureTabBuddyNotice = new System.Windows.Forms.PictureBox();
             this.labelTabBuddyNotice = new System.Windows.Forms.Label();
             this.pictureTabBackground = new System.Windows.Forms.PictureBox();
@@ -268,6 +270,7 @@
             this.tabBasic.SuspendLayout();
             this.tabAdvanced.SuspendLayout();
             this.tabPageTree.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureConsoleTabHighlite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTabBuddyNotice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTabBackground)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTabBarHover2)).BeginInit();
@@ -601,6 +604,8 @@
             // tabPageTree
             // 
             this.tabPageTree.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageTree.Controls.Add(this.pictureConsoleTabHighlite);
+            this.tabPageTree.Controls.Add(this.labelConsoleTabHighlite);
             this.tabPageTree.Controls.Add(this.pictureTabBuddyNotice);
             this.tabPageTree.Controls.Add(this.labelTabBuddyNotice);
             this.tabPageTree.Controls.Add(this.pictureTabBackground);
@@ -648,6 +653,25 @@
             this.tabPageTree.Text = "Server Tree/Tabs";
             this.tabPageTree.UseVisualStyleBackColor = true;
             // 
+            // pictureConsoleTabHighlite
+            // 
+            this.pictureConsoleTabHighlite.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureConsoleTabHighlite.Location = new System.Drawing.Point(525, 207);
+            this.pictureConsoleTabHighlite.Name = "pictureConsoleTabHighlite";
+            this.pictureConsoleTabHighlite.Size = new System.Drawing.Size(16, 16);
+            this.pictureConsoleTabHighlite.TabIndex = 134;
+            this.pictureConsoleTabHighlite.TabStop = false;
+            this.pictureConsoleTabHighlite.Tag = "Console Tab Highlite";
+            // 
+            // labelConsoleTabHighlite
+            // 
+            this.labelConsoleTabHighlite.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelConsoleTabHighlite.Location = new System.Drawing.Point(309, 207);
+            this.labelConsoleTabHighlite.Name = "labelConsoleTabHighlite";
+            this.labelConsoleTabHighlite.Size = new System.Drawing.Size(184, 16);
+            this.labelConsoleTabHighlite.TabIndex = 133;
+            this.labelConsoleTabHighlite.Text = "Console Tabs Highlight";
+            // 
             // pictureTabBuddyNotice
             // 
             this.pictureTabBuddyNotice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -678,7 +702,7 @@
             this.pictureTabBackground.Size = new System.Drawing.Size(16, 16);
             this.pictureTabBackground.TabIndex = 130;
             this.pictureTabBackground.TabStop = false;
-            this.pictureTabBackground.Tag = "Channel Owner";
+            this.pictureTabBackground.Tag = "Background";
             // 
             // labelTabBackground
             // 
@@ -866,7 +890,7 @@
             this.pictureTabDefault.Size = new System.Drawing.Size(16, 16);
             this.pictureTabDefault.TabIndex = 55;
             this.pictureTabDefault.TabStop = false;
-            this.pictureTabDefault.Tag = "Other Message";
+            this.pictureTabDefault.Tag = "Default Message";
             // 
             // labelTabDefault
             // 
@@ -1889,6 +1913,7 @@
             this.tabAdvanced.PerformLayout();
             this.tabPageTree.ResumeLayout(false);
             this.tabPageTree.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureConsoleTabHighlite)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTabBuddyNotice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTabBackground)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTabBarHover2)).EndInit();
@@ -1967,6 +1992,8 @@
         private System.Windows.Forms.PictureBox pictureTabBuddyNotice;
         private System.Windows.Forms.Label labelTabBuddyNotice;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;     
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureConsoleTabHighlite;
+        private System.Windows.Forms.Label labelConsoleTabHighlite;     
     }
 }

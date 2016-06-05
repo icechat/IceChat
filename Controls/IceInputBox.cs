@@ -67,6 +67,12 @@ namespace IceChat
         {
             //120 -- scroll up
             //see which control has focus in the main program
+            if (FormMain.Instance.ServerTree.MouseHasFocus)
+            {
+                ScrollWindow(e.Delta > 0);
+                return;
+            }
+
             if (FormMain.Instance.CurrentWindowStyle != IceTabPage.WindowType.Console)
             {
                 if (FormMain.Instance.CurrentWindow != null)
@@ -101,6 +107,12 @@ namespace IceChat
             }
             else
             {
+                if (FormMain.Instance.ServerTree.MouseHasFocus)
+                {
+                    FormMain.Instance.ServerTree.ScrollWindow(scrollUp);
+                    return;
+                }
+
                 if (FormMain.Instance.CurrentWindowStyle != IceTabPage.WindowType.ChannelList)
                 {
                     if (FormMain.Instance.CurrentWindowStyle == IceTabPage.WindowType.Channel)
@@ -112,6 +124,7 @@ namespace IceChat
                             return;
                         }
                     }
+
                     FormMain.Instance.CurrentWindow.TextWindow.ScrollWindow(scrollUp);
                 }
                 else

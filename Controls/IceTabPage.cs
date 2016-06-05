@@ -1926,10 +1926,10 @@ namespace IceChat
                                     }
                                 }
                                 //close all the windows related to this tab
-                                //System.Diagnostics.Debug.WriteLine("removing:" + i);
                                 RemoveConsoleTab(i);
                                 return;
                             }
+                            ((ConsoleTab)consoleTab.TabPages[i]).LastMessageType = FormMain.ServerMessageType.Default;
                         }
                     }
                 }
@@ -1938,10 +1938,11 @@ namespace IceChat
 
         internal void RemoveConsoleTab(int index)
         {
-            _parent.CloseAllWindows(((ConsoleTab)consoleTab.TabPages[index]).Connection);
+            _parent.CloseAllWindows(((ConsoleTab)consoleTab.TabPages[index]).Connection);            
             //remove the server connection from the collection
             ((ConsoleTab)consoleTab.TabPages[index]).Connection.Dispose();
             _parent.ServerTree.ServerConnections.Remove(((ConsoleTab)consoleTab.TabPages[index]).Connection.ServerSetting.ID);
+            
             consoleTab.TabPages.RemoveAt(consoleTab.TabPages.IndexOf(consoleTab.TabPages[index]));
         }
 
@@ -1978,7 +1979,14 @@ namespace IceChat
             if (e.State == DrawItemState.Selected)
                 br = new LinearGradientBrush(bounds, IrcColor.colors[_parent.IceChatColors.TabBarCurrentBG1], IrcColor.colors[_parent.IceChatColors.TabBarCurrentBG2], 90);
             else
-                br = new LinearGradientBrush(bounds, IrcColor.colors[_parent.IceChatColors.TabBarOtherBG1], IrcColor.colors[_parent.IceChatColors.TabBarOtherBG2], 90);
+            {
+                // get the last message value
+                if (((ConsoleTab)consoleTab.TabPages[e.Index]).LastMessageType == FormMain.ServerMessageType.Default || tabName == "Welcome")
+                    br = new LinearGradientBrush(bounds, IrcColor.colors[_parent.IceChatColors.TabBarOtherBG1], IrcColor.colors[_parent.IceChatColors.TabBarOtherBG2], 90);
+                else
+                    br = new LinearGradientBrush(bounds, IrcColor.colors[_parent.IceChatColors.ConsoleTabHighlite], IrcColor.colors[_parent.IceChatColors.ConsoleTabHighlite], 90);
+                    //br = new SolidBrush( IrcColor.colors[_parent.IceChatColors.ConsoleTabHighlite]);
+            }
 
             e.Graphics.FillRectangle(br, bounds);
 

@@ -64,6 +64,8 @@ namespace IceChat
         private int _tabBarHoverBG1 = 0;
         private int _tabBarHoverBG2 = 7;
         private int _tabbarBack = 20;
+        
+        private int _consoleTabHighlite = 4;
 
         private int _panelHeaderBGColor1 = 15;
         private int _panelHeaderBGColor2 = 0;
@@ -249,6 +251,10 @@ namespace IceChat
         public int TabBarHoverBG2
         { get { return _tabBarHoverBG2; } set { _tabBarHoverBG2 = value; } }
 
+        [XmlElement("ConsoleTabHighlite")]
+        public int ConsoleTabHighlite
+        { get { return _consoleTabHighlite; } set { _consoleTabHighlite = value; } }
+        
         [XmlElement("PanelHeaderBG1")]
         public int PanelHeaderBG1
         { get { return _panelHeaderBGColor1; } set { _panelHeaderBGColor1 = value; } }

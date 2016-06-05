@@ -1817,7 +1817,7 @@ namespace IceChat
             this.tabEmoticon.Padding = new System.Windows.Forms.Padding(3);
             this.tabEmoticon.Size = new System.Drawing.Size(757, 289);
             this.tabEmoticon.TabIndex = 7;
-            this.tabEmoticon.Text = "Emoticon";
+            this.tabEmoticon.Text = "Emoticons";
             this.tabEmoticon.UseVisualStyleBackColor = true;
             // 
             // buttonResetEmoticons

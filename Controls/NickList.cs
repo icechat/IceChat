@@ -215,15 +215,43 @@ namespace IceChat
                 // find a nickname that starts with letter?
                 if (currentWindow != null && sortedNickNames != null)
                 {
-                    for (int i = 0; i < sortedNickNames.Count; i++)
+                    /* this doesnt work properly.. scroll bar disappears for higher lettrs */
+                    for (int x = 0; x < sortedNickNames.Count; x++)
                     {
-                        if (sortedNickNames[i].nick.ToLower().StartsWith(e.KeyCode.ToString().ToLower()))
+                        /*
+                        string nick = sortedNickNames[x].nick;
+
+                        //replace any of the modes
+                        for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
+                            if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
+                                nick = nick.Substring(1);
+                        
+                        
+                        if (nick.ToLower().StartsWith(e.KeyCode.ToString().ToLower()))
                         {
-                            this.topIndex = i;
+                            if (x > (vScrollBar.Maximum - vScrollBar.LargeChange)) 
+                            {
+                                System.Diagnostics.Debug.WriteLine("larger");
+                                this.topIndex = (vScrollBar.Maximum - vScrollBar.LargeChange) - 1;
+                            } 
+                            else 
+                            {
+                                System.Diagnostics.Debug.WriteLine("smaller");
+                                this.topIndex = x;
+                            }
+
+                            this.vScrollBar.Value = this.topIndex;
+                            sortedNickNames[x].selected = true;
+                            totalSelected = 1;
+
+                            //System.Diagnostics.Debug.WriteLine(vScrollBar.Value + ":" + vScrollBar.LargeChange + ":" + topIndex + ":scroll to:" + i + ":" + vScrollBar.Maximum + ":" + this.sortedNickNames.Count);                            
+
                             Invalidate();
                             break;
                         }
+                        */
                     }
+                   
                 }
             }
         }
@@ -287,19 +315,16 @@ namespace IceChat
                         vScrollBar.Value--;
                         Invalidate();
                     }
-                    else if (!scrollUp && (topIndex + vScrollBar.LargeChange) < vScrollBar.Maximum)
+                    else if (!scrollUp && (topIndex + (vScrollBar.LargeChange - 1)) < vScrollBar.Maximum)
                     {
                         topIndex++;
                         vScrollBar.Value++;
                         Invalidate();
                     }
-                }
+                }                
             }
 
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e.Message);
-            }
+            catch (Exception)  { }
         }
 
         private void OnDoubleClick(object sender, EventArgs e)
@@ -348,6 +373,7 @@ namespace IceChat
                         vScrollBar.Value -= 1;
                     }
                 }
+
                 topIndex = vScrollBar.Value;
                 Invalidate();
             }

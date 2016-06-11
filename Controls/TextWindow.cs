@@ -1309,41 +1309,6 @@ namespace IceChat
                     Regex re = new Regex(_wwwMatch);
                     MatchCollection matches = re.Matches(_linkedWord);
                     String clickedWord = _linkedWord;
-                    
-                    /*
-                    if (matches.Count > 0)
-                    {
-                        clickedWord = matches[0].ToString();
-                    }
-                    if (matches.Count > 0 && !clickedWord.StartsWith("irc://"))
-                    {
-                        try
-                        {
-                            if (clickedWord.ToLower().StartsWith("www"))
-                                clickedWord = "http://" + clickedWord;
-                            System.Diagnostics.Process.Start(clickedWord);
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        return;
-                    }
-                    //check if it is a irc:// link
-                    if (clickedWord.StartsWith("irc://"))
-                    {
-                        //check if a channel was specified
-                        string server = clickedWord.Substring(6).TrimEnd();
-                        if (server.IndexOf("/") != -1)
-                        {
-                            string host = server.Split('/')[0];
-                            string channel = server.Split('/')[1];
-                            FormMain.Instance.ParseOutGoingCommand(null, "/joinserv " + host + " #" + channel);
-                        }
-                        else
-                            FormMain.Instance.ParseOutGoingCommand(null, "/server " + clickedWord.Substring(6).TrimEnd());
-                        return;
-                    }
-                    */
 
                     if (this.Parent.GetType() == typeof(IceTabPage))
                     {
@@ -1351,8 +1316,6 @@ namespace IceChat
                         //check if it is a channel
                         //remove any user types from the front of the clickedWord
                         string chan = clickedWord;
-                        //for (int i = 0; i < t.Connection.ServerSetting.StatusModes[1].Length; i++)
-                        //    chan = chan.Replace(t.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
                         for (int i = 0; i < t.Connection.ServerSetting.StatusModes[1].Length; i++)
                             if (chan.StartsWith(t.Connection.ServerSetting.StatusModes[1][i].ToString()))
                                 chan = chan.Substring(1);
@@ -1396,8 +1359,6 @@ namespace IceChat
                             if (c.Connection.IsFullyConnected)
                             {
                                 string chan = clickedWord;
-                                //for (int i = 0; i < c.Connection.ServerSetting.StatusModes[1].Length; i++)
-                                //    chan = chan.Replace(c.Connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
                                 for (int i = 0; i < c.Connection.ServerSetting.StatusModes[1].Length; i++)
                                     if (chan.StartsWith(c.Connection.ServerSetting.StatusModes[1][i].ToString()))
                                         chan = chan.Substring(1);
@@ -1417,13 +1378,17 @@ namespace IceChat
             {
                 //console
                 ConsoleTab c = (ConsoleTab)this.Parent;
-                FormMain.Instance.ParseOutGoingCommand(c.Connection, "/lusers");
+                if (c.Connection.IsConnected)
+                    FormMain.Instance.ParseOutGoingCommand(c.Connection, "/lusers");
             }
             else if (this.Parent.GetType() == typeof(IceTabPage))
             {
                 IceTabPage t = (IceTabPage)this.Parent;
                 if (t.WindowStyle == IceTabPage.WindowType.Channel)
-                    FormMain.Instance.ParseOutGoingCommand(t.Connection, "/chaninfo");
+                {
+                    if (t.Connection.IsConnected)
+                        FormMain.Instance.ParseOutGoingCommand(t.Connection, "/chaninfo");
+                }
             }
             else if (this.Parent.GetType() == typeof(Panel))
             {
@@ -1431,7 +1396,8 @@ namespace IceChat
                 {
                     IceTabPage t = (IceTabPage)this.Parent.Parent;
                     if (t.WindowStyle == IceTabPage.WindowType.Channel)
-                        FormMain.Instance.ParseOutGoingCommand(t.Connection, "/chaninfo");
+                        if (t.Connection.IsConnected)
+                            FormMain.Instance.ParseOutGoingCommand(t.Connection, "/chaninfo");
                 }
             }
         }

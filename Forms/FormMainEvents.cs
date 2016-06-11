@@ -208,6 +208,8 @@ namespace IceChat
                         t.IsFullyJoined = false;
                         t.GotNamesList = false;
                         t.GotWhoList = false;
+                        t.ChannelModesHash.Clear();
+                        t.ChannelModes = "";
 
                         t.TextWindow.AppendText(msg, "");
                         t.LastMessageType = ServerMessageType.ServerMessage;
@@ -1996,7 +1998,6 @@ namespace IceChat
                 string msg = GetMessageFormat("Channel Other");
                 msg = msg.Replace("$message", message);
 
-                //t.TextWindow.AppendText(msg, 1);
                 t.TextWindow.AppendText(msg, timeStamp);
                 t.LastMessageType = ServerMessageType.Other;
             }
@@ -2827,6 +2828,7 @@ namespace IceChat
                 }
 
                 string msg = GetMessageFormat("Channel Mode");
+                
                 msg = msg.Replace("$modeparam", parameter);
                 msg = msg.Replace("$mode", mode);
                 msg = msg.Replace("$nick", modeSetter);

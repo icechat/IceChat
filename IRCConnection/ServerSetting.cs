@@ -197,7 +197,6 @@ namespace IceChat
         private Dictionary<string, string> _channelJoins = new Dictionary<string,string>();
         private Stack<string> _lastChannelsParted = new Stack<string>();
 
-
         [XmlAttribute("ServerID")]
         public int ID
         { get; set; }

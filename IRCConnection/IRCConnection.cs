@@ -549,8 +549,6 @@ namespace IceChat
                     sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
                     //sslStream.AuthenticateAsClient(serverSetting.ServerName);
 
-                    System.Diagnostics.Debug.WriteLine("attempt start tls");
-
                     SslProtocols enabledSslProtocols;
 
 #if USE_NET_45

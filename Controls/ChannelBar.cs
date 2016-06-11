@@ -1194,10 +1194,6 @@ namespace IceChat
                     command = command.Replace("$chan", t.TabCaption);
                     _parent.ParseOutGoingCommand(t.Connection, command);
                 }
-                else
-                {
-                    //System.Diagnostics.Debug.WriteLine(_selectedIndex + ":null");
-                }
             }
         }
 

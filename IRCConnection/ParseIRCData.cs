@@ -1296,19 +1296,6 @@ namespace IceChat
                                 if (host.IndexOf('@') > -1 && this.serverSetting.LocalIP == null)
                                 {
                                     this.serverSetting.LocalHost = host;
-                                    /*
-                                    try
-                                    {
-                                        host = host.Substring(host.IndexOf('@') + 1);
-                                        System.Net.IPAddress[] addresslist = System.Net.Dns.GetHostAddresses(host);
-                                        foreach (System.Net.IPAddress address in addresslist)
-                                            this.serverSetting.LocalIP = address;
-                                    }
-                                    catch (Exception)
-                                    {
-                                        //can not parse the mode
-                                    }
-                                    */
                                 }
                                 //user mode
                                 tempValue = JoinString(ircData, 3, true);

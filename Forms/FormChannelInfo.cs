@@ -44,8 +44,6 @@ namespace IceChat
         private bool modeK = false;
         private string topic = "";
 
-        //private delegate void ChannelTopicSetByDelegate(string nick, string date);
-
         public FormChannelInfo(IceTabPage Channel)
         {
             InitializeComponent();

@@ -37,7 +37,7 @@
             // labelAbout
             // 
             this.labelAbout.BackColor = System.Drawing.Color.Transparent;
-            this.labelAbout.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAbout.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAbout.ForeColor = System.Drawing.Color.Black;
             this.labelAbout.Location = new System.Drawing.Point(-1, 338);
             this.labelAbout.Name = "labelAbout";
@@ -63,9 +63,10 @@
             // labelVersion
             // 
             this.labelVersion.AutoSize = true;
+            this.labelVersion.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelVersion.Location = new System.Drawing.Point(-1, 432);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(59, 14);
+            this.labelVersion.Size = new System.Drawing.Size(60, 17);
             this.labelVersion.TabIndex = 2;
             this.labelVersion.Text = "Version:";
             // 

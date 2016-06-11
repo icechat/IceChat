@@ -480,7 +480,8 @@ namespace IceChat
                         channelModes.Add(mode, c);
                 }
 
-                //System.Diagnostics.Debug.WriteLine("update mode:" + mode + ":" + addMode + ":" + param);
+                System.Diagnostics.Debug.WriteLine("update mode:" + mode + ":" + addMode + ":" + param);
+                
                 if (mode == 'k' && param != "*")
                 {
                     if (addMode)

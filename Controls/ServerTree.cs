@@ -973,7 +973,7 @@ namespace IceChat
                         }
                         else if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.DCCFile)
                         {
-                            //
+                            this.contextMenuDCCFiles.Show(this, new Point(e.X, e.Y));
                         }
                         else if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Window)
                         {
@@ -2666,6 +2666,11 @@ namespace IceChat
             _parent.ParseOutGoingCommand(null, "/close debug");
         }
 
+        private void toolStripMenuCloseDCC_Click(object sender, EventArgs e)
+        {
+            _parent.ParseOutGoingCommand(null, "/close DCC Files");
+        }
+
         private void disconnectDCCChat_Click(object sender, EventArgs e)
         {
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2711,6 +2716,7 @@ namespace IceChat
 
 
         #endregion        
+
 
     }
 }

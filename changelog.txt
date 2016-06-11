@@ -1,3 +1,7 @@
+Build 9.10g June 11 2016
+* Added popup menu for DCC Files in Server tree
+* Fix channel info window not resetting channel modes on disconnect
+
 Build 9.10f June 5 2016
 * Added /aquery command to message all open queries on a server
 * Fixed issue with removing a tab ion the console, did not remove windows, while in windowed mode

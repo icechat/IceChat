@@ -56,6 +56,7 @@
             this.inChannelToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.inConsoleToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.hideToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideJoinPartQuitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openChannelLogFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableLoggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,7 +91,8 @@
             this.contextMenuDebug = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuClearDebug = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuCloseDebug = new System.Windows.Forms.ToolStripMenuItem();
-            this.hideJoinPartQuitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuDCCFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuCloseDCC = new System.Windows.Forms.ToolStripMenuItem();
             this.panelButtons.SuspendLayout();
             this.contextMenuChannel.SuspendLayout();
             this.contextMenuServer.SuspendLayout();
@@ -99,6 +101,7 @@
             this.contextMenuChannelList.SuspendLayout();
             this.contextMenuWindow.SuspendLayout();
             this.contextMenuDebug.SuspendLayout();
+            this.contextMenuDCCFiles.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelButtons
@@ -199,7 +202,7 @@
             this.eventsToolStripMenuItem,
             this.loggingToolStripMenuItem});
             this.contextMenuChannel.Name = "contextMenuChannel";
-            this.contextMenuChannel.Size = new System.Drawing.Size(185, 224);
+            this.contextMenuChannel.Size = new System.Drawing.Size(185, 202);
             // 
             // clearChannelToolStripMenuItem
             // 
@@ -273,14 +276,14 @@
             // disableEventsToolStripMenuItem
             // 
             this.disableEventsToolStripMenuItem.Name = "disableEventsToolStripMenuItem";
-            this.disableEventsToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.disableEventsToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.disableEventsToolStripMenuItem.Text = "Disable Flashing/Color Changes";
             this.disableEventsToolStripMenuItem.Click += new System.EventHandler(this.disableEventsToolStripMenuItem_Click);
             // 
             // disableSoundsToolStripMenuItem
             // 
             this.disableSoundsToolStripMenuItem.Name = "disableSoundsToolStripMenuItem";
-            this.disableSoundsToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.disableSoundsToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.disableSoundsToolStripMenuItem.Text = "Disable Sounds";
             this.disableSoundsToolStripMenuItem.Click += new System.EventHandler(this.disableSoundsToolStripMenuItem_Click);
             // 
@@ -291,27 +294,27 @@
             this.inConsoleToolStripMenuItem,
             this.hideToolStripMenuItem});
             this.joinEventLocationToolStripMenuItem.Name = "joinEventLocationToolStripMenuItem";
-            this.joinEventLocationToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.joinEventLocationToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.joinEventLocationToolStripMenuItem.Text = "Join Event Location";
             // 
             // inChannelToolStripMenuItem
             // 
             this.inChannelToolStripMenuItem.Name = "inChannelToolStripMenuItem";
-            this.inChannelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.inChannelToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.inChannelToolStripMenuItem.Text = "In Channel";
             this.inChannelToolStripMenuItem.Click += new System.EventHandler(this.inChannelToolStripMenuItem_Click);
             // 
             // inConsoleToolStripMenuItem
             // 
             this.inConsoleToolStripMenuItem.Name = "inConsoleToolStripMenuItem";
-            this.inConsoleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.inConsoleToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.inConsoleToolStripMenuItem.Text = "In Console";
             this.inConsoleToolStripMenuItem.Click += new System.EventHandler(this.inConsoleToolStripMenuItem_Click);
             // 
             // hideToolStripMenuItem
             // 
             this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
-            this.hideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hideToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.hideToolStripMenuItem.Text = "Hide";
             this.hideToolStripMenuItem.Click += new System.EventHandler(this.hideToolStripMenuItem_Click);
             // 
@@ -322,7 +325,7 @@
             this.inConsoleToolStripMenuItem1,
             this.hideToolStripMenuItem1});
             this.partEventLocationToolStripMenuItem.Name = "partEventLocationToolStripMenuItem";
-            this.partEventLocationToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.partEventLocationToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.partEventLocationToolStripMenuItem.Text = "Part Event Location";
             // 
             // inChannelToolStripMenuItem1
@@ -353,29 +356,36 @@
             this.inConsoleToolStripMenuItem2,
             this.hideToolStripMenuItem2});
             this.quitEventLocationToolStripMenuItem.Name = "quitEventLocationToolStripMenuItem";
-            this.quitEventLocationToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.quitEventLocationToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.quitEventLocationToolStripMenuItem.Text = "Quit Event Location";
             // 
             // inChannelToolStripMenuItem2
             // 
             this.inChannelToolStripMenuItem2.Name = "inChannelToolStripMenuItem2";
-            this.inChannelToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.inChannelToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
             this.inChannelToolStripMenuItem2.Text = "In Channel";
             this.inChannelToolStripMenuItem2.Click += new System.EventHandler(this.inChannelToolStripMenuItem2_Click);
             // 
             // inConsoleToolStripMenuItem2
             // 
             this.inConsoleToolStripMenuItem2.Name = "inConsoleToolStripMenuItem2";
-            this.inConsoleToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.inConsoleToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
             this.inConsoleToolStripMenuItem2.Text = "In Console";
             this.inConsoleToolStripMenuItem2.Click += new System.EventHandler(this.inConsoleToolStripMenuItem2_Click);
             // 
             // hideToolStripMenuItem2
             // 
             this.hideToolStripMenuItem2.Name = "hideToolStripMenuItem2";
-            this.hideToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.hideToolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
             this.hideToolStripMenuItem2.Text = "Hide";
             this.hideToolStripMenuItem2.Click += new System.EventHandler(this.hideToolStripMenuItem2_Click);
+            // 
+            // hideJoinPartQuitToolStripMenuItem
+            // 
+            this.hideJoinPartQuitToolStripMenuItem.Name = "hideJoinPartQuitToolStripMenuItem";
+            this.hideJoinPartQuitToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.hideJoinPartQuitToolStripMenuItem.Text = "Hide Join/Part/Quit";
+            this.hideJoinPartQuitToolStripMenuItem.Click += new System.EventHandler(this.hideJoinPartQuitToolStripMenuItem_Click);
             // 
             // loggingToolStripMenuItem
             // 
@@ -641,23 +651,30 @@
             // toolStripMenuClearDebug
             // 
             this.toolStripMenuClearDebug.Name = "toolStripMenuClearDebug";
-            this.toolStripMenuClearDebug.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuClearDebug.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuClearDebug.Text = "Clear Window";
             this.toolStripMenuClearDebug.Click += new System.EventHandler(this.toolStripMenuClearDebug_Click);
             // 
             // toolStripMenuCloseDebug
             // 
             this.toolStripMenuCloseDebug.Name = "toolStripMenuCloseDebug";
-            this.toolStripMenuCloseDebug.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuCloseDebug.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuCloseDebug.Text = "Close Window";
             this.toolStripMenuCloseDebug.Click += new System.EventHandler(this.toolStripMenuCloseDebug_Click);
             // 
-            // hideJoinPartQuitToolStripMenuItem
+            // contextMenuDCCFiles
             // 
-            this.hideJoinPartQuitToolStripMenuItem.Name = "hideJoinPartQuitToolStripMenuItem";
-            this.hideJoinPartQuitToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.hideJoinPartQuitToolStripMenuItem.Text = "Hide Join/Part/Quit";
-            this.hideJoinPartQuitToolStripMenuItem.Click += new System.EventHandler(this.hideJoinPartQuitToolStripMenuItem_Click);
+            this.contextMenuDCCFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuCloseDCC});
+            this.contextMenuDCCFiles.Name = "contextMenuWindow";
+            this.contextMenuDCCFiles.Size = new System.Drawing.Size(153, 48);
+            // 
+            // toolStripMenuCloseDCC
+            // 
+            this.toolStripMenuCloseDCC.Name = "toolStripMenuCloseDCC";
+            this.toolStripMenuCloseDCC.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuCloseDCC.Text = "Close Window";
+            this.toolStripMenuCloseDCC.Click += new System.EventHandler(this.toolStripMenuCloseDCC_Click);
             // 
             // ServerTree
             // 
@@ -680,6 +697,7 @@
             this.contextMenuChannelList.ResumeLayout(false);
             this.contextMenuWindow.ResumeLayout(false);
             this.contextMenuDebug.ResumeLayout(false);
+            this.contextMenuDCCFiles.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -748,5 +766,7 @@
         private System.Windows.Forms.ToolStripMenuItem inConsoleToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem hideJoinPartQuitToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuDCCFiles;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuCloseDCC;
     }
 }

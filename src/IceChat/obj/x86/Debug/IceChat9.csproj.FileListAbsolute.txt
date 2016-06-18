@@ -1,0 +1,222 @@
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\bin\x86\Debug\IceChat2009.config
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\bin\x86\Debug\IceChat2009.exe
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\bin\x86\Debug\IceChat2009.pdb
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\bin\x86\Debug\IPluginIceChat.dll
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\bin\x86\Debug\IRCConnection.dll
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\bin\x86\Debug\IThemeIceChat.dll
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\bin\x86\Debug\IPluginIceChat.pdb
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\bin\x86\Debug\IRCConnection.pdb
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\bin\x86\Debug\IThemeIceChat.pdb
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.IceTabControl.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.InputBoxDialog.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.TextWindow.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.IceInputBox.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormColorPicker.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.Forms.FormDCCAccept.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormEmoticons.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormFirstRun.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormFloat.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormMain.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormPluginInfo.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormUserInfo.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.ChannelList.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormAbout.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormChannelInfo.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormColors.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormEditor.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormServers.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormSettings.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.InputPanel.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.NickList.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.ServerTree.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.QuickConnect.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.Properties.Resources.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.BuddyList.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormBuddyItem.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormList.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormWindow.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormDCCFileAccept.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat.FormSplash.resources
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat9.csproj.GenerateResource.Cache
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat2009.exe
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\obj\x86\Debug\IceChat2009.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.01\bin\x86\Debug\IceChat2009.config
+E:\IceChat2009\IceChat2009\IceChat 9.01\bin\x86\Debug\IceChat2009.exe
+E:\IceChat2009\IceChat2009\IceChat 9.01\bin\x86\Debug\IceChat2009.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.01\bin\x86\Debug\IPluginIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9.01\bin\x86\Debug\IRCConnection.dll
+E:\IceChat2009\IceChat2009\IceChat 9.01\bin\x86\Debug\IThemeIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9.01\bin\x86\Debug\IPluginIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.01\bin\x86\Debug\IRCConnection.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.01\bin\x86\Debug\IThemeIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.IceTabControl.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.InputBoxDialog.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.TextWindow.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.IceInputBox.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormColorPicker.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.Forms.FormDCCAccept.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormEmoticons.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormFirstRun.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormFloat.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormMain.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormPluginInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormUserInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.ChannelList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormAbout.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormChannelInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormColors.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormEditor.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormServers.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormSettings.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.InputPanel.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.NickList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.ServerTree.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.QuickConnect.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.Properties.Resources.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.BuddyList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormBuddyItem.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.IceDockPanel.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormWindow.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormDCCFileAccept.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat.FormSplash.resources
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat9.csproj.GenerateResource.Cache
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat2009.exe
+E:\IceChat2009\IceChat2009\IceChat 9.01\obj\x86\Debug\IceChat2009.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\bin\x86\Debug\IceChat2009.config
+E:\IceChat2009\IceChat2009\IceChat 9.04\bin\x86\Debug\IceChat2009.exe
+E:\IceChat2009\IceChat2009\IceChat 9.04\bin\x86\Debug\IceChat2009.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\bin\x86\Debug\IPluginIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\bin\x86\Debug\IRCConnection.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\bin\x86\Debug\IThemeIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\bin\x86\Debug\Newtonsoft.Json.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\bin\x86\Debug\IPluginIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\bin\x86\Debug\IRCConnection.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\bin\x86\Debug\IThemeIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.IceTabControl.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.InputBoxDialog.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.TextWindow.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.IceInputBox.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormColorPicker.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.Forms.FormDCCAccept.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormEmoticons.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormFirstRun.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormFloat.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormMain.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormPluginInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormUserInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.ChannelList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormAbout.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormChannelInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormColors.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormEditor.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormServers.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormSettings.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.InputPanel.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.NickList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.ServerTree.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.QuickConnect.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.Properties.Resources.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.BuddyList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormBuddyItem.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.IceDockPanel.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormWindow.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormDCCFileAccept.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat.FormSplash.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat9.csproj.GenerateResource.Cache
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat2009.exe
+E:\IceChat2009\IceChat2009\IceChat 9.04\obj\x86\Debug\IceChat2009.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.05\bin\x86\Debug\IceChat2009.config
+E:\IceChat2009\IceChat2009\IceChat 9.05\bin\x86\Debug\IceChat2009.exe
+E:\IceChat2009\IceChat2009\IceChat 9.05\bin\x86\Debug\IceChat2009.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.05\bin\x86\Debug\IPluginIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9.05\bin\x86\Debug\IRCConnection.dll
+E:\IceChat2009\IceChat2009\IceChat 9.05\bin\x86\Debug\IThemeIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9.05\bin\x86\Debug\Newtonsoft.Json.dll
+E:\IceChat2009\IceChat2009\IceChat 9.05\bin\x86\Debug\IPluginIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.05\bin\x86\Debug\IRCConnection.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.05\bin\x86\Debug\IThemeIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.IceTabControl.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.InputBoxDialog.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.TextWindow.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.IceInputBox.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormColorPicker.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.Forms.FormDCCAccept.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormEmoticons.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormFirstRun.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormFloat.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormMain.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormPluginInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormUserInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.ChannelList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormAbout.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormChannelInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormColors.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormEditor.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormServers.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormSettings.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.InputPanel.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.NickList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.ServerTree.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.QuickConnect.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.Properties.Resources.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.BuddyList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormBuddyItem.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.IceDockPanel.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormList.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormWindow.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormDCCFileAccept.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat.FormSplash.resources
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat9.csproj.GenerateResource.Cache
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat2009.exe
+E:\IceChat2009\IceChat2009\IceChat 9.05\obj\x86\Debug\IceChat2009.pdb
+E:\IceChat2009\IceChat 9\IceChat 9.05\bin\x86\Debug\IceChat2009.config
+E:\IceChat2009\IceChat 9\IceChat 9.05\bin\x86\Debug\IceChat2009.exe
+E:\IceChat2009\IceChat 9\IceChat 9.05\bin\x86\Debug\IceChat2009.pdb
+E:\IceChat2009\IceChat 9\IceChat 9.05\bin\x86\Debug\IPluginIceChat.dll
+E:\IceChat2009\IceChat 9\IceChat 9.05\bin\x86\Debug\IRCConnection.dll
+E:\IceChat2009\IceChat 9\IceChat 9.05\bin\x86\Debug\IThemeIceChat.dll
+E:\IceChat2009\IceChat 9\IceChat 9.05\bin\x86\Debug\Newtonsoft.Json.dll
+E:\IceChat2009\IceChat 9\IceChat 9.05\bin\x86\Debug\IPluginIceChat.pdb
+E:\IceChat2009\IceChat 9\IceChat 9.05\bin\x86\Debug\IRCConnection.pdb
+E:\IceChat2009\IceChat 9\IceChat 9.05\bin\x86\Debug\IThemeIceChat.pdb
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.IceTabControl.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.InputBoxDialog.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.TextWindow.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.IceInputBox.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormColorPicker.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.Forms.FormDCCAccept.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormEmoticons.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormFirstRun.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormFloat.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormMain.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormPluginInfo.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormUserInfo.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.ChannelList.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormAbout.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormChannelInfo.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormColors.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormEditor.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormServers.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormSettings.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.InputPanel.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.NickList.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.ServerTree.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.QuickConnect.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.Properties.Resources.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.BuddyList.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormBuddyItem.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.IceDockPanel.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormList.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormWindow.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormDCCFileAccept.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat.FormSplash.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat9.csproj.GenerateResource.Cache
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat2009.exe
+E:\IceChat2009\IceChat 9\IceChat 9.05\obj\x86\Debug\IceChat2009.pdb

@@ -1,0 +1,15 @@
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\IThemeIceChat\bin\x86\Debug\IThemeIceChat.dll
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\IThemeIceChat\bin\x86\Debug\IThemeIceChat.pdb
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\IThemeIceChat\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\IThemeIceChat\obj\x86\Debug\IThemeIceChat.dll
+C:\Users\Paul\Downloads\IceChat 9 8.23 - Updated Tabs\IThemeIceChat\obj\x86\Debug\IThemeIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.01\IThemeIceChat\bin\x86\Debug\IThemeIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9.01\IThemeIceChat\bin\x86\Debug\IThemeIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.01\IThemeIceChat\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.01\IThemeIceChat\obj\x86\Debug\IThemeIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9.01\IThemeIceChat\obj\x86\Debug\IThemeIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\IThemeIceChat\bin\x86\Debug\IThemeIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\IThemeIceChat\bin\x86\Debug\IThemeIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\IThemeIceChat\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.04\IThemeIceChat\obj\x86\Debug\IThemeIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\IThemeIceChat\obj\x86\Debug\IThemeIceChat.pdb

@@ -1,0 +1,31 @@
+E:\IceChat2009\IceChat2009\VBSCRIPT Plugin\bin\x86\Debug\VBScriptPlugin.dll.config
+E:\IceChat2009\IceChat2009\VBSCRIPT Plugin\bin\x86\Debug\VBScriptPlugin.dll
+E:\IceChat2009\IceChat2009\VBSCRIPT Plugin\bin\x86\Debug\VBScriptPlugin.pdb
+E:\IceChat2009\IceChat2009\VBSCRIPT Plugin\bin\x86\Debug\Interop.MSScriptControl.dll
+E:\IceChat2009\IceChat2009\VBSCRIPT Plugin\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\VBSCRIPT Plugin\obj\x86\Debug\Interop.MSScriptControl.dll
+E:\IceChat2009\IceChat2009\VBSCRIPT Plugin\obj\x86\Debug\VBScriptPlugin.csproj.ResolveComReference.cache
+E:\IceChat2009\IceChat2009\VBSCRIPT Plugin\obj\x86\Debug\VBScriptPlugin.dll
+E:\IceChat2009\IceChat2009\VBSCRIPT Plugin\obj\x86\Debug\VBScriptPlugin.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\bin\x86\Debug\VBScriptPlugin.dll.config
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\bin\x86\Debug\VBScriptPlugin.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\bin\x86\Debug\VBScriptPlugin.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\bin\x86\Debug\Interop.MSScriptControl.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\obj\x86\Debug\Interop.MSScriptControl.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\obj\x86\Debug\VBScriptPlugin.csproj.ResolveComReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\obj\x86\Debug\VBScriptPlugin.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\obj\x86\Debug\VBScriptPlugin.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\obj\x86\Debug\IceChatPlugin.ClassDialog.resources
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\VBScript Plugin\obj\x86\Debug\VBScriptPlugin.csproj.GenerateResource.Cache
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\bin\x86\Debug\VBScriptPlugin.dll.config
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\bin\x86\Debug\VBScriptPlugin.dll
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\bin\x86\Debug\VBScriptPlugin.pdb
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\bin\x86\Debug\Interop.MSScriptControl.dll
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\obj\x86\Debug\Interop.MSScriptControl.dll
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\obj\x86\Debug\VBScriptPlugin.csproj.ResolveComReference.cache
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\obj\x86\Debug\IceChatPlugin.ClassDialog.resources
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\obj\x86\Debug\VBScriptPlugin.csproj.GenerateResource.Cache
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\obj\x86\Debug\VBScriptPlugin.dll
+E:\IceChat2009\IceChat 9\IceChat 9.05\Plugins\VBScript Plugin\obj\x86\Debug\VBScriptPlugin.pdb

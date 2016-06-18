@@ -1,0 +1,155 @@
+G:\IceChat2009\IceChat2009\icechat\bin\Release\IceChat2009.exe.config
+G:\IceChat2009\IceChat2009\icechat\bin\Release\IceChat2009.exe
+G:\IceChat2009\IceChat2009\icechat\bin\Release\IceChat2009.pdb
+G:\IceChat2009\IceChat2009\icechat\bin\Release\IceChatScript.dll
+G:\IceChat2009\IceChat2009\icechat\bin\Release\IPluginIceChat.dll
+G:\IceChat2009\IceChat2009\icechat\bin\Release\IPluginIceChat.pdb
+G:\IceChat2009\IceChat2009\icechat\bin\Release\IceChatScript.pdb
+G:\IceChat2009\IceChat2009\icechat\obj\Release\ResolveAssemblyReference.cache
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.IceTabControl.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.InputBoxDialog.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.TextWindow.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.IceInputBox.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormColorPicker.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.Forms.FormDCCAccept.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormEmoticons.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormFirstRun.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormFloat.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormMain.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormPluginInfo.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormUserInfo.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.ChannelList.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormAbout.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormChannelInfo.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormColors.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormEditor.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormServers.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormSettings.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.InputPanel.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.NickList.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.ServerTree.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.QuickConnect.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.Properties.Resources.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat2009.csproj.GenerateResource.Cache
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat2009.exe
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat2009.pdb
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.BuddyList.resources
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormBuddyItem.resources
+D:\TestDockApplication\bin\Release\IceChat2009.exe.config
+D:\TestDockApplication\bin\Release\IceChat2009.exe
+D:\TestDockApplication\bin\Release\IceChat2009.pdb
+D:\TestDockApplication\bin\Release\IceChatScript.dll
+D:\TestDockApplication\bin\Release\IPluginIceChat.dll
+D:\TestDockApplication\bin\Release\IPluginIceChat.pdb
+D:\TestDockApplication\bin\Release\IceChatScript.pdb
+D:\TestDockApplication\obj\Release\ResolveAssemblyReference.cache
+D:\TestDockApplication\obj\Release\IceChat.IceTabControl.resources
+D:\TestDockApplication\obj\Release\IceChat.InputBoxDialog.resources
+D:\TestDockApplication\obj\Release\IceChat.TextWindow.resources
+D:\TestDockApplication\obj\Release\IceChat.IceInputBox.resources
+D:\TestDockApplication\obj\Release\IceChat.FormColorPicker.resources
+D:\TestDockApplication\obj\Release\IceChat.Forms.FormDCCAccept.resources
+D:\TestDockApplication\obj\Release\IceChat.FormEmoticons.resources
+D:\TestDockApplication\obj\Release\IceChat.FormFirstRun.resources
+D:\TestDockApplication\obj\Release\IceChat.FormFloat.resources
+D:\TestDockApplication\obj\Release\IceChat.FormMain.resources
+D:\TestDockApplication\obj\Release\IceChat.FormPluginInfo.resources
+D:\TestDockApplication\obj\Release\IceChat.FormUserInfo.resources
+D:\TestDockApplication\obj\Release\IceChat.ChannelList.resources
+D:\TestDockApplication\obj\Release\IceChat.FormAbout.resources
+D:\TestDockApplication\obj\Release\IceChat.FormChannelInfo.resources
+D:\TestDockApplication\obj\Release\IceChat.FormColors.resources
+D:\TestDockApplication\obj\Release\IceChat.FormEditor.resources
+D:\TestDockApplication\obj\Release\IceChat.FormServers.resources
+D:\TestDockApplication\obj\Release\IceChat.FormSettings.resources
+D:\TestDockApplication\obj\Release\IceChat.InputPanel.resources
+D:\TestDockApplication\obj\Release\IceChat.NickList.resources
+D:\TestDockApplication\obj\Release\IceChat.ServerTree.resources
+D:\TestDockApplication\obj\Release\IceChat.QuickConnect.resources
+D:\TestDockApplication\obj\Release\IceChat.Properties.Resources.resources
+D:\TestDockApplication\obj\Release\IceChat.BuddyList.resources
+D:\TestDockApplication\obj\Release\IceChat.FormBuddyItem.resources
+D:\TestDockApplication\obj\Release\IceChat2009.csproj.GenerateResource.Cache
+D:\TestDockApplication\obj\Release\IceChat2009.exe
+D:\TestDockApplication\obj\Release\IceChat2009.pdb
+G:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormDCCFileAccept.resources
+E:\IceChat2009\IceChat2009\icechat\bin\Release\IceChat2009.exe.config
+E:\IceChat2009\IceChat2009\icechat\bin\Release\IceChat2009.exe
+E:\IceChat2009\IceChat2009\icechat\bin\Release\IceChat2009.pdb
+E:\IceChat2009\IceChat2009\icechat\bin\Release\IPluginIceChat.dll
+E:\IceChat2009\IceChat2009\icechat\bin\Release\IPluginIceChat.pdb
+E:\IceChat2009\IceChat2009\icechat\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.IceTabControl.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.InputBoxDialog.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.TextWindow.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.IceInputBox.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormColorPicker.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.Forms.FormDCCAccept.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormEmoticons.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormFirstRun.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormFloat.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormMain.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormPluginInfo.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormUserInfo.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.ChannelList.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormAbout.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormChannelInfo.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormColors.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormEditor.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormServers.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormSettings.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.InputPanel.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.NickList.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.ServerTree.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.QuickConnect.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.Properties.Resources.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.BuddyList.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormBuddyItem.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormDCCFileAccept.resources
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat2009.csproj.GenerateResource.Cache
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat2009.exe
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat2009.pdb
+E:\IceChat2009\IceChat2009\icechat\bin\Release\IceChatUpdater.exe
+E:\IceChat2009\IceChat2009\icechat\bin\Release\IceChatUpdater.pdb
+E:\IceChat2009\IceChat2009\icechat\obj\Release\IceChat.FormSplash.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\bin\Release\IceChat2009.exe.config
+E:\IceChat2009\IceChat2009\IceChat 9 New\bin\Release\IceChat2009.exe
+E:\IceChat2009\IceChat2009\IceChat 9 New\bin\Release\IceChat2009.pdb
+E:\IceChat2009\IceChat2009\IceChat 9 New\bin\Release\IceChatUpdater.exe
+E:\IceChat2009\IceChat2009\IceChat 9 New\bin\Release\IPluginIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\bin\Release\IRCConnection.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\bin\Release\IPluginIceChat.pdb
+E:\IceChat2009\IceChat2009\IceChat 9 New\bin\Release\IceChatUpdater.pdb
+E:\IceChat2009\IceChat2009\IceChat 9 New\bin\Release\IRCConnection.pdb
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.IceTabControl.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.InputBoxDialog.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.TextWindow.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.IceInputBox.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormColorPicker.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.Forms.FormDCCAccept.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormEmoticons.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormFirstRun.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormFloat.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormMain.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormPluginInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormUserInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.ChannelList.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormAbout.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormChannelInfo.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormColors.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormEditor.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormServers.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormSettings.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.InputPanel.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.NickList.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.ServerTree.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.QuickConnect.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.Properties.Resources.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.BuddyList.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormBuddyItem.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormDCCFileAccept.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat.FormSplash.resources
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat2009.csproj.GenerateResource.Cache
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat2009.exe
+E:\IceChat2009\IceChat2009\IceChat 9 New\obj\Release\IceChat2009.pdb

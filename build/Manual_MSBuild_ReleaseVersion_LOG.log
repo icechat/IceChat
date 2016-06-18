@@ -1,0 +1,100 @@
+Build started 17/06/2016 6:11:24 PM.
+__________________________________________________
+Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45-VS2015-x86.sln" (default targets):
+
+Target ValidateSolutionConfiguration:
+    Building solution configuration "Release|Any CPU".
+Target Build:
+    __________________________________________________
+    Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45-VS2015-x86.sln" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj.metaproj" (default targets):
+
+    Target Build:
+        __________________________________________________
+        Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj.metaproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\IThemeIceChat-45.csproj" (default targets):
+
+        Target GenerateTargetFrameworkMonikerAttribute:
+          Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+        Target CoreCompile:
+          Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+        Target CopyFilesToOutputDirectory:
+            IThemeIceChat-45 -> D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\bin\Release\IThemeIceChat.dll
+        __________________________________________________
+        Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj.metaproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj" (default targets):
+
+        Target ResolveProjectReferences:
+            __________________________________________________
+            Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\IThemeIceChat-45.csproj" (default targets):
+
+            __________________________________________________
+            Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IPlugin\IPluginIceChat-45.csproj" (default targets):
+
+            Target ResolveProjectReferences:
+                __________________________________________________
+                Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IPlugin\IPluginIceChat-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\IRCConnection-45.csproj" (default targets):
+
+                Target GenerateTargetFrameworkMonikerAttribute:
+                  Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+                Target CoreCompile:
+                  Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+                Target CopyFilesToOutputDirectory:
+                    IRCConnection-45 -> D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\bin\Release\IRCConnection.dll
+                __________________________________________________
+                Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IPlugin\IPluginIceChat-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\IRCConnection-45.csproj" (default targets):
+
+                __________________________________________________
+                Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IPlugin\IPluginIceChat-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\IRCConnection-45.csproj" (GetNativeManifest target(s)):
+
+            Target GenerateTargetFrameworkMonikerAttribute:
+              Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+            Target CoreCompile:
+              Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+            Target GetCopyToOutputDirectoryItems:
+                __________________________________________________
+                Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IPlugin\IPluginIceChat-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\IRCConnection-45.csproj" (GetCopyToOutputDirectoryItems target(s)):
+
+            Target _CopyAppConfigFile:
+              Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
+            Target CopyFilesToOutputDirectory:
+                IPluginIceChat-45 -> D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IPlugin\bin\Release\IPluginIceChat.dll
+            __________________________________________________
+            Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\IRCConnection-45.csproj" (GetNativeManifest target(s)):
+
+            __________________________________________________
+            Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IPlugin\IPluginIceChat-45.csproj" (GetNativeManifest target(s)):
+
+            __________________________________________________
+            Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\IThemeIceChat-45.csproj" (GetNativeManifest target(s)):
+
+        Target CoreResGen:
+            No resources are out of date with respect to their source files. Skipping resource generation.
+        Target GenerateTargetFrameworkMonikerAttribute:
+          Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+        Target CoreCompile:
+          Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+        Target GetCopyToOutputDirectoryItems:
+            __________________________________________________
+            Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IPlugin\IPluginIceChat-45.csproj" (GetCopyToOutputDirectoryItems target(s)):
+
+            __________________________________________________
+            Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\IRCConnection-45.csproj" (GetCopyToOutputDirectoryItems target(s)):
+
+            __________________________________________________
+            Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45.csproj" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\IThemeIceChat-45.csproj" (GetCopyToOutputDirectoryItems target(s)):
+
+        Target CopyFilesToOutputDirectory:
+            IceChat9-45 -> D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\bin\Debug\IceChat2009.exe
+    __________________________________________________
+    Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45-VS2015-x86.sln" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IPlugin\IPluginIceChat-45.csproj" (default targets):
+
+    __________________________________________________
+    Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45-VS2015-x86.sln" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\IRCConnection-45.csproj" (default targets):
+
+    __________________________________________________
+    Project "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9-45-VS2015-x86.sln" is building "D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\IThemeIceChat-45.csproj" (default targets):
+
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.48

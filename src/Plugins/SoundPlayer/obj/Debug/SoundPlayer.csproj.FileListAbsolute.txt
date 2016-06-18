@@ -1,0 +1,7 @@
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\bin\Debug\SoundPlayer.dll.config
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\bin\Debug\SoundPlayer.dll
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\bin\Debug\SoundPlayer.pdb
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\bin\Debug\IPluginIceChat.dll
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\obj\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\obj\Debug\SoundPlayer.dll
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\obj\Debug\SoundPlayer.pdb

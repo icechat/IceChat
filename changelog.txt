@@ -1,3 +1,8 @@
+Build 9.10h June 18 2016
+* Added Google plugin to source code
+* Re-arranged the folders for all the source
+* Removed MONITOR support as many servers that declare it supports MONITOR, and they do not
+
 Build 9.10g June 11 2016
 * Added popup menu for DCC Files in Server tree
 * Fix channel info window not resetting channel modes on disconnect

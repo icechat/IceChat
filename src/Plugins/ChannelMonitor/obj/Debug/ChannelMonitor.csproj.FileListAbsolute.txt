@@ -1,0 +1,20 @@
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\obj\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.dll.config
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\bin\Debug\IPluginIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\bin\Debug\IRCConnection.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\obj\Debug\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\obj\Debug\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.dll.config
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\obj\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\obj\Debug\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\obj\Debug\ChannelMonitor.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.dll.config
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\obj\Debug\ChannelMonitor.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\obj\Debug\ChannelMonitor.pdb

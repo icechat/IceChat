@@ -1,0 +1,14 @@
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\bin\Release\SoundPlayer.dll.config
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\bin\Release\SoundPlayer.dll
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\bin\Release\SoundPlayer.pdb
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\bin\Release\IPluginIceChat.dll
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\obj\Release\SoundPlayer.dll
+E:\IceChat2009\IceChat2009\icechat\Plugins\SoundPlayer\obj\Release\SoundPlayer.pdb
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\SoundPlayer\bin\Release\SoundPlayer.dll.config
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\SoundPlayer\bin\Release\SoundPlayer.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\SoundPlayer\bin\Release\SoundPlayer.pdb
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\SoundPlayer\bin\Release\IPluginIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\SoundPlayer\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\SoundPlayer\obj\Release\SoundPlayer.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\SoundPlayer\obj\Release\SoundPlayer.pdb

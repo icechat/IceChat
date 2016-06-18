@@ -1,0 +1,56 @@
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll.config
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\bin\Release\IPluginIceChat.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9 New\Plugins\ChannelMonitor\bin\Release\IRCConnection.dll
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll.config
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.dll
+C:\Users\Paul\Documents\IceChat 9 Code\IceChat 9\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll.config
+C:\Users\Paul\Documents\IceChat 9 Code\IceChat 9\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll
+C:\Users\Paul\Documents\IceChat 9 Code\IceChat 9\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.pdb
+C:\Users\Paul\Documents\IceChat 9 Code\IceChat 9\Plugins\ChannelMonitor\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Paul\Documents\IceChat 9 Code\IceChat 9\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.dll
+C:\Users\Paul\Documents\IceChat 9 Code\IceChat 9\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.0\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll.config
+E:\IceChat2009\IceChat2009\IceChat 9.0\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9.0\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.0\Plugins\ChannelMonitor\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.0\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9.0\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.01\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll.config
+E:\IceChat2009\IceChat2009\IceChat 9.01\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9.01\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.01\Plugins\ChannelMonitor\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.01\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9.01\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.03\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll.config
+E:\IceChat2009\IceChat2009\IceChat 9.03\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9.03\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.03\Plugins\ChannelMonitor\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.03\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9.03\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll.config
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\ChannelMonitor\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat2009\IceChat 9.04\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat 9\IceChat 9.08\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll.config
+E:\IceChat2009\IceChat 9\IceChat 9.08\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat 9\IceChat 9.08\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.pdb
+E:\IceChat2009\IceChat 9\IceChat 9.08\Plugins\ChannelMonitor\obj\Release\ResolveAssemblyReference.cache
+E:\IceChat2009\IceChat 9\IceChat 9.08\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.dll
+E:\IceChat2009\IceChat 9\IceChat 9.08\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll.config
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\obj\Release\ResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.pdb

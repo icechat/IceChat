@@ -1,0 +1,10 @@
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IRCConnection\bin\Release\IRCConnection.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IRCConnection\bin\Release\IRCConnection.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IRCConnection\obj\Release\IRCConnection-45.csprojResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IRCConnection\obj\Release\IRCConnection.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IRCConnection\obj\Release\IRCConnection.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\bin\Release\IRCConnection.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\bin\Release\IRCConnection.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\obj\Release\IRCConnection-45.csprojResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\obj\Release\IRCConnection.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IRCConnection\obj\Release\IRCConnection.pdb

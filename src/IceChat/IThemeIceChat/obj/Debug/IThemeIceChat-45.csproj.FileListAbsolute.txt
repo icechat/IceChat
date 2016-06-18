@@ -1,0 +1,13 @@
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IThemeIceChat\bin\Debug\IThemeIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IThemeIceChat\bin\Debug\IThemeIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IThemeIceChat\obj\Debug\IThemeIceChat-45.csprojResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IThemeIceChat\obj\Debug\IThemeIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IThemeIceChat\obj\Debug\IThemeIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IThemeIceChat\bin\Debug\IThemeIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IThemeIceChat\bin\Debug\IThemeIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IThemeIceChat\obj\Debug\IThemeIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IThemeIceChat\obj\Debug\IThemeIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\bin\Debug\IThemeIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\bin\Debug\IThemeIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\obj\Debug\IThemeIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\obj\Debug\IThemeIceChat.pdb

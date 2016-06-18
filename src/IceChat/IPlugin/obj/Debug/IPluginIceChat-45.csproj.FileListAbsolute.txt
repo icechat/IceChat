@@ -1,0 +1,24 @@
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IPlugin\bin\Debug\IPluginIceChat.dll.config
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IPlugin\bin\Debug\IPluginIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IPlugin\bin\Debug\IPluginIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IPlugin\bin\Debug\IRCConnection.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IPlugin\bin\Debug\IRCConnection.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IPlugin\obj\Debug\IPluginIceChat-45.csprojResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IPlugin\obj\Debug\IPluginIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08 - Copy - 45\IPlugin\obj\Debug\IPluginIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IPlugin\bin\Debug\IPluginIceChat.dll.config
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IPlugin\bin\Debug\IPluginIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IPlugin\bin\Debug\IPluginIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IPlugin\bin\Debug\IRCConnection.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IPlugin\bin\Debug\IRCConnection.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IPlugin\obj\Debug\IPluginIceChat-45.csprojResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IPlugin\obj\Debug\IPluginIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.08\IPlugin\obj\Debug\IPluginIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\bin\Debug\IPluginIceChat.dll.config
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\bin\Debug\IPluginIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\bin\Debug\IPluginIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\bin\Debug\IRCConnection.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\bin\Debug\IRCConnection.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\obj\Debug\IPluginIceChat-45.csprojResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\obj\Debug\IPluginIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\obj\Debug\IPluginIceChat.pdb

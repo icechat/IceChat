@@ -1,10 +1,9 @@
 ﻿To Do List for IceChat 9
 
+
+Add an option for Line Spacing
 Remember window order when opening channels (in progress)(group by order in server tree)
-Allow /dns command to reverse DNS an IP (done)
-Allow change of colors for the Channel List (uses server list defaults)
 Typing in the nicklist, does a search, bring you to those nicks. (typing in letter brings up first match)
-Build a way to backup XML files for config files automatically 
 allow /colortab command to also change the background color
 add option to auto pin new channels
 Add splitter for topic to change height
@@ -43,6 +42,7 @@ Create ice7 theme importer (in progress)
 IceChat 7 settings imported, check for / before popup menu commands (check this)
 Plugin Update System (started in 9.08)
 Add internal tracking of closing last channel, and add a /rejoin command to rejoin last closed channel
+Build a way to backup XML files for config files automatically (in progress)
 
 
 Completed:
@@ -59,3 +59,5 @@ hide search feature in channel list until after the channel list is fully done (
 add option to save transparency 
 fix server tree coloring for servers (only colors channel tab)
 Add Logging Feature to Enable/Disable Logging per server
+Allow /dns command to reverse DNS an IP (done)
+Allow change of colors for the Channel List (uses server list defaults)

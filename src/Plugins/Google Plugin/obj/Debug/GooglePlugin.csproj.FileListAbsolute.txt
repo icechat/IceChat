@@ -1,0 +1,12 @@
+E:\IceChat2009\Google Plugin\bin\Debug\GooglePlugin.dll.config
+E:\IceChat2009\Google Plugin\bin\Debug\GooglePlugin.dll
+E:\IceChat2009\Google Plugin\bin\Debug\GooglePlugin.pdb
+E:\IceChat2009\Google Plugin\obj\Debug\ResolveAssemblyReference.cache
+E:\IceChat2009\Google Plugin\obj\Debug\GooglePlugin.dll
+E:\IceChat2009\Google Plugin\obj\Debug\GooglePlugin.pdb
+D:\Programming\IceChat2009\Google Plugin\bin\Debug\GooglePlugin.dll.config
+D:\Programming\IceChat2009\Google Plugin\bin\Debug\GooglePlugin.dll
+D:\Programming\IceChat2009\Google Plugin\bin\Debug\GooglePlugin.pdb
+D:\Programming\IceChat2009\Google Plugin\obj\Debug\ResolveAssemblyReference.cache
+D:\Programming\IceChat2009\Google Plugin\obj\Debug\GooglePlugin.dll
+D:\Programming\IceChat2009\Google Plugin\obj\Debug\GooglePlugin.pdb

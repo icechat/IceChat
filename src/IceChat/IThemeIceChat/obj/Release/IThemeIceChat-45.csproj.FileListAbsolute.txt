@@ -1,0 +1,10 @@
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\bin\Release\IThemeIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\bin\Release\IThemeIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\obj\Release\IThemeIceChat-45.csprojResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\obj\Release\IThemeIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\obj\Release\IThemeIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\bin\Release\IThemeIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\bin\Release\IThemeIceChat.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\obj\Release\IThemeIceChat-45.csprojResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\obj\Release\IThemeIceChat.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IThemeIceChat\obj\Release\IThemeIceChat.pdb

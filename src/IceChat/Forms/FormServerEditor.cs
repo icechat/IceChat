@@ -157,6 +157,25 @@ namespace IceChat
 
             this.checkAdvancedSettings.CheckedChanged += new System.EventHandler(this.checkAdvancedSettings_CheckedChanged);
 
+            //if (s.conn
+            foreach (IRCConnection c in FormMain.Instance.ServerTree.ServerConnections.Values)
+            {
+                //see if the server is connected
+                if (c.ServerSetting == s)
+                {
+                    if (c.IsConnected)
+                    {
+                        this.checkUseIPv6.Enabled = false;
+                        this.checkUseSSL.Enabled = false;
+                        this.checkInvalidCertificate.Enabled = false;
+                        this.checkUseTLS.Enabled = false;
+                        this.checkUseProxy.Enabled = false;
+                        this.checkUseBNC.Enabled = false;
+                        this.checkDisableLogging.Enabled = false;
+                    }
+                }
+            }
+
             ApplyLanguage();
         }
 

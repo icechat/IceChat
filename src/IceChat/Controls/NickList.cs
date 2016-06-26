@@ -79,46 +79,70 @@ namespace IceChat
             {
                 Nick u = (Nick)obj;
 
-                int compareNickValue = 0;
-                int thisNickValue = 0;
+                if (FormMain.Instance.IceChatOptions.NickListSort)
 
-                bool[] userCompareLevel = new bool[u.Level.Length];
-                bool[] thisCompareLevel = new bool[this.Level.Length];
+                    return this.NickOnly.CompareTo(u.NickOnly);
 
-                for (int i = 0; i < userCompareLevel.Length; i++)
-                    userCompareLevel[i] = u.Level[i];
-
-                for (int i = 0; i < thisCompareLevel.Length; i++)
-                    thisCompareLevel[i] = this.Level[i];
-
-                Array.Reverse(userCompareLevel);
-                Array.Reverse(thisCompareLevel);
-
-                for (int i = userCompareLevel.Length - 1; i >= 0; i--)
-                {
-                    if (userCompareLevel[i])
-                    {
-                        compareNickValue = i + 1;
-                        break;
-                    }
-                }
-
-                for (int i = thisCompareLevel.Length - 1; i >= 0; i--)
-                {
-                    if (thisCompareLevel[i])
-                    {
-                        thisNickValue = i + 1;
-                        break;
-                    }
-                }
-
-                if (compareNickValue > thisNickValue)
-                    return 1;
-                else if (compareNickValue == thisNickValue)
-                    return this.nick.CompareTo(u.nick);
                 else
-                    return -1;
+                {
 
+                    int compareNickValue = 0;
+                    int thisNickValue = 0;
+
+                    bool[] userCompareLevel = new bool[u.Level.Length];
+                    bool[] thisCompareLevel = new bool[this.Level.Length];
+
+                    for (int i = 0; i < userCompareLevel.Length; i++)
+                        userCompareLevel[i] = u.Level[i];
+
+                    for (int i = 0; i < thisCompareLevel.Length; i++)
+                        thisCompareLevel[i] = this.Level[i];
+
+                    Array.Reverse(userCompareLevel);
+                    Array.Reverse(thisCompareLevel);
+
+                    for (int i = userCompareLevel.Length - 1; i >= 0; i--)
+                    {
+                        if (userCompareLevel[i])
+                        {
+                            compareNickValue = i + 1;
+                            break;
+                        }
+                    }
+
+                    for (int i = thisCompareLevel.Length - 1; i >= 0; i--)
+                    {
+                        if (thisCompareLevel[i])
+                        {
+                            thisNickValue = i + 1;
+                            break;
+                        }
+                    }
+
+                    if (compareNickValue > thisNickValue)
+                        return 1;
+                    else if (compareNickValue == thisNickValue)
+                        return this.nick.CompareTo(u.nick);
+                    else
+                        return -1;
+
+                }
+            }
+
+            internal string NickOnly
+            {
+                get
+                {
+
+                    string nick = this.nick;
+                    string[] modes = new string[] { "@", "!", "+", "%", "&", "~" };
+
+                    for (int i = 0; i < modes.Length; i++)
+                        if (nick.StartsWith(modes[i]))
+                            nick = nick.Substring(1);
+
+                    return nick;
+                }
             }
 
             public override string ToString()
@@ -130,6 +154,7 @@ namespace IceChat
         public NickList(FormMain parent)
         {
             InitializeComponent();
+            
             this._parent = parent;
             this.MouseUp += new MouseEventHandler(OnMouseUp);
             this.MouseDown += new MouseEventHandler(OnMouseDown);
@@ -606,7 +631,7 @@ namespace IceChat
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            int howFar = 0;
+            //int howFar = 0;
             int i = 0;
             try
             {
@@ -629,7 +654,7 @@ namespace IceChat
                 else
                     g.FillRectangle(new SolidBrush(IrcColor.colors[_parent.IceChatColors.NickListBackColor]), listR);
 
-                howFar = 1;
+                //howFar = 1;
 
                 g.InterpolationMode = InterpolationMode.Low;
                 g.SmoothingMode = SmoothingMode.HighSpeed;
@@ -655,7 +680,7 @@ namespace IceChat
                 //see if the headerCaption size is too wide
                 SizeF f = g.MeasureString(headerCaption, headerFont);
 
-                howFar = 2;
+                //howFar = 2;
 
                 if (f.Width > (this.Width - 24))
                 {
@@ -704,7 +729,7 @@ namespace IceChat
                 else
                     g.DrawString(headerCaption, headerFont, new SolidBrush(IrcColor.colors[_parent.IceChatColors.PanelHeaderForeColor]), centered, sf);
 
-                howFar = 3;
+                //howFar = 3;
 
                 if (this.Parent.Parent.GetType() != typeof(FormFloat))
                 {
@@ -738,14 +763,14 @@ namespace IceChat
                     }
                 }
 
-                howFar = 4;
+                //howFar = 4;
 
                 //draw the nicks 
                 if (currentWindow != null && currentWindow.WindowStyle == IceTabPage.WindowType.Channel)
                 {
                     PopulateNicks();
 
-                    howFar = 5;
+                    //howFar = 5;
 
                     int currentY = listR.Y;
                     int _lineSize = Convert.ToInt32(this.Font.GetHeight(g));
@@ -779,7 +804,7 @@ namespace IceChat
                         }
                     }
                     
-                    howFar = 6;
+                    //howFar = 6;
 
                     System.Drawing.Font rFont = this.Font;
                     System.Drawing.Font iFont = new Font(this.Font, FontStyle.Italic);    //for away nicks
@@ -787,14 +812,14 @@ namespace IceChat
                     //this will error if sortedNickNames is null
                     if (sortedNickNames != null)
                     {
-                        howFar = 62;
+                        //howFar = 62;
                         for (i = topIndex; i < sortedNickNames.Count; i++)
                         {
                             Brush b = null;
                             args.Extra = "";
 
                             User u = currentWindow.GetNick(sortedNickNames[i].nick);
-                            howFar = 72;
+                            //howFar = 72;
                             if (u == null)
                             {
                                 //System.Diagnostics.Debug.WriteLine("Null Nick:" + sortedNickNames[i].nick);
@@ -849,13 +874,13 @@ namespace IceChat
                                 }
                             }
 
-                            howFar = 10;
+                            //howFar = 10;
 
                             //have ability to override this
                             args.Nick = sortedNickNames[i].nick;
                             args.Host = sortedNickNames[i].host;
 
-                            howFar = 11;
+                            //howFar = 11;
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
                                 IceChatPlugin ipc = p as IceChatPlugin;
@@ -866,7 +891,7 @@ namespace IceChat
                                 }
                             }
 
-                            howFar = 12;
+                            //howFar = 12;
 
                             //check if selected, if so, draw the selector bar
                             if (sortedNickNames[i].selected == true)
@@ -894,7 +919,7 @@ namespace IceChat
                                 }
                             }
 
-                            howFar = 13;
+                            //howFar = 13;
 
                             if (sortedNickNames[i].Away == true)
                             {
@@ -904,29 +929,31 @@ namespace IceChat
                             else
                                 g.DrawString(args.Nick, rFont, b, 2, currentY);
 
-                            howFar = 14;
+                            //howFar = 14;
 
                             //draw the host
                             if (_parent.IceChatOptions.ShowNickHost)
                             {
-                                howFar = 21;
+                                //howFar = 21;
                                 if (currentWindow.Connection.ServerSetting.IAL.ContainsKey(u.NickName))
                                 {
-                                    howFar = 22;                                    
+                                    //howFar = 22;                                    
                                     if (args.Host != null && args.Host.Length > 0)
                                     {                                        
-                                        howFar = 23;
+                                        //howFar = 23;
+                                        /*
                                         if (g != null)
                                             howFar = 24;
                                         else
                                             howFar = 25;
+                                        */
                                         g.DrawString(args.Host, rFont, b, (rFont.SizeInPoints * 14), currentY);
 
                                     }
                                 }
                             }
 
-                            howFar = 15;
+                            //howFar = 15;
 
                             currentY += _lineSize;
                             if (currentY >= (listR.Height + listR.Y))
@@ -938,7 +965,7 @@ namespace IceChat
                         } //end of for (i)
                     }
 
-                    howFar = 17;
+                    //howFar = 17;
 
                     if (currentY >= listR.Height || vScrollBar.Value > 0)
                         vScrollBar.Visible = true;
@@ -951,17 +978,17 @@ namespace IceChat
                 l.Dispose();
                 sf.Dispose();
 
-                howFar = 18;
+                //howFar = 18;
 
                 //paint the buffer onto the usercontrol
                 e.Graphics.DrawImageUnscaled(_buffer, 0, 0);
 
-                howFar = 19;
+                //howFar = 19;
 
                 g.Dispose();
                 headerFont.Dispose();
 
-                howFar = 20;
+                //howFar = 20;
 
             }
             catch (Exception)

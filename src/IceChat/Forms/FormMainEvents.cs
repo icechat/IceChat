@@ -104,8 +104,12 @@ namespace IceChat
         private void OnServerForceDisconnect(IRCConnection connection)
         {
             if (IceChatOptions.ReconnectServer && connection.AttemptReconnect)
-            {                
-                OnServerMessage(connection, "Waiting " + connection.ServerSetting.ReconnectTime + " seconds to re-connect to (" + connection.ServerSetting.ServerName + ")", "");
+            {
+                if (connection.ServerSetting.UseBNC)
+                    OnServerMessage(connection, "Waiting " + connection.ServerSetting.ReconnectTime + " seconds to re-connect to " + connection.ServerSetting.BNCIP + " on port " + connection.ServerSetting.BNCPort + " (BNC Connection)", "");
+                else
+                    OnServerMessage(connection, "Waiting " + connection.ServerSetting.ReconnectTime + " seconds to re-connect to " + connection.ServerSetting.ServerName + " on port " + connection.ServerSetting.ServerPort, "");
+                
                 try
                 {
                     if (connection.ReconnectTimer != null)

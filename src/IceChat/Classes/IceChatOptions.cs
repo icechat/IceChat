@@ -122,7 +122,10 @@ namespace IceChat
         private bool _sendAwayPrivateMessage = true;
         private int userNoticeEvent = 1;
         
+        //private int nickListSortNicksOnly = 0;
+
         private int _transparency = 100;
+        //private float _lineSpacing = 1;
 
         [XmlElement("TimeStamp")]
         public string TimeStamp
@@ -378,7 +381,22 @@ namespace IceChat
             get { return this._transparency; }
             set { this._transparency = value; }
         }
-
+        
+        [XmlElement("NickListSort")]
+        public bool NickListSort
+        {
+            get;
+            set;
+        }
+        
+        /*
+        [XmlElement("LineSpacing")]
+        public float LineSpacing
+        {
+            get { return this._lineSpacing; }
+            set { this._lineSpacing = value; }
+        }
+        */
         [XmlElement("ShowServerTree")]
         public bool ShowServerTree
         {

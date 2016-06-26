@@ -52,6 +52,8 @@ namespace IceChat
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.labelLanguage = new System.Windows.Forms.Label();
             this.tabDisplay = new System.Windows.Forms.TabPage();
+            this.comboLineSpacing = new System.Windows.Forms.ComboBox();
+            this.label39 = new System.Windows.Forms.Label();
             this.checkSingleRowCB = new System.Windows.Forms.CheckBox();
             this.checkBasicCommands = new System.Windows.Forms.CheckBox();
             this.checkWindowedMode = new System.Windows.Forms.CheckBox();
@@ -98,6 +100,7 @@ namespace IceChat
             this.checkLogChannel = new System.Windows.Forms.CheckBox();
             this.checkLogConsole = new System.Windows.Forms.CheckBox();
             this.tabFonts = new System.Windows.Forms.TabPage();
+            this.label38 = new System.Windows.Forms.Label();
             this.buttonChannelBar = new System.Windows.Forms.Button();
             this.textChannelBarFont = new System.Windows.Forms.TextBox();
             this.textChannelBarSize = new System.Windows.Forms.TextBox();
@@ -274,7 +277,7 @@ namespace IceChat
             this.panelButtons = new System.Windows.Forms.Panel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.label38 = new System.Windows.Forms.Label();
+            this.checkSortNickList = new System.Windows.Forms.CheckBox();
             this.tabControlOptions.SuspendLayout();
             this.tabMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).BeginInit();
@@ -528,6 +531,9 @@ namespace IceChat
             // 
             // tabDisplay
             // 
+            this.tabDisplay.Controls.Add(this.checkSortNickList);
+            this.tabDisplay.Controls.Add(this.comboLineSpacing);
+            this.tabDisplay.Controls.Add(this.label39);
             this.tabDisplay.Controls.Add(this.checkSingleRowCB);
             this.tabDisplay.Controls.Add(this.checkBasicCommands);
             this.tabDisplay.Controls.Add(this.checkWindowedMode);
@@ -556,10 +562,36 @@ namespace IceChat
             this.tabDisplay.Text = "Display";
             this.tabDisplay.UseVisualStyleBackColor = true;
             // 
+            // comboLineSpacing
+            // 
+            this.comboLineSpacing.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboLineSpacing.FormattingEnabled = true;
+            this.comboLineSpacing.Items.AddRange(new object[] {
+            "1",
+            "1.5",
+            "2",
+            "2.5",
+            "3"});
+            this.comboLineSpacing.Location = new System.Drawing.Point(145, 270);
+            this.comboLineSpacing.Name = "comboLineSpacing";
+            this.comboLineSpacing.Size = new System.Drawing.Size(64, 24);
+            this.comboLineSpacing.TabIndex = 69;
+            this.comboLineSpacing.Visible = false;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(15, 274);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(91, 16);
+            this.label39.TabIndex = 68;
+            this.label39.Text = "Line Spacing";
+            this.label39.Visible = false;
+            // 
             // checkSingleRowCB
             // 
             this.checkSingleRowCB.AutoSize = true;
-            this.checkSingleRowCB.Location = new System.Drawing.Point(319, 144);
+            this.checkSingleRowCB.Location = new System.Drawing.Point(319, 170);
             this.checkSingleRowCB.Name = "checkSingleRowCB";
             this.checkSingleRowCB.Size = new System.Drawing.Size(177, 20);
             this.checkSingleRowCB.TabIndex = 67;
@@ -599,7 +631,7 @@ namespace IceChat
             // checkTopicBar
             // 
             this.checkTopicBar.AutoSize = true;
-            this.checkTopicBar.Location = new System.Drawing.Point(319, 90);
+            this.checkTopicBar.Location = new System.Drawing.Point(319, 116);
             this.checkTopicBar.Name = "checkTopicBar";
             this.checkTopicBar.Size = new System.Drawing.Size(206, 20);
             this.checkTopicBar.TabIndex = 54;
@@ -657,7 +689,7 @@ namespace IceChat
             // checkServerShowButtons
             // 
             this.checkServerShowButtons.AutoSize = true;
-            this.checkServerShowButtons.Location = new System.Drawing.Point(319, 64);
+            this.checkServerShowButtons.Location = new System.Drawing.Point(319, 90);
             this.checkServerShowButtons.Name = "checkServerShowButtons";
             this.checkServerShowButtons.Size = new System.Drawing.Size(207, 20);
             this.checkServerShowButtons.TabIndex = 19;
@@ -716,9 +748,9 @@ namespace IceChat
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(15, 241);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(206, 16);
+            this.label15.Size = new System.Drawing.Size(151, 16);
             this.label15.TabIndex = 47;
-            this.label15.Text = "IceChat window transparency";
+            this.label15.Text = "Window transparency";
             // 
             // trackTransparency
             // 
@@ -737,7 +769,7 @@ namespace IceChat
             // checkShowUnreadLine
             // 
             this.checkShowUnreadLine.AutoSize = true;
-            this.checkShowUnreadLine.Location = new System.Drawing.Point(319, 117);
+            this.checkShowUnreadLine.Location = new System.Drawing.Point(319, 143);
             this.checkShowUnreadLine.Name = "checkShowUnreadLine";
             this.checkShowUnreadLine.Size = new System.Drawing.Size(194, 20);
             this.checkShowUnreadLine.TabIndex = 16;
@@ -867,7 +899,7 @@ namespace IceChat
             // 
             // textFlashTaskbarNumber
             // 
-            this.textFlashTaskbarNumber.Location = new System.Drawing.Point(15, 110);
+            this.textFlashTaskbarNumber.Location = new System.Drawing.Point(15, 113);
             this.textFlashTaskbarNumber.Name = "textFlashTaskbarNumber";
             this.textFlashTaskbarNumber.Size = new System.Drawing.Size(38, 23);
             this.textFlashTaskbarNumber.TabIndex = 68;
@@ -875,7 +907,7 @@ namespace IceChat
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(59, 113);
+            this.label19.Location = new System.Drawing.Point(59, 116);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(224, 16);
             this.label19.TabIndex = 69;
@@ -1071,6 +1103,14 @@ namespace IceChat
             this.tabFonts.TabIndex = 2;
             this.tabFonts.Text = "Fonts";
             this.tabFonts.UseVisualStyleBackColor = true;
+            // 
+            // label38
+            // 
+            this.label38.Location = new System.Drawing.Point(400, 9);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(314, 38);
+            this.label38.TabIndex = 61;
+            this.label38.Text = "If you are having problems with ? characters showing, you need a Unicode font.";
             // 
             // buttonChannelBar
             // 
@@ -2827,13 +2867,15 @@ namespace IceChat
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // label38
+            // checkSortNickList
             // 
-            this.label38.Location = new System.Drawing.Point(400, 9);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(314, 38);
-            this.label38.TabIndex = 61;
-            this.label38.Text = "If you are having problems with ? characters showing, you need a Unicode font.";
+            this.checkSortNickList.AutoSize = true;
+            this.checkSortNickList.Location = new System.Drawing.Point(319, 64);
+            this.checkSortNickList.Name = "checkSortNickList";
+            this.checkSortNickList.Size = new System.Drawing.Size(202, 20);
+            this.checkSortNickList.TabIndex = 70;
+            this.checkSortNickList.Text = "Sort Nick list by nicks only";
+            this.checkSortNickList.UseVisualStyleBackColor = true;
             // 
             // FormSettings
             // 
@@ -3128,5 +3170,8 @@ namespace IceChat
         private System.Windows.Forms.CheckBox checkAutoPerformStartup;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.ComboBox comboLineSpacing;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.CheckBox checkSortNickList;
     }
 }

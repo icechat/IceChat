@@ -299,8 +299,7 @@ namespace IceChat
                 //pong has not received, re-connect server
                 //disable for the time being
                 //send a ping to the server
-                System.Diagnostics.Debug.WriteLine(DateTime.Now +  ":send pong timer:" + socketStream.CanRead + ":" + socketStream.CanWrite);
-                //SendData("PING :" + this.serverSetting.RealServerName);
+                //System.Diagnostics.Debug.WriteLine(DateTime.Now +  ":send pong timer:" + socketStream.CanRead + ":" + socketStream.CanWrite);
                 SendData("PING :TIMEOUTCHECK");
 
             }
@@ -396,7 +395,9 @@ namespace IceChat
         private void OnDisconnected()
         {
             int howFar = 0;
-
+            
+            System.Diagnostics.Debug.WriteLine("OnDisconnected:" + this.ServerSetting.ServerName);
+            
             try
             {
                 RefreshServerTree(this);
@@ -547,7 +548,6 @@ namespace IceChat
                 try
                 {
                     sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
-                    //sslStream.AuthenticateAsClient(serverSetting.ServerName);
 
                     SslProtocols enabledSslProtocols;
 
@@ -560,7 +560,6 @@ namespace IceChat
 
                     bool checkCertificateRevocation = true;
 
-                    //sslStream.AuthenticateAsClient(serverSetting.ServerName, null, System.Security.Authentication.SslProtocols.Tls ,false);
                     sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, checkCertificateRevocation);
 
                     ServerMessage(this, "*** You are connected to this server with " + sslStream.SslProtocol.ToString().ToUpper() + "-" + sslStream.CipherAlgorithm.ToString().ToUpper() + sslStream.CipherStrength + "-" + sslStream.HashAlgorithm.ToString().ToUpper() + "-" + sslStream.HashStrength + "bits", "");

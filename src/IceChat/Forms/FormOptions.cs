@@ -169,6 +169,9 @@ namespace IceChat
             checkExternalPlayCommand.Checked = iceChatOptions.SoundUseExternalCommand;
             textExternalPlayCommand.Text = iceChatOptions.SoundExternalCommand;
             checkPlayActive.Checked = iceChatOptions.SoundPlayActive;
+            checkSortNickList.Checked = iceChatOptions.NickListSort;
+
+            //comboLineSpacing.Text = iceChatOptions.LineSpacing.ToString();
 
             if (iceChatEmoticons != null)
             {
@@ -393,7 +396,9 @@ namespace IceChat
             iceChatOptions.AskQuit = checkAskQuit.Checked;
             iceChatOptions.SingleRowTabBar = checkSingleRowCB.Checked;
             iceChatOptions.Transparency = trackTransparency.Value;
-
+            iceChatOptions.NickListSort = checkSortNickList.Checked;
+            //iceChatOptions.LineSpacing = (float)Convert.ToDouble( comboLineSpacing.Text );
+    
             iceChatOptions.FlashTaskBarChannel = checkFlashChannelMessage.Checked;
             iceChatOptions.FlashTaskBarChannelAction = checkFlashChannelAction.Checked;
             iceChatOptions.FlashTaskBarPrivate = checkFlashPrivateMessage.Checked;

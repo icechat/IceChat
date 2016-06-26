@@ -3,7 +3,6 @@
 
 Add an option for Line Spacing
 Remember window order when opening channels (in progress)(group by order in server tree)
-Typing in the nicklist, does a search, bring you to those nicks. (typing in letter brings up first match)
 allow /colortab command to also change the background color
 add option to auto pin new channels
 Add splitter for topic to change height
@@ -11,14 +10,13 @@ Add tooltip for topic
 Add Server Wide No Color Mode
 Add 5 second delay for AutoPerform option
 Add to Nick HiLite plugin, allow different colors for different User Modes (!&@+)
-Add to Highlite Color to change background color
+Add to Highlite Color Plugin to change background color
 Allow keyboard short cut for Nicklist Popups 
 Make channel reload logs limit the size of the back buffer (max lines)
 add option to open query tabs last
 because of single click links, cant copy the url from the beginning
 add a /tab command to toggle seeing which tab in a sidebar??
 Add ability to change font with a control code in text window
-Add ability to sort nick list by nicknames only not status
 DCC Receive Passive, locks file if no connection, need to release
 Ability to add custom marker lines
 Allow multiple logging types, not just 1
@@ -45,6 +43,7 @@ Add internal tracking of closing last channel, and add a /rejoin command to rejo
 Build a way to backup XML files for config files automatically (in progress)
 
 
+
 Completed:
 Add an option to disable the Splash Screen, or with -nosplash command line
 add a command to change the text color of a tab (/colortab) good for highlights
@@ -61,3 +60,8 @@ fix server tree coloring for servers (only colors channel tab)
 Add Logging Feature to Enable/Disable Logging per server
 Allow /dns command to reverse DNS an IP (done)
 Allow change of colors for the Channel List (uses server list defaults)
+Add ability to sort nick list by nicknames only not status
+
+
+Not Going to Implement:
+Typing in the nicklist, does a search, bring you to those nicks. (typing in letter brings up first match)

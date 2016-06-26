@@ -487,7 +487,6 @@
     <EmbeddedResource Include="Icons\disconnect-icon-auto.png" />
     <EmbeddedResource Include="Icons\help.png" />
     <EmbeddedResource Include="Icons\query.png" />
-    <Content Include="ToDo.txt" />
     <EmbeddedResource Include="Icons\update-menu.png" />
     <EmbeddedResource Include="Icons\update.png" />
     <EmbeddedResource Include="Forms\FormDCCFileAccept.resx">

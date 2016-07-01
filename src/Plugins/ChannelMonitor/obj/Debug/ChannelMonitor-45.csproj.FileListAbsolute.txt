@@ -1,6 +1,0 @@
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.10\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.dll.config
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.10\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.dll
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.10\Plugins\ChannelMonitor\bin\Debug\ChannelMonitor.pdb
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.10\Plugins\ChannelMonitor\obj\Debug\ChannelMonitor-45.csprojResolveAssemblyReference.cache
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.10\Plugins\ChannelMonitor\obj\Debug\ChannelMonitor.dll
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.10\Plugins\ChannelMonitor\obj\Debug\ChannelMonitor.pdb

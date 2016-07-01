@@ -1,8 +1,0 @@
-E:\IceChat2009\Nick Highlite Plugin\obj\Debug\ResolveAssemblyReference.cache
-E:\IceChat2009\Nick Highlite Plugin\obj\Debug\IceChatPlugin.FormHighLite.resources
-E:\IceChat2009\Nick Highlite Plugin\obj\Debug\NickHighlitePlugin.csproj.GenerateResource.Cache
-E:\IceChat2009\Nick Highlite Plugin\bin\Debug\NickHighLitePlugin.dll.config
-E:\IceChat2009\Nick Highlite Plugin\bin\Debug\NickHighLitePlugin.dll
-E:\IceChat2009\Nick Highlite Plugin\bin\Debug\NickHighLitePlugin.pdb
-E:\IceChat2009\Nick Highlite Plugin\obj\Debug\NickHighLitePlugin.dll
-E:\IceChat2009\Nick Highlite Plugin\obj\Debug\NickHighLitePlugin.pdb

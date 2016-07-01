@@ -1,8 +1,0 @@
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\bin\x86\Debug\IPluginIceChat.dll.config
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\bin\x86\Debug\IPluginIceChat.dll
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\bin\x86\Debug\IPluginIceChat.pdb
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\bin\x86\Debug\IRCConnection.dll
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\bin\x86\Debug\IRCConnection.pdb
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\obj\x86\Debug\IPluginIceChat-45.csprojResolveAssemblyReference.cache
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\obj\x86\Debug\IPluginIceChat.dll
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IPlugin\obj\x86\Debug\IPluginIceChat.pdb

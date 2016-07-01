@@ -1,5 +1,0 @@
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\bin\x86\Debug\IThemeIceChat.dll
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\bin\x86\Debug\IThemeIceChat.pdb
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\obj\x86\Debug\IThemeIceChat-45.csprojResolveAssemblyReference.cache
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\obj\x86\Debug\IThemeIceChat.dll
-D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\IThemeIceChat\obj\x86\Debug\IThemeIceChat.pdb

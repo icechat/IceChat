@@ -1,0 +1,7 @@
+#################
+## Ignore Files
+#################
+
+src/IceChat/bin/*
+src/IceChat/obj/*
+

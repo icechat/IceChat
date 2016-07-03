@@ -1,8 +1,10 @@
+Build 9.12 July 2 2016
+* Added Setup irc:// links menu item to Main Menu, to setup irc:// links
+
 Build 9.10i June 25 2016
 * Change some options in the Server Editor to be disabled when the server is connected
 * Added servers will reconnect after system awakes from sleep, waits 15 seconds to re-connect
 * Added option in display to sort nicks by nick only (no regard for status)
-
 
 Build 9.10h June 18 2016
 * Added Google plugin to source code

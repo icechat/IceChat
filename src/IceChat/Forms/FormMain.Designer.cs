@@ -66,6 +66,7 @@ namespace IceChat
             this.debugWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fixWindowSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setupDDEToolStripMenuItem = new ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeCurrentWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,7 +118,6 @@ namespace IceChat
             this.portableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildFromSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forumsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.codePlexPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gitHubPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facebookFanPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadPluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -213,6 +213,7 @@ namespace IceChat
             this.debugWindowToolStripMenuItem,
             this.alwaysOnTopToolStripMenuItem,
             this.fixWindowSizeToolStripMenuItem,
+            this.setupDDEToolStripMenuItem,
             this.importToolStripMenuItem,
             this.exportToolStripMenuItem,
             this.closeCurrentWindowToolStripMenuItem,
@@ -263,6 +264,14 @@ namespace IceChat
             this.fixWindowSizeToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.fixWindowSizeToolStripMenuItem.Text = "Lock Window Size";
             this.fixWindowSizeToolStripMenuItem.Click += new System.EventHandler(this.fixWindowSizeToolStripMenuItem_Click);
+            //
+            // setupDDEToolStripItem
+            //
+            this.setupDDEToolStripMenuItem.BackColor = System.Drawing.SystemColors.Menu;
+            this.setupDDEToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.setupDDEToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.setupDDEToolStripMenuItem.Text = "Setup irc:// links";
+            this.setupDDEToolStripMenuItem.Click += new EventHandler(setupDDEToolStripMenuItem_Click);
             // 
             // importToolStripMenuItem
             // 
@@ -699,7 +708,6 @@ namespace IceChat
             this.iceChatHomePageToolStripMenuItem,
             this.iceChatWikiToolStripMenuItem,
             this.forumsToolStripMenuItem,
-            //this.codePlexPageToolStripMenuItem,
             this.gitHubPageToolStripMenuItem,
             this.facebookFanPageToolStripMenuItem,
             this.downloadPluginsToolStripMenuItem,
@@ -794,17 +802,6 @@ namespace IceChat
             this.forumsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.forumsToolStripMenuItem.Text = "IceChat Forums";
             this.forumsToolStripMenuItem.Click += new System.EventHandler(this.forumsToolStripMenuItem_Click);
-            // 
-            // codePlexPageToolStripMenuItem
-            // 
-            this.codePlexPageToolStripMenuItem.BackColor = System.Drawing.SystemColors.Menu;
-            this.codePlexPageToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.codePlexPageToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.codePlexPageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("codePlexPageToolStripMenuItem.Image")));
-            this.codePlexPageToolStripMenuItem.Name = "codePlexPageToolStripMenuItem";
-            this.codePlexPageToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.codePlexPageToolStripMenuItem.Text = "CodePlex Page";
-            this.codePlexPageToolStripMenuItem.Click += new System.EventHandler(this.codePlexPageToolStripMenuItem_Click);
             // 
             // gitHubPageToolStripMenuItem
             // 
@@ -1334,7 +1331,6 @@ namespace IceChat
         }
 
         internal System.Windows.Forms.ToolStripMenuItem debugWindowToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem codePlexPageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gitHubPageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iceChatHomePageToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuNotify;
@@ -1421,6 +1417,7 @@ namespace IceChat
         private ToolStripMenuItem importToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
         private ToolStripMenuItem fixWindowSizeToolStripMenuItem;
+        private ToolStripMenuItem setupDDEToolStripMenuItem;
         private ToolStripMenuItem commandsToolStripMenuItem;
         private ToolStripMenuItem aliasesToolStripMenuItem;
         private ToolStripMenuItem identifiersToolStripMenuItem;

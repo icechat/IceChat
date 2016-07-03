@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="labelAbout.Text" xml:space="preserve">
-    <value>IceChat is an IRC (Internet Relay Chat) program, written by Paul Vanderzee. It is used to connect to an unlimited amount of IRC Servers simultaneously and chat in channels with other IRC users.  Version 9 is a complete rewrite of the program , using a new tabbed/windowed interface, and written in C#. It is also now Open Source, hosted at http://icechat.codeplex.com.</value>
+    <value>IceChat is an IRC (Internet Relay Chat) program, written by Paul Vanderzee. It is used to connect to an unlimited amount of IRC Servers simultaneously and chat in channels with other IRC users.  Version 9 is a complete rewrite of the program , using a new tabbed/windowed interface, and written in C#. It is also now Open Source, hosted at https://github.com/icechat/IceChat</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

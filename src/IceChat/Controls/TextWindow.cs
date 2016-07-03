@@ -162,7 +162,7 @@ namespace IceChat
             this.MouseUp += new MouseEventHandler(OnMouseUp);
             this.MouseDown += new MouseEventHandler(OnMouseDown);
             this.MouseMove += new MouseEventHandler(OnMouseMove);
-            //this.FontChanged += new EventHandler(OnFontChanged);
+            this.FontChanged += new EventHandler(OnFontChanged);
 
             this.vScrollBar.Scroll += new ScrollEventHandler(OnScroll);
             this.DoubleClick += new EventHandler(OnDoubleClick);
@@ -1547,7 +1547,22 @@ namespace IceChat
             
             Invalidate();
         }
-                
+        /*
+        internal void SetLogFile()
+        {
+            if (this.Parent.GetType() == typeof(IceTabPage))
+            {
+                IceTabPage t = (IceTabPage)this.Parent;
+                _logClass = new Logging(t);
+            }
+            else if (this.Parent.GetType() == typeof(ConsoleTab))
+            {
+                ConsoleTab c = (ConsoleTab)this.Parent;
+                _logClass = new Logging(c);
+            }
+        }
+        */
+
         internal void LoadDumpFile(IceTabPage t)
         {
             try
@@ -1681,62 +1696,55 @@ namespace IceChat
         {            
             //no dump for console, only channels
             string dumpFile = LogFileLocation;
-            try
+
+            if (this.Parent.GetType() == typeof(IceTabPage) && _reloadText == true)
             {
-
-                if (this.Parent.GetType() == typeof(IceTabPage) && _reloadText == true)
+                IceTabPage t = (IceTabPage)this.Parent;
+                if (t.WindowStyle == IceTabPage.WindowType.Channel && t.LoggingDisable == false)
                 {
-                    IceTabPage t = (IceTabPage)this.Parent;
-                    if (t.WindowStyle == IceTabPage.WindowType.Channel && t.LoggingDisable == false)
+                    //replace any illegal characters
+                    string tabCaption = t.TabCaption;
+                    tabCaption = tabCaption.Replace(":","");
+                    
+                    dumpFile += System.IO.Path.DirectorySeparatorChar + tabCaption + ".dump.xml";
+                    
+                    //System.Diagnostics.Debug.WriteLine("dump file = " + dumpFile);
+                    
+                    //C:\Users\Snerf\AppData\Local\IceChat Networks\IceChat\Logs\uk.quakenet.org\Channel\#icechat9.dump.xml
+                    //create a copy of the _textLines, removing blank
+                    try
                     {
-                        //replace any illegal characters
-                        string tabCaption = t.TabCaption;
-                        tabCaption = tabCaption.Replace(":", "");
-
-                        dumpFile += System.IO.Path.DirectorySeparatorChar + tabCaption + ".dump.xml";
-
-                        System.Diagnostics.Debug.WriteLine("dump file = " + dumpFile);
-
-                        //C:\Users\Snerf\AppData\Local\IceChat Networks\IceChat\Logs\uk.quakenet.org\Channel\#icechat9.dump.xml
-                        //create a copy of the _textLines, removing blank
-                        try
+                        List<TextLine> temp = new List<TextLine>();
+                        foreach (TextLine s in _textLines)
                         {
-                            List<TextLine> temp = new List<TextLine>();
-                            foreach (TextLine s in _textLines)
+                            if (s.line != null && s.line.Length > 0)
                             {
-                                if (s.line != null && s.line.Length > 0)
-                                {
-                                    TextLine tl = s;
-                                    tl.line = tl.line.Replace((newColorChar).ToString(), "&#x3;").Replace(((char)2).ToString(), "#x2;").Replace(((char)15).ToString(), "#xF;").Replace(((char)31).ToString(), "#x1F;");
-
-                                    temp.Add(tl);
-                                }
+                                TextLine tl = s;
+                                tl.line = tl.line.Replace((newColorChar).ToString(), "&#x3;").Replace(((char)2).ToString(), "#x2;").Replace(((char)15).ToString(), "#xF;").Replace(((char)31).ToString(), "#x1F;");
+                                
+                                temp.Add(tl);
                             }
+                        }
 
-                            //System.Diagnostics.Debug.WriteLine("total lines:" + temp.Count);
-                            XmlSerializer writer = new XmlSerializer(temp.GetType());
-                            TextWriter file = new StreamWriter(dumpFile, false);
-                            writer.Serialize(file, temp);
+                        //System.Diagnostics.Debug.WriteLine("total lines:" + temp.Count);
+                        XmlSerializer writer = new XmlSerializer(temp.GetType());
+                        TextWriter file = new StreamWriter(dumpFile, false);
+                        writer.Serialize(file, temp);
 
-                            file.Flush();
-                            file.Close();
-                        }
-                        catch (InvalidOperationException ee)
-                        {
-                            System.Diagnostics.Debug.WriteLine(ee.Message);
-                            System.Diagnostics.Debug.WriteLine(ee.Source);
-                        }
-                        catch (NullReferenceException e)
-                        {
-                            System.Diagnostics.Debug.WriteLine(e.Message);
-                            System.Diagnostics.Debug.WriteLine(e.Source); ;
-                        }
+                        file.Flush();
+                        file.Close();
+                    }
+                    catch (InvalidOperationException ee)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ee.Message);
+                        System.Diagnostics.Debug.WriteLine(ee.Source);
+                    }
+                    catch (NullReferenceException e)
+                    {
+                        System.Diagnostics.Debug.WriteLine(e.Message);
+                        System.Diagnostics.Debug.WriteLine(e.Source); ;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("SaveDumpFile Error:" + ex.StackTrace + ":" + ex.Message);
             }
             return dumpFile;
         }
@@ -2003,11 +2011,7 @@ namespace IceChat
 
         private void OnFontChanged(object sender, System.EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("On Font Changed1:" + _lineSize);
-            
             LoadTextSizes();
-
-            System.Diagnostics.Debug.WriteLine("On Font Changed2:" + _lineSize);
 
             _displayLines.Initialize();
 
@@ -2058,9 +2062,8 @@ namespace IceChat
         private void UpdateScrollBar(int newValue)
         {
             if (this.Height > 0)
-                _showMaxLines = (this.Height / _lineSize) + 1;            
+                _showMaxLines = (this.Height / _lineSize) + 1;
             
-
             if (this.InvokeRequired)
             {
                 ScrollValueDelegate s = new ScrollValueDelegate(UpdateScrollBar);
@@ -2094,6 +2097,13 @@ namespace IceChat
                 {
                     vScrollBar.Minimum = 1;
                     vScrollBar.Maximum = newValue + vScrollBar.LargeChange - 1;
+
+                    //System.Diagnostics.Debug.WriteLine(_showMaxLines + ":" + this.Height);
+
+                    //System.Diagnostics.Debug.WriteLine(_showMaxLines + ":" + this.Parent.Name + ":" + newValue + ":" + vScrollBar.Value + ":" + vScrollBar.LargeChange + "::" + (vScrollBar.Value + (_showMaxLines / 2)));
+                    //if (newValue <= (vScrollBar.Value + (_showMaxLines / 2)) || vScrollBar.Enabled == false)
+                    //System.Diagnostics.Debug.WriteLine(newValue + ":" + vScrollBar.Value + ":" + _showMaxLines + ":"   +( vScrollBar.Value + _showMaxLines));
+                    
                     if (newValue <= (vScrollBar.Value + (_showMaxLines *.50)) || vScrollBar.Enabled == false)
                     {
                         if (this.Parent != null)
@@ -2101,6 +2111,16 @@ namespace IceChat
                                 return;
                         
                         vScrollBar.Value = newValue;
+                    }
+                    else
+                    {
+                        // :10:1:10::15
+                        //System.Diagnostics.Debug.WriteLine("not updated:" + vScrollBar.Enabled + ":" + vScrollBar.Value + ":" + newValue);
+                        if (vScrollBar.Enabled == true)
+                        {
+                            //should we make some kind of an indicator??
+
+                        }
                     }
                 }
             }
@@ -2551,6 +2571,7 @@ namespace IceChat
                 else
                     g.Clear(IrcColor.colors[_backColor]);
                 
+
                 g.InterpolationMode = InterpolationMode.Low;
                 g.SmoothingMode = SmoothingMode.HighSpeed;
                 g.PixelOffsetMode = PixelOffsetMode.None;
@@ -3237,9 +3258,36 @@ namespace IceChat
             Graphics g = this.CreateGraphics();
 
             _lineSize = Convert.ToInt32(this.Font.GetHeight(g));
-
             _showMaxLines = (this.Height / _lineSize) + 1;
             vScrollBar.LargeChange = _showMaxLines;
+
+            /*
+            System.Diagnostics.Debug.WriteLine("LoadTextSize:" + _lineSize);
+
+            //g.MeasureCharacterRanges(
+            float[] chars = new float[65536];
+            float[] charsB = new float[65536];
+            for (int i = 1; i < 65535; i++)
+                chars[i] = g.MeasureString(((char)i).ToString(), this.Font).Width;
+
+            Font boldFont2 = new Font(this.Font, FontStyle.Bold);
+
+            for (int i = 1; i < 65535; i++)
+                charsB[i] = g.MeasureString(((char)i).ToString(), boldFont2).Width;
+
+            //set these chars to 0 length
+            chars[2] = 0;
+            chars[3] = 0;
+            chars[15] = 0;
+            chars[31] = 0;
+            chars[22] = 0;
+            //chars[65283] = 0;
+            //chars[65290] = 0;
+            //chars[65291] = 0;
+            //chars[65292] = 0;
+            //chars[65293] = 0;
+            //chars[65295] = 0;
+            */
 
             g.Dispose();
 

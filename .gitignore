@@ -4,4 +4,10 @@
 
 src/IceChat/bin/*
 src/IceChat/obj/*
+src/IceChat/IPlugin/obj/*
+src/IceChat/IPlugin/bin/*
+src/IceChat/IRCConnection/obj/*
+src/IceChat/IRCConnection/bin/*
+src/IceChat/IThemeIceChat/obj/*
+src/IceChat/IThemeIceChat/bin/*
 

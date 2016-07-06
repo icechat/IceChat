@@ -24,6 +24,7 @@
 
 using System;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace IceChatPlugin
 {
@@ -47,7 +48,7 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Google Plugin";
             m_Author = "Snerf";
-            m_Version = "1.2";
+            m_Version = "1.4";
         }
 
         //declare the standard methods
@@ -62,6 +63,13 @@ namespace IceChatPlugin
 
         }
 
+        struct ParseArgs
+        {
+            public PluginArgs args;
+            public string url;
+            public bool self;
+        }
+
         //if you want to add a new method to override, use public override
 
         public override PluginArgs ChannelMessage(PluginArgs args)
@@ -73,7 +81,16 @@ namespace IceChatPlugin
                 search = search.Replace("&", "&amp;");
                 string url = "http://www.google.ca/search?q=" + search;
 
-                ParseGoogleResults(args, url, false);
+
+                ParseArgs pa = new ParseArgs();
+                pa.args = args;
+                pa.url = url;
+                pa.self = false;
+
+                //ParseGoogleResults(args, url, false);
+                BackgroundWorker bgw = new BackgroundWorker();
+                bgw.DoWork += new DoWorkEventHandler(bgw_DoWork);
+                bgw.RunWorkerAsync(pa);    
 
             }
             return base.ChannelMessage(args);
@@ -90,12 +107,30 @@ namespace IceChatPlugin
                 
                 args.Command = "/say " + args.Command;
                 OnCommand(args);
+               
                 
-                ParseGoogleResults(args, url, true);
+                ParseArgs pa = new ParseArgs();
+                pa.args = args;
+                pa.url = url;
+                pa.self = true;
+                
+                BackgroundWorker bgw = new BackgroundWorker();
+                bgw.DoWork += new DoWorkEventHandler(bgw_DoWork);
+                bgw.RunWorkerAsync(pa);    
+                
+                //ParseGoogleResults(args, url, true);
+                
                 args.Command = "";
             }
             
             return base.InputText(args);
+        }
+
+        private void bgw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+            ParseArgs pa = (ParseArgs) e.Argument;
+            ParseGoogleResults(pa.args, pa.url, pa.self);
         }
 
         private void ParseGoogleResults(PluginArgs args, String url, bool self)
@@ -103,23 +138,35 @@ namespace IceChatPlugin
             System.Net.WebClient web = new System.Net.WebClient();
             string html = web.DownloadString(url);
             
+            // put a max timer on this
+            int tickCount = System.Environment.TickCount;
+
             if (html.Length > 0)
             {
                 //int searchDiv = html.IndexOf("Search Results");
                 //                
-                int searchDiv = html.IndexOf("<div id=\"topstuff\">");
+                int searchDiv = html.IndexOf("id=\"topstuff\">");
+                System.Diagnostics.Debug.WriteLine("searchDiv:" + searchDiv);
                 if (searchDiv > -1)
                 {
-                    
+                    System.Diagnostics.Debug.WriteLine(html.Substring(searchDiv));
                     //do a loop
                     int counter = 0;
                     PluginArgs a = new PluginArgs(args.Connection);
                     do
                     {
                         int i = html.IndexOf("<div class=\"g\"", searchDiv);
+                        System.Diagnostics.Debug.WriteLine("search g:" + i + ":" + counter);
+                        
                         if (i > 0)
                         {
                             //counter++;
+
+                            if (System.Environment.TickCount - tickCount > 10000)
+                            {
+                                break;
+                            }
+
 
                             int x = html.IndexOf("<a href=\"/url?q=", i + 1) + 16;
                             int y = html.IndexOf("\"", x + 1);
@@ -163,7 +210,8 @@ namespace IceChatPlugin
                             }
                             System.Diagnostics.Debug.WriteLine(link);
                         }
-                        if (searchDiv >= html.Length)
+                        System.Diagnostics.Debug.WriteLine(searchDiv + ":" + html.Length);
+                        if (searchDiv >= html.Length || i == -1)
                         {
                             break;
                         }

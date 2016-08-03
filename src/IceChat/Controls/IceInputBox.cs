@@ -527,6 +527,12 @@ namespace IceChat
 
                         if (parent.CurrentHistoryItem > -1)
                         {
+                            if (parent.CurrentHistoryItem == parent.Buffer.Count - 1 && base.Text.Trim().Length > 0)
+                            {
+                                addToBuffer(base.Text);
+                                parent.CurrentHistoryItem--;
+                            }
+
                             base.Text = parent.Buffer[parent.CurrentHistoryItem];
                             base.SelectionStart = base.Text.Length;
                         }
@@ -541,6 +547,9 @@ namespace IceChat
 
                         if (parent.CurrentHistoryItem >= parent.Buffer.Count - 1)
                         {
+                            if (base.Text.Trim().Length > 0)
+                                addToBuffer(base.Text);
+
                             parent.CurrentHistoryItem = parent.Buffer.Count - 1;
                             base.Text = "";
                             return;
@@ -568,7 +577,6 @@ namespace IceChat
                     }
                 }
             }
-
 
             if (e.KeyCode == Keys.Tab && (e.KeyData & Keys.Control) != Keys.None)
             {
@@ -609,6 +617,12 @@ namespace IceChat
 
                     if (parent.CurrentHistoryItem > -1)
                     {
+                        if (parent.CurrentHistoryItem == parent.Buffer.Count - 1 && base.Text.Trim().Length > 0)
+                        {
+                            addToBuffer(base.Text);
+                            parent.CurrentHistoryItem--;
+                        }
+                        
                         base.Text = parent.Buffer[parent.CurrentHistoryItem];
                         base.SelectionStart = base.Text.Length;
                     }
@@ -622,6 +636,9 @@ namespace IceChat
 
                     if (parent.CurrentHistoryItem >= parent.Buffer.Count - 1)
                     {
+                        if (base.Text.Trim().Length > 0)
+                            addToBuffer(base.Text);
+                        
                         parent.CurrentHistoryItem = parent.Buffer.Count - 1;
                         base.Text = "";
                         return;

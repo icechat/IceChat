@@ -1,3 +1,11 @@
+Build 9.13a Aug 2 2016
+* Hitting up/down arrow before hitting enter on a line will save it to the buffer
+* Changed CAP LS to CAP LS 302 for IRCv3.2
+* IRCv3 3.2 Change Host (CHGHOST) implemented
+* IRCv3 3.2 Invite Notify implemented
+* IRCv3 3.2 account-msg implemented
+* IRCv3 3.2 echo-message implemented with Option
+
 Build 9.13 July 3 2016
 * Fix font problem introduced in 9.12
 

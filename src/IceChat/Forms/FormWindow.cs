@@ -293,6 +293,8 @@ namespace IceChat
 
         private void OnActivated(object sender, EventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("Form Window OnActivated:" + this.Visible);
+            
             FormMain.Instance.ChannelBar.SelectTab(dockedControl);
             
             if (dockedControl.WindowStyle == IceTabPage.WindowType.Query)

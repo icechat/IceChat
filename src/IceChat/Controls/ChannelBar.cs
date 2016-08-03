@@ -627,6 +627,8 @@ namespace IceChat
         {
             _parent.TabMain.BringFront(page);
 
+            System.Diagnostics.Debug.WriteLine("SelectTab ChannelBar:" + page.TabCaption);
+
             for (int i = 0; i < _TabPages.Count; i++)
             {
                 if (_TabPages[i] == page)

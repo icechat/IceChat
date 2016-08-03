@@ -36,6 +36,7 @@ namespace IceChat
         private string _host;
         private bool _away;
         private string _awayMessage;
+        private string _account;
 
         private List<String> _channels;
 
@@ -44,6 +45,16 @@ namespace IceChat
             _nick = nick;
             _host = host;
             
+            _channels = new List<String>();
+            _channels.Add(channel);
+        }
+
+        public InternalAddressList(string nick, string host, string channel, string account)
+        {
+            _nick = nick;
+            _host = host;
+            _account = account;
+
             _channels = new List<String>();
             _channels.Add(channel);
         }
@@ -67,6 +78,12 @@ namespace IceChat
         {
             get { return _host; }
             set { _host = value; }
+        }
+
+        public string Account
+        {
+            get { return _account; }
+            set { _account = value; }
         }
 
         public bool AwayStatus

@@ -217,7 +217,7 @@
             // 
             this.buttonRemoveBan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemoveBan.AutoSize = true;
-            this.buttonRemoveBan.Location = new System.Drawing.Point(304, 246);
+            this.buttonRemoveBan.Location = new System.Drawing.Point(304, 278);
             this.buttonRemoveBan.Name = "buttonRemoveBan";
             this.buttonRemoveBan.Size = new System.Drawing.Size(127, 26);
             this.buttonRemoveBan.TabIndex = 1;
@@ -237,7 +237,7 @@
             this.listViewBans.Location = new System.Drawing.Point(8, 6);
             this.listViewBans.MultiSelect = false;
             this.listViewBans.Name = "listViewBans";
-            this.listViewBans.Size = new System.Drawing.Size(419, 226);
+            this.listViewBans.Size = new System.Drawing.Size(419, 266);
             this.listViewBans.TabIndex = 0;
             this.listViewBans.UseCompatibleStateImageBehavior = false;
             this.listViewBans.View = System.Windows.Forms.View.Details;
@@ -282,7 +282,7 @@
             // 
             this.buttonRemoveException.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemoveException.AutoSize = true;
-            this.buttonRemoveException.Location = new System.Drawing.Point(253, 245);
+            this.buttonRemoveException.Location = new System.Drawing.Point(253, 278);
             this.buttonRemoveException.Name = "buttonRemoveException";
             this.buttonRemoveException.Size = new System.Drawing.Size(178, 26);
             this.buttonRemoveException.TabIndex = 2;
@@ -301,7 +301,7 @@
             this.listViewExceptions.Location = new System.Drawing.Point(8, 6);
             this.listViewExceptions.MultiSelect = false;
             this.listViewExceptions.Name = "listViewExceptions";
-            this.listViewExceptions.Size = new System.Drawing.Size(419, 226);
+            this.listViewExceptions.Size = new System.Drawing.Size(419, 266);
             this.listViewExceptions.TabIndex = 1;
             this.listViewExceptions.UseCompatibleStateImageBehavior = false;
             this.listViewExceptions.View = System.Windows.Forms.View.Details;

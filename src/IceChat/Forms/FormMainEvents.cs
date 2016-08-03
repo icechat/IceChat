@@ -3316,6 +3316,16 @@ namespace IceChat
             }
         }
 
+        private void OnIALAccountChange(IRCConnection connection, string nick, string newAccount)
+        {
+            //change a account for the nick in the IAL list
+            if (connection.ServerSetting.IAL.ContainsKey(nick))
+            {
+                InternalAddressList ial = (InternalAddressList)connection.ServerSetting.IAL[nick];                
+                ial.Account = newAccount;
+            }
+        }
+
         private void OnIALUserQuit(IRCConnection connection, string nick)
         {
             //user has quit, remove from IAL

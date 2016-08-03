@@ -132,7 +132,7 @@ namespace IceChat
                 if (this.Controls.GetChildIndex(page) == 0)
                 {
                     //this is the current 
-                    System.Diagnostics.Debug.WriteLine("Index - 0:" + page.TabCaption);
+                    System.Diagnostics.Debug.WriteLine("Current Index - 0:" + page.TabCaption);
                     _currentTab = page;
                 }
 
@@ -140,9 +140,11 @@ namespace IceChat
                     _previousTab = page;
             }
 
+            System.Diagnostics.Debug.WriteLine("Removed - Current Tab = " + _currentTab.TabCaption);
+
             //redraw
-            FormMain.Instance.ChannelBar.SelectTab(_currentTab);
             FormMain.Instance.ServerTree.SelectTab(_currentTab, false);
+            FormMain.Instance.ChannelBar.SelectTab(_currentTab);
             FormMain.Instance.ServerTree.Invalidate();
 
         }        

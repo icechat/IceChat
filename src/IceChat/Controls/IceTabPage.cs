@@ -75,6 +75,7 @@ namespace IceChat
         private delegate void AddConsoleDelegate(ConsoleTab tab, TextWindow window);
 
         private Panel panelTopic;
+        private Splitter topicSplitter;
         
         private TextWindow textWindow;
         private TextWindow textTopic;
@@ -1838,6 +1839,8 @@ namespace IceChat
             //resize the font for the topic, and make the box size accordingly
             textTopic.Font = new Font(fontName, fontSize);
             this.panelTopic.Size = new System.Drawing.Size(panelTopic.Width,(int) fontSize * 2);
+            this.panelTopic.MinimumSize = new System.Drawing.Size(panelTopic.Width, (int)fontSize );
+            
             this.panelTopic.Visible = _parent.IceChatOptions.ShowTopic;
         }
 
@@ -2352,10 +2355,11 @@ namespace IceChat
             // panelTopic
             // 
             this.panelTopic.Controls.Add(this.textTopic);
+            
             this.panelTopic.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTopic.Location = new System.Drawing.Point(0, 0);
             this.panelTopic.Name = "panelTopic";
-            this.panelTopic.Size = new System.Drawing.Size(304, 22);
+            
             this.panelTopic.TabIndex = 1;
             this.panelTopic.Visible = false;
             // 
@@ -2385,10 +2389,18 @@ namespace IceChat
             this.textWindow.Size = new System.Drawing.Size(304, 166);
             this.textWindow.TabIndex = 0;
 
+            this.topicSplitter = new Splitter();
+            this.topicSplitter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.topicSplitter.Size = new System.Drawing.Size(3, 3);
+            this.topicSplitter.Dock = DockStyle.Top;
+            this.topicSplitter.TabStop = false;
+            this.topicSplitter.Visible = true;
+
             this.Controls.Add(this.textWindow);
+            //this.Controls.Add(this.topicSplitter);
             this.Controls.Add(this.panelTopic);
             
-            this.Size = new System.Drawing.Size(304, 188);
+            this.Size = new System.Drawing.Size(300, 180);
             this.panelTopic.ResumeLayout(false);
             this.ResumeLayout(false);
 

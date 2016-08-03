@@ -32,7 +32,10 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
-            this.checkUseTLS = new System.Windows.Forms.CheckBox();
+            this.labelServerPassword = new System.Windows.Forms.Label();
+            this.textServerPassword = new System.Windows.Forms.TextBox();
+            this.textNickservPassword = new System.Windows.Forms.TextBox();
+            this.labelNickservPassword = new System.Windows.Forms.Label();
             this.checkUseSSL = new System.Windows.Forms.CheckBox();
             this.checkInvalidCertificate = new System.Windows.Forms.CheckBox();
             this.checkUseIPv6 = new System.Windows.Forms.CheckBox();
@@ -55,6 +58,8 @@
             this.labelServerName = new System.Windows.Forms.Label();
             this.labelNickName = new System.Windows.Forms.Label();
             this.tabPageExtra = new System.Windows.Forms.TabPage();
+            this.checkChgHost = new System.Windows.Forms.CheckBox();
+            this.checkDisableLogging = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.textReconnectTime = new System.Windows.Forms.TextBox();
             this.checkAccountNotify = new System.Windows.Forms.CheckBox();
@@ -165,11 +170,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkAdvancedSettings = new System.Windows.Forms.CheckBox();
             this.buttonDuplicateServer = new System.Windows.Forms.Button();
-            this.labelServerPassword = new System.Windows.Forms.Label();
-            this.textServerPassword = new System.Windows.Forms.TextBox();
-            this.textNickservPassword = new System.Windows.Forms.TextBox();
-            this.labelNickservPassword = new System.Windows.Forms.Label();
-            this.checkDisableLogging = new System.Windows.Forms.CheckBox();
+            this.checkEchoMessage = new System.Windows.Forms.CheckBox();
             this.tabControlSettings.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.tabPageExtra.SuspendLayout();
@@ -243,7 +244,6 @@
             this.tabPageMain.Controls.Add(this.textServerPassword);
             this.tabPageMain.Controls.Add(this.textNickservPassword);
             this.tabPageMain.Controls.Add(this.labelNickservPassword);
-            this.tabPageMain.Controls.Add(this.checkUseTLS);
             this.tabPageMain.Controls.Add(this.checkUseSSL);
             this.tabPageMain.Controls.Add(this.checkInvalidCertificate);
             this.tabPageMain.Controls.Add(this.checkUseIPv6);
@@ -274,17 +274,43 @@
             this.tabPageMain.Text = "Main Settings";
             this.tabPageMain.UseVisualStyleBackColor = true;
             // 
-            // checkUseTLS
+            // labelServerPassword
             // 
-            this.checkUseTLS.AutoSize = true;
-            this.checkUseTLS.Location = new System.Drawing.Point(567, 130);
-            this.checkUseTLS.Margin = new System.Windows.Forms.Padding(2);
-            this.checkUseTLS.Name = "checkUseTLS";
-            this.checkUseTLS.Size = new System.Drawing.Size(80, 20);
-            this.checkUseTLS.TabIndex = 55;
-            this.checkUseTLS.Text = "use TLS";
-            this.checkUseTLS.UseVisualStyleBackColor = true;
-            this.checkUseTLS.Visible = false;
+            this.labelServerPassword.AutoSize = true;
+            this.labelServerPassword.Location = new System.Drawing.Point(9, 170);
+            this.labelServerPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelServerPassword.Name = "labelServerPassword";
+            this.labelServerPassword.Size = new System.Drawing.Size(118, 16);
+            this.labelServerPassword.TabIndex = 59;
+            this.labelServerPassword.Text = "Server password";
+            // 
+            // textServerPassword
+            // 
+            this.textServerPassword.Location = new System.Drawing.Point(165, 165);
+            this.textServerPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.textServerPassword.Name = "textServerPassword";
+            this.textServerPassword.PasswordChar = '*';
+            this.textServerPassword.Size = new System.Drawing.Size(171, 23);
+            this.textServerPassword.TabIndex = 57;
+            // 
+            // textNickservPassword
+            // 
+            this.textNickservPassword.Location = new System.Drawing.Point(165, 190);
+            this.textNickservPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.textNickservPassword.Name = "textNickservPassword";
+            this.textNickservPassword.PasswordChar = '*';
+            this.textNickservPassword.Size = new System.Drawing.Size(171, 23);
+            this.textNickservPassword.TabIndex = 58;
+            // 
+            // labelNickservPassword
+            // 
+            this.labelNickservPassword.AutoSize = true;
+            this.labelNickservPassword.Location = new System.Drawing.Point(9, 195);
+            this.labelNickservPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelNickservPassword.Name = "labelNickservPassword";
+            this.labelNickservPassword.Size = new System.Drawing.Size(130, 16);
+            this.labelNickservPassword.TabIndex = 60;
+            this.labelNickservPassword.Text = "Nickserv password";
             // 
             // checkUseSSL
             // 
@@ -486,6 +512,8 @@
             // tabPageExtra
             // 
             this.tabPageExtra.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageExtra.Controls.Add(this.checkEchoMessage);
+            this.tabPageExtra.Controls.Add(this.checkChgHost);
             this.tabPageExtra.Controls.Add(this.checkDisableLogging);
             this.tabPageExtra.Controls.Add(this.label13);
             this.tabPageExtra.Controls.Add(this.textReconnectTime);
@@ -519,6 +547,28 @@
             this.tabPageExtra.Text = "Extra Settings";
             this.tabPageExtra.UseVisualStyleBackColor = true;
             // 
+            // checkChgHost
+            // 
+            this.checkChgHost.AutoSize = true;
+            this.checkChgHost.Location = new System.Drawing.Point(465, 154);
+            this.checkChgHost.Margin = new System.Windows.Forms.Padding(2);
+            this.checkChgHost.Name = "checkChgHost";
+            this.checkChgHost.Size = new System.Drawing.Size(111, 20);
+            this.checkChgHost.TabIndex = 69;
+            this.checkChgHost.Text = "Change Host";
+            this.checkChgHost.UseVisualStyleBackColor = true;
+            // 
+            // checkDisableLogging
+            // 
+            this.checkDisableLogging.AutoSize = true;
+            this.checkDisableLogging.Location = new System.Drawing.Point(312, 10);
+            this.checkDisableLogging.Margin = new System.Windows.Forms.Padding(2);
+            this.checkDisableLogging.Name = "checkDisableLogging";
+            this.checkDisableLogging.Size = new System.Drawing.Size(128, 20);
+            this.checkDisableLogging.TabIndex = 68;
+            this.checkDisableLogging.Text = "Disable Logging";
+            this.checkDisableLogging.UseVisualStyleBackColor = true;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -540,7 +590,7 @@
             // checkAccountNotify
             // 
             this.checkAccountNotify.AutoSize = true;
-            this.checkAccountNotify.Location = new System.Drawing.Point(465, 154);
+            this.checkAccountNotify.Location = new System.Drawing.Point(465, 130);
             this.checkAccountNotify.Margin = new System.Windows.Forms.Padding(2);
             this.checkAccountNotify.Name = "checkAccountNotify";
             this.checkAccountNotify.Size = new System.Drawing.Size(126, 20);
@@ -551,7 +601,7 @@
             // checkAwayNotify
             // 
             this.checkAwayNotify.AutoSize = true;
-            this.checkAwayNotify.Location = new System.Drawing.Point(312, 178);
+            this.checkAwayNotify.Location = new System.Drawing.Point(312, 154);
             this.checkAwayNotify.Margin = new System.Windows.Forms.Padding(2);
             this.checkAwayNotify.Name = "checkAwayNotify";
             this.checkAwayNotify.Size = new System.Drawing.Size(107, 20);
@@ -562,7 +612,7 @@
             // checkExtendedJoin
             // 
             this.checkExtendedJoin.AutoSize = true;
-            this.checkExtendedJoin.Location = new System.Drawing.Point(312, 154);
+            this.checkExtendedJoin.Location = new System.Drawing.Point(312, 130);
             this.checkExtendedJoin.Margin = new System.Windows.Forms.Padding(2);
             this.checkExtendedJoin.Name = "checkExtendedJoin";
             this.checkExtendedJoin.Size = new System.Drawing.Size(118, 20);
@@ -574,7 +624,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(309, 58);
+            this.label12.Location = new System.Drawing.Point(309, 34);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(115, 16);
@@ -613,7 +663,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(309, 106);
+            this.label9.Location = new System.Drawing.Point(309, 82);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 16);
@@ -622,7 +672,7 @@
             // 
             // textSASLUser
             // 
-            this.textSASLUser.Location = new System.Drawing.Point(465, 104);
+            this.textSASLUser.Location = new System.Drawing.Point(465, 80);
             this.textSASLUser.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textSASLUser.Name = "textSASLUser";
             this.textSASLUser.Size = new System.Drawing.Size(115, 23);
@@ -630,7 +680,7 @@
             // 
             // textSASLPass
             // 
-            this.textSASLPass.Location = new System.Drawing.Point(465, 129);
+            this.textSASLPass.Location = new System.Drawing.Point(465, 105);
             this.textSASLPass.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textSASLPass.Name = "textSASLPass";
             this.textSASLPass.PasswordChar = '*';
@@ -640,7 +690,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(309, 130);
+            this.label10.Location = new System.Drawing.Point(309, 106);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(109, 16);
@@ -650,7 +700,7 @@
             // checkUseSASL
             // 
             this.checkUseSASL.AutoSize = true;
-            this.checkUseSASL.Location = new System.Drawing.Point(312, 82);
+            this.checkUseSASL.Location = new System.Drawing.Point(312, 58);
             this.checkUseSASL.Margin = new System.Windows.Forms.Padding(2);
             this.checkUseSASL.Name = "checkUseSASL";
             this.checkUseSASL.Size = new System.Drawing.Size(154, 20);
@@ -1711,54 +1761,16 @@
             this.buttonDuplicateServer.UseVisualStyleBackColor = true;
             this.buttonDuplicateServer.Click += new System.EventHandler(this.buttonDuplicateServer_Click);
             // 
-            // labelServerPassword
+            // checkEchoMessage
             // 
-            this.labelServerPassword.AutoSize = true;
-            this.labelServerPassword.Location = new System.Drawing.Point(9, 170);
-            this.labelServerPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelServerPassword.Name = "labelServerPassword";
-            this.labelServerPassword.Size = new System.Drawing.Size(118, 16);
-            this.labelServerPassword.TabIndex = 59;
-            this.labelServerPassword.Text = "Server password";
-            // 
-            // textServerPassword
-            // 
-            this.textServerPassword.Location = new System.Drawing.Point(165, 165);
-            this.textServerPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textServerPassword.Name = "textServerPassword";
-            this.textServerPassword.PasswordChar = '*';
-            this.textServerPassword.Size = new System.Drawing.Size(171, 23);
-            this.textServerPassword.TabIndex = 57;
-            // 
-            // textNickservPassword
-            // 
-            this.textNickservPassword.Location = new System.Drawing.Point(165, 190);
-            this.textNickservPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textNickservPassword.Name = "textNickservPassword";
-            this.textNickservPassword.PasswordChar = '*';
-            this.textNickservPassword.Size = new System.Drawing.Size(171, 23);
-            this.textNickservPassword.TabIndex = 58;
-            // 
-            // labelNickservPassword
-            // 
-            this.labelNickservPassword.AutoSize = true;
-            this.labelNickservPassword.Location = new System.Drawing.Point(9, 195);
-            this.labelNickservPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelNickservPassword.Name = "labelNickservPassword";
-            this.labelNickservPassword.Size = new System.Drawing.Size(130, 16);
-            this.labelNickservPassword.TabIndex = 60;
-            this.labelNickservPassword.Text = "Nickserv password";
-            // 
-            // checkDisableLogging
-            // 
-            this.checkDisableLogging.AutoSize = true;
-            this.checkDisableLogging.Location = new System.Drawing.Point(312, 10);
-            this.checkDisableLogging.Margin = new System.Windows.Forms.Padding(2);
-            this.checkDisableLogging.Name = "checkDisableLogging";
-            this.checkDisableLogging.Size = new System.Drawing.Size(128, 20);
-            this.checkDisableLogging.TabIndex = 68;
-            this.checkDisableLogging.Text = "Disable Logging";
-            this.checkDisableLogging.UseVisualStyleBackColor = true;
+            this.checkEchoMessage.AutoSize = true;
+            this.checkEchoMessage.Location = new System.Drawing.Point(312, 178);
+            this.checkEchoMessage.Margin = new System.Windows.Forms.Padding(2);
+            this.checkEchoMessage.Name = "checkEchoMessage";
+            this.checkEchoMessage.Size = new System.Drawing.Size(121, 20);
+            this.checkEchoMessage.TabIndex = 70;
+            this.checkEchoMessage.Text = "Echo Message";
+            this.checkEchoMessage.UseVisualStyleBackColor = true;
             // 
             // FormServers
             // 
@@ -1946,11 +1958,12 @@
         private System.Windows.Forms.TextBox textReconnectTime;
         private System.Windows.Forms.Button buttonMoveDown;
         private System.Windows.Forms.Button buttonMoveUp;
-        private System.Windows.Forms.CheckBox checkUseTLS;
         private System.Windows.Forms.Label labelServerPassword;
         private System.Windows.Forms.TextBox textServerPassword;
         private System.Windows.Forms.TextBox textNickservPassword;
         private System.Windows.Forms.Label labelNickservPassword;
         private System.Windows.Forms.CheckBox checkDisableLogging;
+        private System.Windows.Forms.CheckBox checkChgHost;
+        private System.Windows.Forms.CheckBox checkEchoMessage;
     }
 }

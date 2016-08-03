@@ -96,7 +96,7 @@ namespace IceChat
     public delegate void IALUserChangeDelegate(IRCConnection connection, string oldnick, string newnick);
     public delegate void IALUserPartDelegate(IRCConnection connection, string nick, string channel);
     public delegate void IALUserQuitDelegate(IRCConnection connection, string nick);
-
+    public delegate void IALUserAccountDelegate(IRCConnection connection, string nick, string account);
 
     public delegate void AutoPerformDelegate(IRCConnection connection, string[] commands);
     public delegate void AutoJoinDelegate(IRCConnection connection, string[] channels);

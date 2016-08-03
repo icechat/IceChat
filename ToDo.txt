@@ -1,6 +1,7 @@
 ﻿To Do List for IceChat 9
 
-
+Closing windows sometimes does not have the active window as truly active
+Add identifiers for $ram, $cpu and $gpu
 Add an option for Line Spacing (will need to wait for text window rewrite)
 Remember window order when opening channels (in progress)(group by order in server tree)
 allow /colortab command to also change the background color

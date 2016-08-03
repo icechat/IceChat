@@ -253,6 +253,9 @@ namespace IceChat
                             if (clickedWord.ToLower().StartsWith("www"))
                                 clickedWord = "http://" + clickedWord;
 
+
+                            System.Diagnostics.Debug.WriteLine("ClickedWord:" + clickedWord);
+
                             string channel = "";
                             IRCConnection connection = null;
                             if (this.Parent.GetType() == typeof(IceTabPage))
@@ -1876,7 +1879,6 @@ namespace IceChat
                 addedLines -= _totaldisplayLines;
 
                 //if client is minimized.. we get a PROBLEM!
-
                 _textLines[_totalLines].totalLines = addedLines;
 
                 for (int i = _totaldisplayLines + 1; i < _totaldisplayLines + addedLines; i++)
@@ -2546,7 +2548,7 @@ namespace IceChat
 
             try
             {
-                int startY;
+                int startY = 0;
                 float startX = 0;
                 int LinesToDraw = 0;
 

@@ -168,7 +168,6 @@ namespace IceChat
                         this.checkUseIPv6.Enabled = false;
                         this.checkUseSSL.Enabled = false;
                         this.checkInvalidCertificate.Enabled = false;
-                        this.checkUseTLS.Enabled = false;
                         this.checkUseProxy.Enabled = false;
                         this.checkUseBNC.Enabled = false;
                         this.checkDisableLogging.Enabled = false;
@@ -283,9 +282,9 @@ namespace IceChat
             this.checkExtendedJoin.Checked = serverSetting.ExtendedJoin;
             this.checkAccountNotify.Checked = serverSetting.AccountNotify;
             this.checkAwayNotify.Checked = serverSetting.AwayNotify;
-            this.checkUseTLS.Checked = serverSetting.UseTLS;
-
-
+            this.checkChgHost.Checked = serverSetting.ChangeHost;
+            this.checkEchoMessage.Checked = serverSetting.EchoMessage;
+            
             if (serverSetting.AutoJoinChannels != null)
             {
                 foreach (string chan in serverSetting.AutoJoinChannels)
@@ -561,7 +560,8 @@ namespace IceChat
             serverSetting.ExtendedJoin = checkExtendedJoin.Checked;
             serverSetting.AccountNotify = checkAccountNotify.Checked;
             serverSetting.AwayNotify = checkAwayNotify.Checked;
-            serverSetting.UseTLS = checkUseTLS.Checked;
+            serverSetting.ChangeHost = checkChgHost.Checked;
+            serverSetting.EchoMessage = checkEchoMessage.Checked;
 
             serverSetting.UseProxy = checkUseProxy.Checked;
             serverSetting.ProxyIP = textProxyIP.Text;
@@ -1051,5 +1051,6 @@ namespace IceChat
             }
             listChannel.Focus();
         }
+
     }
 }

@@ -28,6 +28,9 @@ using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Authentication;
 
 namespace IceChat
 {
@@ -90,6 +93,8 @@ namespace IceChat
         public event IALUserChangeDelegate IALUserChange;
         public event IALUserPartDelegate IALUserPart;
         public event IALUserQuitDelegate IALUserQuit;
+        public event IALUserAccountDelegate IALUserAccount;
+        
 
         public event BuddyListDelegate BuddyListData;
         public event BuddyListClearDelegate BuddyListClear;
@@ -143,8 +148,9 @@ namespace IceChat
 
                 string channel;
                 string nick;
+                string account = "";
                 string host;
-                string msg;
+                string msg;                
                 string tempValue;
                 bool check;
                 string serverTimeValue = "";                
@@ -155,20 +161,29 @@ namespace IceChat
                 if (RawServerIncomingData != null)
                     RawServerIncomingData(this, data);
 
-                if (serverSetting.UseServerTime)
-                {
-                    //:@time=2014-03-18T01:55:08.596Z :dickson.freenode.net 
-                    if (ircData[0].StartsWith("@time="))
+                // parse any server tags
+                if (ircData[0].StartsWith("@"))
+                {                        
+                    string[] server_tags = ircData[0].Substring(1).Split(';');
+                    foreach(string tag in server_tags) 
                     {
-                        //parse out the server time
-                        serverTimeValue = ircData[0].Substring(ircData[0].IndexOf("=") + 1);
-                        //remove server time from ircData, and re-split
-                        data = data.Substring(ircData[0].Length + 1);
-                        ircData = data.Split(' ');
-
-                        //System.Diagnostics.Debug.WriteLine("Time:" + serverTimeValue);
-
+                        if (tag.Length > 0)
+                        {
+                            if (tag.StartsWith("time="))
+                            {
+                                //parse out the server time
+                                serverTimeValue = tag.Substring(tag.IndexOf("=") + 1);
+                            }
+                            if (tag.StartsWith("account="))
+                            {
+                                //parse out the account
+                                account = tag.Substring(tag.IndexOf("=") + 1);
+                            } 
+                        }
                     }
+                
+                    data = data.Substring(ircData[0].Length + 1);
+                    ircData = data.Split(' ');
                 }
 
                 if (data.Length > 4)
@@ -877,6 +892,7 @@ namespace IceChat
                                 serverSetting.ForceMOTD = false;
                                 return;
                             }
+                            
                             /*
                             if (serverSetting.MonitorSupport)
                             {
@@ -976,17 +992,7 @@ namespace IceChat
                         case "PRIVMSG":
                             channel = ircData[2];
                             msg = JoinString(ircData, 3, true);
-                            if (serverTimeValue.Length > 0 && this.serverSetting.UseServerTime)
-                            {
-                                //add the server time for buffer playback??
-                                //:@time=2014-03-18T01:55:08.596Z :irc.server.com
-                                
-                                //serverTimeValue = '2014-03-18T01:55:08.596Z'
-                                //serverTimeValue = serverTimeValue.Substring(serverTimeValue.IndexOf('T')+1);                                
-                                //make this the NEW timestamp
-                                //msg = "[" + serverTimeValue + "] " + msg;
-                            }
-
+                            
                             if (CheckIgnoreList(nick, host) == true) return;
 
                             if (channel.ToLower() == serverSetting.CurrentNickName.ToLower())
@@ -1317,7 +1323,6 @@ namespace IceChat
                         case "JOIN":
                             channel = RemoveColon(ircData[2]);
                             //extended-join is below
-                            string account = "";
                             if (ircData.Length > 3)
                             {
                                 //extended join
@@ -1468,11 +1473,18 @@ namespace IceChat
                             if (ircData[2] == "*")
                             {
                                 //nick has logged out
-                                UserNotice(this, nick, "logged out of account", serverTimeValue);
+                                if (serverSetting.AccountNotify)
+                                    UserNotice(this, nick, "logged out of account", serverTimeValue);
+
+                                IALUserAccount(this, nick, "");
                             }
                             else
                             {
-                                UserNotice(this, nick, "logged in with account (" + ircData[2] + ")", serverTimeValue);
+                                if (serverSetting.AccountNotify) 
+                                    UserNotice(this, nick, "logged in with account (" + ircData[2] + ")", serverTimeValue);                                
+
+                                // save the account setting in the IAL
+                                IALUserAccount(this, nick, ircData[2]);
                             }
                             break;    
                         case "CAP": //ircv3 
@@ -1569,17 +1581,18 @@ namespace IceChat
                                         serverSetting.UserhostInName = true;  
                                 }
                                 
-                                /*
+                                
                                 if (tempValue.IndexOf("tls") > -1)
                                 {
                                     //tls will not be enabled
-                                    if (serverSetting.UseTLS && !serverSetting.UseSSL) // dont use TLS if alrerady using SSL
+                                    //if (serverSetting.UseTLS && !serverSetting.UseSSL) // dont use TLS if already using SSL                                    
+                                    if (!serverSetting.UseSSL) // dont use TLS if already using SSL                                    {
                                     {
-                                        System.Diagnostics.Debug.WriteLine("Enable tls handshake");
-                                        SendData("STARTTLS");
+                                        // System.Diagnostics.Debug.WriteLine("Enable tls handshake");
+                                        // SendData("STARTTLS");
                                     }
                                 }
-                                */
+                                
 
                                 if (tempValue.IndexOf("sasl") > -1)
                                 {
@@ -1597,17 +1610,18 @@ namespace IceChat
                         case "670": //RPL_STARTTLS
                             // totoro.staticbox.net 670 Snerf :STARTTLS successful, proceed with TLS handshake
                             // http://ircv3.net/specs/extensions/tls-3.1.html
+                            
+                            // this will not be used/implemented
                             ServerMessage(this, JoinString(ircData, 3, true), serverTimeValue);                   
          
                             // Start the TLS Handshake here
                             // the connection is waiting for a TLS handshake
                             
-
+                            
                             break;
                         case "691": // RPL_STARTTLSFAIL
                             // STARTTLS failure
                             ServerMessage(this, JoinString(ircData, 3, true), serverTimeValue);                   
-
                             break;
 
                         case "900": //SASL logged in as ..
@@ -1648,11 +1662,11 @@ namespace IceChat
                             // http://ircv3.net/specs/extensions/chghost-3.2.html
                             // :nick!user@host CHGHOST newuser host
                             // change host in IAL
-                            nick = ircData[2];
-                            // get the ident??
-                            //IALUserData(this, nick, ircData[3], "");
-
-                            ServerMessage(this, JoinString(ircData, 3, true), serverTimeValue); 
+                            IALUserData(this, nick, ircData[2] + "!" +ircData[3], "");
+                            
+                            if (serverSetting.ChangeHost)
+                                ServerMessage(this, nick + " new host is " + ircData[2] + "!" + ircData[3], serverTimeValue); 
+                            
                             break;
 
                         /*************  IRCV3 extras *******************/
@@ -1822,10 +1836,6 @@ namespace IceChat
             string sendREQ = "";
 
             //identify-msg has been deprecated
-            //if (this.serverSetting.UseIdentifyMsg)
-            //    if (tempValue.IndexOf("identify-msg") > -1)
-            //        sendREQ += "identify-msg ";
-
 
             if (tempValue.IndexOf("account-notify") > -1)
                 if (serverSetting.AccountNotify)
@@ -1856,20 +1866,27 @@ namespace IceChat
 
             if (tempValue.IndexOf("cap-notify") > -1)
             {
-                // ircv3.2 
-                //sendREQ += "cap-notify ";
+                // ircv3.2  - Nearly done, need to complete CAP DEL
+                // sendREQ += "cap-notify ";   // For CAP ADD and CAP DEL
             }
 
             if (tempValue.IndexOf("chghost") > -1)
             {
                 // ircv3.2                 
-                //sendREQ += "chghost ";
+                sendREQ += "chghost ";
             }
 
             if (tempValue.IndexOf("account-tag") > -1)
             {
                 // ircv3.2                 
-                //sendREQ += "account-tag ";
+                sendREQ += "account-tag ";
+            }
+
+
+            if (tempValue.IndexOf("invite-notify") > -1)
+            {
+                // ircv3.2                 
+                sendREQ += "invite-notify ";
             }
 
             if (tempValue.IndexOf("echo-message") > -1)
@@ -1877,26 +1894,27 @@ namespace IceChat
                 // ircv3.2                 
                 // sends back NOTICE and PRIVMSG back to client that sent them
                 // make this an option
-                //sendREQ += "echo-message ";
+                if (serverSetting.EchoMessage)
+                    sendREQ += "echo-message ";
             }
 
             if (tempValue.IndexOf("znc.in/server-time-iso") > -1)
             {
                 //:@time=2014-03-18T01:55:08.596Z :dickson.freenode.net 
                 sendREQ += "znc.in/server-time-iso ";
-                serverSetting.UseServerTime = true;
+                //serverSetting.UseServerTime = true;
             }
             else if (tempValue.IndexOf("server-time") > -1)
             {                
                 sendREQ += "server-time ";
-                serverSetting.UseServerTime = true;
+                //serverSetting.UseServerTime = true;
             }
 
-            // no use for TLS
+            // no use for TLS - will not be implemented
             // http://ircv3.net/specs/extensions/tls-3.1.html
             if (tempValue.IndexOf("tls") > -1)
             {
-            //    sendREQ += "tls ";
+                // sendREQ += "tls ";
             }
 
 

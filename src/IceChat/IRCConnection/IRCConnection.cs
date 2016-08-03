@@ -551,16 +551,14 @@ namespace IceChat
 
                     SslProtocols enabledSslProtocols;
 
-#if USE_NET_45
-                    enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11;
-#else
-                    enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
-#endif
+                    #if USE_NET_45
+                        enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11;
+                    #else
+                        enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
+                    #endif
 
-
-                    bool checkCertificateRevocation = true;
-
-                    sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, checkCertificateRevocation);
+                    // allow for a private key ??
+                    sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, true);
 
                     ServerMessage(this, "*** You are connected to this server with " + sslStream.SslProtocol.ToString().ToUpper() + "-" + sslStream.CipherAlgorithm.ToString().ToUpper() + sslStream.CipherStrength + "-" + sslStream.HashAlgorithm.ToString().ToUpper() + "-" + sslStream.HashStrength + "bits", "");
                 }
@@ -722,7 +720,7 @@ namespace IceChat
                         SendData("PASS " + serverSetting.BNCPass);
 
                     //check for IRCv3 capability
-                    SendData("CAP LS");
+                    SendData("CAP LS 302");
 
                     //send the USER / NICK stuff                    
                     
@@ -1163,7 +1161,7 @@ namespace IceChat
                                 if (serverSetting.Password != null && serverSetting.Password.Length > 0)
                                     SendData("PASS " + serverSetting.Password);
 
-                                SendData("CAP LS");
+                                SendData("CAP LS 302");
 
                                 //send the USER / NICK stuff
                                 SendData("NICK " + serverSetting.NickName);
@@ -1275,7 +1273,7 @@ namespace IceChat
                                     SendData("PASS " + serverSetting.Password);
 
                                 //check for ircv3 capabilities
-                                SendData("CAP LS");
+                                SendData("CAP LS 302");
 
                                 //send the USER / NICK stuff
                                 SendData("NICK " + serverSetting.NickName);
@@ -1732,7 +1730,6 @@ namespace IceChat
 
                                 IPEndPoint ipe = new IPEndPoint(address, Convert.ToInt32(serverSetting.ServerPort));
                                 serverSocket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
                                 serverSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, 1);
 
                                 serverSetting.ServerIP = address.ToString();

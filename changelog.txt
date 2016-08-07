@@ -1,3 +1,9 @@
+Build 9.13b Aug 7 2016
+* Minor tweak to the Server XML restore function
+* Do not perform a whois when *status (znc) messages
+* WALLOPS now show properly in the Console
+* Ignore List now works properly with Nick!Ident@*, *!Ident@*, Nick!*@* wildcards 
+
 Build 9.13a Aug 2 2016
 * Hitting up/down arrow before hitting enter on a line will save it to the buffer
 * Changed CAP LS to CAP LS 302 for IRCv3.2

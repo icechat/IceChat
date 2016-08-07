@@ -1644,8 +1644,7 @@ namespace IceChat
                         
                         case "730": //monitor response for ONLINE
                             // :rajaniemi.freenode.net 730 Snerf9 :Bubi!~Bubi@p5DE95D59.dip0.t-ipconnect.de,Snerf!IceCha t9@unaffiliated/Snerf
-                            //[02:26.05] ->2 :rajaniemi.freenode.net 731 Snerf9 :madmn,IceCold101
-                            
+                            //[02:26.05] ->2 :rajaniemi.freenode.net 731 Snerf9 :madmn,IceCold101                            
                             MonitorListData(this, JoinString(ircData, 3, true), true, serverTimeValue);
                             break;
                         case "731": //monitor response for OFFLINE
@@ -1753,6 +1752,10 @@ namespace IceChat
                             ChannelNotice(this, ircData[2], "", (char)32, ircData[3], JoinString(ircData, 6, true), serverTimeValue);
                             break;
                         
+                        case "WALLOPS":
+                            ServerMessage(this, "WALLOPS -- from " + nick + ": " + JoinString(ircData, 2, false), serverTimeValue);                        
+                            break;
+                        
                         case"SILENCE":
                             ServerMessage(this, JoinString(ircData, 2, false), serverTimeValue);                        
                             break;
@@ -1789,20 +1792,54 @@ namespace IceChat
                         //do a host match
                         string hostMatch = ignore.Substring(ignore.IndexOf("@") + 1).ToLower();
 
+                        // get the nick
+                        string nickMatch = "";
+
+                        // get the ident
+                        string identMatch = "";
+                        string matchIdent = "";
+
+                        if (ignore.IndexOf("!") > -1)
+                        {
+                            identMatch = ignore.Substring(ignore.IndexOf("!") + 1).ToLower();
+                            identMatch = identMatch.Substring(0, identMatch.IndexOf("@"));
+
+                            nickMatch = ignore.Substring(0, ignore.IndexOf("!")).ToLower();                        
+                        }
+                        
                         // exact match
                         if (ignore.ToLower() == onlyHost.ToLower()) return true;
 
                         if (hostMatch == onlyHost) return true;
 
-                        if (hostMatch.StartsWith("*"))
+                        if (ignore.IndexOf("!") > 0 && identMatch.Length > 0)
+                        {
+                            // nick / ident match
+                            if (host.IndexOf("@") > -1)
+                            {
+                                matchIdent = host.Substring(0, host.IndexOf("@")).TrimStart('~');
+                            }
+                        }
+
+                        if (hostMatch.StartsWith("*") && Match(identMatch, matchIdent) == true && Match(nickMatch, nick.ToLower()))
                         {
                             //match the end
-                            if (onlyHost.EndsWith(hostMatch.TrimStart('*'))) return true;
+                            if (onlyHost.EndsWith(hostMatch.TrimStart('*')) && hostMatch.TrimStart('*').Length > 0) return true;
+
+                            // check for a nick match / ident match
+                            if (hostMatch == "*")
+                            {
+                                return true;
+                            }
+
+
                         }
-                        else if (hostMatch.EndsWith("*"))
+                        else if (hostMatch.EndsWith("*") && Match(identMatch, matchIdent) == true && Match(nickMatch, nick.ToLower()))
                         {
-                            //match the start
-                            if (onlyHost.StartsWith(hostMatch.TrimEnd('*'))) return true;
+                            //match the start of the host
+                            
+                            if (onlyHost.StartsWith(hostMatch.TrimEnd('*')) && hostMatch.TrimEnd('*').Length > 0) return true;
+
                         }
                         
                     }
@@ -1816,6 +1853,22 @@ namespace IceChat
                 }
             }
 
+            return false;
+        }
+
+        private bool Match(string match, string toMatch)
+        {
+            if (match == toMatch) return true;
+            if (match == "*") return true;
+            
+            if (match.StartsWith("*")) {
+                if (toMatch.EndsWith(match.TrimStart('*'))) return true;
+            }
+            
+            if (match.EndsWith("*")) {
+                if (toMatch.StartsWith(match.TrimEnd('*'))) return true;
+            }
+            
             return false;
         }
 

@@ -8,6 +8,8 @@ namespace IceChat
     {
         public static string[] RandomQuitMessages = new string[] { 
             "IceChat - Keeping PC's cool since 2000",
+            "IceChat - It's what Cool People use",
+            "We be chillin' - IceChat style",
             "There's nothing dirtier than a giant ball of oil",
             "Why is the alphabet in that order? Is it because of that song?",
             "Give a man a fish and he will eat for a day. Teach him how to fish, and he will sit in a boat and drink beer all day",
@@ -30,8 +32,6 @@ namespace IceChat
             "If you can't laugh at yourself, make fun of other people.",
             "On the other hand, you have different fingers.",
             "Some folks are wise, and some otherwise.",
-            "IceChat - It's what Cool People use",
-            "We be chillin' - IceChat style",
             "Say What?",
             "Do fish get thirsty?",
             "REALITY.SYS Corrupted: Re-boot universe? (Y/N/Q)",
@@ -65,7 +65,10 @@ namespace IceChat
             "Tis but a scratch",
             "Live long and prosper \\v//",
             "First shalt thou take out the Holy Pin. Then, shalt thou count to three. No more. No less.",
-            "Nobody, and I mean NOBODY makes Sheriff Buford T. Justice look like a possum's pecker."};
+            "East bound and down, loaded up and truckin'",
+            "Call me a relic, call me what you will. Say I'm old fashioned, say I'm over the hill.",
+            "Excess flood. Did someone see an ark float by?"
+        };
 
     }
 }

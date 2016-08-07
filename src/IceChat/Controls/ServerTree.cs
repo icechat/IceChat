@@ -744,7 +744,7 @@ namespace IceChat
                                             col.Add(ti);
                                         }
 
-                                        this.contextMenuChannel.Items.AddRange(col.ToArray());
+                                        this.contextMenuServer.Items.AddRange(col.ToArray());
 
                                     }
                                 }
@@ -882,6 +882,32 @@ namespace IceChat
                                 this.hideToolStripMenuItem2.Checked = false;
                             }
 
+                            // are all events disabled ?
+                            bool allDisabled = false;
+                            if (((IceTabPage)findNode).JoinEventLocationOverload)
+                            {
+                                if (((IceTabPage)findNode).JoinEventLocation == 2)
+                                {
+                                    if (((IceTabPage)findNode).PartEventLocationOverload)
+                                    {
+                                        if (((IceTabPage)findNode).PartEventLocation == 2)
+                                        {
+                                            if (((IceTabPage)findNode).QuitEventLocationOverload)
+                                            {
+                                                if (((IceTabPage)findNode).QuitEventLocation == 2)
+                                                {
+                                                    hideJoinPartQuitToolStripMenuItem.Checked = true;
+                                                    allDisabled = true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            // they are not all disabled, uncheck it
+                            if (!allDisabled)
+                                hideJoinPartQuitToolStripMenuItem.Checked = false;
+
                             //add the menu's created by plugins
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
@@ -952,7 +978,7 @@ namespace IceChat
                                                 col.Add(ti);
                                             }
 
-                                            this.contextMenuChannel.Items.AddRange(col.ToArray());
+                                            this.contextMenuQuery.Items.AddRange(col.ToArray());
                                         }
                                     }
                                 }
@@ -1824,26 +1850,37 @@ namespace IceChat
             catch (InvalidOperationException)
             {
                 // we have an error!  -- lets see if we have a backup!
-                textReader.Close();
-
-                string backupFile = _parent.CurrentFolder + Path.DirectorySeparatorChar + "Backups" + Path.DirectorySeparatorChar + "IceChatServer.xml";
-                if (File.Exists(backupFile))
-                {
-                    System.Diagnostics.Debug.WriteLine("We have backup, lets restore it");
-
-                    textReader = new StreamReader(backupFile);
-                    servers = (IceChatServers)deserializer.Deserialize(textReader);
+                if (textReader != null)
                     textReader.Close();
-                    textReader.Dispose();
 
-                    _parent.loadErrors.Add("There was a problem with IceChatServer.xml, restored from backup");
-
-                    File.Copy(backupFile, _parent.ServersFile, true);
-
-                }
-                else
+                try
                 {
-                    //create default server settings
+
+                    string backupFile = _parent.CurrentFolder + Path.DirectorySeparatorChar + "Backups" + Path.DirectorySeparatorChar + "IceChatServer.xml";
+                    if (File.Exists(backupFile))
+                    {
+                        textReader = new StreamReader(backupFile);
+                        servers = (IceChatServers)deserializer.Deserialize(textReader);
+                        textReader.Close();
+                        textReader.Dispose();
+
+                        _parent.loadErrors.Add("There was a problem with IceChatServer.xml, restored from backup");
+
+                        File.Copy(backupFile, _parent.ServersFile, true);
+
+                    }
+                    else
+                    {
+                        //create default server settings
+                        servers = new IceChatServers();
+                        SaveServers(servers);
+
+                        _parent.loadErrors.Add("There was a problem with IceChatServer.xml, no backup to restore");
+
+                    }
+                }
+                catch (InvalidOperationException)
+                {
                     servers = new IceChatServers();
                     SaveServers(servers);
 

@@ -649,7 +649,6 @@ namespace IceChat
 
         private void OnBuddyRemove(IRCConnection connection, BuddyListItem buddy)
         {
-            System.Diagnostics.Debug.WriteLine("Remove:" + buddy.Nick);
             buddyList.RemoveBuddy(connection, buddy);
         }
 

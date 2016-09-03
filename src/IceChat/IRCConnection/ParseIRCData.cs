@@ -893,18 +893,7 @@ namespace IceChat
                                 return;
                             }
                             
-                            /*
-                            if (serverSetting.MonitorSupport)
-                            {
-                                MonitorListCheck();
-                            }
-                            else
-                            {
-                                BuddyListCheck();
-                                buddyListTimer.Start();
-                            }
-                            */
-
+                            
                             BuddyListCheck();
                             buddyListTimer.Start();
 
@@ -1690,6 +1679,10 @@ namespace IceChat
                             ServerError(this, msg, true);
                             break;
                         case "401": //no such nick
+                            // this should go to a query window if it exist
+                            msg = JoinString(ircData, 4, false);
+                            WhoisData(this, ircData[3], msg, serverTimeValue);                            
+                            break;
                         case "402": //no such server
                         case "403": //no such channel
                         case "405": //joined too many channels

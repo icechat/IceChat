@@ -627,13 +627,15 @@ namespace IceChat
         {
             _parent.TabMain.BringFront(page);
 
-            System.Diagnostics.Debug.WriteLine("SelectTab ChannelBar:" + page.TabCaption);
+            //System.Diagnostics.Debug.WriteLine("SelectTab ChannelBar:" + page.TabCaption);
 
             for (int i = 0; i < _TabPages.Count; i++)
             {
                 if (_TabPages[i] == page)
                 {
                     SelectedIndex = i;
+
+                    //System.Diagnostics.Debug.WriteLine("Selected:" + i);
 
                     //for single row.. scroll into view. if needed
                     checkTabLocation(i);
@@ -791,8 +793,8 @@ namespace IceChat
                         {
                             if (_TabPages[i].WindowStyle == IceTabPage.WindowType.Channel)
                             {
-                                toolTip.ToolTipTitle = "Channel Information";
-                                toolTip.SetToolTip(this, _TabPages[i].TabCaption + " {" + _TabPages[i].Nicks.Count + "} " + "[" + _TabPages[i].ChannelModes + "] {" + _TabPages[i].Connection.ServerSetting.NetworkName + "}");
+                                toolTip.ToolTipTitle = _TabPages[i].TabCaption;
+                                toolTip.SetToolTip(this, "{" + _TabPages[i].Nicks.Count + "} " + "[" + _TabPages[i].ChannelModes + "] {" + _TabPages[i].Connection.ServerSetting.NetworkName + "}");
                             }
                             else if (_TabPages[i].WindowStyle == IceTabPage.WindowType.Query || _TabPages[i].WindowStyle == IceTabPage.WindowType.DCCChat)
                             {

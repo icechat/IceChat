@@ -219,18 +219,25 @@ namespace IceChat
             else
             {
                 //remove all items in the buddy list with this connection
-                for (int i = treeBuddies.Nodes[1].Nodes.Count; i > 0; i--)
+                try
                 {
-                    if (treeBuddies.Nodes[1].Nodes[i-1].Tag == connection)
-                        treeBuddies.Nodes[1].Nodes[i-1].Remove();
+
+                    for (int i = treeBuddies.Nodes[1].Nodes.Count; i > 0; i--)
+                    {
+                        if (treeBuddies.Nodes[1].Nodes[i - 1].Tag == connection)
+                            treeBuddies.Nodes[1].Nodes[i - 1].Remove();
+                    }
+                    //clear all DISCONNECTED
+                    for (int i = treeBuddies.Nodes[0].Nodes.Count; i > 0; i--)
+                    {
+                        if (treeBuddies.Nodes[0].Nodes[i - 1].Tag == connection)
+                            treeBuddies.Nodes[0].Nodes[i - 1].Remove();
+                    }
                 }
-                //clear all DISCONNECTED
-                for (int i = treeBuddies.Nodes[0].Nodes.Count; i > 0; i--)
+                catch (Exception)
                 {
-                    if (treeBuddies.Nodes[0].Nodes[i-1].Tag == connection)
-                        treeBuddies.Nodes[0].Nodes[i-1].Remove();
+
                 }
-                    
             }
         }
 
@@ -245,43 +252,49 @@ namespace IceChat
             {
                 //remove buddy from list with this connection
                 //check CONNECTED
-                for (int i = treeBuddies.Nodes[1].Nodes.Count; i > 0; i--)
+                try
                 {
-                    if (treeBuddies.Nodes[1].Nodes[i - 1].Tag == connection)
+                    for (int i = treeBuddies.Nodes[1].Nodes.Count; i > 0; i--)
                     {
-                        //nick could start with a ;
-                        if (buddy.Nick.StartsWith(";"))
+                        if (treeBuddies.Nodes[1].Nodes[i - 1].Tag == connection)
                         {
-                            if (treeBuddies.Nodes[1].Nodes[i - 1].Text == buddy.Nick.Substring(1))
-                                treeBuddies.Nodes[1].Nodes[i - 1].Remove();
+                            //nick could start with a ;
+                            if (buddy.Nick.StartsWith(";"))
+                            {
+                                if (treeBuddies.Nodes[1].Nodes[i - 1].Text == buddy.Nick.Substring(1))
+                                    treeBuddies.Nodes[1].Nodes[i - 1].Remove();
+                            }
+                            else
+                            {
+                                if (treeBuddies.Nodes[1].Nodes[i - 1].Text == buddy.Nick)
+                                    treeBuddies.Nodes[1].Nodes[i - 1].Remove();
+                            }
                         }
-                        else
-                        {
-                            if (treeBuddies.Nodes[1].Nodes[i - 1].Text == buddy.Nick)
-                                treeBuddies.Nodes[1].Nodes[i - 1].Remove();
-                        }
-                    }                    
-                }
-                //check DISCONNECTED
-                for (int i = treeBuddies.Nodes[0].Nodes.Count; i > 0; i--)
-                {
-                    if (treeBuddies.Nodes[0].Nodes[i - 1].Tag == connection)
+                    }
+                    //check DISCONNECTED
+                    for (int i = treeBuddies.Nodes[0].Nodes.Count; i > 0; i--)
                     {
-                        //nick could start with a ;
-                        if (buddy.Nick.StartsWith(";"))
+                        if (treeBuddies.Nodes[0].Nodes[i - 1].Tag == connection)
                         {
-                            if (treeBuddies.Nodes[0].Nodes[i - 1].Text == buddy.Nick.Substring(1))
-                                treeBuddies.Nodes[0].Nodes[i - 1].Remove();
-                        }
-                        else
-                        {
-                            if (treeBuddies.Nodes[0].Nodes[i - 1].Text == buddy.Nick)
-                                treeBuddies.Nodes[0].Nodes[i - 1].Remove();
-                        }
+                            //nick could start with a ;
+                            if (buddy.Nick.StartsWith(";"))
+                            {
+                                if (treeBuddies.Nodes[0].Nodes[i - 1].Text == buddy.Nick.Substring(1))
+                                    treeBuddies.Nodes[0].Nodes[i - 1].Remove();
+                            }
+                            else
+                            {
+                                if (treeBuddies.Nodes[0].Nodes[i - 1].Text == buddy.Nick)
+                                    treeBuddies.Nodes[0].Nodes[i - 1].Remove();
+                            }
 
+                        }
                     }
                 }
+                catch (Exception)
+                {
 
+                }
             }        
         }
 
@@ -294,35 +307,44 @@ namespace IceChat
             }
             else
             {
-                //check if buddy is already in list
-                RemoveBuddy(connection, buddy);
-                
-                TreeNode t = new TreeNode();
-                t.Text = buddy.Nick;
-                t.Tag = connection;
-
-                if (buddy.Connected)
+                try
                 {
-                    t.ToolTipText = buddy.Nick + " on " + connection.ServerSetting.RealServerName;
-                    this.treeBuddies.Nodes[1].Nodes.Add(t);
-                    if (buddy.PreviousState == false)
+
+                    //check if buddy is already in list
+                    RemoveBuddy(connection, buddy);
+
+                    TreeNode t = new TreeNode();
+                    t.Text = buddy.Nick;
+                    t.Tag = connection;
+
+                    if (buddy.Connected)
                     {
-                        _parent.PlaySoundFile("buddy");
+                        t.ToolTipText = buddy.Nick + " on " + connection.ServerSetting.RealServerName;
+                        this.treeBuddies.Nodes[1].Nodes.Add(t);
+                        if (buddy.PreviousState == false)
+                        {
+                            _parent.PlaySoundFile("buddy");
 
-                        if (_parent.IceChatOptions.SystemTrayBuddyOnline == true && _parent.IceChatOptions.SystemTrayServerMessage)
-                            _parent.ShowTrayNotification("Your buddy " + buddy.Nick + " has come online on " + connection.ServerSetting.RealServerName);
+                            if (_parent.IceChatOptions.SystemTrayBuddyOnline == true && _parent.IceChatOptions.SystemTrayServerMessage)
+                                _parent.ShowTrayNotification("Your buddy " + buddy.Nick + " has come online on " + connection.ServerSetting.RealServerName);
 
+                        }
+                        buddy.PreviousState = true;
                     }
-                    buddy.PreviousState = true;
+                    else if (!buddy.Nick.StartsWith(";"))
+                    {
+                        t.ToolTipText = buddy.Nick + " not on " + connection.ServerSetting.RealServerName;
+                        this.treeBuddies.Nodes[0].Nodes.Add(t);
+                        buddy.PreviousState = false;
+                    }
+
+
+                    this.treeBuddies.ExpandAll();
                 }
-                else if (!buddy.Nick.StartsWith(";"))
+                catch (Exception)
                 {
-                    t.ToolTipText = buddy.Nick + " not on " + connection.ServerSetting.RealServerName;
-                    this.treeBuddies.Nodes[0].Nodes.Add(t);
-                    buddy.PreviousState = false;
+                    //
                 }
-                
-                this.treeBuddies.ExpandAll();
             }
         }
     }

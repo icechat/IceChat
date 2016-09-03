@@ -248,6 +248,18 @@ namespace IceChat
                     textRawMessage.SelectedText = ((char)31).ToString();
                     e.Handled = true;
                 }
+                if (e.KeyCode == Keys.O)
+                {
+                    textRawMessage.SelectedText = ((char)15).ToString();
+                    e.Handled = true;
+                }
+                if (e.KeyCode == Keys.R)
+                {
+                    textRawMessage.SelectedText = ((char)22).ToString();
+                    e.Handled = true;
+                }
+
+
             }
         }
 
@@ -763,7 +775,12 @@ namespace IceChat
             textRawMessage.Text = textRawMessage.Text.Replace("&#x3;", ((char)3).ToString());
             //replace the bold code
             textRawMessage.Text = textRawMessage.Text.Replace("&#x2;", ((char)2).ToString());
-
+            //replace cancel code
+            textRawMessage.Text = textRawMessage.Text.Replace("&#x0F;", ((char)15).ToString());
+            //replace the reverse code
+            textRawMessage.Text = textRawMessage.Text.Replace("&#x16;", ((char)22).ToString());
+            //reaplce the underline code
+            textRawMessage.Text = textRawMessage.Text.Replace("&#x1F;", ((char)31).ToString());
 
             this.listIdentifiers.Items.Clear();
 
@@ -956,7 +973,7 @@ namespace IceChat
             {
                 if (msg.MessageName.ToLower() == MessageName.ToLower())
                 {
-                    msg.FormattedMessage = MessageFormat.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;");
+                    msg.FormattedMessage = MessageFormat.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)15).ToString(), "&#x0F;").Replace(((char)22).ToString(), "&#x16;").Replace(((char)31).ToString(), "&#x1F;");
                     return;
                 }
             }
@@ -1548,6 +1565,12 @@ namespace IceChat
                 textRawMessage.Text = textRawMessage.Text.Replace("&#x3;", ((char)3).ToString());
                 //replace the bold code
                 textRawMessage.Text = textRawMessage.Text.Replace("&#x2;", ((char)2).ToString());
+                //replace cancel code
+                textRawMessage.Text = textRawMessage.Text.Replace("&#xF;", ((char)15).ToString());
+                //replace the reverse code
+                textRawMessage.Text = textRawMessage.Text.Replace("&#x16;", ((char)22).ToString());
+                //reaplce the underline code
+                textRawMessage.Text = textRawMessage.Text.Replace("&#x1F;", ((char)31).ToString());
 
                 this.textFormattedText.ClearTextWindow();
                 this.textFormattedText.AppendText(newMessage, "");

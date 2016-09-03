@@ -243,7 +243,6 @@ namespace IceChat
                 ChannelSetting cs = _parent.ChannelSettings.FindChannel(page.TabCaption, page.connection.ServerSetting.NetworkName);
                 if (cs != null)
                 {
-                    //System.Diagnostics.Debug.WriteLine("sort:" + this.TabCaption + ":" + page.TabCaption + ":" + _windowIndex + ":" + page.WindowIndex);
                     if (page.WindowIndex > _windowIndex)
                         return -1;
                     else if (page._windowIndex < _windowIndex)
@@ -261,8 +260,8 @@ namespace IceChat
             {
                 if (this.windowType == WindowType.Channel || this.windowType == WindowType.Query)
                 {
-                    textWindow.SaveDumpFile();
                     //System.Diagnostics.Debug.WriteLine("dispose text window for:" + this.TabCaption);
+                    //textWindow.SaveDumpFile(false);
                     textWindow.Dispose();
                 }
 
@@ -481,8 +480,6 @@ namespace IceChat
                         channelModes.Add(mode, c);
                 }
 
-                System.Diagnostics.Debug.WriteLine("update mode:" + mode + ":" + addMode + ":" + param);
-                
                 if (mode == 'k' && param != "*")
                 {
                     if (addMode)

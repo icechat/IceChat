@@ -140,8 +140,6 @@ namespace IceChat
                     _previousTab = page;
             }
 
-            System.Diagnostics.Debug.WriteLine("Removed - Current Tab = " + _currentTab.TabCaption);
-
             //redraw
             FormMain.Instance.ServerTree.SelectTab(_currentTab, false);
             FormMain.Instance.ChannelBar.SelectTab(_currentTab);

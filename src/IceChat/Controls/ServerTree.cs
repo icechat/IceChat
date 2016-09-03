@@ -515,8 +515,8 @@ namespace IceChat
                         {
                             if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Channel)
                             {
-                                toolTip.ToolTipTitle = "Channel Information";
-                                toolTip.SetToolTip(this, ((IceTabPage)findNode).TabCaption + " {" + ((IceTabPage)findNode).Nicks.Count + "} " + "[" + ((IceTabPage)findNode).ChannelModes + "]");
+                                toolTip.ToolTipTitle = ((IceTabPage)findNode).TabCaption;
+                                toolTip.SetToolTip(this, "{" + ((IceTabPage)findNode).Nicks.Count + "} " + "[" + ((IceTabPage)findNode).ChannelModes + "]");
                             }
                             else
                             {
@@ -1322,6 +1322,16 @@ namespace IceChat
                     flashTabTimer.Enabled = false;
                 }
 
+
+                if ((serverNodes.Count * _lineSize) > listR.Height)
+                    vScrollBar.Visible = true;
+                else
+                {
+                    vScrollBar.Visible = false;
+                    // set the top to 0
+                    topIndex = 0;
+                }
+
                 foreach (KeyValuePair<string, object> de in serverNodes)
                 {
                     //get the object type for this node
@@ -1479,11 +1489,6 @@ namespace IceChat
 
                     currentY += _lineSize;
                 }
-
-                if (currentY > listR.Height || vScrollBar.Value > 0)
-                    vScrollBar.Visible = true;
-                else
-                    vScrollBar.Visible = false;
 
                 l.Dispose();
                 sf.Dispose();

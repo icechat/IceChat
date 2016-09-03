@@ -236,42 +236,50 @@ namespace IceChat
 
         public void BuddyListCheck()
         {
-            if (serverSetting.BuddyListEnable)
+            try
             {
-                string ison = string.Empty;
-
-                foreach (BuddyListItem buddy in serverSetting.BuddyList)
+                if (serverSetting.BuddyListEnable && serverSetting.BuddyList != null)
                 {
-                    if (ison.Length > 200)
-                        break;
-                    else if (!buddy.IsOnSent)
+                    string ison = string.Empty;
+
+                    foreach (BuddyListItem buddy in serverSetting.BuddyList)
                     {
-                        if (!buddy.Nick.StartsWith(";"))
+                        if (ison.Length > 200)
+                            break;
+                        else if (!buddy.IsOnSent)
                         {
-                            ison += " " + buddy.Nick;
+                            if (!buddy.Nick.StartsWith(";"))
+                            {
+                                ison += " " + buddy.Nick;
 
-                            buddy.IsOnSent = true;
-                            buddy.IsOnReceived = false;
+                                buddy.IsOnSent = true;
+                                buddy.IsOnReceived = false;
+                            }
+
+                            buddiesIsOnSent++;
                         }
-
-                        buddiesIsOnSent++;
                     }
-                }
 
-                if (ison != string.Empty)
-                {
-                    ison = "ISON" + ison;
+                    if (ison != string.Empty)
+                    {
+                        ison = "ISON" + ison;
 
-                    SendData(ison);
+                        SendData(ison);
+                    }
+                    else
+                        BuddyListClear(this);
+
+                    buddyListTimer.Stop();
+
                 }
                 else
                     BuddyListClear(this);
 
-                buddyListTimer.Stop();
-
             }
-            else
-                BuddyListClear(this);
+            catch (Exception ex)
+            {
+                WriteErrorFile(this, "BuddyListCheck", ex);
+            }
 
         }
 

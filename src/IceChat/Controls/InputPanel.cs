@@ -245,6 +245,7 @@ namespace IceChat
                 {
                     if (line.Length > 0)
                     {
+                        System.Diagnostics.Debug.WriteLine("wide:" + line.Length);                            
                         OnCommand(this, line);
                     }
                 }
@@ -259,11 +260,21 @@ namespace IceChat
                 if (lines.Length == 1)
                 {
                     //just 1 line, add to end of text box
-                    //if (lines[0].Length < 350)
-                    OnCommand(this, lines[0]);
-                    //else
-                    //{
-                    //}
+
+                    if (lines[0].Length > 350)
+                    {
+                        for (int index = 0; index < lines[0].Length; index += 350)
+                        {
+                            textInput.addToBuffer(lines[0].Substring(index, Math.Min(350, lines[0].Length - index)));
+
+                            // send this command with a bit of a delay.. or you excess flood!
+                            OnCommand(this, lines[0].Substring(index, Math.Min(350, lines[0].Length - index)));
+                        }
+
+                    }
+                    else
+                        OnCommand(this, lines[0]);
+                    
                 }
                 else
                 {
@@ -297,7 +308,16 @@ namespace IceChat
                                 }
                                 else
                                 {
+                                    System.Diagnostics.Debug.WriteLine("split it up!");
 
+                                    for (int index = 0; index < line.Length; index += 350)
+                                    {
+                                        textInput.addToBuffer(line.Substring(index, Math.Min(350, line.Length - index)));
+
+                                        // send this command with a bit of a delay.. or you excess flood!
+                                        OnCommand(this, line.Substring(index, Math.Min(350, line.Length - index)));
+
+                                    }
                                 }
                             }
                         }
@@ -335,10 +355,9 @@ namespace IceChat
 
         internal void SendButtonClick()
         {
-            //System.Diagnostics.Debug.WriteLine("p clicked");
-            //this.buttonSend.PerformClick();
             if (textInput.Visible)
             {
+                System.Diagnostics.Debug.WriteLine("onText:" + textInput.Text.Length);
                 textInput.OnEnterKey();
                 FocusTextBox();
             }
@@ -350,7 +369,7 @@ namespace IceChat
                 {
                     if (line.Length > 0)
                     {
-                        //split line at 350 chars
+                        //split line at 450 chars
                         if (line.Length < 350)
                         {
                             textBoxWide.addToBuffer(line);
@@ -359,9 +378,17 @@ namespace IceChat
                         }
                         else
                         {
+
+                            System.Diagnostics.Debug.WriteLine("Sendtext Split:" + line.Length);
                             //split it up
-
-
+                            for (int index = 0; index < line.Length; index += 350)
+                            {                                
+                                textBoxWide.addToBuffer(line.Substring(index, Math.Min(350, line.Length - index)));
+                                                                
+                                // send this command with a bit of a delay.. or you excess flood!
+                                OnCommand(this, line.Substring(index, Math.Min(350, line.Length - index)));
+                                
+                            }
                         }
                     }
                 }
@@ -377,7 +404,7 @@ namespace IceChat
 
             }
         }
-
+        
         private void buttonSend_Click(object sender, EventArgs e)
         {
             SendButtonClick();

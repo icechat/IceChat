@@ -55,11 +55,10 @@ namespace IceChat
         public static string ParseColorChar = @"\x03";
         
         static string ParseBoldChar = @"\x02";
-        static string ParseUnderlineChar = @"\x1F";    //code 31
-        static string ParseReverseChar = @"\x16";      //code 22
+        static string ParseUnderlineChar = @"\x1F";   //code 31
+        static string ParseReverseChar = @"\x16";     //code 22
         static string ParseItalicChar = @"\x1D";      //code 29
-        static string ParseCancelChar = @"\x0F";         //code 15
-
+        static string ParseCancelChar = @"\x0F";      //code 15
 
         public static Regex ParseColorCodes = new Regex(ParseBackColor + "|" + ParseForeColor + "|" + ParseColorChar);
         public static Regex ParseForeColorCodes = new Regex(ParseForeColor + "|" + ParseColorChar);

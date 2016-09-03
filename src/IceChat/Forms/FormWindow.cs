@@ -152,14 +152,8 @@ namespace IceChat
         private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
             //need to send the part message
-            // System.Diagnostics.Debug.WriteLine("closing form:" + this.Text + ":" + this.Controls.Count + ":" + e.CloseReason);
+            //System.Diagnostics.Debug.WriteLine("closing form:" + this.Text + ":" + this.Controls.Count + ":" + e.CloseReason);
             
-            if (e.CloseReason == CloseReason.MdiFormClosing)
-            {
-                //e.Cancel = true;
-                //return;
-            }
-
             try
             {
                 if (this.Controls.Count == 2)
@@ -225,9 +219,19 @@ namespace IceChat
 
                             FormMain.Instance.SaveChannelSettings();
                         }
-                        
+
                         if (kickedChannel == false)
-                            FormMain.Instance.ParseOutGoingCommand(dockedControl.Connection, "/part " + dockedControl.TabCaption);
+                        {
+                            bool dontPart = true;                            
+                            if (e.CloseReason == CloseReason.MdiFormClosing)
+                            {
+                                if (dockedControl.Connection.ServerSetting.UseBNC == true)
+                                    dontPart = false;
+                            }
+                            
+                            if (dontPart)
+                                FormMain.Instance.ParseOutGoingCommand(dockedControl.Connection, "/part " + dockedControl.TabCaption);
+                        }
 
                     }
                     else if (dockedControl.WindowStyle == IceTabPage.WindowType.Query)
@@ -244,14 +248,6 @@ namespace IceChat
             {
                 System.Diagnostics.Debug.WriteLine(ee.Message);
                 System.Diagnostics.Debug.WriteLine(ee.StackTrace);
-            }
-        }
-
-        private void OnControlRemoved(object sender, ControlEventArgs e)
-        {
-            if (e.Control is IceTabPage)
-            {
-                //System.Diagnostics.Debug.WriteLine("remove tab (form):" + ((IceTabPage)e.Control).TabCaption + ":" + this.Controls.Count);
             }
         }
 
@@ -293,7 +289,7 @@ namespace IceChat
 
         private void OnActivated(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Form Window OnActivated:" + this.Visible);
+            //System.Diagnostics.Debug.WriteLine("Form Window OnActivated:" + this.Visible);
             
             FormMain.Instance.ChannelBar.SelectTab(dockedControl);
             
@@ -307,14 +303,15 @@ namespace IceChat
                     });
                 }
             }
-
+            
             if (this.Text == "Console")
             {
-                //dont do anything, or ya get the BUGZ!
+                //dont do anything, or ya get the BUGZ!    
+                // FormMain.Instance.ServerTree.SelectTab(dockedControl, true);
             }
             else
                 FormMain.Instance.ServerTree.SelectTab(dockedControl, false);
-
+            
             //set the tabindex to 0
             dockedControl.TabIndex = 0;
             

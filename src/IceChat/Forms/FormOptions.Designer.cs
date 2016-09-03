@@ -52,6 +52,7 @@ namespace IceChat
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.labelLanguage = new System.Windows.Forms.Label();
             this.tabDisplay = new System.Windows.Forms.TabPage();
+            this.checkSortNickList = new System.Windows.Forms.CheckBox();
             this.comboLineSpacing = new System.Windows.Forms.ComboBox();
             this.label39 = new System.Windows.Forms.Label();
             this.checkSingleRowCB = new System.Windows.Forms.CheckBox();
@@ -277,7 +278,6 @@ namespace IceChat
             this.panelButtons = new System.Windows.Forms.Panel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.checkSortNickList = new System.Windows.Forms.CheckBox();
             this.tabControlOptions.SuspendLayout();
             this.tabMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).BeginInit();
@@ -561,6 +561,16 @@ namespace IceChat
             this.tabDisplay.TabIndex = 1;
             this.tabDisplay.Text = "Display";
             this.tabDisplay.UseVisualStyleBackColor = true;
+            // 
+            // checkSortNickList
+            // 
+            this.checkSortNickList.AutoSize = true;
+            this.checkSortNickList.Location = new System.Drawing.Point(319, 64);
+            this.checkSortNickList.Name = "checkSortNickList";
+            this.checkSortNickList.Size = new System.Drawing.Size(202, 20);
+            this.checkSortNickList.TabIndex = 70;
+            this.checkSortNickList.Text = "Sort Nick list by nicks only";
+            this.checkSortNickList.UseVisualStyleBackColor = true;
             // 
             // comboLineSpacing
             // 
@@ -940,9 +950,9 @@ namespace IceChat
             this.checkReloadLogs.AutoSize = true;
             this.checkReloadLogs.Location = new System.Drawing.Point(233, 37);
             this.checkReloadLogs.Name = "checkReloadLogs";
-            this.checkReloadLogs.Size = new System.Drawing.Size(270, 20);
+            this.checkReloadLogs.Size = new System.Drawing.Size(262, 20);
             this.checkReloadLogs.TabIndex = 33;
-            this.checkReloadLogs.Text = "Reload Channel Logs (temp disabled)";
+            this.checkReloadLogs.Text = "Reload Channel Logs (Experimental)";
             this.checkReloadLogs.UseVisualStyleBackColor = true;
             this.checkReloadLogs.Visible = false;
             // 
@@ -2866,16 +2876,6 @@ namespace IceChat
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
-            // checkSortNickList
-            // 
-            this.checkSortNickList.AutoSize = true;
-            this.checkSortNickList.Location = new System.Drawing.Point(319, 64);
-            this.checkSortNickList.Name = "checkSortNickList";
-            this.checkSortNickList.Size = new System.Drawing.Size(202, 20);
-            this.checkSortNickList.TabIndex = 70;
-            this.checkSortNickList.Text = "Sort Nick list by nicks only";
-            this.checkSortNickList.UseVisualStyleBackColor = true;
             // 
             // FormSettings
             // 

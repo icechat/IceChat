@@ -226,6 +226,7 @@
             this.textBoxWide.Location = new System.Drawing.Point(0, 0);
             this.textBoxWide.Multiline = true;
             this.textBoxWide.Name = "textBoxWide";
+            //this.textBoxWide.MaxLength = 440;     // changed from 512
             this.textBoxWide.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxWide.Size = new System.Drawing.Size(475, 94);
             this.textBoxWide.TabIndex = 0;
@@ -272,7 +273,7 @@
             this.textInput.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textInput.HideSelection = false;
             this.textInput.Location = new System.Drawing.Point(84, 0);
-            this.textInput.MaxLength = 512;
+            this.textInput.MaxLength = 1024;
             this.textInput.Name = "textInput";
             this.textInput.Size = new System.Drawing.Size(475, 16);
             this.textInput.TabIndex = 0;

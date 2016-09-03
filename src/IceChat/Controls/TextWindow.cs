@@ -49,12 +49,12 @@ namespace IceChat
         private int _showMaxLines;
         private int _lineSize;
 
-        private const char colorChar = '\x03';
-        private const char underlineChar = '\x1F';    //31
-        private const char boldChar = '\x02';
-        private const char cancelChar = '\x0F';
-        private const char reverseChar = '\x16';      //22
-        private const char italicChar = '\x1D';       //29
+        private const char colorChar = '\x03';        // 02
+        private const char underlineChar = '\x1F';    // 31
+        private const char boldChar = '\x02';         // 02      
+        private const char cancelChar = '\x0F';       // 15
+        private const char reverseChar = '\x16';      // 22
+        private const char italicChar = '\x1D';       // 29
 
         private const char newColorChar = '\xFF03';
         private const char emotChar = '\xFF0A';
@@ -1436,20 +1436,7 @@ namespace IceChat
                 Invalidate();
             }
         }
-        /*
-        internal int IRCForeColor
-        {
-            get
-            {
-                return _foreColor;
-            }
-            set
-            {
-                _foreColor = value;
-                Invalidate();
-            }
-        }
-        */
+
         public bool SingleLine
         {
             get
@@ -1572,11 +1559,12 @@ namespace IceChat
             {
 
                 string dumpFile = _logClass.LogFileLocation + System.IO.Path.DirectorySeparatorChar + t.TabCaption + ".dump.xml";
+                System.Diagnostics.Debug.WriteLine("Try load dump file " + dumpFile);
 
                 if (File.Exists(dumpFile))
                 {
                     //import the file dump, and add a LINE READ marker
-                    System.Diagnostics.Debug.WriteLine("load dump file " + dumpFile);
+                    System.Diagnostics.Debug.WriteLine("Do Load dump file " + dumpFile);
 
                     List<TextLine> textLines = new List<TextLine>();
                     XmlSerializer deserializer = new XmlSerializer(textLines.GetType());
@@ -1591,24 +1579,26 @@ namespace IceChat
                     {
                         _textLines[i] = textLines[i];
                         //replace the codes
-                        _textLines[i].line = _textLines[i].line.Replace("&#x3;", (newColorChar).ToString()).Replace("#x2;", ((char)2).ToString()).Replace("#xF;", ((char)15).ToString());
+                        _textLines[i].line = _textLines[i].line.Replace("&#x3;", (newColorChar).ToString()).Replace("#x2;", ((char)2).ToString()).Replace("#x0F;", ((char)15).ToString());
                     }
 
-                            //adds a blank line to show loaded - this doesnt log
-                            //_textLines[textLines.Count].line = (newColorChar).ToString() + "0499 - Total lines loaded:" + (textLines.Count - 1);
-                            //_textLines[textLines.Count].totalLines = 1;
-                            //_textLines[textLines.Count].textColor = 4;
-                            //_textLines[textLines.Count].width = 300;
+                    //adds a blank line to show loaded - this doesnt log
+                    //_textLines[textLines.Count].line = (newColorChar).ToString() + "0499 - Total lines loaded:" + (textLines.Count - 1);
+                    //_textLines[textLines.Count].totalLines = 1;
+                    //_textLines[textLines.Count].textColor = 4;
+                    //_textLines[textLines.Count].width = 300;
                         
                     _totalLines = textLines.Count - 1;
 
+                    AddText("<---- Loaded Previous Log ---->",4,"");
+                    
                     System.Diagnostics.Debug.WriteLine(textLines.Count + " lines loaded:" + t.TabCaption);
 
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.StackTrace + ":" + ex.Message);
+                System.Diagnostics.Debug.WriteLine("LoadDump:" + ex.StackTrace + ":" + ex.Message);
             }
         }
 
@@ -1625,8 +1615,7 @@ namespace IceChat
                     if (t.WindowStyle == IceTabPage.WindowType.Channel && reloadText == true && t.LoggingDisable == false)
                     {
                         _reloadText = true;
-                        //LoadDumpFile(t);
-                        
+                        LoadDumpFile(t);                        
                     }
                 }
                 catch (NullReferenceException)
@@ -1671,7 +1660,6 @@ namespace IceChat
         {
             if (_logClass != null)
             {
-                System.Diagnostics.Debug.WriteLine("Disabled Log File");
                 _logClass.Dispose();
                 _logClass = null;
             }
@@ -1695,15 +1683,15 @@ namespace IceChat
             get { return _totalLines; }
         }
 
-        internal string SaveDumpFile()
+        internal string SaveDumpFile(bool forced)
         {            
             //no dump for console, only channels
             string dumpFile = LogFileLocation;
 
-            if (this.Parent.GetType() == typeof(IceTabPage) && _reloadText == true)
+            if (this.Parent.GetType() == typeof(IceTabPage) && (_reloadText == true || forced == true))
             {
                 IceTabPage t = (IceTabPage)this.Parent;
-                if (t.WindowStyle == IceTabPage.WindowType.Channel && t.LoggingDisable == false)
+                if (t.WindowStyle == IceTabPage.WindowType.Channel && (t.LoggingDisable == false || forced == true))
                 {
                     //replace any illegal characters
                     string tabCaption = t.TabCaption;
@@ -1711,25 +1699,23 @@ namespace IceChat
                     
                     dumpFile += System.IO.Path.DirectorySeparatorChar + tabCaption + ".dump.xml";
                     
-                    //System.Diagnostics.Debug.WriteLine("dump file = " + dumpFile);
+                    System.Diagnostics.Debug.WriteLine("dump file = " + dumpFile);
                     
-                    //C:\Users\Snerf\AppData\Local\IceChat Networks\IceChat\Logs\uk.quakenet.org\Channel\#icechat9.dump.xml
                     //create a copy of the _textLines, removing blank
                     try
                     {
                         List<TextLine> temp = new List<TextLine>();
                         foreach (TextLine s in _textLines)
                         {
-                            if (s.line != null && s.line.Length > 0)
+                            if (s.line != null && s.line.Length > 0 && !s.line.EndsWith("<---- Loaded Previous Log ---->"))
                             {
                                 TextLine tl = s;
                                 tl.line = tl.line.Replace((newColorChar).ToString(), "&#x3;").Replace(((char)2).ToString(), "#x2;").Replace(((char)15).ToString(), "#xF;").Replace(((char)31).ToString(), "#x1F;");
-                                
+
                                 temp.Add(tl);
                             }
                         }
 
-                        //System.Diagnostics.Debug.WriteLine("total lines:" + temp.Count);
                         XmlSerializer writer = new XmlSerializer(temp.GetType());
                         TextWriter file = new StreamWriter(dumpFile, false);
                         writer.Serialize(file, temp);
@@ -1739,12 +1725,12 @@ namespace IceChat
                     }
                     catch (InvalidOperationException ee)
                     {
-                        System.Diagnostics.Debug.WriteLine(ee.Message);
+                        System.Diagnostics.Debug.WriteLine("Save Dump IOC:" + ee.Message);
                         System.Diagnostics.Debug.WriteLine(ee.Source);
                     }
                     catch (NullReferenceException e)
                     {
-                        System.Diagnostics.Debug.WriteLine(e.Message);
+                        System.Diagnostics.Debug.WriteLine("SaveDump:" +e.Message);
                         System.Diagnostics.Debug.WriteLine(e.Source); ;
                     }
                 }
@@ -1758,7 +1744,13 @@ namespace IceChat
                 return;
 
             newLine = newLine.Replace("\n", " ");
+            // this is for replacing codes in the IRC Messages from Colors
             newLine = newLine.Replace("&#x3;", colorChar.ToString());
+            newLine = newLine.Replace("&#x2;", boldChar.ToString());
+            newLine = newLine.Replace("&#x1F;", underlineChar.ToString());
+            newLine = newLine.Replace("&#x0F;", cancelChar.ToString());
+            newLine = newLine.Replace("&#x16;", reverseChar.ToString());
+            
             newLine = ParseUrl(newLine);
 
             int _foreColor = 1;
@@ -1797,9 +1789,9 @@ namespace IceChat
 
                 ++_unreadMarker;
 
-                newLine = newLine.Replace("\n", " ");
-                newLine = newLine.Replace("&#x3;", colorChar.ToString());
-
+                //newLine = newLine.Replace("\n", " ");
+                //newLine = newLine.Replace("&#x3;", colorChar.ToString());
+                
                 string timeStamp = "";
                 if (newTimeStamp.Length > 0)
                 {
@@ -2305,6 +2297,7 @@ namespace IceChat
                 for (int currentLine = lastLine; currentLine <= startLine; currentLine++)
                 {
                     lastColor = "";
+                    
                     _displayLines[line].previous = false;
                     _displayLines[line].wrapped = false;
 
@@ -2370,6 +2363,11 @@ namespace IceChat
                                     italic = false;
                                     bold = false;
                                     reverse = false;
+                                    
+                                    // reset the colors
+                                    lastColor = newColorChar + _textLines[currentLine].textColor.ToString("00") + "99";
+                                    nextColor = newColorChar + _textLines[currentLine].textColor.ToString("00") + "99";
+                                    
                                     buildString.Append(ch[0]);
                                     boldPos = i;
                                     underlinePos = i;
@@ -2449,6 +2447,10 @@ namespace IceChat
                                                     italic = false;
                                                     bold = false;
                                                     reverse = false;
+                                                    //reset the color
+                                                    lastColor = newColorChar + _textLines[currentLine].textColor.ToString("00") + "99";
+                                                    nextColor = newColorChar + _textLines[currentLine].textColor.ToString("00") + "99";
+                                                    
                                                     buildString.Append(ch[0]);
                                                     boldPos = i;
                                                     underlinePos = i;
@@ -2493,7 +2495,6 @@ namespace IceChat
                                     break;
                             }
                         }
-
                         //get the remainder
                         if (lineSplit)
                             _displayLines[line].line = lastColor + buildString.ToString() + endLine;
@@ -2699,7 +2700,7 @@ namespace IceChat
                     }
                     if (line.Length > 0)
                     {
-                        do
+                        do                        
                         {
                             ch = line.ToString().Substring(i, 1).ToCharArray();
                                                         
@@ -2950,7 +2951,7 @@ namespace IceChat
 
                                     break;
                                 case cancelChar:
-                                    //draw with the standard fore and back color
+                                    //draw with the standard fore and back color                                    
                                     if (buildString.Length > 0)
                                     {
                                         if (curBackColor != _backColor)

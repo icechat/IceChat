@@ -76,6 +76,7 @@ namespace IceChat
         //private NetworkStream socketStream;
         private bool proxyAuthed;
         private byte[] readBuffer;
+
         //private const int BUFFER_SIZE = 1024;
         private const int BUFFER_SIZE = 4096;
 

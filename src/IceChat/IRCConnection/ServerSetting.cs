@@ -563,6 +563,10 @@ namespace IceChat
         { get; set; }
 
         [XmlIgnore()]
+        public bool SendNickServPassword
+        { get; set; }
+
+        [XmlIgnore()]
         public bool IRCV3
         { get { return this._ircv3; } set { this._ircv3 = value; } }
 

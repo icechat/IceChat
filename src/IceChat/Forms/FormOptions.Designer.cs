@@ -2524,8 +2524,9 @@ namespace IceChat
             this.textAutoPerformStartup.Multiline = true;
             this.textAutoPerformStartup.Name = "textAutoPerformStartup";
             this.textAutoPerformStartup.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textAutoPerformStartup.Size = new System.Drawing.Size(406, 130);
+            this.textAutoPerformStartup.Size = new System.Drawing.Size(642, 130);
             this.textAutoPerformStartup.TabIndex = 58;
+            this.textAutoPerformStartup.WordWrap = false;
             // 
             // checkAutoPerformStartup
             // 

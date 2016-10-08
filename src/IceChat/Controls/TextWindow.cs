@@ -67,10 +67,7 @@ namespace IceChat
         private DisplayLine[] _displayLines;
         private TextLine[] _textLines;
 
-        //private List<DisplayLine> displayLines;
-
         private int _backColor = 0;
-        //private int _foreColor;
 
         private bool _showTimeStamp = true;
         private bool _singleLine = false;
@@ -230,7 +227,6 @@ namespace IceChat
             string windowName = "";
             string _linkedWordNick = StripString(_linkedWord);
 
-            //if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Middle)
             if (e.Button == MouseButtons.Left)
             {
                 //first need to see what word we clicked, if not, run a command
@@ -253,8 +249,7 @@ namespace IceChat
                             if (clickedWord.ToLower().StartsWith("www"))
                                 clickedWord = "http://" + clickedWord;
 
-
-                            System.Diagnostics.Debug.WriteLine("ClickedWord:" + clickedWord);
+                            // System.Diagnostics.Debug.WriteLine("ClickedWord:" + clickedWord + ":" + _linkedWord);
 
                             string channel = "";
                             IRCConnection connection = null;
@@ -285,6 +280,7 @@ namespace IceChat
                             }
                             
                             //the clicked link can be changed, or removed
+                            
                             if (args.Extra.Length > 0)
                                 System.Diagnostics.Process.Start(args.Extra);
                             
@@ -624,7 +620,7 @@ namespace IceChat
                                 //if control key is down.. dont copy to clipboard
                                 if ( (Control.ModifierKeys & Keys.Control) == Keys.Control )
                                 {
-                                   //control key is down -- dpnt copy to Clipboard
+                                   //control key is down -- dont copy to Clipboard
                                 }    
                                 else
                                     Clipboard.SetText(line);
@@ -1043,7 +1039,7 @@ namespace IceChat
                                           
                     }
 
-                    //System.Diagnostics.Debug.WriteLine("end:" + foundSpace + ":" + space + ":" + line.Length + ":" + (int)line[line.Length-1] + "::" + match);
+                    // System.Diagnostics.Debug.WriteLine("end:" + foundSpace + ":" + space + ":" + line.Length + ":" + (int)line[line.Length-1] + "::" + match);
                     //char \\FF0D means the line was broken properly, if its not, it was line-wrapped
 
                     //end:False:0:40:103::
@@ -3242,7 +3238,16 @@ namespace IceChat
                 return "";
             if (line.Length > 0)
             {
-                Regex parseStuff = new Regex("\xFF03[0-9]{4}|"+emotChar+"|"+urlStart+"|"+urlEnd+"|"+cancelChar+"|"+underlineChar+"|"+reverseChar+"|"+italicChar+"|"+wrapLine+"|"+endLine);
+                
+                // we have to replace the emoticon with the text
+                string[] eachEmot = _emotMatch.Split((char)0);
+                for (int i = eachEmot.GetLowerBound(0); i <= eachEmot.GetUpperBound(0); i++)
+                    line = line.Replace( emotChar + i.ToString("000"), @eachEmot[i]);
+                
+                
+                //Regex parseStuff = new Regex("\xFF03[0-9]{4}|"+emotChar+"|"+urlStart+"|"+urlEnd+"|"+cancelChar+"|"+underlineChar+"|"+reverseChar+"|"+italicChar+"|"+wrapLine+"|"+endLine);
+                
+                Regex parseStuff = new Regex("\xFF03[0-9]{4}|"+urlStart+"|"+urlEnd+"|"+cancelChar+"|"+underlineChar+"|"+reverseChar+"|"+italicChar+"|"+wrapLine+"|"+endLine);
                 line = parseStuff.Replace(line, "");
                 
                 if (stripBolds)

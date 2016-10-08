@@ -1,3 +1,8 @@
+Build 9.14 October 8 2016
+* When changing your nickname, and you have a nickserv password, it will re-auth with nickserv if it asks for a password again
+* Remove the tooltip for the status bar
+* Added /totray command to place IceChat on the system tray
+
 Build 9.13d Sept 3 2016
 * Minor tweak to the Server XML restore function
 * Do not perform a whois when *status (znc) messages

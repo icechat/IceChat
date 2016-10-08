@@ -1153,7 +1153,7 @@ namespace IceChat
             this.toolStripStatus.Name = "toolStripStatus";
             this.toolStripStatus.Size = new System.Drawing.Size(58, 17);
             this.toolStripStatus.Text = "Status:";
-            this.toolStripStatus.ToolTipText = "hey hey";
+            this.toolStripStatus.ToolTipText = "";            
             // 
             // statusStripMain
             // 

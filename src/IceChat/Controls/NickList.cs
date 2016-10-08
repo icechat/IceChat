@@ -866,15 +866,12 @@ namespace IceChat
                                         break;
                                     }
                                 }
-
                                 if (args.Extra.Length == 0)
                                 {
                                     args.Extra = _parent.IceChatColors.ChannelRegularColor.ToString();
                                     u.nickColor = _parent.IceChatColors.ChannelRegularColor;
                                 }
                             }
-
-                            //howFar = 10;
 
                             //have ability to override this
                             args.Nick = sortedNickNames[i].nick;
@@ -890,8 +887,6 @@ namespace IceChat
                                         args = ipc.plugin.NickListDraw(args);
                                 }
                             }
-
-                            //howFar = 12;
 
                             //check if selected, if so, draw the selector bar
                             if (sortedNickNames[i].selected == true)

@@ -1125,6 +1125,20 @@ namespace IceChat
                 }
             }
 
+            if (nick.ToLower() == "nickserv" && connection.ServerSetting.SendNickServPassword == false)
+            {
+                // Nickserv password
+                if (args.Message.ToLower().Contains("password"))
+                {
+                    if (connection.ServerSetting.NickservPassword != null && connection.ServerSetting.NickservPassword.Length > 0)
+                    {
+                        ParseOutGoingCommand(connection, "/msg NickServ identify " + connection.ServerSetting.NickservPassword);
+                        connection.ServerSetting.SendNickServPassword = true;
+                    }
+                }
+            }
+
+
             if (args.DisableEvent == true)
                 return;
 

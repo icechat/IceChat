@@ -1,5 +1,6 @@
 ﻿To Do List for IceChat 9
 
+Add color options for Toolbar Buttons and Sidebar Buttons
 If a whois returns no nick ., send a whowas command
 Closing windows sometimes does not have the active window as truly active
 Add identifiers for $ram, $cpu and $gpu

@@ -936,6 +936,7 @@ namespace IceChat
                             if (serverSetting.NickservPassword != null && serverSetting.NickservPassword.Length > 0)
                             {
                                 OutGoingCommand(this, "/msg NickServ identify " + serverSetting.NickservPassword);
+                                serverSetting.SendNickServPassword = true;
                             }
 
                             if (serverSetting.RejoinChannels)
@@ -1242,7 +1243,6 @@ namespace IceChat
                                 }
                                 else
                                 {
-                                    //System.Diagnostics.Debug.WriteLine("NOTICE:" + msg);
                                     if (msg.ToUpper().StartsWith("DCC SEND"))
                                     {
                                         System.Diagnostics.Debug.WriteLine("NOTICE DCC SEND:" + nick + ":" + msg);
@@ -1720,6 +1720,7 @@ namespace IceChat
                                     SendData("NICK " + serverSetting.AltNickName);
                                     ChangeNick(this, serverSetting.CurrentNickName, serverSetting.AltNickName, HostFromFullHost(RemoveColon(ircData[0])), serverTimeValue);
                                     serverSetting.TriedAltNick = true;
+                                    serverSetting.SendNickServPassword = false;
                                 }
                                 else if (serverSetting.CurrentNickName != serverSetting.AltNickName)
                                 {
@@ -1728,6 +1729,7 @@ namespace IceChat
                                         SendData("NICK " + serverSetting.AltNickName);
                                         ChangeNick(this, serverSetting.CurrentNickName, serverSetting.AltNickName, HostFromFullHost(RemoveColon(ircData[0])), serverTimeValue);
                                         serverSetting.TriedAltNick = true;
+                                        serverSetting.SendNickServPassword = false;
                                     }
                                     else
                                     {

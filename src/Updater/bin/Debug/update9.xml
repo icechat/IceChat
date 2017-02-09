@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<IceChat>
+<version>90820151107</version>
+<versiontext>9.08.2015.1107</versiontext>
+<date>November 7, 2015</date>
+<coderevision>73390</coderevision>
+<file>http://www.icechat.net/beta/20151107/IceChat2009.exe</file>
+<file>http://www.icechat.net/beta/20151107/IPluginIceChat.dll</file>
+<file>http://www.icechat.net/beta/20151107/IRCConnection.dll</file>
+<file>http://www.icechat.net/beta/20151107/IThemeIceChat.dll</file>
+<file>http://www.icechat.net/beta/20151107/Newtonsoft.Json.dll</file>
+<plugin>
+	<pluginfile>http://www.icechat.net/downloads/icechat-2009/SimpleScriptPlugin.dll</pluginfile>
+	<pluginversion>1.2.0.0</pluginversion>
+</plugin>
+<plugin>
+	<pluginfile>http://www.icechat.net/downloads/icechat-2009/GooglePlugin.dll</pluginfile>
+	<pluginversion>1.1.0.0</pluginversion>
+</plugin>
+<plugin>
+	<pluginfile>http://www.icechat.net/downloads/icechat-2009/HighLitePlugin.dll</pluginfile>
+	<pluginversion>2.9.0.0</pluginversion>
+</plugin>
+<plugin>
+	<pluginfile>http://www.icechat.net/downloads/icechat-2009/NickHighLitePlugin.dll</pluginfile>
+	<pluginversion>1.2.0.0</pluginversion>
+</plugin>
+<plugin>
+	<pluginfile>http://www.icechat.net/downloads/icechat-2009/TwitterPlugin.dll</pluginfile>
+	<pluginversion>2.0.0.0</pluginversion>
+</plugin>
+<plugin>
+	<pluginfile>http://www.icechat.net/downloads/icechat-2009/ChannelMonitor.dll</pluginfile>
+	<pluginversion>1.5.0.0</pluginversion>
+</plugin>
+<plugin>
+	<pluginfile>http://www.icechat.net/downloads/icechat-2009/AutoAwayPlugin.dll</pluginfile>
+	<pluginversion>1.0.0.0</pluginversion>
+</plugin>
+</IceChat>

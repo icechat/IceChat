@@ -58,6 +58,7 @@
             this.labelServerName = new System.Windows.Forms.Label();
             this.labelNickName = new System.Windows.Forms.Label();
             this.tabPageExtra = new System.Windows.Forms.TabPage();
+            this.checkEchoMessage = new System.Windows.Forms.CheckBox();
             this.checkChgHost = new System.Windows.Forms.CheckBox();
             this.checkDisableLogging = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -170,7 +171,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkAdvancedSettings = new System.Windows.Forms.CheckBox();
             this.buttonDuplicateServer = new System.Windows.Forms.Button();
-            this.checkEchoMessage = new System.Windows.Forms.CheckBox();
+            this.checkDisableQueries = new System.Windows.Forms.CheckBox();
             this.tabControlSettings.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.tabPageExtra.SuspendLayout();
@@ -512,6 +513,7 @@
             // tabPageExtra
             // 
             this.tabPageExtra.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageExtra.Controls.Add(this.checkDisableQueries);
             this.tabPageExtra.Controls.Add(this.checkEchoMessage);
             this.tabPageExtra.Controls.Add(this.checkChgHost);
             this.tabPageExtra.Controls.Add(this.checkDisableLogging);
@@ -546,6 +548,17 @@
             this.tabPageExtra.TabIndex = 3;
             this.tabPageExtra.Text = "Extra Settings";
             this.tabPageExtra.UseVisualStyleBackColor = true;
+            // 
+            // checkEchoMessage
+            // 
+            this.checkEchoMessage.AutoSize = true;
+            this.checkEchoMessage.Location = new System.Drawing.Point(312, 178);
+            this.checkEchoMessage.Margin = new System.Windows.Forms.Padding(2);
+            this.checkEchoMessage.Name = "checkEchoMessage";
+            this.checkEchoMessage.Size = new System.Drawing.Size(121, 20);
+            this.checkEchoMessage.TabIndex = 70;
+            this.checkEchoMessage.Text = "Echo Message";
+            this.checkEchoMessage.UseVisualStyleBackColor = true;
             // 
             // checkChgHost
             // 
@@ -1761,16 +1774,16 @@
             this.buttonDuplicateServer.UseVisualStyleBackColor = true;
             this.buttonDuplicateServer.Click += new System.EventHandler(this.buttonDuplicateServer_Click);
             // 
-            // checkEchoMessage
+            // checkDisableQueries
             // 
-            this.checkEchoMessage.AutoSize = true;
-            this.checkEchoMessage.Location = new System.Drawing.Point(312, 178);
-            this.checkEchoMessage.Margin = new System.Windows.Forms.Padding(2);
-            this.checkEchoMessage.Name = "checkEchoMessage";
-            this.checkEchoMessage.Size = new System.Drawing.Size(121, 20);
-            this.checkEchoMessage.TabIndex = 70;
-            this.checkEchoMessage.Text = "Echo Message";
-            this.checkEchoMessage.UseVisualStyleBackColor = true;
+            this.checkDisableQueries.AutoSize = true;
+            this.checkDisableQueries.Location = new System.Drawing.Point(465, 10);
+            this.checkDisableQueries.Margin = new System.Windows.Forms.Padding(2);
+            this.checkDisableQueries.Name = "checkDisableQueries";
+            this.checkDisableQueries.Size = new System.Drawing.Size(127, 20);
+            this.checkDisableQueries.TabIndex = 71;
+            this.checkDisableQueries.Text = "Disable Queries";
+            this.checkDisableQueries.UseVisualStyleBackColor = true;
             // 
             // FormServers
             // 
@@ -1965,5 +1978,6 @@
         private System.Windows.Forms.CheckBox checkDisableLogging;
         private System.Windows.Forms.CheckBox checkChgHost;
         private System.Windows.Forms.CheckBox checkEchoMessage;
+        private System.Windows.Forms.CheckBox checkDisableQueries;
     }
 }

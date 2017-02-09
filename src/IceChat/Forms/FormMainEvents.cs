@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1474,26 +1474,45 @@ namespace IceChat
         /// <param name="message">Query Action Message</param>
         private void OnQueryAction(IRCConnection connection, string nick, string host, string message, string timeStamp)
         {
-            if (!mainChannelBar.WindowExists(connection, nick, IceTabPage.WindowType.Query) && iceChatOptions.DisableQueries)
+            if (!mainChannelBar.WindowExists(connection, nick, IceTabPage.WindowType.Query) && (iceChatOptions.DisableQueries || connection.ServerSetting.DisableQueries))
                 return;
 
-            if (!mainChannelBar.WindowExists(connection, nick, IceTabPage.WindowType.Query))
-                AddWindow(connection, nick, IceTabPage.WindowType.Query);
+            string msg = GetMessageFormat("Private Action");
+            msg = msg.Replace("$nick", nick).Replace("$host", host);
+            msg = msg.Replace("$message", message);
 
+            PluginArgs args = new PluginArgs(null, "", nick, host, msg);
+            args.Extra = message;
+            args.Connection = connection;
+
+            if (!mainChannelBar.WindowExists(connection, nick, IceTabPage.WindowType.Query))
+            {
+                foreach (Plugin p in loadedPlugins)
+                {
+                    IceChatPlugin ipc = p as IceChatPlugin;
+                    if (ipc != null)
+                    {
+                        if (ipc.plugin.Enabled == true)
+                            args = ipc.plugin.QueryMessage(args);
+                    }
+                }
+
+                if (args.DisableEvent)
+                    return;
+
+                AddWindow(connection, nick, IceTabPage.WindowType.Query);
+            
+            }
+                
             IceTabPage t = GetWindow(connection, nick, IceTabPage.WindowType.Query);
             if (t != null)
             {
-                string msg = GetMessageFormat("Private Action");
-                msg = msg.Replace("$nick", nick).Replace("$host", host);
-                msg = msg.Replace("$message", message);
                 bool disableEvents = false;
                 bool playedSound = false;
     
                 if (loadedPlugins.Count > 0)
-                {
-                    PluginArgs args = new PluginArgs(t.TextWindow, "", nick, host, msg);
-                    args.Extra = message;
-                    args.Connection = connection;
+                {                    
+                    args.TextWindow = t.TextWindow;
 
                     foreach (Plugin p in loadedPlugins)
                     {
@@ -1590,22 +1609,43 @@ namespace IceChat
         /// <param name="message">Query Message</param>
         private void OnQueryMessage(IRCConnection connection, string nick, string host, string message, string timeStamp)
         {
-            if (!mainChannelBar.WindowExists(connection, nick, IceTabPage.WindowType.Query) && iceChatOptions.DisableQueries)
+            if (!mainChannelBar.WindowExists(connection, nick, IceTabPage.WindowType.Query) && (iceChatOptions.DisableQueries || connection.ServerSetting.DisableQueries))
                 return;
 
+            string msg = GetMessageFormat("Private Message");
+            msg = msg.Replace("$nick", nick).Replace("$host", host);
+            msg = msg.Replace("$message", message);
+
+            PluginArgs args = new PluginArgs(null, "", nick, host, msg);
+            args.Extra = message;
+            args.Connection = connection;
+
             if (!mainChannelBar.WindowExists(connection, nick, IceTabPage.WindowType.Query))
+            {
+                // check if we want to disable the event
+                foreach (Plugin p in loadedPlugins)
+                {
+                    IceChatPlugin ipc = p as IceChatPlugin;
+                    if (ipc != null)
+                    {
+                        if (ipc.plugin.Enabled == true)
+                            args = ipc.plugin.QueryMessage(args);
+                    }
+                }
+
+                if (args.DisableEvent)
+                    return;
+
+
                 AddWindow(connection, nick, IceTabPage.WindowType.Query);
+            }
+             
 
             IceTabPage t = GetWindow(connection, nick, IceTabPage.WindowType.Query);
             if (t != null)
             {
-                string msg = GetMessageFormat("Private Message");
-                msg = msg.Replace("$nick", nick).Replace("$host", host);
-                msg = msg.Replace("$message", message);
-
-                PluginArgs args = new PluginArgs(t.TextWindow, "", nick, host, msg);
-                args.Extra = message;
-                args.Connection = connection;
+                
+                args.TextWindow = t.TextWindow;
 
                 if (t.TabCaption != nick)
                     t.TabCaption = nick;

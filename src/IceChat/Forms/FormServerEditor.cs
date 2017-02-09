@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -259,6 +259,7 @@ namespace IceChat
             this.checkIgnore.Checked = serverSetting.IgnoreListEnable;
             this.checkBuddyList.Checked = serverSetting.BuddyListEnable;
             this.checkDisableLogging.Checked = serverSetting.DisableLogging;
+            this.checkDisableQueries.Checked = serverSetting.DisableQueries;
 
             this.checkModeI.Checked = serverSetting.SetModeI;
             this.checkMOTD.Checked = serverSetting.ShowMOTD;
@@ -447,6 +448,7 @@ namespace IceChat
             serverSetting.IgnoreListEnable = checkIgnore.Checked;
             serverSetting.BuddyListEnable = checkBuddyList.Checked;
             serverSetting.DisableLogging = checkDisableLogging.Checked;
+            serverSetting.DisableQueries = checkDisableQueries.Checked;
 
             serverSetting.AutoJoinChannels = new string[listChannel.Items.Count];
             for (int i = 0; i < listChannel.Items.Count; i++)

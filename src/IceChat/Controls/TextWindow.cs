@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -146,6 +146,10 @@ namespace IceChat
         private StringFormat stringFormat;
 
         private Bitmap _buffer = null;
+        
+        // add a tooltip, for the topic only
+        private ToolTip toolTip = null;
+        private string toolTipString;
 
         //private Object thisLock = new Object();
 
@@ -796,6 +800,15 @@ namespace IceChat
 
                 if (e.X == _startX && e.Y == _startY) return;
 
+                if (_singleLine && _totaldisplayLines > 1)
+                {
+                    
+                    if (toolTip.GetToolTip(this) != toolTipString)
+                        toolTip.SetToolTip(this, toolTipString);
+                    
+                }
+
+
                 if (e.Button == MouseButtons.Left)
                 {
                     //get the current character the mouse is over. 
@@ -1442,6 +1455,17 @@ namespace IceChat
             set
             {
                 _singleLine = value;
+                
+                if (_singleLine)
+                {
+                    toolTip = new ToolTip();
+                    toolTip.ShowAlways = true;
+                    toolTip.AutoPopDelay = 10000;
+                    toolTip.InitialDelay = 2000;
+                    toolTip.ForeColor = System.Drawing.SystemColors.InfoText;
+                    toolTip.BackColor = System.Drawing.SystemColors.Info;
+                }
+
                 Invalidate();
             }
         }
@@ -1785,9 +1809,6 @@ namespace IceChat
 
                 ++_unreadMarker;
 
-                //newLine = newLine.Replace("\n", " ");
-                //newLine = newLine.Replace("&#x3;", colorChar.ToString());
-                
                 string timeStamp = "";
                 if (newTimeStamp.Length > 0)
                 {
@@ -1805,6 +1826,9 @@ namespace IceChat
                     _logClass.WriteLogFile(timeStamp + newLine);
 
                 _totalLines++;
+
+                if (_singleLine)
+                    toolTipString = ReplaceColorCodes(newLine).Replace(urlStart.ToString(),"").Replace(urlEnd.ToString(),"");
 
                 newLine = ParseEmoticons(newLine);
 
@@ -1825,7 +1849,7 @@ namespace IceChat
                     
                     //System.Diagnostics.Stopwatch s = new System.Diagnostics.Stopwatch();
                     //s.Start();
-                    //System.Diagnostics.Debug.WriteLine("reset lines start");
+                    System.Diagnostics.Debug.WriteLine("reset lines start");
 
                     Array.Copy(_textLines, lineDiff, _textLines, 0, _totalLines - lineDiff);
 
@@ -2694,6 +2718,12 @@ namespace IceChat
                         font = null;
                         font = new Font(this.Font.Name, this.Font.Size, FontStyle.Regular);
                     }
+                    else
+                    {                        
+                        if (!isInSelection)
+                            curForeColor = FormMain.Instance.IceChatColors.HyperlinkColor;
+                    }
+
                     if (line.Length > 0)
                     {
                         do                        

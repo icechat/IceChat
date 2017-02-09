@@ -190,7 +190,7 @@ namespace IceChat
         private bool _extendedJoin = false;
         private bool _awayNotify = false;
         private bool _accountNotify = false;
-        
+
         private string _fullName = "The Chat Cool People Use";
         private string _quitMessage = "$randquit";
         private string _identName = "IceChat9";
@@ -429,6 +429,11 @@ namespace IceChat
         [XmlElement("EchoMessage")]
         public bool EchoMessage
         { get; set; }
+
+        [XmlElement("DisableQueries")]
+        public bool DisableQueries
+        { get; set; }
+
 
         //these are all temporary server settings, not saved to the XML file
 

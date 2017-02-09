@@ -52,6 +52,9 @@
             // 
             // textTextMatch
             // 
+            this.textTextMatch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.textTextMatch.Location = new System.Drawing.Point(13, 76);
             this.textTextMatch.Margin = new System.Windows.Forms.Padding(4);
             this.textTextMatch.Name = "textTextMatch";
@@ -80,6 +83,9 @@
             // 
             // textCommand
             // 
+            this.textCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.textCommand.Location = new System.Drawing.Point(12, 171);
             this.textCommand.Margin = new System.Windows.Forms.Padding(4);
             this.textCommand.Name = "textCommand";
@@ -117,6 +123,9 @@
             // 
             // textChannelMatch
             // 
+            this.textChannelMatch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.textChannelMatch.Location = new System.Drawing.Point(12, 123);
             this.textChannelMatch.Margin = new System.Windows.Forms.Padding(4);
             this.textChannelMatch.Name = "textChannelMatch";

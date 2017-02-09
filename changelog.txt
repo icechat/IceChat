@@ -1,3 +1,11 @@
+Build 9.14a Feb 8 2017
+* Added /loadpalette command to reload the color palette
+* Attempt a fix for URL's wrapping text, and applying text color
+* Add option to disable queries at the server level, extra settings for servers
+* Add ability for plugins to disable opening new queries
+* Change different update locations/builds for .Net 4.5
+
+
 Build 9.14 October 8 2016
 * When changing your nickname, and you have a nickserv password, it will re-auth with nickserv if it asks for a password again
 * Remove the tooltip for the status bar

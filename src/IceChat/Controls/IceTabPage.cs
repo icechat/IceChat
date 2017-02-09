@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -217,7 +217,6 @@ namespace IceChat
 
             _tabCaption = sCaption;
             this.WindowStyle = windowType;
-            //this.inputPanel.Visible = false;
             this.Name = "IceTabPage";
 
             nicks = new Hashtable();
@@ -511,9 +510,6 @@ namespace IceChat
         internal void UpdateNick(string nick, string mode, bool addMode)
         {
             string justNick = nick;
-
-            //for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
-            //    justNick = justNick.Replace(connection.ServerSetting.StatusModes[1][i].ToString(), string.Empty);
 
             for (int i = 0; i < connection.ServerSetting.StatusModes[1].Length; i++)
                 if (justNick.StartsWith(connection.ServerSetting.StatusModes[1][i].ToString()))

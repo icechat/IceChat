@@ -65,7 +65,7 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Simple Script Plugin";
             m_Author = "Snerf";
-            m_Version = "1.2";
+            m_Version = "1.21";
         }
 
         public override void Dispose()

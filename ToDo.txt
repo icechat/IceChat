@@ -1,15 +1,14 @@
 ﻿To Do List for IceChat 9
 
+Add a Theme setting which uses all Windows Theme settings for colors
 Add color options for Toolbar Buttons and Sidebar Buttons
 If a whois returns no nick ., send a whowas command
 Closing windows sometimes does not have the active window as truly active
 Add identifiers for $ram, $cpu and $gpu
 Add an option for Line Spacing (will need to wait for text window rewrite)
-Remember window order when opening channels (in progress)(group by order in server tree)
 allow /colortab command to also change the background color
 add option to auto pin new channels
 Add splitter for topic to change height
-Add tooltip for topic
 Add Server Wide No Color Mode
 Add 5 second delay for AutoPerform option
 Add to Nick HiLite plugin, allow different colors for different User Modes (!&@+)
@@ -39,11 +38,13 @@ Add news item on loadup, for showing IceChat news
 
 
 Pending/In Progress:
+Remember window order when opening channels (in progress)(group by order in server tree)
 Create ice7 theme importer (in progress)
 IceChat 7 settings imported, check for / before popup menu commands (check this)
 Plugin Update System (started in 9.08)
 Add internal tracking of closing last channel, and add a /rejoin command to rejoin last closed channel
 Build a way to backup XML files for config files automatically (in progress)
+Add tooltip for topic (9.15)
 
 
 

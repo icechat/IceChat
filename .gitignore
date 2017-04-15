@@ -4,6 +4,7 @@
 
 src/IceChat/bin/*
 src/IceChat/obj/*
+src/IceChat/.vs/*
 src/IceChat/IPlugin/obj/*
 src/IceChat/IPlugin/bin/*
 src/IceChat/IRCConnection/obj/*

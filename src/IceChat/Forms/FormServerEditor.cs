@@ -1054,5 +1054,10 @@ namespace IceChat
             listChannel.Focus();
         }
 
+        private void buttonClearIgnores_Click(object sender, EventArgs e)
+        {
+            listIgnore.Items.Clear();
+        }
+
     }
 }

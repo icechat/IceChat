@@ -155,27 +155,13 @@ namespace IceChat
             this.toolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.splitterBottom = new System.Windows.Forms.Splitter();
-            this.nickListTab = new System.Windows.Forms.TabPage();
-            this.nickPanel = new System.Windows.Forms.Panel();
-            this.nickList = new NickList(this);
 
-            this.serverListTab = new System.Windows.Forms.TabPage();
-            this.serverPanel = new System.Windows.Forms.Panel();
-            this.serverTree = new ServerTree(this);
-
-            this.panelDockRight = new IceDockPanel(this);
-            this.panelDockLeft = new IceDockPanel(this);
-            this.mainChannelBar = new ChannelBar(this);
-
-            this.mainTabControl = new IceChat.IceTabControl();
             this.inputPanel = new IceChat.InputPanel();
             this.menuMainStrip.SuspendLayout();
             this.contextMenuNotify.SuspendLayout();
             this.toolStripMain.SuspendLayout();
             this.contextMenuToolBar.SuspendLayout();
             this.statusStripMain.SuspendLayout();
-            this.nickListTab.SuspendLayout();
-            this.serverListTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuMainStrip
@@ -1182,95 +1168,6 @@ namespace IceChat
             this.splitterBottom.TabStop = false;
             this.splitterBottom.Visible = false;
             // 
-            // nickListTab
-            // 
-            this.nickListTab.Controls.Add(this.nickPanel);
-            this.nickListTab.Location = new System.Drawing.Point(4, 4);
-            this.nickListTab.Name = "nickListTab";
-            this.nickListTab.Size = new System.Drawing.Size(192, 454);
-            this.nickListTab.TabIndex = 0;
-            this.nickListTab.Text = "Nick List";
-            // 
-            // nickList
-            // 
-            this.nickList.AccessibleDescription = "List of Nick Names";
-            this.nickList.AccessibleRole = System.Windows.Forms.AccessibleRole.Pane;
-            this.nickList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nickList.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nickList.Header = "";
-            this.nickList.Location = new System.Drawing.Point(0, 0);
-            this.nickList.Margin = new System.Windows.Forms.Padding(4);
-            this.nickList.Name = "nickList";
-            this.nickList.Size = new System.Drawing.Size(192, 454);
-            this.nickList.TabIndex = 0;
-            // 
-            // nickPanel
-            // 
-            this.nickPanel.Controls.Add(this.nickList);
-            this.nickPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nickPanel.Location = new System.Drawing.Point(0, 0);
-            this.nickPanel.Name = "nickPanel";
-            this.nickPanel.Size = new System.Drawing.Size(192, 454);
-            this.nickPanel.TabIndex = 0;
-            // 
-            // serverListTab
-            // 
-            this.serverListTab.Controls.Add(this.serverPanel);
-            this.serverListTab.Location = new System.Drawing.Point(24, 4);
-            this.serverListTab.Name = "serverListTab";
-            this.serverListTab.Size = new System.Drawing.Size(172, 454);
-            this.serverListTab.TabIndex = 0;
-            this.serverListTab.Text = "Favorite Servers";
-            // 
-            // serverPanel
-            // 
-            this.serverPanel.Controls.Add(this.serverTree);
-            this.serverPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.serverPanel.Location = new System.Drawing.Point(0, 0);
-            this.serverPanel.Name = "serverPanel";
-            this.serverPanel.Size = new System.Drawing.Size(172, 454);
-            this.serverPanel.TabIndex = 0;
-            // 
-            // serverTree
-            // 
-            this.serverTree.AccessibleDescription = "List of servers and channels associated with them once connected";
-            this.serverTree.AccessibleRole = System.Windows.Forms.AccessibleRole.Pane;
-            this.serverTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.serverTree.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.serverTree.Location = new System.Drawing.Point(0, 0);
-            this.serverTree.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.serverTree.Name = "serverTree";
-            this.serverTree.Size = new System.Drawing.Size(172, 454);
-            this.serverTree.TabIndex = 0;
-            // 
-            // mainTabControl
-            // 
-            this.mainTabControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainTabControl.Location = new System.Drawing.Point(3, 63);
-            this.mainTabControl.Margin = new System.Windows.Forms.Padding(0);
-            this.mainTabControl.Name = "mainTabControl";
-            this.mainTabControl.Size = new System.Drawing.Size(918, 462);
-            this.mainTabControl.TabIndex = 20;
-            // 
-            // panelDockRight
-            // 
-            this.panelDockRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelDockRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panelDockRight.Location = new System.Drawing.Point(704, 94);
-            this.panelDockRight.Name = "panelDockRight";
-            this.panelDockRight.Size = new System.Drawing.Size(220, 431);
-            this.panelDockRight.TabIndex = 14;
-            // 
-            // panelDockLeft
-            // 
-            this.panelDockLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelDockLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panelDockLeft.Location = new System.Drawing.Point(0, 94);
-            this.panelDockLeft.Name = "panelDockLeft";
-            this.panelDockLeft.Size = new System.Drawing.Size(200, 431);
-            this.panelDockLeft.TabIndex = 13;
-            // 
             // inputPanel
             // 
             this.inputPanel.AccessibleDescription = "";
@@ -1280,16 +1177,6 @@ namespace IceChat
             this.inputPanel.Name = "inputPanel";
             this.inputPanel.Size = new System.Drawing.Size(924, 26);
             this.inputPanel.TabIndex = 0;
-            // 
-            // mainChannelBar
-            // 
-            this.mainChannelBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.mainChannelBar.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainChannelBar.Location = new System.Drawing.Point(0, 63);
-            this.mainChannelBar.Name = "mainChannelBar";
-            this.mainChannelBar.SelectedIndex = -1;
-            this.mainChannelBar.Size = new System.Drawing.Size(924, 31);
-            this.mainChannelBar.TabIndex = 24;            // 
             //
             // FormMain
             // 
@@ -1299,14 +1186,10 @@ namespace IceChat
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(924, 576);
-            this.Controls.Add(this.mainTabControl);
             this.Controls.Add(this.splitterRight);
             this.Controls.Add(this.splitterLeft);
-            this.Controls.Add(this.panelDockRight);
-            this.Controls.Add(this.panelDockLeft);
             this.Controls.Add(this.inputPanel);
             this.Controls.Add(this.statusStripMain);
-            this.Controls.Add(this.mainChannelBar);
             this.Controls.Add(this.toolStripMain);
             this.Controls.Add(this.menuMainStrip);
             this.Controls.Add(this.splitterBottom);
@@ -1323,8 +1206,6 @@ namespace IceChat
             this.contextMenuToolBar.ResumeLayout(false);
             this.statusStripMain.ResumeLayout(false);
             this.statusStripMain.PerformLayout();
-            this.nickListTab.ResumeLayout(false);
-            this.serverListTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1375,7 +1256,6 @@ namespace IceChat
         private System.Windows.Forms.ToolStripMenuItem serverTreeImageMenu;
         private System.Windows.Forms.ToolStripMenuItem nickListImageRemoveMenu;
         private System.Windows.Forms.ToolStripMenuItem serverTreeImageRemoveMenu;
-
 
         internal System.Windows.Forms.Splitter splitterLeft;
         internal System.Windows.Forms.Splitter splitterRight;

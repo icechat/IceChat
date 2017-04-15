@@ -450,6 +450,17 @@ namespace IceChat
             
             if (e.Button == MouseButtons.Right && popupType.Length > 0)
             {
+
+                System.Diagnostics.Debug.WriteLine(_linkedWord);
+                // have a popup showing for links?
+                Regex re = new Regex(_wwwMatch);
+                MatchCollection matches = re.Matches(_linkedWord);
+                if (matches.Count > 0)
+                {
+                    System.Diagnostics.Debug.WriteLine("URL");
+
+                }
+
                 //show the popup menu
                 foreach (PopupMenuItem p in FormMain.Instance.IceChatPopupMenus.listPopups)
                 {

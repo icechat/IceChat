@@ -58,6 +58,7 @@
             this.labelServerName = new System.Windows.Forms.Label();
             this.labelNickName = new System.Windows.Forms.Label();
             this.tabPageExtra = new System.Windows.Forms.TabPage();
+            this.checkDisableQueries = new System.Windows.Forms.CheckBox();
             this.checkEchoMessage = new System.Windows.Forms.CheckBox();
             this.checkChgHost = new System.Windows.Forms.CheckBox();
             this.checkDisableLogging = new System.Windows.Forms.CheckBox();
@@ -102,6 +103,7 @@
             this.textAutoPerform = new System.Windows.Forms.TextBox();
             this.checkAutoPerform = new System.Windows.Forms.CheckBox();
             this.tabPageIgnore = new System.Windows.Forms.TabPage();
+            this.buttonClearIgnores = new System.Windows.Forms.Button();
             this.labelIgnoreNote = new System.Windows.Forms.Label();
             this.listIgnore = new System.Windows.Forms.ListView();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
@@ -171,7 +173,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkAdvancedSettings = new System.Windows.Forms.CheckBox();
             this.buttonDuplicateServer = new System.Windows.Forms.Button();
-            this.checkDisableQueries = new System.Windows.Forms.CheckBox();
             this.tabControlSettings.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.tabPageExtra.SuspendLayout();
@@ -548,6 +549,17 @@
             this.tabPageExtra.TabIndex = 3;
             this.tabPageExtra.Text = "Extra Settings";
             this.tabPageExtra.UseVisualStyleBackColor = true;
+            // 
+            // checkDisableQueries
+            // 
+            this.checkDisableQueries.AutoSize = true;
+            this.checkDisableQueries.Location = new System.Drawing.Point(465, 10);
+            this.checkDisableQueries.Margin = new System.Windows.Forms.Padding(2);
+            this.checkDisableQueries.Name = "checkDisableQueries";
+            this.checkDisableQueries.Size = new System.Drawing.Size(127, 20);
+            this.checkDisableQueries.TabIndex = 71;
+            this.checkDisableQueries.Text = "Disable Queries";
+            this.checkDisableQueries.UseVisualStyleBackColor = true;
             // 
             // checkEchoMessage
             // 
@@ -1021,6 +1033,7 @@
             // 
             // tabPageIgnore
             // 
+            this.tabPageIgnore.Controls.Add(this.buttonClearIgnores);
             this.tabPageIgnore.Controls.Add(this.labelIgnoreNote);
             this.tabPageIgnore.Controls.Add(this.listIgnore);
             this.tabPageIgnore.Controls.Add(this.checkIgnore);
@@ -1037,9 +1050,20 @@
             this.tabPageIgnore.Text = "Ignore List";
             this.tabPageIgnore.UseVisualStyleBackColor = true;
             // 
+            // buttonClearIgnores
+            // 
+            this.buttonClearIgnores.Location = new System.Drawing.Point(351, 99);
+            this.buttonClearIgnores.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonClearIgnores.Name = "buttonClearIgnores";
+            this.buttonClearIgnores.Size = new System.Drawing.Size(70, 25);
+            this.buttonClearIgnores.TabIndex = 43;
+            this.buttonClearIgnores.Text = "Clear All";
+            this.buttonClearIgnores.UseVisualStyleBackColor = true;
+            this.buttonClearIgnores.Click += new System.EventHandler(this.buttonClearIgnores_Click);
+            // 
             // labelIgnoreNote
             // 
-            this.labelIgnoreNote.Location = new System.Drawing.Point(351, 104);
+            this.labelIgnoreNote.Location = new System.Drawing.Point(351, 144);
             this.labelIgnoreNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelIgnoreNote.Name = "labelIgnoreNote";
             this.labelIgnoreNote.Size = new System.Drawing.Size(276, 50);
@@ -1774,17 +1798,6 @@
             this.buttonDuplicateServer.UseVisualStyleBackColor = true;
             this.buttonDuplicateServer.Click += new System.EventHandler(this.buttonDuplicateServer_Click);
             // 
-            // checkDisableQueries
-            // 
-            this.checkDisableQueries.AutoSize = true;
-            this.checkDisableQueries.Location = new System.Drawing.Point(465, 10);
-            this.checkDisableQueries.Margin = new System.Windows.Forms.Padding(2);
-            this.checkDisableQueries.Name = "checkDisableQueries";
-            this.checkDisableQueries.Size = new System.Drawing.Size(127, 20);
-            this.checkDisableQueries.TabIndex = 71;
-            this.checkDisableQueries.Text = "Disable Queries";
-            this.checkDisableQueries.UseVisualStyleBackColor = true;
-            // 
             // FormServers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1979,5 +1992,6 @@
         private System.Windows.Forms.CheckBox checkChgHost;
         private System.Windows.Forms.CheckBox checkEchoMessage;
         private System.Windows.Forms.CheckBox checkDisableQueries;
+        private System.Windows.Forms.Button buttonClearIgnores;
     }
 }

@@ -2131,8 +2131,6 @@ namespace IceChat
             {
                 if (!c.IsConnected)
                 {
-                    //switch to the Console
-                    //_parent.ChannelBar.SelectedIndex = 0;
                     c.ConnectSocket();
                 }
                 return;
@@ -2231,7 +2229,7 @@ namespace IceChat
 
             IRCConnection c = (IRCConnection)serverConnections[selectedServerID];
             {
-                if (c.IsConnected)
+                if (c != null && c.IsConnected)
                     _parent.ParseOutGoingCommand(c, "/autoperform");
                 return;
             }
@@ -2247,7 +2245,10 @@ namespace IceChat
             ServerSetting s = GetServerSetting(selectedServerID);
             if (s != null)
             {
-                System.Diagnostics.Process.Start(_parent.LogsFolder + System.IO.Path.DirectorySeparatorChar + s.ServerName);
+                if (Directory.Exists(_parent.LogsFolder + System.IO.Path.DirectorySeparatorChar + s.ServerName))
+                    System.Diagnostics.Process.Start(_parent.LogsFolder + System.IO.Path.DirectorySeparatorChar + s.ServerName);
+                else
+                    MessageBox.Show("Log folder not found", "IceChat");
                 return;
             }
         }

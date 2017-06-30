@@ -1421,6 +1421,28 @@ namespace IceChat
         internal void SetListColors()
         {
             this.panelButtons.BackColor = IrcColor.colors[_parent.IceChatColors.TabbarBackColor];
+
+            this.buttonOp.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonVoice.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonBan.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonInfo.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            
+            this.buttonHop.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonQuery.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonKick.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonWhois.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+
+            
+            this.buttonOp.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonVoice.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonBan.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonInfo.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            
+            this.buttonHop.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonQuery.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonKick.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonWhois.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+
         }
 
         /// <summary>

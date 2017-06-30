@@ -154,6 +154,16 @@ namespace IceChat
             });
         }
 
+        internal void AddChannelQuiet(string host, string bannedBy)
+        {
+            this.UIThread(delegate
+            {
+                ListViewItem lvi = new ListViewItem(host);
+                lvi.SubItems.Add(bannedBy);
+                listViewQuiet.Items.Add(lvi);
+            });
+        }
+
         internal void ChannelTopicSetBy(string nick, string date)
         {
             this.UIThread(delegate

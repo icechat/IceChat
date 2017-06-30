@@ -91,6 +91,17 @@ namespace IceChat
             this.listChannels.ForeColor = IrcColor.colors[_parent.IceChatColors.ChannelListForeColor];
 
             this.panelButtons.BackColor = IrcColor.colors[_parent.IceChatColors.TabbarBackColor];
+
+            this.buttonAdd.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonEdit.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonJoin.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonRemove.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+
+            this.buttonAdd.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonEdit.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonJoin.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonRemove.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+
         }
 
         /// <summary>

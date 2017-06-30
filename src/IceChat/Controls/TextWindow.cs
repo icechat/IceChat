@@ -64,6 +64,9 @@ namespace IceChat
         private const char wrapLine = '\xFF0D';
         private const char endLine = '\xFF0F';
 
+        private const char brokeChar = '\x84';
+
+
         private DisplayLine[] _displayLines;
         private TextLine[] _textLines;
 
@@ -2743,6 +2746,11 @@ namespace IceChat
                                                         
                             switch (ch[0])
                             {
+                                case (char)132:
+                                case (char)133:
+                                    System.Diagnostics.Debug.WriteLine("132 char");
+                                    break;
+                                
                                 case wrapLine:
                                     break;
                                 case endLine:

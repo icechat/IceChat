@@ -121,6 +121,7 @@ namespace IceChat
     public delegate bool ChannelInfoWindowExistsDelegate(IRCConnection connection, string channel);
     public delegate void ChannelInfoAddBanDelegate(IRCConnection connection, string channel, string host, string bannedBy);
     public delegate void ChannelInfoAddExceptionDelegate(IRCConnection connection, string channel, string host, string bannedBy);
+    public delegate void ChannelInfoAddQuietDelegate(IRCConnection connection, string channel, string host, string bannedBy);
     public delegate void ChannelInfoTopicSetDelegate(IRCConnection connection, string channel, string nick, string time);
 
     public delegate void RefreshServerTreeDelegate(IRCConnection connection);

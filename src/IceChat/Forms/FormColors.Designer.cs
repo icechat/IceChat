@@ -264,6 +264,10 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.labelCurrent = new System.Windows.Forms.Label();
             this.buttonApply = new System.Windows.Forms.Button();
+            this.labelSidePanelButtons = new System.Windows.Forms.Label();
+            this.pictureSidePanelButtons = new System.Windows.Forms.PictureBox();
+            this.pictureSidePanelForeButtons = new System.Windows.Forms.PictureBox();
+            this.labelSidePanelForeButtons = new System.Windows.Forms.Label();
             this.tabControlColors.SuspendLayout();
             this.tabPageMessages.SuspendLayout();
             this.tabMessages.SuspendLayout();
@@ -316,6 +320,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureChannel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConsole)).BeginInit();
             this.tabPageThemes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelButtons)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelForeButtons)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlColors
@@ -1252,6 +1258,10 @@
             // tabPageBackGround
             // 
             this.tabPageBackGround.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageBackGround.Controls.Add(this.pictureSidePanelForeButtons);
+            this.tabPageBackGround.Controls.Add(this.labelSidePanelForeButtons);
+            this.tabPageBackGround.Controls.Add(this.pictureSidePanelButtons);
+            this.tabPageBackGround.Controls.Add(this.labelSidePanelButtons);
             this.tabPageBackGround.Controls.Add(this.pictureHyperlink);
             this.tabPageBackGround.Controls.Add(this.labelHyperlink);
             this.tabPageBackGround.Controls.Add(this.pictureUnreadTextMarkerColor);
@@ -1704,9 +1714,9 @@
             this.labelBackgroundColorsWindowType.Location = new System.Drawing.Point(146, 2);
             this.labelBackgroundColorsWindowType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBackgroundColorsWindowType.Name = "labelBackgroundColorsWindowType";
-            this.labelBackgroundColorsWindowType.Size = new System.Drawing.Size(274, 16);
+            this.labelBackgroundColorsWindowType.Size = new System.Drawing.Size(187, 16);
             this.labelBackgroundColorsWindowType.TabIndex = 65;
-            this.labelBackgroundColorsWindowType.Text = "Background colors for Window Types";
+            this.labelBackgroundColorsWindowType.Text = "Other Background colors";
             // 
             // labelConsole
             // 
@@ -1885,6 +1895,50 @@
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
+            // labelSidePanelButtons
+            // 
+            this.labelSidePanelButtons.AutoSize = true;
+            this.labelSidePanelButtons.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelSidePanelButtons.Location = new System.Drawing.Point(257, 147);
+            this.labelSidePanelButtons.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelSidePanelButtons.Name = "labelSidePanelButtons";
+            this.labelSidePanelButtons.Size = new System.Drawing.Size(132, 16);
+            this.labelSidePanelButtons.TabIndex = 116;
+            this.labelSidePanelButtons.Text = "Side Panel Buttons";
+            // 
+            // pictureSidePanelButtons
+            // 
+            this.pictureSidePanelButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureSidePanelButtons.Location = new System.Drawing.Point(466, 147);
+            this.pictureSidePanelButtons.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureSidePanelButtons.Name = "pictureSidePanelButtons";
+            this.pictureSidePanelButtons.Size = new System.Drawing.Size(16, 16);
+            this.pictureSidePanelButtons.TabIndex = 117;
+            this.pictureSidePanelButtons.TabStop = false;
+            this.pictureSidePanelButtons.Tag = "Channel Owner";
+            // 
+            // pictureSidePanelForeButtons
+            // 
+            this.pictureSidePanelForeButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureSidePanelForeButtons.Location = new System.Drawing.Point(466, 295);
+            this.pictureSidePanelForeButtons.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureSidePanelForeButtons.Name = "pictureSidePanelForeButtons";
+            this.pictureSidePanelForeButtons.Size = new System.Drawing.Size(16, 16);
+            this.pictureSidePanelForeButtons.TabIndex = 119;
+            this.pictureSidePanelForeButtons.TabStop = false;
+            this.pictureSidePanelForeButtons.Tag = "Channel Owner";
+            // 
+            // labelSidePanelForeButtons
+            // 
+            this.labelSidePanelForeButtons.AutoSize = true;
+            this.labelSidePanelForeButtons.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelSidePanelForeButtons.Location = new System.Drawing.Point(257, 295);
+            this.labelSidePanelForeButtons.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelSidePanelForeButtons.Name = "labelSidePanelForeButtons";
+            this.labelSidePanelForeButtons.Size = new System.Drawing.Size(132, 16);
+            this.labelSidePanelForeButtons.TabIndex = 118;
+            this.labelSidePanelForeButtons.Text = "Side Panel Buttons";
+            // 
             // FormColors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1962,6 +2016,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureConsole)).EndInit();
             this.tabPageThemes.ResumeLayout(false);
             this.tabPageThemes.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelButtons)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelForeButtons)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1994,6 +2050,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureConsoleTabHighlite;
-        private System.Windows.Forms.Label labelConsoleTabHighlite;     
+        private System.Windows.Forms.Label labelConsoleTabHighlite;
+        private System.Windows.Forms.PictureBox pictureSidePanelButtons;
+        private System.Windows.Forms.Label labelSidePanelButtons;
+        private System.Windows.Forms.PictureBox pictureSidePanelForeButtons;
+        private System.Windows.Forms.Label labelSidePanelForeButtons;     
     }
 }

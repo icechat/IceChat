@@ -811,14 +811,13 @@ namespace IceChat
             return true;
         }
         */
-
+        
         /// <summary>
         /// Function for sending RAW IRC Data to the Server Connection
         /// </summary>
         /// <param name="data"></param>
         public void SendData(string data)
         {
-
             try
             {
 
@@ -881,10 +880,12 @@ namespace IceChat
                                 System.Diagnostics.Debug.WriteLine("SSL Connection Error");
                                 ForceDisconnect();
                             }
-                            catch (NotSupportedException)
+                            catch (NotSupportedException nse)
                             {
                                 //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
-                                //System.Diagnostics.Debug.WriteLine("nse SSL:" + nse.Message);
+                                
+                                // nse SSL:The BeginWrite method cannot be called when another write operation is pending.
+                                System.Diagnostics.Debug.WriteLine("nse SSL:" + sslStream.CanWrite + ":" + m_PendingWriteSSL  + ":" + nse.Message);
                                 sendBuffer.Enqueue(data);
                             }
                             catch (Exception ex)
@@ -931,8 +932,9 @@ namespace IceChat
                                 disconnectError = true;
                                 ForceDisconnect();
                             }
-                            catch (NotSupportedException)
+                            catch (NotSupportedException nse)
                             {
+                                System.Diagnostics.Debug.WriteLine("NSE Send Data Error:" + nse.StackTrace); 
                                 //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
                                 sendBuffer.Enqueue(data);
                             }
@@ -1018,8 +1020,9 @@ namespace IceChat
                                 disconnectError = true;
                                 ForceDisconnect();
                             }
-                            catch (NotSupportedException)
+                            catch (NotSupportedException nse)
                             {
+                                System.Diagnostics.Debug.WriteLine("SendD:" + nse.StackTrace);
                                 //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
                                 //sendBuffer.Enqueue(data);
                             }
@@ -1059,8 +1062,9 @@ namespace IceChat
                                 disconnectError = true;
                                 ForceDisconnect();
                             }
-                            catch (NotSupportedException)
+                            catch (NotSupportedException nse)
                             {
+                                System.Diagnostics.Debug.WriteLine("SD:" + nse.StackTrace);
                                 //BeginWrite failed because of already trying to send, so add to the sendBuffer Queue
                                 //sendBuffer.Enqueue(data);
                             }
@@ -1099,7 +1103,6 @@ namespace IceChat
 
             try
             {
-                //int bytesSent = handler.EndSend(ar);
                 if (serverSetting.UseSSL)
                     sl.EndWrite(ar);
                 else
@@ -1330,6 +1333,13 @@ namespace IceChat
                             //byte[] bytes = Encoding.Default.GetBytes(readBuffer,0,bytesRead);
                             //System.Diagnostics.Debug.WriteLine(readBuffer.ToString());
 
+                            string newUTF = Encoding.UTF8.GetString(readBuffer, 0, bytesRead);
+
+                            
+                            System.Diagnostics.Debug.WriteLine(readBuffer.Length + ":" + bytesRead + ":" + charLen + " = " + strData.Length + ":" + newUTF.Length);
+
+
+                            //System.Diagnostics.Debug.WriteLine(newUTF.Length + "::" + strData.Length);
 
                             //this makes ? marks
                             //UTF8Encoding utf8 = new UTF8Encoding();

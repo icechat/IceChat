@@ -1950,6 +1950,19 @@ namespace IceChat
         internal void SetListColors()
         {
             this.panelButtons.BackColor = IrcColor.colors[_parent.IceChatColors.TabbarBackColor];
+
+
+            this.buttonConnect.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonDisconnect.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonEdit.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+            this.buttonAdd.BackColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsBackColor];
+
+
+            this.buttonConnect.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonDisconnect.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonEdit.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+            this.buttonAdd.ForeColor = IrcColor.colors[_parent.IceChatColors.SideBarButtonsForeColor];
+
         }
 
 

@@ -66,6 +66,7 @@
             // buttonWhois
             // 
             this.buttonWhois.AccessibleDescription = "Perform whois on user";
+            this.buttonWhois.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonWhois.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonWhois.Location = new System.Drawing.Point(147, 28);
             this.buttonWhois.Margin = new System.Windows.Forms.Padding(2);
@@ -80,6 +81,7 @@
             // buttonKick
             // 
             this.buttonKick.AccessibleDescription = "Kick a user";
+            this.buttonKick.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonKick.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonKick.Location = new System.Drawing.Point(99, 28);
             this.buttonKick.Margin = new System.Windows.Forms.Padding(2);
@@ -94,6 +96,7 @@
             // buttonQuery
             // 
             this.buttonQuery.AccessibleDescription = "Open a private message window with user";
+            this.buttonQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonQuery.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonQuery.Location = new System.Drawing.Point(51, 28);
             this.buttonQuery.Margin = new System.Windows.Forms.Padding(2);
@@ -108,6 +111,7 @@
             // buttonHop
             // 
             this.buttonHop.AccessibleDescription = "Give/Take Half Operator Status";
+            this.buttonHop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHop.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonHop.Location = new System.Drawing.Point(2, 28);
             this.buttonHop.Margin = new System.Windows.Forms.Padding(2);
@@ -122,6 +126,7 @@
             // buttonInfo
             // 
             this.buttonInfo.AccessibleDescription = "Show user information";
+            this.buttonInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonInfo.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInfo.Location = new System.Drawing.Point(147, 2);
             this.buttonInfo.Margin = new System.Windows.Forms.Padding(2);
@@ -136,6 +141,7 @@
             // buttonBan
             // 
             this.buttonBan.AccessibleDescription = "Ban a user";
+            this.buttonBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBan.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBan.Location = new System.Drawing.Point(99, 2);
             this.buttonBan.Margin = new System.Windows.Forms.Padding(2);
@@ -150,6 +156,7 @@
             // buttonVoice
             // 
             this.buttonVoice.AccessibleDescription = "Give/Take Voice Status";
+            this.buttonVoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonVoice.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonVoice.Location = new System.Drawing.Point(51, 2);
             this.buttonVoice.Margin = new System.Windows.Forms.Padding(2);
@@ -164,6 +171,8 @@
             // buttonOp
             // 
             this.buttonOp.AccessibleDescription = "Give/Take Operator Status";
+            this.buttonOp.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonOp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOp.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonOp.Location = new System.Drawing.Point(2, 2);
             this.buttonOp.Margin = new System.Windows.Forms.Padding(2);
@@ -172,7 +181,7 @@
             this.buttonOp.TabIndex = 0;
             this.buttonOp.TabStop = false;
             this.buttonOp.Text = "Op";
-            this.buttonOp.UseVisualStyleBackColor = true;
+            this.buttonOp.UseVisualStyleBackColor = false;
             this.buttonOp.Click += new System.EventHandler(this.buttonOp_Click);
             // 
             // vScrollBar
@@ -193,13 +202,13 @@
             this.contextMenuNickList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.opToolStripMenuItem});
             this.contextMenuNickList.Name = "contextMenuNickList";
-            this.contextMenuNickList.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuNickList.Size = new System.Drawing.Size(91, 26);
             // 
             // opToolStripMenuItem
             // 
             this.opToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.opToolStripMenuItem.Name = "opToolStripMenuItem";
-            this.opToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.opToolStripMenuItem.Size = new System.Drawing.Size(90, 22);
             this.opToolStripMenuItem.Text = "Op";
             // 
             // NickList

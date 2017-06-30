@@ -275,6 +275,18 @@ namespace IceChat
             }
         }
 
+        private void OnChannelInfoAddQuiet(IRCConnection connection, string channel, string host, string bannedBy)
+        {
+            IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
+            if (t != null)
+            {
+                if (t.HasChannelInfo)
+                {
+                    t.ChannelInfoForm.AddChannelQuiet(host, bannedBy);
+                }
+            }
+        }
+
         private void OnChannelInfoAddBan(IRCConnection connection, string channel, string host, string bannedBy)
         {
             IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
@@ -2702,9 +2714,9 @@ namespace IceChat
                                     {
                                         User u = t.GetNick(t.Connection.ServerSetting.CurrentNickName);
                                         if (u != null)
-                                            StatusText(u.ToString() + " in channel " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network + away);
+                                            StatusText(u.ToString() + " in private chat with " + t.TabCaption + " {" + t.Connection.ServerSetting.RealServerName + "}" + network + away);
                                         else
-                                            StatusText(t.Connection.ServerSetting.CurrentNickName + " in channel " + t.TabCaption + " [" + t.ChannelModes + "] {" + t.Connection.ServerSetting.RealServerName + "}" + network + away);
+                                            StatusText(t.Connection.ServerSetting.CurrentNickName + " in private chat with " + t.TabCaption + " {" + t.Connection.ServerSetting.RealServerName + "}" + network + away);
                                     }
                                 }
 

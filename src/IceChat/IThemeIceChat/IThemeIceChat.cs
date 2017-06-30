@@ -66,6 +66,9 @@ namespace IceChatTheme
         private int _statusbarFore = 1;
         private int _unreadTextMarker = 4;
 
+        private int _sideBarButtons = 67;
+        private int _sideBarForeButtons = 1;
+
         private bool _randomizeNickColors = false;
         private bool _newMessageEnabled = true;
         private bool _channelJoinEnabled = true;
@@ -194,6 +197,12 @@ namespace IceChatTheme
 
         public virtual int StatusbarForeColor
         { get { return _statusbarFore; } set { _statusbarFore = value; } }
+
+        public virtual int SideBarButtonsBackColor
+        { get { return _sideBarButtons; } set { _sideBarButtons = value; } }
+
+        public virtual int SideBarButtonsForeColor
+        { get { return _sideBarForeButtons; } set { _sideBarForeButtons = value; } }
 
         public virtual int ChannelOwnerColor
         { get { return _channelOwnerColor; } set { _channelOwnerColor = value; } }

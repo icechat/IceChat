@@ -114,6 +114,7 @@ namespace IceChat
         public event ChannelInfoWindowExistsDelegate ChannelInfoWindowExists;
         public event ChannelInfoAddBanDelegate ChannelInfoAddBan;
         public event ChannelInfoAddExceptionDelegate ChannelInfoAddException;
+        public event ChannelInfoAddQuietDelegate ChannelInfoAddQuiet;
         public event ChannelInfoTopicSetDelegate ChannelInfoTopicSet;
 
         public event UserInfoWindowExistsDelegate UserInfoWindowExists;
@@ -265,10 +266,6 @@ namespace IceChat
                         case "004":
                             ServerMessage(this, JoinString(ircData, 3, false), serverTimeValue);
                             //<server> <version> <usermode> <chanmode> <chanmode params> <usermode params> <servermode> <servermode params>
-
-                            //System.Diagnostics.Debug.WriteLine("004:" + ircData.Length);
-                            //8 == dioswkgxRXInP biklmnopstvrDcCNuMT bklov
-                            
                             string chanModes = "";
                             switch (ircData.Length)
                             {
@@ -283,9 +280,7 @@ namespace IceChat
                                     foreach(char c in ircData[7])
                                         chanModes = chanModes.Replace(c.ToString(),"");
 
-                                    serverSetting.ChannelModeNoParam = chanModes;
-                                    //System.Diagnostics.Debug.WriteLine(chanMode);
-                                    
+                                    serverSetting.ChannelModeNoParam = chanModes;                                    
                                     break;
 
                             }
@@ -324,7 +319,6 @@ namespace IceChat
                                 {
                                     if (ircData[i].Substring(0, 10) == "CHANMODES=")
                                     {
-                                        //CHANMODES=b,k,l,imnpstrDducCNMT
                                         /*
                                         CHANMODES=A,B,C,D
 
@@ -873,6 +867,30 @@ namespace IceChat
                             break;
                         case "368": //end of channel ban list
                             break;
+                        
+                        case "728": // quiet mode for channel (+q)
+                            channel = ircData[3];
+                            //3 is channel
+                            //5 is host
+                            //6 quieted by
+                            //7 quieted time
+                            check = ChannelInfoWindowExists(this, channel);
+                            if (check)
+                            {
+                                DateTime date4 = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(Convert.ToDouble(ircData[7]));
+                                ChannelInfoAddQuiet(this, channel, ircData[5], ircData[6] + " on " + date4.ToShortTimeString() + " " + date4.ToShortDateString());
+                            }
+                            else
+                            {
+                                ServerMessage(this, JoinString(ircData, 3, false), serverTimeValue);
+                            }
+                            break;        
+                        case "729": // eend of quiet mode for channel (+q)
+                            check = ChannelInfoWindowExists(this, ircData[3]);
+                            if (!check)
+                                ServerMessage(this, JoinString(ircData, 3, false), serverTimeValue);                            
+                            break;
+                        
                         case "377":
                             ServerMessage(this, JoinString(ircData, 6, true), serverTimeValue);
                             break;

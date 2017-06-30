@@ -66,6 +66,7 @@
             // 
             // buttonRemove
             // 
+            this.buttonRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRemove.Font = new System.Drawing.Font("Verdana", 6.75F);
             this.buttonRemove.Location = new System.Drawing.Point(53, 28);
             this.buttonRemove.Name = "buttonRemove";
@@ -77,6 +78,7 @@
             // 
             // buttonEdit
             // 
+            this.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEdit.Font = new System.Drawing.Font("Verdana", 6.75F);
             this.buttonEdit.Location = new System.Drawing.Point(2, 28);
             this.buttonEdit.Name = "buttonEdit";
@@ -88,6 +90,7 @@
             // 
             // buttonJoin
             // 
+            this.buttonJoin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonJoin.Font = new System.Drawing.Font("Verdana", 6.75F);
             this.buttonJoin.Location = new System.Drawing.Point(53, 2);
             this.buttonJoin.Name = "buttonJoin";
@@ -99,6 +102,7 @@
             // 
             // buttonAdd
             // 
+            this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAdd.Font = new System.Drawing.Font("Verdana", 6.75F);
             this.buttonAdd.Location = new System.Drawing.Point(2, 2);
             this.buttonAdd.Name = "buttonAdd";

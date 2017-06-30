@@ -124,6 +124,9 @@ namespace IceChat
             this.pictureStatusFore.Click += new EventHandler(OnColor_Click);
             this.pictureHyperlink.Click += new EventHandler(OnColor_Click);
 
+            this.pictureSidePanelButtons.Click += new EventHandler(OnColor_Click);
+            this.pictureSidePanelForeButtons.Click += new EventHandler(OnColor_Click);
+
             this.iceChatColors = IceChatColors;
 
             UpdateColorSettings();
@@ -1230,6 +1233,12 @@ namespace IceChat
             this.pictureStatusBar.BackColor = IrcColor.colors[iceChatColors.StatusbarBackColor];
             this.pictureStatusBar.Tag = iceChatColors.StatusbarBackColor;
 
+            this.pictureSidePanelButtons.BackColor = IrcColor.colors[iceChatColors.SideBarButtonsBackColor];
+            this.pictureSidePanelButtons.Tag = iceChatColors.SideBarButtonsBackColor;
+            
+            this.pictureSidePanelForeButtons.BackColor = IrcColor.colors[iceChatColors.SideBarButtonsForeColor];
+            this.pictureSidePanelForeButtons.Tag = iceChatColors.SideBarButtonsForeColor;
+
             this.pictureStatusFore.BackColor = IrcColor.colors[iceChatColors.StatusbarForeColor];
             this.pictureStatusFore.Tag = iceChatColors.StatusbarForeColor;
 
@@ -1293,6 +1302,8 @@ namespace IceChat
             iceChatColors.StatusbarBackColor = (int)pictureStatusBar.Tag;
             iceChatColors.StatusbarForeColor = (int)pictureStatusFore.Tag;
 
+            iceChatColors.SideBarButtonsBackColor = (int)pictureSidePanelButtons.Tag;
+            iceChatColors.SideBarButtonsForeColor = (int)pictureSidePanelForeButtons.Tag;
 
             iceChatColors.RandomizeNickColors = checkRandomNickColors.Checked;
         }
@@ -1701,6 +1712,10 @@ namespace IceChat
                         iceChatColors.ServerQuitColorChange = theme.ServerQuitColorChange;
                         iceChatColors.StatusbarBackColor = theme.StatusbarBackColor;
                         iceChatColors.StatusbarForeColor = theme.StatusbarForeColor;
+
+                        iceChatColors.SideBarButtonsBackColor = theme.SideBarButtonsBackColor;
+                        iceChatColors.SideBarButtonsForeColor = theme.SideBarButtonsForeColor;
+                        
                         iceChatColors.TabBarChannelJoin = theme.TabBarChannelJoin;
                         iceChatColors.TabBarChannelPart = theme.TabBarChannelPart;
                         iceChatColors.TabBarCurrent = theme.TabBarCurrent;
@@ -1867,6 +1882,10 @@ namespace IceChat
                         ic.ServerListBackColor = Convert.ToInt32(colors[54]);
                         ic.StatusbarBackColor = Convert.ToInt32(colors[90]);
                         ic.StatusbarForeColor = Convert.ToInt32(colors[89]);
+
+                        ic.StatusbarBackColor = Convert.ToInt32(colors[67]);
+                        ic.SideBarButtonsForeColor = Convert.ToInt32(colors[1]);
+
                         ic.TabBarChannelJoin = Convert.ToInt32(colors[30]);
                         ic.TabBarChannelPart = Convert.ToInt32(colors[31]);
                         ic.TabBarCurrent = Convert.ToInt32(colors[28]);

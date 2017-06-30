@@ -56,11 +56,16 @@
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonApply = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.listViewQuiet = new System.Windows.Forms.ListView();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.contextMenuStripBans.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -71,6 +76,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -340,6 +346,43 @@
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.listViewQuiet);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(437, 310);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Quiet List";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // listViewQuiet
+            // 
+            this.listViewQuiet.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewQuiet.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6});
+            this.listViewQuiet.Location = new System.Drawing.Point(8, 6);
+            this.listViewQuiet.MultiSelect = false;
+            this.listViewQuiet.Name = "listViewQuiet";
+            this.listViewQuiet.Size = new System.Drawing.Size(419, 266);
+            this.listViewQuiet.TabIndex = 2;
+            this.listViewQuiet.UseCompatibleStateImageBehavior = false;
+            this.listViewQuiet.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Exception Host";
+            this.columnHeader5.Width = 191;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Added By";
+            this.columnHeader6.Width = 400;
+            // 
             // FormChannelInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -364,6 +407,7 @@
             this.contextMenuStripBans.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -398,5 +442,9 @@
         private System.Windows.Forms.Button buttonRemoveException;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripBans;
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.ListView listViewQuiet;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
     }
 }

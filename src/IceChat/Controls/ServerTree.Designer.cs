@@ -122,6 +122,7 @@
             // 
             this.buttonAdd.AccessibleDescription = "Add a new server";
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAdd.Font = new System.Drawing.Font("Verdana", 6.75F);
             this.buttonAdd.Location = new System.Drawing.Point(86, 28);
             this.buttonAdd.Margin = new System.Windows.Forms.Padding(2);
@@ -137,6 +138,7 @@
             // 
             this.buttonEdit.AccessibleDescription = "Edit selected server settings";
             this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEdit.Font = new System.Drawing.Font("Verdana", 6.75F);
             this.buttonEdit.Location = new System.Drawing.Point(86, 2);
             this.buttonEdit.Margin = new System.Windows.Forms.Padding(2);
@@ -151,6 +153,7 @@
             // buttonDisconnect
             // 
             this.buttonDisconnect.AccessibleDescription = "Disconnect selected server";
+            this.buttonDisconnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDisconnect.Font = new System.Drawing.Font("Verdana", 6.75F);
             this.buttonDisconnect.Location = new System.Drawing.Point(2, 28);
             this.buttonDisconnect.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -165,6 +168,7 @@
             // buttonConnect
             // 
             this.buttonConnect.AccessibleDescription = "Connect to selected server";
+            this.buttonConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonConnect.Font = new System.Drawing.Font("Verdana", 6.75F);
             this.buttonConnect.Location = new System.Drawing.Point(2, 2);
             this.buttonConnect.Margin = new System.Windows.Forms.Padding(2);
@@ -651,14 +655,14 @@
             // toolStripMenuClearDebug
             // 
             this.toolStripMenuClearDebug.Name = "toolStripMenuClearDebug";
-            this.toolStripMenuClearDebug.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuClearDebug.Size = new System.Drawing.Size(150, 22);
             this.toolStripMenuClearDebug.Text = "Clear Window";
             this.toolStripMenuClearDebug.Click += new System.EventHandler(this.toolStripMenuClearDebug_Click);
             // 
             // toolStripMenuCloseDebug
             // 
             this.toolStripMenuCloseDebug.Name = "toolStripMenuCloseDebug";
-            this.toolStripMenuCloseDebug.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuCloseDebug.Size = new System.Drawing.Size(150, 22);
             this.toolStripMenuCloseDebug.Text = "Close Window";
             this.toolStripMenuCloseDebug.Click += new System.EventHandler(this.toolStripMenuCloseDebug_Click);
             // 
@@ -667,12 +671,12 @@
             this.contextMenuDCCFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuCloseDCC});
             this.contextMenuDCCFiles.Name = "contextMenuWindow";
-            this.contextMenuDCCFiles.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuDCCFiles.Size = new System.Drawing.Size(151, 26);
             // 
             // toolStripMenuCloseDCC
             // 
             this.toolStripMenuCloseDCC.Name = "toolStripMenuCloseDCC";
-            this.toolStripMenuCloseDCC.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuCloseDCC.Size = new System.Drawing.Size(150, 22);
             this.toolStripMenuCloseDCC.Text = "Close Window";
             this.toolStripMenuCloseDCC.Click += new System.EventHandler(this.toolStripMenuCloseDCC_Click);
             // 

@@ -1,3 +1,12 @@
+Build 9.15a Jun 30 2017
+* Fix status text after using /away commands in a query
+* Fix channel search to not be case sensitive
+* Added Quiet Mode List to the Channel Information window Tabs
+* Fix a character glitch in display that causes text to overwrite
+* IceChat now detects if there is a Time Zone changes, and adjusts TimeStamp accordingly
+* Added Color settings for Side Panel Buttons, under Other Colors
+
+
 Build 9.15 Apr 15 2017
 * Fix MainForm errors loading in Visual Studio design view
 

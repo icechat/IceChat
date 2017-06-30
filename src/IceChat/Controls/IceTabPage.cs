@@ -2219,9 +2219,9 @@ namespace IceChat
                 
                 foreach (ListViewItem item in listItems)
                 {
-                    if (item.Text.Contains(searchText.Text))
+                    if (item.Text.ToLower().Contains(searchText.Text.ToLower()))
                         channelList.Items.Add(item);        
-                    else if (item.SubItems[2].Text.Contains(searchText.Text))
+                    else if (item.SubItems[2].Text.ToLower().Contains(searchText.Text.ToLower()))
                         channelList.Items.Add(item);        
                 }
 

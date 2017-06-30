@@ -1,7 +1,9 @@
 ﻿To Do List for IceChat 9
 
+Change settings/color windows to a treeview instead of tabs
+Make Appx versions of IceChat 9
 Add a Theme setting which uses all Windows Theme settings for colors
-Add color options for Toolbar Buttons and Sidebar Buttons
+Add color options for Toolbar Buttons
 If a whois returns no nick ., send a whowas command
 Closing windows sometimes does not have the active window as truly active
 Add identifiers for $ram, $cpu and $gpu
@@ -47,7 +49,6 @@ Build a way to backup XML files for config files automatically (in progress)
 Add tooltip for topic (9.15)
 
 
-
 Completed:
 Add an option to disable the Splash Screen, or with -nosplash command line
 add a command to change the text color of a tab (/colortab) good for highlights
@@ -65,7 +66,8 @@ Add Logging Feature to Enable/Disable Logging per server
 Allow /dns command to reverse DNS an IP (done)
 Allow change of colors for the Channel List (uses server list defaults)
 Add ability to sort nick list by nicknames only not status
-
+Add Mode q (Quiet Mode) beside Exception List in Channel Popup Window
+Added color setting for Side Panel Buttons
 
 Not Going to Implement:
 Typing in the nicklist, does a search, bring you to those nicks. (typing in letter brings up first match)

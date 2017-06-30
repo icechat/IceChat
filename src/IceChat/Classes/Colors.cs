@@ -89,6 +89,8 @@ namespace IceChat
         private int _textSelectFore = 0;
         private int _textSelectBack = 2;
 
+        private int _sideBarButtons = 67;
+        private int _sideBarForeButtons = 1;
 
         private bool _randomizeNickColors = false;
         private bool _newMessageEnabled = true;
@@ -149,6 +151,14 @@ namespace IceChat
         [XmlElement("StatusbarBackColor")]
         public int StatusbarBackColor
         { get { return _statusbarBack; } set { _statusbarBack = value; } }
+
+        [XmlElement("SideBarButtonsBackColor")]
+        public int SideBarButtonsBackColor
+        { get { return _sideBarButtons; } set { _sideBarButtons = value; } }
+
+        [XmlElement("SideBarButtonsForeColor")]
+        public int SideBarButtonsForeColor
+        { get { return _sideBarForeButtons; } set { _sideBarForeButtons = value; } }
 
         [XmlElement("StatusbarForeColor")]
         public int StatusbarForeColor

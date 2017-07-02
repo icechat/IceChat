@@ -107,6 +107,7 @@
             this.labelIgnoreNote = new System.Windows.Forms.Label();
             this.listIgnore = new System.Windows.Forms.ListView();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.checkIgnore = new System.Windows.Forms.CheckBox();
             this.textIgnore = new System.Windows.Forms.TextBox();
             this.labelNickHost = new System.Windows.Forms.Label();
@@ -1074,7 +1075,8 @@
             // 
             this.listIgnore.CheckBoxes = true;
             this.listIgnore.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3});
+            this.columnHeader3,
+            this.columnHeader5});
             this.listIgnore.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listIgnore.Location = new System.Drawing.Point(5, 31);
             this.listIgnore.Margin = new System.Windows.Forms.Padding(2);
@@ -1089,6 +1091,11 @@
             // 
             this.columnHeader3.Text = "Nick / Host";
             this.columnHeader3.Width = 339;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "IgnoreType";
+            this.columnHeader5.Width = 0;
             // 
             // checkIgnore
             // 
@@ -1993,5 +2000,6 @@
         private System.Windows.Forms.CheckBox checkEchoMessage;
         private System.Windows.Forms.CheckBox checkDisableQueries;
         private System.Windows.Forms.Button buttonClearIgnores;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }

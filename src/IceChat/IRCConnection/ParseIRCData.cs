@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1001,7 +1001,9 @@ namespace IceChat
                             channel = ircData[2];
                             msg = JoinString(ircData, 3, true);
                             
-                            if (CheckIgnoreList(nick, host) == true) return;
+                            // is this for a channel, or a nick?
+                            
+                            //if (CheckIgnoreList(nick, host, IgnoreListType.Channel) == true) return;
 
                             if (channel.ToLower() == serverSetting.CurrentNickName.ToLower())
                             {
@@ -1015,6 +1017,8 @@ namespace IceChat
                                     switch (msg.Split(' ')[0].ToUpper())
                                     {
                                         case "ACTION":
+                                            if (CheckIgnoreList(nick, host, IgnoreListType.Private) == true) return;
+
                                             msg = msg.Substring(6);
                                             QueryAction(this, nick, host, msg, serverTimeValue);
                                             IALUserData(this, nick, host, "");
@@ -1028,12 +1032,17 @@ namespace IceChat
                                         case "CLIENTINFO":
                                         case "SOURCE":
                                         case "FINGER":
+                                            if (CheckIgnoreList(nick, host, IgnoreListType.Ctcp) == true) return; 
+
                                             CtcpMessage(this, nick, msg.Split(' ')[0].ToUpper(), msg.Substring(msg.IndexOf(" ") + 1), serverTimeValue);
                                             break;
                                         default:
                                             //check for DCC SEND, DCC CHAT, DCC ACCEPT, DCC RESUME
                                             if (msg.ToUpper().StartsWith("DCC SEND"))
                                             {
+
+                                                if (CheckIgnoreList(nick, host, IgnoreListType.DCC) == true) return;                                                 
+                                                
                                                 msg = msg.Substring(8).Trim();
                                                 System.Diagnostics.Debug.WriteLine("PRIVMSG:" + msg);
 
@@ -1154,9 +1163,9 @@ namespace IceChat
                                                 
                                                 //ACCEPT:"epson13792.exe" 5010 68513792
                                                 //length:3
-
-                                                if (DCCFile != null)
-                                                    DCCFile(this, nick, host, dccData[dccData.Length - 2], "ip", "file", 0, uint.Parse(dccData[dccData.Length - 1]), true);
+                                                if (CheckIgnoreList(nick, host, IgnoreListType.DCC) == true) return;                                                 
+                                                
+                                                DCCFile(this, nick, host, dccData[dccData.Length - 2], "ip", "file", 0, uint.Parse(dccData[dccData.Length - 1]), true);
 
 
                                             }
@@ -1164,16 +1173,25 @@ namespace IceChat
                                             {
                                                 string ip = ircData[6];
                                                 string port = ircData[7].TrimEnd(new char[] { (char)1 });
-                                                if (DCCChat != null)
-                                                    DCCChat(this, nick, host, port, ip);
+
+
+                                                if (CheckIgnoreList(nick, host, IgnoreListType.DCC) == true) return;                                                 
+                                                
+                                                DCCChat(this, nick, host, port, ip);
                                             }
                                             else
+                                            {
+                                                if (CheckIgnoreList(nick, host, IgnoreListType.Notice) == true) return;
+                                                
                                                 UserNotice(this, nick, msg, serverTimeValue);
+                                            }
                                             break;
                                     }
                                 }
                                 else
                                 {
+                                    if (CheckIgnoreList(nick, host, IgnoreListType.Private) == true) return;
+                                    
                                     QueryMessage(this, nick, host, msg, serverTimeValue);
                                     IALUserData(this, nick, host, "");
                                 }
@@ -1191,6 +1209,8 @@ namespace IceChat
                                     switch (msg.Split(' ')[0].ToUpper())
                                     {
                                         case "ACTION":
+                                            if (CheckIgnoreList(nick, host, IgnoreListType.Channel) == true) return;
+
                                             msg = msg.Substring(7);
                                             ChannelAction(this, channel, nick, host, msg, serverTimeValue);
                                             IALUserData(this, nick, host, channel);
@@ -1203,17 +1223,23 @@ namespace IceChat
                                         case "SOURCE":
                                         case "FINGER":
                                             //we need to send a reply
+                                            if (CheckIgnoreList(nick, host, IgnoreListType.Ctcp) == true) return;
+
                                             CtcpMessage(this, nick, msg.Split(' ')[0].ToUpper(), msg, serverTimeValue);
                                             break;
                                         default:
                                             if (msg.ToUpper().StartsWith("ACTION "))
                                             {
                                                 msg = msg.Substring(7);
+                                                if (CheckIgnoreList(nick, host, IgnoreListType.Channel) == true) return;
+
                                                 ChannelAction(this, channel, nick, host, msg, serverTimeValue);
                                                 IALUserData(this, nick, host, channel);
                                             }
                                             else
                                             {
+                                                if (CheckIgnoreList(nick, host, IgnoreListType.Channel) == true) return;
+
                                                 ChannelNotice(this, nick, host, (char)32, channel, msg, serverTimeValue);
                                                 IALUserData(this, nick, host, channel);
                                             }
@@ -1222,8 +1248,9 @@ namespace IceChat
                                 }
                                 else
                                 {
-                                    if (ChannelMessage != null)
-                                        ChannelMessage(this, channel, nick, host, msg, serverTimeValue);
+                                    if (CheckIgnoreList(nick, host, IgnoreListType.Channel) == true) return;
+
+                                    ChannelMessage(this, channel, nick, host, msg, serverTimeValue);
                                     IALUserData(this, nick, host, channel);
 
                                 }
@@ -1231,6 +1258,9 @@ namespace IceChat
                             break;
                         case "INVITE":      //channel invite
                             channel = RemoveColon(ircData[3]);
+
+                            if (CheckIgnoreList(nick, host, IgnoreListType.Invite) == true) return;
+                            
                             ChannelInvite(this, channel, nick, host, serverTimeValue);
                             break;
                     
@@ -1241,7 +1271,7 @@ namespace IceChat
                                 ServerNotice(this, msg, serverTimeValue);
                             else
                             {
-                                if (CheckIgnoreList(nick, host)) return;
+                                if (CheckIgnoreList(nick, host, IgnoreListType.Notice)) return;
 
                                 if (initialLogon && serverSetting.StatusMSG == null && serverSetting.StatusModes != null)
                                 {
@@ -1284,22 +1314,20 @@ namespace IceChat
                                                     if (Int32.TryParse(msg, out result))
                                                     {
                                                         int diff = System.Environment.TickCount - Convert.ToInt32(msg);
-                                                        
-                                                        System.Diagnostics.Debug.WriteLine(msg + ":" + System.Environment.TickCount + ":" + diff);
-                                                        
+
                                                         msg = GetDurationMS(diff);
                                                     }
-                                                    if (CtcpReply != null)
-                                                        CtcpReply(this, nick, ctcp, msg, serverTimeValue);
+                                                    CtcpReply(this, nick, ctcp, msg, serverTimeValue);
                                                     break;
                                                 default:
-                                                    if (CtcpReply != null)
-                                                        CtcpReply(this, nick, ctcp, msg, serverTimeValue);
+                                                    CtcpReply(this, nick, ctcp, msg, serverTimeValue);
                                                     break;
                                             }
                                         }
                                         else
+                                        {
                                             UserNotice(this, nick, msg, serverTimeValue);
+                                        }
                                     }
                                 }
                             }
@@ -1784,26 +1812,57 @@ namespace IceChat
                 WriteErrorFile(this, "ParseData:" + data, e);
             }
         }
+
+        private bool CheckIgnoreType(IgnoreListType ignoreType, IgnoreListItem ignore)
+        {
+
+            // check if the ignore item has the same IgnoreType, or All
+            
+            if (ignore.IgnoreType.All)
+                return true;
+
+            if (ignoreType == IgnoreListType.Channel && ignore.IgnoreType.Channel == true)
+                return true;
+
+            if (ignoreType == IgnoreListType.Private && ignore.IgnoreType.Private == true)
+                return true;
+
+            if (ignoreType == IgnoreListType.Notice && ignore.IgnoreType.Notice == true)
+                return true;
+
+            if (ignoreType == IgnoreListType.Ctcp && ignore.IgnoreType.Ctcp == true)
+                return true;
+
+            if (ignoreType == IgnoreListType.DCC && ignore.IgnoreType.DCC == true)
+                return true;
+
+            if (ignoreType == IgnoreListType.Invite && ignore.IgnoreType.Invite == true)
+                return true;
+
+            return false;
+
+        }
         
-        private bool CheckIgnoreList(string nick, string host)
+        private bool CheckIgnoreList(string nick, string host, IgnoreListType ignoreType)
         {
             if (this.serverSetting.IgnoreListEnable == false) return false; //if ignore list is disabled, no match
-            if (this.serverSetting.IgnoreList.Length == 0) return false;    //if no items in list, no match
+            if (this.serverSetting.Ignores.Length == 0) return false;    //if no items in list, no match
 
             string onlyHost = host.Substring(host.IndexOf("@") + 1).ToLower();
 
-            foreach (string ignore in serverSetting.IgnoreList)
+            foreach (IgnoreListItem ignore in serverSetting.Ignores)
             {
-                if (!ignore.StartsWith(";"))    //check to make sure its not disabled
+
+                if (ignore.Enabled )    //check to make sure its not disabled
                 {
                     //check for an exact match
-                    if (nick.ToLower() == ignore.ToLower()) return true;
+                    if (nick.ToLower() == ignore.Item.ToLower()) return CheckIgnoreType(ignoreType, ignore);
 
                     //check if we are looking for a host match
-                    if (ignore.Contains("@"))
+                    if (ignore.Item.Contains("@"))
                     {
                         //do a host match
-                        string hostMatch = ignore.Substring(ignore.IndexOf("@") + 1).ToLower();
+                        string hostMatch = ignore.Item.Substring(ignore.Item.IndexOf("@") + 1).ToLower();
 
                         // get the nick
                         string nickMatch = "";
@@ -1812,20 +1871,20 @@ namespace IceChat
                         string identMatch = "";
                         string matchIdent = "";
 
-                        if (ignore.IndexOf("!") > -1)
+                        if (ignore.Item.IndexOf("!") > -1)
                         {
-                            identMatch = ignore.Substring(ignore.IndexOf("!") + 1).ToLower();
+                            identMatch = ignore.Item.Substring(ignore.Item.IndexOf("!") + 1).ToLower();
                             identMatch = identMatch.Substring(0, identMatch.IndexOf("@"));
 
-                            nickMatch = ignore.Substring(0, ignore.IndexOf("!")).ToLower();                        
+                            nickMatch = ignore.Item.Substring(0, ignore.Item.IndexOf("!")).ToLower();                        
                         }
                         
                         // exact match
-                        if (ignore.ToLower() == onlyHost.ToLower()) return true;
+                        if (ignore.Item.ToLower() == onlyHost.ToLower()) return CheckIgnoreType(ignoreType, ignore);
 
-                        if (hostMatch == onlyHost) return true;
+                        if (hostMatch == onlyHost) return CheckIgnoreType(ignoreType, ignore);
 
-                        if (ignore.IndexOf("!") > 0 && identMatch.Length > 0)
+                        if (ignore.Item.IndexOf("!") > 0 && identMatch.Length > 0)
                         {
                             // nick / ident match
                             if (host.IndexOf("@") > -1)
@@ -1837,12 +1896,12 @@ namespace IceChat
                         if (hostMatch.StartsWith("*") && Match(identMatch, matchIdent) == true && Match(nickMatch, nick.ToLower()))
                         {
                             //match the end
-                            if (onlyHost.EndsWith(hostMatch.TrimStart('*')) && hostMatch.TrimStart('*').Length > 0) return true;
+                            if (onlyHost.EndsWith(hostMatch.TrimStart('*')) && hostMatch.TrimStart('*').Length > 0) return CheckIgnoreType(ignoreType, ignore);
 
                             // check for a nick match / ident match
                             if (hostMatch == "*")
                             {
-                                return true;
+                                return CheckIgnoreType(ignoreType, ignore);
                             }
 
 
@@ -1850,8 +1909,8 @@ namespace IceChat
                         else if (hostMatch.EndsWith("*") && Match(identMatch, matchIdent) == true && Match(nickMatch, nick.ToLower()))
                         {
                             //match the start of the host
-                            
-                            if (onlyHost.StartsWith(hostMatch.TrimEnd('*')) && hostMatch.TrimEnd('*').Length > 0) return true;
+
+                            if (onlyHost.StartsWith(hostMatch.TrimEnd('*')) && hostMatch.TrimEnd('*').Length > 0) return CheckIgnoreType(ignoreType, ignore);
 
                         }
                         
@@ -1859,8 +1918,8 @@ namespace IceChat
                     else
                     {
                         //check for wildcard/regex match for nick name
-                        if (ignore.Contains("."))
-                            if (Regex.Match(nick, "^" + ignore, RegexOptions.IgnoreCase).Success) return true;
+                        if (ignore.Item.Contains("."))
+                            if (Regex.Match(nick, "^" + ignore, RegexOptions.IgnoreCase).Success) return CheckIgnoreType(ignoreType, ignore);
 
                     }
                 }

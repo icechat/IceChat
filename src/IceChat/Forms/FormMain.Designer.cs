@@ -135,8 +135,6 @@ namespace IceChat
             this.closeWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.resizeWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateAvailableToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitterLeft = new System.Windows.Forms.Splitter();
-            this.splitterRight = new System.Windows.Forms.Splitter();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuNotify = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -947,25 +945,6 @@ namespace IceChat
             this.updateAvailableToolStripMenuItem1.Visible = false;
             this.updateAvailableToolStripMenuItem1.Click += new EventHandler(updateAvailableToolStripMenuItem1_Click);
             // 
-            // splitterLeft
-            // 
-            this.splitterLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.splitterLeft.Location = new System.Drawing.Point(0, 63);
-            this.splitterLeft.Name = "splitterLeft";
-            this.splitterLeft.Size = new System.Drawing.Size(3, 462);
-            this.splitterLeft.TabIndex = 15;
-            this.splitterLeft.TabStop = false;
-            // 
-            // splitterRight
-            // 
-            this.splitterRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.splitterRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitterRight.Location = new System.Drawing.Point(921, 63);
-            this.splitterRight.Name = "splitterRight";
-            this.splitterRight.Size = new System.Drawing.Size(3, 462);
-            this.splitterRight.TabIndex = 16;
-            this.splitterRight.TabStop = false;
-            // 
             // notifyIcon
             // 
             this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
@@ -1159,7 +1138,6 @@ namespace IceChat
             // 
             // splitterBottom
             // 
-            this.splitterBottom.BackColor = System.Drawing.Color.Red;
             this.splitterBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.splitterBottom.Location = new System.Drawing.Point(0, 573);
             this.splitterBottom.Name = "splitterBottom";
@@ -1186,13 +1164,14 @@ namespace IceChat
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(924, 576);
-            this.Controls.Add(this.splitterRight);
-            this.Controls.Add(this.splitterLeft);
+            
+           
             this.Controls.Add(this.inputPanel);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.toolStripMain);
             this.Controls.Add(this.menuMainStrip);
             this.Controls.Add(this.splitterBottom);
+
             this.MainMenuStrip = this.menuMainStrip;
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "FormMain";

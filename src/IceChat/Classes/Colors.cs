@@ -91,6 +91,7 @@ namespace IceChat
 
         private int _sideBarButtons = 67;
         private int _sideBarForeButtons = 1;
+        private int _sideBarSplitter = 71;
 
         private bool _randomizeNickColors = false;
         private bool _newMessageEnabled = true;
@@ -159,6 +160,10 @@ namespace IceChat
         [XmlElement("SideBarButtonsForeColor")]
         public int SideBarButtonsForeColor
         { get { return _sideBarForeButtons; } set { _sideBarForeButtons = value; } }
+
+        [XmlElement("SideBarSplitter")]
+        public int SideBarSplitter
+        { get { return _sideBarSplitter; } set { _sideBarSplitter = value; } }
 
         [XmlElement("StatusbarForeColor")]
         public int StatusbarForeColor

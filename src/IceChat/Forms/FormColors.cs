@@ -126,6 +126,7 @@ namespace IceChat
 
             this.pictureSidePanelButtons.Click += new EventHandler(OnColor_Click);
             this.pictureSidePanelForeButtons.Click += new EventHandler(OnColor_Click);
+            this.pictureSidePanelSplitter.Click += new EventHandler(OnColor_Click);
 
             this.iceChatColors = IceChatColors;
 
@@ -1235,9 +1236,12 @@ namespace IceChat
 
             this.pictureSidePanelButtons.BackColor = IrcColor.colors[iceChatColors.SideBarButtonsBackColor];
             this.pictureSidePanelButtons.Tag = iceChatColors.SideBarButtonsBackColor;
-            
+
             this.pictureSidePanelForeButtons.BackColor = IrcColor.colors[iceChatColors.SideBarButtonsForeColor];
             this.pictureSidePanelForeButtons.Tag = iceChatColors.SideBarButtonsForeColor;
+
+            this.pictureSidePanelSplitter.BackColor = IrcColor.colors[iceChatColors.SideBarSplitter];
+            this.pictureSidePanelSplitter.Tag = iceChatColors.SideBarSplitter;
 
             this.pictureStatusFore.BackColor = IrcColor.colors[iceChatColors.StatusbarForeColor];
             this.pictureStatusFore.Tag = iceChatColors.StatusbarForeColor;
@@ -1304,6 +1308,7 @@ namespace IceChat
 
             iceChatColors.SideBarButtonsBackColor = (int)pictureSidePanelButtons.Tag;
             iceChatColors.SideBarButtonsForeColor = (int)pictureSidePanelForeButtons.Tag;
+            iceChatColors.SideBarSplitter = (int)pictureSidePanelSplitter.Tag;
 
             iceChatColors.RandomizeNickColors = checkRandomNickColors.Checked;
         }

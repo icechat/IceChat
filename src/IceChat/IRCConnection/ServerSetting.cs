@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2016 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -170,7 +170,186 @@ namespace IceChat
         }
         */
     }
-    
+
+    public enum IgnoreListType
+    {
+        All = 0,
+        Channel = 1,
+        Private = 2,
+        Notice = 4,
+        Ctcp = 8,
+        DCC = 16,
+        Invite = 32
+    }
+
+    public class IgnoreType
+    {
+        public bool All;
+        public bool Channel;
+        public bool Private;
+        public bool Notice;
+        public bool Ctcp;
+        public bool DCC;
+        public bool Invite;
+
+        public IgnoreType() { }
+        
+        public IgnoreType(int val)
+        {
+            SetIgnore(val);
+        }
+
+        public void MergeIgnore(IgnoreType t)
+        {
+            if (t.All)
+            {
+                this.All = true;
+            }
+            else
+            {
+                this.All = false;
+
+                if (t.Channel)
+                    this.Channel = true;
+
+                if (t.Private)
+                    this.Private = true;
+
+                if (t.Notice)
+                    this.Notice = true;
+
+                if (t.Ctcp)
+                    this.Ctcp = true;
+
+                if (t.DCC)
+                    this.DCC = true;
+
+                if (t.Invite)
+                    this.Invite = true;
+            }
+        }
+
+        public void SetIgnore(int val)
+        {
+            // reset the values
+            if (val == 0)
+            {
+                All = true;
+            }
+            else
+            {
+                this.All = false;
+
+                if (val > 31)
+                {
+                    this.Invite = true;
+                    val -= 32;
+                }
+                else
+                {
+                    this.Invite = false;
+                }
+
+                if (val > 15)
+                {
+                    this.DCC = true;
+                    val -= 16;
+                }
+                else
+                {
+                    this.DCC = false;
+                }
+
+                if (val > 7)
+                {
+                    this.Ctcp = true;
+                    val -= 8;
+                }
+                else
+                {
+                    this.Ctcp = false;
+                }
+
+                if (val > 3)
+                {
+                    this.Notice = true;
+                    val -= 4;
+                }
+                else
+                {
+                    this.Notice = false;
+                }
+
+                if (val > 1)
+                {
+                    this.Private = true;
+                    val -= 2;
+                }
+                else
+                {
+                    this.Private = false;
+                }
+
+                if (val > 0)
+                {
+                    this.Channel = true;
+                    val -= 1;
+                }
+                else
+                {
+                    this.Channel = false;
+                }
+
+            }
+
+        }
+
+        public override string ToString()
+        {
+            // create a string to save to list 
+            int val = 0;
+
+            // All returns 0;
+            if (this.All == false)
+            {
+                if (this.Channel)
+                    val += 1;
+                if (this.Private)
+                    val += 2;
+                if (this.Notice)
+                    val += 4;
+                if (this.Ctcp)
+                    val += 8;
+                if (this.DCC)
+                    val += 16;
+                if (this.Invite)
+                    val += 32;
+            }
+
+            return val.ToString();
+        
+        }
+    }
+
+    public class IgnoreListItem
+    {
+        private IgnoreType _type = new IgnoreType();
+        
+        [XmlElement("Name")]
+        public string Item
+        { get; set; }
+
+        [XmlElement("Enabled")]
+        public bool Enabled
+        { get; set; }
+
+        [XmlElement("IgnoreType")]
+        public IgnoreType IgnoreType
+        { get { return this._type; } set { this._type = value; } }
+
+    }
+
+
     public class ServerSetting
     {
         //set the default values (only for specific settings)
@@ -305,13 +484,23 @@ namespace IceChat
         public bool DisableAwayMessages
         { get; set; }
 
+        [XmlArray("Ignores")]
+        [XmlArrayItem("Item")]
+        public IgnoreListItem[] Ignores
+        { get; set; }
+
         [XmlArray("IgnoreList")]
         [XmlArrayItem("Item")]
         public string[] IgnoreList
         { get; set; }
-
+        
         [XmlElement("IgnoreListEnable")]
         public bool IgnoreListEnable
+        { get; set; }
+
+        // have we updated to the newer ignore list??
+        [XmlElement("IgnoreListUpdated")]
+        public bool IgnoreListUpdated
         { get; set; }
 
         [XmlArray("BuddyList")]

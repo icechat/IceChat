@@ -1,9 +1,9 @@
 ﻿To Do List for IceChat 9
 
-Change settings/color windows to a treeview instead of tabs
 Make Appx versions of IceChat 9
 Add a Theme setting which uses all Windows Theme settings for colors
 Add color options for Toolbar Buttons
+Change settings/color windows to a treeview instead of tabs
 If a whois returns no nick ., send a whowas command
 Closing windows sometimes does not have the active window as truly active
 Add identifiers for $ram, $cpu and $gpu
@@ -43,13 +43,13 @@ Pending/In Progress:
 Remember window order when opening channels (in progress)(group by order in server tree)
 Create ice7 theme importer (in progress)
 IceChat 7 settings imported, check for / before popup menu commands (check this)
-Plugin Update System (started in 9.08)
-Add internal tracking of closing last channel, and add a /rejoin command to rejoin last closed channel
-Build a way to backup XML files for config files automatically (in progress)
+Build a way to backup XML files for config files automatically (in progress, servers,options,popups done)
 Add tooltip for topic (9.15)
 
 
 Completed:
+Plugin Update System
+Add internal tracking of closing last channel, and add a /rejoin command to rejoin last closed channel
 Add an option to disable the Splash Screen, or with -nosplash command line
 add a command to change the text color of a tab (/colortab) good for highlights
 Add option to not reload channel logs for specific channels (popup/added)
@@ -68,6 +68,8 @@ Allow change of colors for the Channel List (uses server list defaults)
 Add ability to sort nick list by nicknames only not status
 Add Mode q (Quiet Mode) beside Exception List in Channel Popup Window
 Added color setting for Side Panel Buttons
+Added color setting for Side Panel Splitter
+
 
 Not Going to Implement:
 Typing in the nicklist, does a search, bring you to those nicks. (typing in letter brings up first match)

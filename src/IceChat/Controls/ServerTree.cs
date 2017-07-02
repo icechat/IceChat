@@ -112,11 +112,51 @@ namespace IceChat
 
             //renumber the server ID's if needed
             int serverID = 1;
+
+            bool updateIgnoreList = false;
+            
             foreach (ServerSetting s in serversCollection.listServers)
             {
                 if (s.AltNickName == null)
                     s.AltNickName = s.NickName + "_";
                 
+
+                // have we updated to the new ignore list
+                if (s.IgnoreListUpdated == false)
+                {
+                    if (s.IgnoreList != null)
+                    {
+                        s.Ignores = new IgnoreListItem[s.IgnoreList.Length];
+                        
+                        int i = 0;
+                        
+                        foreach (string item in s.IgnoreList)
+                        {
+                            s.Ignores[i] = new IgnoreListItem();
+                            s.Ignores[i].IgnoreType = new IgnoreType();
+                            
+                            if (item.StartsWith(";")) {
+                                s.Ignores[i].Item = item.Substring(1);
+                                s.Ignores[i].Enabled = false;
+                            } else {
+                                s.Ignores[i].Item = item;
+                                s.Ignores[i].Enabled = true;
+                            }
+                            
+                            s.Ignores[i].IgnoreType.SetIgnore(0);
+                            
+                            i++;
+                        }
+                    }
+                    
+                    s.IgnoreListUpdated = true;
+                    s.IgnoreList = new string[0];
+
+
+                    updateIgnoreList = true;
+                }
+
+
                 s.IAL = new Hashtable();
                 s.ID = serverID;
                 serverID++;
@@ -132,6 +172,12 @@ namespace IceChat
             toolTip.BackColor = System.Drawing.SystemColors.Info;
 
             Invalidate();
+
+            // have we created the new ignore list?
+            if (updateIgnoreList)
+            {                
+                SaveServers(serversCollection);
+            }
             
         }
 
@@ -1868,7 +1914,7 @@ namespace IceChat
                         servers = (IceChatServers)deserializer.Deserialize(textReader);
                         textReader.Close();
                         textReader.Dispose();
-
+                        
                         _parent.loadErrors.Add("There was a problem with IceChatServer.xml, restored from backup");
 
                         File.Copy(backupFile, _parent.ServersFile, true);

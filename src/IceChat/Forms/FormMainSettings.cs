@@ -344,44 +344,6 @@ namespace IceChat
             return f;
         }
 
-        private void LoadOptions()
-        {
-            XmlTextReader textReader = null;
-            XmlSerializer deserializer = new XmlSerializer(typeof(IceChatOptions));
-
-            if (File.Exists(optionsFile))
-            {
-                
-                try
-                {
-                    textReader = new XmlTextReader(optionsFile);
-                    iceChatOptions = (IceChatOptions)deserializer.Deserialize(textReader);
-                    textReader.Close();
-                }
-                catch (Exception)
-                {
-                    textReader.Close();
-                    errorMessages.Add("There was a problem loading IceChatOptions.xml. Default options loaded");
-                    iceChatOptions = new IceChatOptions();
-                    SaveOptions();
-                }
-            }
-            else
-            {
-                //create default settings
-                iceChatOptions = new IceChatOptions();                
-                SaveOptions();
-            }
-        }
-
-        private void SaveOptions()
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(IceChatOptions));
-            TextWriter textWriter = new StreamWriter(optionsFile);
-            serializer.Serialize(textWriter, iceChatOptions);
-            textWriter.Close();
-            textWriter.Dispose();
-        }
 
         private void LoadMessageFormat()
         {
@@ -426,16 +388,20 @@ namespace IceChat
             if (File.Exists(channelSettingsFile))
             {
                 XmlTextReader textReader = null;
+                XmlSerializer deserializer = new XmlSerializer(typeof(ChannelSettings));
                 try
                 {
-                    XmlSerializer deserializer = new XmlSerializer(typeof(ChannelSettings));
                     textReader = new XmlTextReader(channelSettingsFile);
                     channelSettings = (ChannelSettings)deserializer.Deserialize(textReader);
                     textReader.Close();
                 }
                 catch (Exception)
                 {
-                    textReader.Close();
+                    if (textReader != null)
+                        textReader.Close();
+
+
+
                     errorMessages.Add("There was a problem loading ChannelSettings.xml. Default channel settings loaded");
                     channelSettings = new ChannelSettings();
                 }
@@ -460,16 +426,20 @@ namespace IceChat
             if (File.Exists(aliasesFile))
             {
                 XmlTextReader textReader = null;
+                XmlSerializer deserializer = new XmlSerializer(typeof(IceChatAliases));
+
                 try
                 {
-                    XmlSerializer deserializer = new XmlSerializer(typeof(IceChatAliases));
                     textReader = new XmlTextReader(aliasesFile);
                     iceChatAliases = (IceChatAliases)deserializer.Deserialize(textReader);
                     textReader.Close();
                 }
                 catch (Exception)
                 {
-                    textReader.Close();
+                    if (textReader != null)
+                        textReader.Close();
+
+
                     errorMessages.Add("There was a problem loading IceChatAliases.xml. Default aliases loaded");
                     iceChatAliases = new IceChatAliases();
                     SaveAliases();
@@ -496,16 +466,19 @@ namespace IceChat
             if (File.Exists(pluginsFile))
             {
                 XmlTextReader textReader = null;
+                XmlSerializer deserializer = new XmlSerializer(typeof(IceChatPluginFile));
                 try
                 {
-                    XmlSerializer deserializer = new XmlSerializer(typeof(IceChatPluginFile));
                     textReader = new XmlTextReader(pluginsFile);
                     iceChatPlugins = (IceChatPluginFile)deserializer.Deserialize(textReader);
                     textReader.Close();
                 }
                 catch (Exception)
                 {
-                    textReader.Close();
+                    if (textReader != null)
+                        textReader.Close();
+                    
+                    
                     errorMessages.Add("There was a problem loading IceChatPlugins.xml. No plugins loaded");
                     iceChatPlugins = new IceChatPluginFile();
                     SavePluginFiles();
@@ -568,24 +541,118 @@ namespace IceChat
             textWriter.Dispose();
         }
 
+        private void LoadOptions()
+        {
+            XmlTextReader textReader = null;
+            XmlSerializer deserializer = new XmlSerializer(typeof(IceChatOptions));
+
+            if (File.Exists(optionsFile))
+            {
+
+                try
+                {
+                    textReader = new XmlTextReader(optionsFile);
+                    iceChatOptions = (IceChatOptions)deserializer.Deserialize(textReader);
+                    textReader.Close();
+                }
+                catch (Exception)
+                {
+
+                    if (textReader != null)
+                        textReader.Close();
+
+                    try
+                    {
+                        // check if there is a backup file
+                        string backupFile = CurrentFolder + Path.DirectorySeparatorChar + "Backups" + Path.DirectorySeparatorChar + "IceChatOptions.xml";
+                        if (File.Exists(backupFile))
+                        {
+                            textReader = new XmlTextReader(backupFile);
+                            iceChatOptions = (IceChatOptions)deserializer.Deserialize(textReader);
+                            textReader.Close();
+
+                            loadErrors.Add("There was a problem with IceChatOptions.xml, restored from backup");
+
+                            File.Copy(backupFile, optionsFile, true);
+                        }
+                        else
+                        {
+                            errorMessages.Add("There was a problem loading IceChatOptions.xml. Default options loaded");
+
+                            iceChatOptions = new IceChatOptions();
+                            SaveOptions();
+                        }
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        errorMessages.Add("There was a problem loading IceChatOptions.xml, invalid backup. Default options loaded");
+
+                        iceChatOptions = new IceChatOptions();
+                        SaveOptions();
+                    }
+                }
+            }
+            else
+            {
+                //create default settings
+                iceChatOptions = new IceChatOptions();
+                SaveOptions();
+            }
+        }
+
+        private void SaveOptions()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(IceChatOptions));
+            TextWriter textWriter = new StreamWriter(optionsFile);
+            serializer.Serialize(textWriter, iceChatOptions);
+            textWriter.Close();
+            textWriter.Dispose();
+        }
+
         private void LoadPopups()
         {
             if (File.Exists(popupsFile))
             {
                 XmlTextReader textReader = null;
+                XmlSerializer deserializer = new XmlSerializer(typeof(IceChatPopupMenus));
+
                 try
-                {
-                    XmlSerializer deserializer = new XmlSerializer(typeof(IceChatPopupMenus));
+                {                
                     textReader = new XmlTextReader(popupsFile);
                     iceChatPopups = (IceChatPopupMenus)deserializer.Deserialize(textReader);
                     textReader.Close();
                 }
                 catch (Exception)
                 {
-                    textReader.Close();
-                    errorMessages.Add("There was a problem loading IceChatPopups.xml. No popup menus loaded");
-                    iceChatPopups = new IceChatPopupMenus();
+                    if (textReader != null)
+                        textReader.Close();
 
+                    try
+                    {
+                        string backupFile = CurrentFolder + Path.DirectorySeparatorChar + "Backups" + Path.DirectorySeparatorChar + "IceChatPopups.xml";
+                        if (File.Exists(backupFile))
+                        {
+                            textReader = new XmlTextReader(backupFile);
+                            iceChatPopups = (IceChatPopupMenus)deserializer.Deserialize(textReader);
+                            textReader.Close();
+
+                            loadErrors.Add("There was a problem with IceChatPopups.xml, restored from backup");
+
+                            File.Copy(backupFile, popupsFile, true);
+                        }
+                        else
+                        {
+                            errorMessages.Add("There was a problem loading IceChatPopups.xml. No popup menus loaded");
+                            iceChatPopups = new IceChatPopupMenus();
+                        }
+
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        errorMessages.Add("There was a problem loading IceChatPopups.xml. No backup to restore");
+                        iceChatPopups = new IceChatPopupMenus();
+
+                    }
                 }
             }
             else
@@ -607,19 +674,29 @@ namespace IceChat
             if (File.Exists(fontsFile))
             {
                 XmlTextReader textReader = null;
+                XmlSerializer deserializer = new XmlSerializer(typeof(IceChatFontSetting));
+
                 try
                 {
-                    XmlSerializer deserializer = new XmlSerializer(typeof(IceChatFontSetting));
+                
                     textReader = new XmlTextReader(fontsFile);
                     iceChatFonts = (IceChatFontSetting)deserializer.Deserialize(textReader);
                     textReader.Close();
+
                     if (iceChatFonts.FontSettings.Length < 9)
                         LoadDefaultFontSettings();
                 }
                 catch (Exception)
                 {
-                    textReader.Close();
+                    if (textReader != null)
+                        textReader.Close();
+
+
+
                     errorMessages.Add("There was a problem loading IceChatFonts.xml. Default font settings loaded");
+                    // if we have a backup, use this instead
+
+
                     iceChatFonts = new IceChatFontSetting();
                     LoadDefaultFontSettings();
                 }
@@ -855,6 +932,9 @@ namespace IceChat
                 {
                     textReader.Close();
                     errorMessages.Add("There was a problem loading IceChatColors.xml. Default colors loaded");
+                    // if we have a backup, use this instead
+                    
+                    
                     iceChatColors = new IceChatColors();
                 }
             }
@@ -887,6 +967,9 @@ namespace IceChat
                 {
                     textReader.Close();
                     errorMessages.Add("There was a problem loading IceChatSounds.xml. Default sounds loaded");
+                    // if we have a backup, use this instead
+
+
                     iceChatSounds = new IceChatSounds();
                     iceChatSounds.AddDefaultSounds();
                 }

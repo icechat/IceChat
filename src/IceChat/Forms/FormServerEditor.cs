@@ -336,18 +336,17 @@ namespace IceChat
                     textAutoPerform.AppendText(command.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()) + Environment.NewLine);
             }
 
-            if (serverSetting.IgnoreList != null)
+            if (serverSetting.Ignores != null)
             {
-                foreach (string ignore in serverSetting.IgnoreList)
+                foreach (IgnoreListItem ignore in serverSetting.Ignores)
                 {
-                    if (!ignore.StartsWith(";"))
-                    {
-                        ListViewItem lvi = new ListViewItem(ignore);
-                        lvi.Checked = true;
-                        listIgnore.Items.Add(lvi);
-                    }
-                    else
-                        listIgnore.Items.Add(ignore.Substring(1));
+                    ListViewItem lvi = new ListViewItem(ignore.Item);
+                    lvi.Checked = ignore.Enabled;
+                    
+                    lvi.SubItems.Add(ignore.IgnoreType.ToString() );
+
+                    listIgnore.Items.Add(lvi);
+
                 }
             }
 
@@ -469,13 +468,19 @@ namespace IceChat
                 }
             }
             
-            serverSetting.IgnoreList = new string[listIgnore.Items.Count];
+            // save the new ignore list
+            serverSetting.Ignores = new IgnoreListItem[listIgnore.Items.Count];
             for (int i = 0; i < listIgnore.Items.Count; i++)
             {
-                if (listIgnore.Items[i].Checked == false)
-                    serverSetting.IgnoreList[i] = ";" + listIgnore.Items[i].Text;
-                else
-                    serverSetting.IgnoreList[i] = listIgnore.Items[i].Text;
+                serverSetting.Ignores[i] = new IgnoreListItem();
+                serverSetting.Ignores[i].IgnoreType = new IgnoreType();
+
+                serverSetting.Ignores[i].Item = listIgnore.Items[i].Text;
+                serverSetting.Ignores[i].Enabled = listIgnore.Items[i].Checked;
+                
+                // Resave the Ignore Types                
+                serverSetting.Ignores[i].IgnoreType.SetIgnore( Convert.ToInt32 ( listIgnore.Items[i].SubItems[1].Text ) );
+
             }
 
             BuddyListItem[] oldList = serverSetting.BuddyList;
@@ -667,18 +672,10 @@ namespace IceChat
         private void textIgnore_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
-            {
+            {                
                 if (textIgnore.Text.Length > 0)
                 {
-                    ListViewItem lvi = new ListViewItem(textIgnore.Text);
-                    lvi.Checked = true;
-                    listIgnore.Items.Add(lvi);
-                    textIgnore.Text = "";
-                    textIgnore.Focus();
-
-                    if (listIgnore.Items.Count == 1)
-                        checkIgnore.Checked = true;
-
+                    buttonAddIgnore.PerformClick();
                 }
             }        
         }
@@ -689,15 +686,7 @@ namespace IceChat
             {
                 if (textBuddy.Text.Length > 0)
                 {
-                    ListViewItem lvi = new ListViewItem(textBuddy.Text);
-                    lvi.Checked = true;
-                    listBuddyList.Items.Add(lvi);
-                    textBuddy.Text = "";
-                    textBuddy.Focus();
-                    
-                    if (listBuddyList.Items.Count == 1)
-                        checkBuddyList.Checked = true;
-
+                    buttonAddBuddy.PerformClick();
                 }
             }
         }
@@ -778,8 +767,10 @@ namespace IceChat
                 dupe.ExtendedJoin = serverSetting.ExtendedJoin;
                 dupe.FullName = serverSetting.FullName;
                 dupe.IdentName = serverSetting.IdentName;
-                dupe.IgnoreList = serverSetting.IgnoreList;
+                //dupe.IgnoreList = serverSetting.IgnoreList;
+                dupe.Ignores = serverSetting.Ignores;
                 dupe.IgnoreListEnable = serverSetting.IgnoreListEnable;
+                dupe.IgnoreListUpdated = serverSetting.IgnoreListUpdated;
                 dupe.IRCV3 = serverSetting.IRCV3;
                 dupe.NickName = serverSetting.NickName;
                 dupe.NickservPassword = serverSetting.NickservPassword;
@@ -819,9 +810,14 @@ namespace IceChat
         {
             if (textIgnore.Text.Length > 0)
             {
-                ListViewItem lvi = new ListViewItem(textIgnore.Text);
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = textIgnore.Text;
                 lvi.Checked = true;
+                
+                lvi.SubItems.Add("0");  // add default Ignore All
+
                 listIgnore.Items.Add(lvi);
+
                 textIgnore.Text = "";
                 textIgnore.Focus();
 
@@ -927,7 +923,7 @@ namespace IceChat
                     //tor client found
                     //get the folder
                     string f = System.IO.Path.GetDirectoryName(p.Modules[0].FileName);
-                    System.Diagnostics.Debug.WriteLine(f);
+                    //System.Diagnostics.Debug.WriteLine(f);
                     if (f.Length > 0)
                     {
                         //f = Directory.GetParent(f) + Path.DirectorySeparatorChar.ToString() + "Data" + Path.DirectorySeparatorChar.ToString() + "Vidalia";

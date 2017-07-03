@@ -208,6 +208,9 @@
     <Compile Include="Forms\FormMainEvents.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FormMainParser.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FormMainSettings.cs">
       <SubType>Form</SubType>
     </Compile>

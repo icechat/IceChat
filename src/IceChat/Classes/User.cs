@@ -38,6 +38,8 @@ namespace IceChat
         public bool Selected;
         public bool Away;
 
+        public bool CustomColor = false;
+
         public User(string nick, IRCConnection connection)
         {
             if (connection != null)

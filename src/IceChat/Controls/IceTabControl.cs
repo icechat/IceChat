@@ -73,34 +73,44 @@ namespace IceChat
 
         internal void BringFront(IceTabPage page)
         {
-            if (page.Parent != null)
+            try
             {
-                if (page.Parent.GetType() == typeof(FormWindow))
+                if (page.Parent != null)
                 {
-                    ((FormWindow)page.Parent).SelectTabActivate = false;
-                    page.Parent.BringToFront();
+                    if (page.Parent.GetType() == typeof(FormWindow))                    
+                    {
+                        ((FormWindow)page.Parent).SelectTabActivate = false;
+                        page.Parent.BringToFront();
+                    }
+                    else
+                    {
+                        // it is breaking here in Mono!                        
+                        //page.BringToFront();
+                        FormMain.Instance.TabMain.Controls.SetChildIndex(page, 0);
+                        
+                    }
                 }
                 else
                 {
                     page.BringToFront();
                 }
+
+                _selectedIndex = page.TabIndex;
+                
+                FormMain.Instance.ServerTree.Invalidate();
+                
+                _previousTab = _currentTab;
+                
+                if (_previousTab.WindowStyle != IceTabPage.WindowType.Console)
+                    if (_previousTab.TextWindow != null)
+                        _previousTab.TextWindow.resetUnreadMarker();
+                
+                _currentTab = page;
             }
-            else
+            catch (Exception ex)
             {
-                page.BringToFront();
+                FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection, "TabMain BringtoFront2 Error:", ex);
             }
-
-            _selectedIndex = page.TabIndex;
-            
-            FormMain.Instance.ServerTree.Invalidate();
-
-            _previousTab = _currentTab;
-           
-            if (_previousTab.WindowStyle != IceTabPage.WindowType.Console)
-               if (_previousTab.TextWindow != null)
-                   _previousTab.TextWindow.resetUnreadMarker();        
-
-            _currentTab = page;           
         }
         
         protected override void OnPaintBackground(PaintEventArgs e)

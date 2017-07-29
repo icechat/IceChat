@@ -262,23 +262,39 @@ namespace IceChat
 
         private void OnResize(object sender, EventArgs e)
         {
-            //change back to tabbed view if maximized
-            if (this.WindowState == FormWindowState.Maximized)
+            int howfar = 0;
+            try
             {
-                if (dockedControl.Detached == false)
+                howfar = 1;
+                //change back to tabbed view if maximized
+                if (this.WindowState == FormWindowState.Maximized)
                 {
-                    //this gets called for all forms, disable them all
-                    foreach (FormWindow child in FormMain.Instance.MdiChildren)
+                    howfar = 2;
+                    if (dockedControl.Detached == false)
                     {
-                        child.DisableResize();
+                        //this gets called for all forms, disable them all
+                        foreach (FormWindow child in FormMain.Instance.MdiChildren)
+                        {
+                            child.DisableResize();
+                        }
+
+                        FormMain.Instance.ReDockTabs();
                     }
-
-                    FormMain.Instance.ReDockTabs();
+                    howfar = 3;
                 }
-            }        
-            else
-                dockedControl.WindowSize = this.Size;
+                else
+                    dockedControl.WindowSize = this.Size;
 
+                howfar = 4;
+            }
+            catch (NullReferenceException nre)
+            {
+                FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection, "Resize NRE FormWindow Error:" + howfar, nre);
+            }
+            catch (Exception ex)
+            {
+                FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection, "Resize FormWindow Error:" + howfar, ex);
+            }
         }
 
         private void FormWindow_MouseDown(object sender, MouseEventArgs e)
@@ -290,46 +306,54 @@ namespace IceChat
         private void OnActivated(object sender, EventArgs e)
         {
             //System.Diagnostics.Debug.WriteLine("Form Window OnActivated:" + this.Visible);
-            
-            FormMain.Instance.ChannelBar.SelectTab(dockedControl);
-            
-            if (dockedControl.WindowStyle == IceTabPage.WindowType.Query)
+            try
             {
-                if (dockedControl.Connection.ServerSetting.IAL.ContainsKey(dockedControl.TabCaption)) {
-
-                    this.UIThread(delegate
-                    {
-                        this.Text = dockedControl.TabCaption + " (" + ((InternalAddressList)dockedControl.Connection.ServerSetting.IAL[dockedControl.TabCaption]).Host + ") {" + dockedControl.Connection.ServerSetting.NetworkName + "}";
-                    });
-                }
-            }
-            
-            if (this.Text == "Console")
-            {
-                //dont do anything, or ya get the BUGZ!    
-                // FormMain.Instance.ServerTree.SelectTab(dockedControl, true);
-            }
-            else
-                FormMain.Instance.ServerTree.SelectTab(dockedControl, false);
-            
-            //set the tabindex to 0
-            dockedControl.TabIndex = 0;
-            
-            //set the rest to 1
-            foreach (FormWindow child in FormMain.Instance.MdiChildren)
-            {
-                if (child != this)
+                FormMain.Instance.ChannelBar.SelectTab(dockedControl);
+                if (dockedControl.WindowStyle == IceTabPage.WindowType.Query)
                 {
-                    IceTabPage tab = child.DockedControl;
-                    tab.TabIndex = 1;                    
+                    if (dockedControl.Connection.ServerSetting.IAL.ContainsKey(dockedControl.TabCaption))
+                    {
+
+                        this.UIThread(delegate
+                        {
+                            this.Text = dockedControl.TabCaption + " (" + ((InternalAddressList)dockedControl.Connection.ServerSetting.IAL[dockedControl.TabCaption]).Host + ") {" + dockedControl.Connection.ServerSetting.NetworkName + "}";
+                        });
+                    }
                 }
+
+                if (this.Text == "Console")
+                {
+                    //dont do anything, or ya get the BUGZ!    
+                    // FormMain.Instance.ServerTree.SelectTab(dockedControl, true);
+                }
+                else
+                    FormMain.Instance.ServerTree.SelectTab(dockedControl, false);
+
+                
+                //set the tabindex to 0
+                dockedControl.TabIndex = 0;
+
+                //set the rest to 1
+                foreach (FormWindow child in FormMain.Instance.MdiChildren)
+                {
+                    if (child != this)
+                    {
+                        IceTabPage tab = child.DockedControl;
+                        tab.TabIndex = 1;
+                    }
+                }
+
+
+                if (dockedControl.Detached)
+                    dockedControl.InputPanel.FocusTextBox();
+                else
+                    FormMain.Instance.FocusInputBox();
+
             }
-
-            if (dockedControl.Detached)
-                dockedControl.InputPanel.FocusTextBox();
-            else
-                FormMain.Instance.FocusInputBox();
-
+            catch (Exception ex)
+            {
+                FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection, "Activate FormWindow Error:", ex);
+            }
         }
 
         internal bool AllowClose

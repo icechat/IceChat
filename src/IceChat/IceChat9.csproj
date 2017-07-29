@@ -188,6 +188,12 @@
     <Compile Include="Forms\FormFloat.Designer.cs">
       <DependentUpon>FormFloat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormIgnoreItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormIgnoreItem.Designer.cs">
+      <DependentUpon>FormIgnoreItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -464,6 +470,9 @@
     </Content>
     <EmbeddedResource Include="Controls\IceDockPanel.resx">
       <DependentUpon>IceDockPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormIgnoreItem.resx">
+      <DependentUpon>FormIgnoreItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormList.resx">
       <DependentUpon>FormList.cs</DependentUpon>

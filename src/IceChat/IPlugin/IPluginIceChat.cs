@@ -150,6 +150,7 @@ namespace IceChatPlugin
 
         public virtual void NewWindow(PluginArgs args) { }
 
+        public virtual PluginArgs HotKey(PluginArgs args, KeyEventArgs e) { return args; }
 
         public void SendCommand(PluginArgs args)
         {

@@ -36,6 +36,9 @@ namespace IceChat
         internal delegate void OnCommandDelegate(object sender, string data);
         internal event OnCommandDelegate OnCommand;
 
+        internal delegate void OnHotKeyDelegate(object sender, KeyEventArgs e);
+        internal event OnHotKeyDelegate OnHotKey; 
+
         //which is the current connection
         private IRCConnection currentConnection;
         private bool _showEmoticonPicker;
@@ -60,6 +63,9 @@ namespace IceChat
 
             textInput.OnCommand += new IceInputBox.SendCommand(textInput_OnCommand);
             textBoxWide.OnCommand += new IceInputBox.SendCommand(textBoxWide_OnCommand);
+
+            textInput.OnHotKey += Input_OnHotKey;
+            textBoxWide.OnHotKey += Input_OnHotKey; 
 
         }
 
@@ -235,6 +241,12 @@ namespace IceChat
                 textBoxWide.SelectionStart = textBoxWide.Text.Length;
             }
         }
+
+        private void Input_OnHotKey(object sender, KeyEventArgs e)
+        {
+            if (OnHotKey != null)
+                OnHotKey(sender, e);
+        } 
 
         private void textBoxWide_OnCommand(object sender, string data)
         {

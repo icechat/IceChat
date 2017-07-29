@@ -552,23 +552,27 @@ namespace IceChat
             
             }
 
+            int howfar = 1;
+
             if (serverSetting.UseSSL)
             {
                 try
                 {
                     sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
-
                     SslProtocols enabledSslProtocols;
-
                     #if USE_NET_45
                         enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11;
                     #else
                         enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
                     #endif
-
-                    // allow for a private key ??
+                    
+                    howfar = 5;
+                    // allow for a private key ?? Having problems her with Mono
+                    // 
                     sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, true);
-
+                    howfar = 6;
+                    // this seems to error in Mono if Accept Invalid Certs is enabled
+                    // CERTIFICATE_VERIFY_FAILED
                     ServerMessage(this, "*** You are connected to this server with " + sslStream.SslProtocol.ToString().ToUpper() + "-" + sslStream.CipherAlgorithm.ToString().ToUpper() + sslStream.CipherStrength + "-" + sslStream.HashAlgorithm.ToString().ToUpper() + "-" + sslStream.HashStrength + "bits", "");
                 }
                 catch (System.Security.Authentication.AuthenticationException ae)
@@ -583,7 +587,7 @@ namespace IceChat
                 catch (System.IO.IOException ex)
                 {
                     if (ServerError != null)
-                        ServerError(this, "SSL IO Exception Error :" + ex.Message.ToString(), false);
+                        ServerError(this, "SSL IO Exception Error :" + ex.Message.ToString() + ":" + howfar, false);
 
                     disconnectError = true;
                     ForceDisconnect();

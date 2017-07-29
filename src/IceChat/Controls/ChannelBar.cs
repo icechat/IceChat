@@ -625,24 +625,32 @@ namespace IceChat
 
         internal void SelectTab(IceTabPage page)
         {
-            _parent.TabMain.BringFront(page);
-
-            //System.Diagnostics.Debug.WriteLine("SelectTab ChannelBar:" + page.TabCaption);
-
-            for (int i = 0; i < _TabPages.Count; i++)
+            try
             {
-                if (_TabPages[i] == page)
+                
+                _parent.TabMain.BringFront(page);
+                
+                //System.Diagnostics.Debug.WriteLine("SelectTab ChannelBar:" + page.TabCaption);
+
+                for (int i = 0; i < _TabPages.Count; i++)
                 {
-                    SelectedIndex = i;
+                    if (_TabPages[i] == page)
+                    {
+                        SelectedIndex = i;
 
-                    //System.Diagnostics.Debug.WriteLine("Selected:" + i);
+                        //for single row.. scroll into view. if needed
+                        checkTabLocation(i);
 
-                    //for single row.. scroll into view. if needed
-                    checkTabLocation(i);
-
-                    this.Invalidate();
-                    break;                
+                        this.Invalidate();
+                        break;
+                    }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                _parent.WriteErrorFile(_parent.InputPanel.CurrentConnection, "ChannelBar SelectTab:" , ex);
+
             }
         }
 

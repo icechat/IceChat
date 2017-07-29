@@ -1,7 +1,14 @@
+Build 9.16a Jul 29 2017
+* Fix /server id=X command, will not create new connection, if server is already connected
+* Add new window for editing an Ignore Item
+* Fix /ignore command to allow just a nick
+* Added /colornick <nick> <color> command. Only works for the current channel. Use no color to reset
+* Work on increasing stability in running with mono
+* Add the ability to use CTRL-F1 -> CTRL-F12 as Hotkey events with Plugins, can trigger function on those keys
+
 Build 9.16 Jul 2 2017
 * Added options for /ignore command (-pcn), ignore just channel/private/notice messages (/ignore -p Nick)
 * Added Color Settings for the Side Panel Splitters, under Other Colors, and fixed the splitters
-
 
 Build 9.15a Jun 30 2017
 * Fix status text after using /away commands in a query

@@ -94,11 +94,11 @@
     <AspNetConfiguration>$(Configuration)</AspNetConfiguration>
   </PropertyGroup>
   <PropertyGroup>
-    <SolutionDir>D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\</SolutionDir>
+    <SolutionDir>D:\Programming\IceChat2009\IceChat 9\IceChat 9.17\src\IceChat\</SolutionDir>
     <SolutionExt>.sln</SolutionExt>
     <SolutionFileName>IceChat9.sln</SolutionFileName>
     <SolutionName>IceChat9</SolutionName>
-    <SolutionPath>D:\Programming\IceChat2009\IceChat 9\IceChat 9.11\src\IceChat\IceChat9.sln</SolutionPath>
+    <SolutionPath>D:\Programming\IceChat2009\IceChat 9\IceChat 9.17\src\IceChat\IceChat9.sln</SolutionPath>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' == '2.0'">v2.0</TargetFrameworkVersion>

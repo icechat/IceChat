@@ -75,6 +75,8 @@ namespace IceChat
             public bool[] Level;
             public bool Away;
 
+            public bool CustomColor;
+
             public int CompareTo(object obj)
             {
                 Nick u = (Nick)obj;
@@ -590,6 +592,7 @@ namespace IceChat
                     n.Level = nick.Level;
                     
                     n.Away = nick.Away;
+                    n.CustomColor = nick.CustomColor;
 
                     if (currentWindow.Connection.ServerSetting.IAL.ContainsKey(nick.NickName))
                     {
@@ -824,7 +827,7 @@ namespace IceChat
                             {
                                 //System.Diagnostics.Debug.WriteLine("Null Nick:" + sortedNickNames[i].nick);
                             }
-                            if (_parent.IceChatColors.RandomizeNickColors == true)
+                            if (_parent.IceChatColors.RandomizeNickColors == true || u.CustomColor == true)
                             {
                                 b = new SolidBrush(IrcColor.colors[u.nickColor]);
                             }

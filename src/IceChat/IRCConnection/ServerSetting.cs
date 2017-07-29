@@ -28,7 +28,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-
 namespace IceChat
 {
     [XmlRoot("IceChatServers")]

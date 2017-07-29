@@ -295,6 +295,40 @@ namespace IceChat
                                     t.TextWindow.NoColorMode = !t.TextWindow.NoColorMode;
                             }
                             break;
+
+                        case "/colornick":
+                            if (data.Length > 0 && CurrentWindow.WindowStyle == IceTabPage.WindowType.Channel)
+                            {
+                                // /colornick <nick> [color]
+                                string[] split = data.Split(' ');
+
+                                User u = CurrentWindow.GetNick(split[0]);
+                                if (u != null)
+                                {
+                                    if (split.Length == 1)
+                                    {
+                                        // reset the nick color
+                                        u.CustomColor = false;
+                                    }
+                                    else
+                                    {                                        
+                                        // make sure 2nd value is an integer
+                                        int intColor = 0;
+                                        if (Int32.TryParse(split[1], out intColor))
+                                        {
+                                            if (intColor < 72 && intColor > -1)
+                                            {
+                                                u.CustomColor = true;
+                                                u.nickColor = intColor;
+                                            }
+                                        }
+                                    }
+
+                                    nickList.Invalidate();
+                                }
+                            }
+                            break;
+
                         case "/sounds":
                             if (data.Length == 0)
                             {
@@ -2116,23 +2150,24 @@ namespace IceChat
                                         {
                                             connection.ServerSetting.IgnoreListEnable = true;
                                             ParseOutGoingCommand(connection, "/echo ignore list enabled");
+                                            return;
                                         }
                                         else if (data.ToLower() == "disable")
                                         {
                                             connection.ServerSetting.IgnoreListEnable = false;
                                             ParseOutGoingCommand(connection, "/echo ignore list disabled");
+                                            return;
                                         }
-                                        return;
                                     }
 
                                     string ignoreNick = data;
                                     IgnoreType ignoreType = new IgnoreType(0);
-                                            
+
                                     if (data.StartsWith("-"))
                                     {
                                         // we have a param
                                         // [-pcn]
-                                        // -p - ignores the private messages (if you have a query window associated for that nick/address, it won't ignore the messages)
+                                        // -p - ignores the private messages
                                         // -c - ignores the channel messages
                                         // -n - ignores the notice messages
                                         // -t - ctcp
@@ -2170,12 +2205,11 @@ namespace IceChat
                                                     ignoreType.All = false;
                                                     ignoreType.Invite = true;
                                                     break;
-
                                             }
-
                                         }
                                     }
-                                            
+
+
                                     //check if already in ignore list or not
                                     if (connection.ServerSetting.Ignores != null)
                                     {
@@ -3045,6 +3079,21 @@ namespace IceChat
                                     string serverID = data.Substring(3);
                                     foreach (ServerSetting s in serverTree.ServersCollection.listServers)
                                     {
+                                        // have we connected already?                                        
+                                        foreach (IRCConnection c in serverTree.ServerConnections.Values)
+                                        {
+                                            if (c.ServerSetting == s)
+                                            {
+                                                if (!c.IsConnected)
+                                                {
+                                                    // reconnect it
+                                                    c.ConnectSocket();
+                                                }
+                                                // we already have this connection, ignore it
+                                                return;
+                                            }
+                                        }
+
                                         if (s.ID.ToString() == serverID)
                                         {
                                             NewServerConnection(s);
@@ -4000,7 +4049,11 @@ namespace IceChat
                             }
                             break;
                         case "$framework":
-                            data = ReplaceFirst(data, m.Value, System.Environment.Version.ToString());
+                            #if USE_NET_45
+                                data = ReplaceFirst(data, m.Value, System.Environment.Version.ToString()) + " +4.5";
+                            #else
+                                data = ReplaceFirst(data, m.Value, System.Environment.Version.ToString());
+                            #endif
                             break;
                         case "$totalplugins":
                             data = ReplaceFirst(data, m.Value, loadedPlugins.Count.ToString());

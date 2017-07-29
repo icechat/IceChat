@@ -28,6 +28,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
+using IceChatPlugin;
+
 namespace IceChat
 {
     public partial class IceInputBox : System.Windows.Forms.TextBox
@@ -47,6 +49,9 @@ namespace IceChat
 
         private delegate void ScrollWindowPageDelegate(bool scrollup);
         private delegate void ScrollConsoleWindowPageDelegate(bool scrollup);
+
+        internal delegate void SendHotKey(object sender, KeyEventArgs e);
+        internal event SendHotKey OnHotKey; 
 
         private InputPanel parent;
 
@@ -204,7 +209,30 @@ namespace IceChat
         {
             if ((keyData == (Keys.Control | Keys.V)) || keyData == (Keys.Shift | Keys.Insert))
             {
+                // have the ability for the plugin processor to intercept this
                 string data = Clipboard.GetText(TextDataFormat.UnicodeText);
+
+                PluginArgs args = new PluginArgs(FormMain.Instance.InputPanel.CurrentConnection);
+                args.Extra = this.Text;
+                args.Message = data;    // add the clipboard data to the clipboard
+
+                foreach (Plugin p in FormMain.Instance.LoadedPlugins)
+                {
+                    IceChatPlugin ipc = p as IceChatPlugin;
+                    if (ipc != null)
+                    {
+                        if (ipc.plugin.Enabled == true)
+                            args = ipc.plugin.HotKey(args, new KeyEventArgs(Keys.Control | Keys.V) );
+
+                    }
+                }
+
+                if (args.Message.Length == 0)
+                {
+                    // dont paste, exit 
+                    return true;
+                }
+                
                 string[] lines = data.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 if (lines.Length > 1)
                 {
@@ -378,6 +406,16 @@ namespace IceChat
         {
             try
             {
+
+                if (e.Modifiers == Keys.Alt || e.Modifiers == Keys.Control)
+                {
+                    if (e.KeyValue >= 112 && e.KeyValue <= 120)
+                    {
+                        if (OnHotKey != null)
+                            OnHotKey(this, e);
+                    }
+                }                 
+                
                 if (e.Modifiers == Keys.Control)
                 {
                     if (e.KeyCode == Keys.K)
@@ -696,12 +734,13 @@ namespace IceChat
                     }
                 }
 
-                if (e.KeyCode == Keys.F3)
+                if (e.KeyCode == Keys.F3 && e.Modifiers != Keys.Control && e.Modifiers != Keys.Alt)
                 {
+                    // searching!
                     e.Handled = true;
                 }
 
-                if (e.KeyCode == Keys.F5)
+                if (e.KeyCode == Keys.F5 && e.Modifiers != Keys.Control && e.Modifiers != Keys.Alt)
                 {
                     e.Handled = true;
                     //show or hide the wide text panel

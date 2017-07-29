@@ -345,6 +345,37 @@ namespace IceChat
                     
                     lvi.SubItems.Add(ignore.IgnoreType.ToString() );
 
+                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.Channel == true)
+                        lvi.SubItems.Add("x");
+                    else
+                        lvi.SubItems.Add("");
+
+                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.Private == true)
+                        lvi.SubItems.Add("x");
+                    else
+                        lvi.SubItems.Add("");
+
+                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.Notice == true)
+                        lvi.SubItems.Add("x");
+                    else
+                        lvi.SubItems.Add("");
+
+                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.Ctcp == true)
+                        lvi.SubItems.Add("x");
+                    else
+                        lvi.SubItems.Add("");
+
+                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.Invite == true)
+                        lvi.SubItems.Add("x");
+                    else
+                        lvi.SubItems.Add("");
+
+                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.DCC == true)
+                        lvi.SubItems.Add("x");
+                    else
+                        lvi.SubItems.Add("");
+
+
                     listIgnore.Items.Add(lvi);
 
                 }
@@ -815,6 +846,13 @@ namespace IceChat
                 lvi.Checked = true;
                 
                 lvi.SubItems.Add("0");  // add default Ignore All
+                
+                lvi.SubItems.Add("x");
+                lvi.SubItems.Add("x");
+                lvi.SubItems.Add("x");
+                lvi.SubItems.Add("x");
+                lvi.SubItems.Add("x");
+                lvi.SubItems.Add("x");
 
                 listIgnore.Items.Add(lvi);
 
@@ -838,8 +876,30 @@ namespace IceChat
         {
             foreach (ListViewItem eachItem in listIgnore.SelectedItems)
             {
-                textIgnore.Text = eachItem.Text;
-                listIgnore.Items.Remove(eachItem);
+                FormIgnoreItem fii = new FormIgnoreItem(eachItem);
+                fii.UpdateIgnoreList += new FormIgnoreItem.UpdateIgnoreListDelegate(UpdateIgnoreList);
+                fii.ShowDialog(this);
+            }
+        }
+
+        private void UpdateIgnoreList(ListViewItem lvi)
+        {
+            foreach (ListViewItem eachItem in listIgnore.Items)
+            {
+                if (eachItem == lvi)
+                {
+                    eachItem.Text = lvi.Text;
+                    
+                    eachItem.SubItems[1].Text = lvi.SubItems[1].Text;
+                    eachItem.SubItems[2].Text = lvi.SubItems[2].Text;
+                    eachItem.SubItems[3].Text = lvi.SubItems[3].Text;
+                    eachItem.SubItems[4].Text = lvi.SubItems[4].Text;
+                    eachItem.SubItems[5].Text = lvi.SubItems[5].Text;
+                    eachItem.SubItems[6].Text = lvi.SubItems[6].Text;
+                    eachItem.SubItems[7].Text = lvi.SubItems[7].Text;
+
+                }
+
             }
         }
 
@@ -901,11 +961,7 @@ namespace IceChat
 
         private void listIgnore_DoubleClick(object sender, System.EventArgs e)
         {
-            foreach (ListViewItem eachItem in listIgnore.SelectedItems)
-            {
-                textIgnore.Text = eachItem.Text;
-                listIgnore.Items.Remove(eachItem);
-            }
+            buttonEditIgnore.PerformClick();
         }
 
 
@@ -1054,6 +1110,7 @@ namespace IceChat
         {
             listIgnore.Items.Clear();
         }
+
 
     }
 }

@@ -103,11 +103,18 @@
             this.textAutoPerform = new System.Windows.Forms.TextBox();
             this.checkAutoPerform = new System.Windows.Forms.CheckBox();
             this.tabPageIgnore = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
             this.buttonClearIgnores = new System.Windows.Forms.Button();
             this.labelIgnoreNote = new System.Windows.Forms.Label();
             this.listIgnore = new System.Windows.Forms.ListView();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.columnC = new System.Windows.Forms.ColumnHeader();
+            this.columnP = new System.Windows.Forms.ColumnHeader();
+            this.columnN = new System.Windows.Forms.ColumnHeader();
+            this.columnT = new System.Windows.Forms.ColumnHeader();
+            this.columnI = new System.Windows.Forms.ColumnHeader();
+            this.columnD = new System.Windows.Forms.ColumnHeader();
             this.checkIgnore = new System.Windows.Forms.CheckBox();
             this.textIgnore = new System.Windows.Forms.TextBox();
             this.labelNickHost = new System.Windows.Forms.Label();
@@ -1034,6 +1041,7 @@
             // 
             // tabPageIgnore
             // 
+            this.tabPageIgnore.Controls.Add(this.label14);
             this.tabPageIgnore.Controls.Add(this.buttonClearIgnores);
             this.tabPageIgnore.Controls.Add(this.labelIgnoreNote);
             this.tabPageIgnore.Controls.Add(this.listIgnore);
@@ -1051,9 +1059,18 @@
             this.tabPageIgnore.Text = "Ignore List";
             this.tabPageIgnore.UseVisualStyleBackColor = true;
             // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(564, 31);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(89, 124);
+            this.label14.TabIndex = 44;
+            this.label14.Text = "C = Channel P = Private N = Notice T = CTCP    I = Invite   D = DCC";
+            // 
             // buttonClearIgnores
             // 
-            this.buttonClearIgnores.Location = new System.Drawing.Point(351, 99);
+            this.buttonClearIgnores.Location = new System.Drawing.Point(440, 101);
             this.buttonClearIgnores.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonClearIgnores.Name = "buttonClearIgnores";
             this.buttonClearIgnores.Size = new System.Drawing.Size(70, 25);
@@ -1064,10 +1081,10 @@
             // 
             // labelIgnoreNote
             // 
-            this.labelIgnoreNote.Location = new System.Drawing.Point(351, 144);
+            this.labelIgnoreNote.Location = new System.Drawing.Point(437, 182);
             this.labelIgnoreNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelIgnoreNote.Name = "labelIgnoreNote";
-            this.labelIgnoreNote.Size = new System.Drawing.Size(276, 50);
+            this.labelIgnoreNote.Size = new System.Drawing.Size(207, 38);
             this.labelIgnoreNote.TabIndex = 41;
             this.labelIgnoreNote.Text = "Note: For wildcards, use the . character for nick names";
             // 
@@ -1076,12 +1093,19 @@
             this.listIgnore.CheckBoxes = true;
             this.listIgnore.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnC,
+            this.columnP,
+            this.columnN,
+            this.columnT,
+            this.columnI,
+            this.columnD});
+            this.listIgnore.FullRowSelect = true;
             this.listIgnore.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listIgnore.Location = new System.Drawing.Point(5, 31);
             this.listIgnore.Margin = new System.Windows.Forms.Padding(2);
             this.listIgnore.Name = "listIgnore";
-            this.listIgnore.Size = new System.Drawing.Size(281, 184);
+            this.listIgnore.Size = new System.Drawing.Size(413, 184);
             this.listIgnore.TabIndex = 41;
             this.listIgnore.UseCompatibleStateImageBehavior = false;
             this.listIgnore.View = System.Windows.Forms.View.Details;
@@ -1090,12 +1114,42 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Nick / Host";
-            this.columnHeader3.Width = 339;
+            this.columnHeader3.Width = 255;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "IgnoreType";
             this.columnHeader5.Width = 0;
+            // 
+            // columnC
+            // 
+            this.columnC.Text = "C";
+            this.columnC.Width = 25;
+            // 
+            // columnP
+            // 
+            this.columnP.Text = "P";
+            this.columnP.Width = 25;
+            // 
+            // columnN
+            // 
+            this.columnN.Text = "N";
+            this.columnN.Width = 25;
+            // 
+            // columnT
+            // 
+            this.columnT.Text = "T";
+            this.columnT.Width = 25;
+            // 
+            // columnI
+            // 
+            this.columnI.Text = "I";
+            this.columnI.Width = 25;
+            // 
+            // columnD
+            // 
+            this.columnD.Text = "D";
+            this.columnD.Width = 25;
             // 
             // checkIgnore
             // 
@@ -1114,7 +1168,7 @@
             this.textIgnore.Location = new System.Drawing.Point(86, 5);
             this.textIgnore.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textIgnore.Name = "textIgnore";
-            this.textIgnore.Size = new System.Drawing.Size(200, 23);
+            this.textIgnore.Size = new System.Drawing.Size(332, 23);
             this.textIgnore.TabIndex = 37;
             this.textIgnore.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textIgnore_KeyDown);
             // 
@@ -1130,7 +1184,7 @@
             // 
             // buttonEditIgnore
             // 
-            this.buttonEditIgnore.Location = new System.Drawing.Point(351, 68);
+            this.buttonEditIgnore.Location = new System.Drawing.Point(440, 70);
             this.buttonEditIgnore.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonEditIgnore.Name = "buttonEditIgnore";
             this.buttonEditIgnore.Size = new System.Drawing.Size(70, 25);
@@ -1141,7 +1195,7 @@
             // 
             // buttonRemoveIgnore
             // 
-            this.buttonRemoveIgnore.Location = new System.Drawing.Point(351, 37);
+            this.buttonRemoveIgnore.Location = new System.Drawing.Point(440, 39);
             this.buttonRemoveIgnore.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonRemoveIgnore.Name = "buttonRemoveIgnore";
             this.buttonRemoveIgnore.Size = new System.Drawing.Size(70, 25);
@@ -1152,7 +1206,7 @@
             // 
             // buttonAddIgnore
             // 
-            this.buttonAddIgnore.Location = new System.Drawing.Point(351, 5);
+            this.buttonAddIgnore.Location = new System.Drawing.Point(440, 7);
             this.buttonAddIgnore.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonAddIgnore.Name = "buttonAddIgnore";
             this.buttonAddIgnore.Size = new System.Drawing.Size(70, 25);
@@ -2001,5 +2055,12 @@
         private System.Windows.Forms.CheckBox checkDisableQueries;
         private System.Windows.Forms.Button buttonClearIgnores;
         private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnC;
+        private System.Windows.Forms.ColumnHeader columnP;
+        private System.Windows.Forms.ColumnHeader columnN;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ColumnHeader columnT;
+        private System.Windows.Forms.ColumnHeader columnI;
+        private System.Windows.Forms.ColumnHeader columnD;
     }
 }

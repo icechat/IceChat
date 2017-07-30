@@ -51,7 +51,7 @@ namespace IceChat
 
         private object currentColorPick;
         
-        private const char newColorChar = '\xFF03';
+        private const char newColorChar = '\xFF03';        
 
         private class ComboItem
         {

@@ -57,13 +57,14 @@ namespace IceChat
         private const char italicChar = '\x1D';       // 29
 
         private const char newColorChar = '\xFF03';
-        private const char emotChar = '\xFF0A';
+        private const char emotChar = '\xFF0A';        
+
         private const char urlStart = '\xFF0B';
-        private const char urlEnd = '\xFF0C';
+        private const char urlEnd = '\xFF0C';        
 
         private const char wrapLine = '\xFF0D';
         private const char endLine = '\xFF0F';
-
+       
         private const char brokeChar = '\x84';
 
 
@@ -3111,35 +3112,65 @@ namespace IceChat
                                     //color # 99 resets it back to normal
                                     //get the new fore and back colors                                                                        
                                     
-                                    newForeColor = Convert.ToInt32(line.ToString().Substring(1, 2));
-                                    newBackColor = Convert.ToInt32(line.ToString().Substring(3, 2));
-
-                                    //check to make sure that FC and BC are in range
-                                    if (newForeColor > (IrcColor.colors.Length - 1))
-                                        newForeColor = _displayLines[curLine].textColor;
-                                    if (newBackColor > (IrcColor.colors.Length - 1))
-                                        newBackColor = _backColor;
-
-                                    if (!isInSelection)
+                                    // check the validity fo the next 4 characters, they need to be numbers
+                                    try
                                     {
-                                        curForeColor = newForeColor;
-                                        curBackColor = newBackColor;
-                                    }
-                                    else
-                                    {
-                                        oldForeColor = newForeColor;
-                                        oldBackColor = newBackColor;
-                                    }
+                                        if (line.ToString().Length < 6)
+                                        {
+                                            //error.. move on
+                                            line.Remove(0, 1); // remove just the color code
+                                            buildString.Append(ch[0]);
+                                        }
+                                        else
+                                        {
+                                            // check that the 4 characters are numbers
+                                            int result;
+                                            if (int.TryParse(line.ToString().Substring(1, 4), out result))
+                                            {
+                                                newForeColor = Convert.ToInt32(line.ToString().Substring(1, 2));
+                                                newBackColor = Convert.ToInt32(line.ToString().Substring(3, 2));
 
-                                    if (isInUrl)
-                                    {
-                                        oldForeColor = curForeColor;
-                                        curForeColor = FormMain.Instance.IceChatColors.HyperlinkColor;
-                                        oldBackColor = curBackColor;
-                                        curBackColor = _backColor;
+                                                //check to make sure that FC and BC are in range
+                                                if (newForeColor > (IrcColor.colors.Length - 1))
+                                                    newForeColor = _displayLines[curLine].textColor;
+                                                if (newBackColor > (IrcColor.colors.Length - 1))
+                                                    newBackColor = _backColor;
+
+                                                if (!isInSelection)
+                                                {
+                                                    curForeColor = newForeColor;
+                                                    curBackColor = newBackColor;
+                                                }
+                                                else
+                                                {
+                                                    oldForeColor = newForeColor;
+                                                    oldBackColor = newBackColor;
+                                                }
+
+                                                if (isInUrl)
+                                                {
+                                                    oldForeColor = curForeColor;
+                                                    curForeColor = FormMain.Instance.IceChatColors.HyperlinkColor;
+                                                    oldBackColor = curBackColor;
+                                                    curBackColor = _backColor;
+                                                }
+                                                //remove the color codes from the string
+                                                line.Remove(0, 5);
+                                            }
+                                            else
+                                            {
+                                                // not numbers
+                                                //error.. move on
+                                                line.Remove(0, 1); // remove just the color code
+                                                buildString.Append(ch[0]);
+                                            }
+                                        }
                                     }
-                                    //remove the color codes from the string
-                                    line.Remove(0, 5);
+                                    catch (Exception)
+                                    {                                    
+                                        line.Remove(0, 1); // remove just the color code
+                                        buildString.Append(ch[0]);
+                                    }                                        
                                     i = -1;
                                     break;
 
@@ -3268,7 +3299,7 @@ namespace IceChat
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message + ":" + ex.StackTrace);
+                System.Diagnostics.Debug.WriteLine("OnDisplayText Error:" + ex.Message + ":" + ex.StackTrace);
                 //FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection, "TextWindow OnDisplayText", ee);
             }
         }

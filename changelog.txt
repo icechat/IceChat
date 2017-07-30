@@ -1,3 +1,6 @@
+Build 9.16b Jul 30 2017
+* Fix bug where screen can be blanked with certain characters
+
 Build 9.16a Jul 29 2017
 * Fix /server id=X command, will not create new connection, if server is already connected
 * Add new window for editing an Ignore Item

@@ -558,8 +558,13 @@ namespace IceChat
             {
                 try
                 {
+                  
+                    //sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback, this.LocalCertificateSelectionCallback);
                     sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
+                    //sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
+                    
                     SslProtocols enabledSslProtocols;
+                    
                     #if USE_NET_45
                         enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11;
                     #else
@@ -567,10 +572,26 @@ namespace IceChat
                     #endif
                     
                     howfar = 5;
+                    // Ssl error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAIL ERROR:   at /build/mono/src/mono-5.0.0/external/boringssl/ssl/handshake_client.c:1132
                     // allow for a private key ?? Having problems her with Mono
                     // 
-                    sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, true);
+                    
+                    if (System.IO.File.Exists("cert.pem"))
+                    {
+                        X509Certificate cert = new X509Certificate("cert.pem");
+                        X509Certificate2Collection certs = new X509Certificate2Collection();
+                        certs.Add(cert);
+                        ServerMessage(this, "*** Using cert.pem", "");
+                        sslStream.AuthenticateAsClient(serverSetting.ServerName, certs, enabledSslProtocols, false);
+                    }
+                    else
+                    {
+                        //sslStream.AuthenticateAsClient(serverSetting.ServerName, null, SslProtocols.Default, false); 
+                        sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, true);
+                    }
+                    
                     howfar = 6;
+                    
                     // this seems to error in Mono if Accept Invalid Certs is enabled
                     // CERTIFICATE_VERIFY_FAILED
                     ServerMessage(this, "*** You are connected to this server with " + sslStream.SslProtocol.ToString().ToUpper() + "-" + sslStream.CipherAlgorithm.ToString().ToUpper() + sslStream.CipherStrength + "-" + sslStream.HashAlgorithm.ToString().ToUpper() + "-" + sslStream.HashStrength + "bits", "");
@@ -1340,7 +1361,7 @@ namespace IceChat
                             string newUTF = Encoding.UTF8.GetString(readBuffer, 0, bytesRead);
 
                             
-                            System.Diagnostics.Debug.WriteLine(readBuffer.Length + ":" + bytesRead + ":" + charLen + " = " + strData.Length + ":" + newUTF.Length);
+                            // System.Diagnostics.Debug.WriteLine(readBuffer.Length + ":" + bytesRead + ":" + charLen + " = " + strData.Length + ":" + newUTF.Length);
 
 
                             //System.Diagnostics.Debug.WriteLine(newUTF.Length + "::" + strData.Length);
@@ -1801,9 +1822,22 @@ namespace IceChat
             }
         }
 
+        private X509Certificate LocalCertificateSelectionCallback(Object sender, string targetHost, X509CertificateCollection localCertificates, X509Certificate remoteCertificate, string[] acceptableIssuers)
+        {
+            if (localCertificates == null || localCertificates.Count == 0)
+            {
+                return null;
+            }
+            return localCertificates[0];
+        }
+
         private bool RemoteCertificateValidationCallback(Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
-            if (sslPolicyErrors == SslPolicyErrors.None || sslPolicyErrors == SslPolicyErrors.RemoteCertificateNameMismatch)
+            //if (sslPolicyErrors == SslPolicyErrors.None || sslPolicyErrors == SslPolicyErrors.RemoteCertificateNameMismatch)
+            //{
+            //    return true;
+            //}
+            if (sslPolicyErrors == SslPolicyErrors.None)
             {
                 return true;
             }

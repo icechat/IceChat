@@ -150,7 +150,12 @@ namespace IceChatPlugin
 
         public virtual void NewWindow(PluginArgs args) { }
 
+        // when a hotkey is pressed
         public virtual PluginArgs HotKey(PluginArgs args, KeyEventArgs e) { return args; }
+        
+        // when we have switched to a new tab
+        public virtual void SwitchTab(PluginArgs args) { }
+
 
         public void SendCommand(PluginArgs args)
         {

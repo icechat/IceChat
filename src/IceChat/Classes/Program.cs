@@ -52,7 +52,7 @@ namespace IceChat
                     }
                 }
             }
-            
+    
             if (noSplash)
             {
                 Application.Run(new FormMain(args, null));

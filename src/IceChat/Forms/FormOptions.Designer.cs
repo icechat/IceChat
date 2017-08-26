@@ -729,11 +729,12 @@ namespace IceChat
             // label17
             // 
             this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.Color.Red;
             this.label17.Location = new System.Drawing.Point(316, 212);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(308, 16);
+            this.label17.Size = new System.Drawing.Size(406, 16);
             this.label17.TabIndex = 51;
-            this.label17.Text = "Changing this value will reset all the windows";
+            this.label17.Text = "Resetting the Number of text lines will reset all the windows";
             // 
             // textMaximumLines
             // 

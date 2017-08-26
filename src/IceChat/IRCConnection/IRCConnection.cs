@@ -561,7 +561,6 @@ namespace IceChat
                   
                     //sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback, this.LocalCertificateSelectionCallback);
                     sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
-                    //sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
                     
                     SslProtocols enabledSslProtocols;
                     
@@ -572,10 +571,13 @@ namespace IceChat
                     #endif
                     
                     howfar = 5;
+                    // ask in irc.gnome.org #mono
+                    // using sslStream.AuthenticateAsClient, I get an error: Ssl error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAIL ERROR:   at /build/mono/src/mono-5.0.0/external/boringssl/ssl/handshake_client.c:1132
+                    
                     // Ssl error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAIL ERROR:   at /build/mono/src/mono-5.0.0/external/boringssl/ssl/handshake_client.c:1132
                     // allow for a private key ?? Having problems her with Mono
                     // 
-                    
+                    /*
                     if (System.IO.File.Exists("cert.pem"))
                     {
                         X509Certificate cert = new X509Certificate("cert.pem");
@@ -591,7 +593,11 @@ namespace IceChat
                     }
                     
                     howfar = 6;
-                    
+                    */
+
+
+                    sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, false);
+
                     // this seems to error in Mono if Accept Invalid Certs is enabled
                     // CERTIFICATE_VERIFY_FAILED
                     ServerMessage(this, "*** You are connected to this server with " + sslStream.SslProtocol.ToString().ToUpper() + "-" + sslStream.CipherAlgorithm.ToString().ToUpper() + sslStream.CipherStrength + "-" + sslStream.HashAlgorithm.ToString().ToUpper() + "-" + sslStream.HashStrength + "bits", "");

@@ -576,10 +576,6 @@ namespace IceChat
         public string ServerNotes
         { get; set; }
 
-        [XmlElement("AdvancedSettings")]
-        public bool AdvancedSettings
-        { get; set; }
-
         [XmlElement("DisableLogging")]
         public bool DisableLogging
         { get; set; }

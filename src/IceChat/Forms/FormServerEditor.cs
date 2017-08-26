@@ -55,8 +55,6 @@ namespace IceChat
             this.Load += new EventHandler(FormServers_Load);
             this.Text = "Server Editor: New Server";
 
-            RemoveAdvancedTabs();
-
             foreach (EncodingInfo ei in System.Text.Encoding.GetEncodings())
             {
                 try
@@ -89,8 +87,6 @@ namespace IceChat
             this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
             this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
             this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
-
-            this.checkAdvancedSettings.CheckedChanged += new System.EventHandler(this.checkAdvancedSettings_CheckedChanged);
 
             ApplyLanguage();
         }
@@ -145,17 +141,10 @@ namespace IceChat
             
             LoadDefaultServerSettings();
 
-            if (!s.AdvancedSettings)
-                RemoveAdvancedTabs();
-            else
-                checkAdvancedSettings.Checked = true;
-
             this.textDisplayName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
             this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
             this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
             this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
-
-            this.checkAdvancedSettings.CheckedChanged += new System.EventHandler(this.checkAdvancedSettings_CheckedChanged);
 
             //if (s.conn
             foreach (IRCConnection c in FormMain.Instance.ServerTree.ServerConnections.Values)
@@ -176,27 +165,7 @@ namespace IceChat
             }
 
             ApplyLanguage();
-        }
-
-        private void RemoveAdvancedTabs()
-        {
-            this.tabControlSettings.TabPages.Remove(tabPageProxy);
-            this.tabControlSettings.TabPages.Remove(tabPageBNC);
-            this.tabControlSettings.TabPages.Remove(tabPageNotes);
-            this.tabControlSettings.TabPages.Remove(tabPageIgnore);
-        }
-
-        private void AddAdvancedTabs()
-        {
-            this.tabControlSettings.TabPages.Remove(tabPageDefault);
-
-            this.tabControlSettings.TabPages.Add(tabPageIgnore);
-            this.tabControlSettings.TabPages.Add(tabPageNotes);
-            this.tabControlSettings.TabPages.Add(tabPageProxy);
-            this.tabControlSettings.TabPages.Add(tabPageBNC);
-
-            this.tabControlSettings.TabPages.Add(tabPageDefault);
-        }
+        }       
         
         private void ApplyLanguage()
         {
@@ -622,8 +591,6 @@ namespace IceChat
 
             serverSetting.ServerNotes = textNotes.Text;
 
-            serverSetting.AdvancedSettings = checkAdvancedSettings.Checked;
-
             if (newServer == true)
             {
                 //add in the server to the server collection
@@ -771,7 +738,6 @@ namespace IceChat
                 ServerSetting dupe = new ServerSetting();
                 
                 dupe.AccountNotify = serverSetting.AccountNotify;
-                dupe.AdvancedSettings = serverSetting.AdvancedSettings;
                 dupe.AltNickName = serverSetting.AltNickName;
                 dupe.AutoJoinChannels = serverSetting.AutoJoinChannels;
                 dupe.AutoJoinDelay = serverSetting.AutoJoinDelay;
@@ -934,15 +900,6 @@ namespace IceChat
                 textBuddy.Text = eachItem.Text;
                 listBuddyList.Items.Remove(eachItem);
             }
-        }
-
-        private void checkAdvancedSettings_CheckedChanged(object sender, EventArgs e)
-        {
-            //add or remote BNC/Proxy/Server Notes
-            if (checkAdvancedSettings.Checked)
-                AddAdvancedTabs();
-            else
-                RemoveAdvancedTabs();
         }
 
         private void listChannel_DoubleClick(object sender, System.EventArgs e)

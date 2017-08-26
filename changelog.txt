@@ -1,5 +1,7 @@
-Build 9.16b Jul 30 2017
+Build 9.17 Aug 26 2017
+* Removed Advanced Settings option in Server Editor, show all by default
 * Fix bug where screen can be blanked with certain characters
+* Add new Plugin Event for SwitchTab, when a new window is switched to
 
 Build 9.16a Jul 29 2017
 * Fix /server id=X command, will not create new connection, if server is already connected

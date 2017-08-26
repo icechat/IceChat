@@ -179,7 +179,6 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkAdvancedSettings = new System.Windows.Forms.CheckBox();
             this.buttonDuplicateServer = new System.Windows.Forms.Button();
             this.tabControlSettings.SuspendLayout();
             this.tabPageMain.SuspendLayout();
@@ -1833,18 +1832,6 @@
             this.checkBox1.Text = "Enable Proxy Connection";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // checkAdvancedSettings
-            // 
-            this.checkAdvancedSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkAdvancedSettings.AutoSize = true;
-            this.checkAdvancedSettings.Location = new System.Drawing.Point(272, 304);
-            this.checkAdvancedSettings.Margin = new System.Windows.Forms.Padding(2);
-            this.checkAdvancedSettings.Name = "checkAdvancedSettings";
-            this.checkAdvancedSettings.Size = new System.Drawing.Size(150, 20);
-            this.checkAdvancedSettings.TabIndex = 54;
-            this.checkAdvancedSettings.Text = "Advanced settings";
-            this.checkAdvancedSettings.UseVisualStyleBackColor = true;
-            // 
             // buttonDuplicateServer
             // 
             this.buttonDuplicateServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1865,7 +1852,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(681, 332);
             this.Controls.Add(this.buttonDuplicateServer);
-            this.Controls.Add(this.checkAdvancedSettings);
             this.Controls.Add(this.buttonRemoveServer);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.buttonCancel);
@@ -1904,7 +1890,6 @@
             this.tabPageDefault.ResumeLayout(false);
             this.tabPageDefault.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
         #endregion
@@ -2024,7 +2009,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkAutoJoinDelay;
         private System.Windows.Forms.CheckBox checkAutoJoin;
-        private System.Windows.Forms.CheckBox checkAdvancedSettings;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textSASLUser;
         private System.Windows.Forms.TextBox textSASLPass;

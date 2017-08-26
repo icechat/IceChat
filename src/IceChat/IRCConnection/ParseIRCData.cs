@@ -720,7 +720,8 @@ namespace IceChat
                             WhoisData(this, ircData[3], msg, serverTimeValue);
                             break;
                         case "275":
-                        case "671":     //using secure connection
+                        case "671": //using secure connection 
+                        case "674": //EUID
                             nick = ircData[3];
                             check = UserInfoWindowExists(this, nick);
                             if (check)

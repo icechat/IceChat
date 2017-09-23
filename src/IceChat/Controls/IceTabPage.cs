@@ -291,6 +291,7 @@ namespace IceChat
                             System.Diagnostics.Debug.WriteLine("abort listen thread JOIN DONE");
                         }
                     }
+                                            
                 }
 
             });
@@ -530,6 +531,7 @@ namespace IceChat
                             switch (connection.ServerSetting.StatusModes[0][i])
                             {
                                 case 'q':
+                                case 'y':
                                     u.nickColor = _parent.IceChatColors.ChannelOwnerColor;
                                     break;
                                 case 'a':

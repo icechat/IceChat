@@ -1624,8 +1624,8 @@ namespace IceChat
                                     //if (serverSetting.UseTLS && !serverSetting.UseSSL) // dont use TLS if already using SSL                                    
                                     if (!serverSetting.UseSSL) // dont use TLS if already using SSL                                    {
                                     {
-                                        // System.Diagnostics.Debug.WriteLine("Enable tls handshake");
-                                        // SendData("STARTTLS");
+                                        System.Diagnostics.Debug.WriteLine("Enable tls handshake");
+                                        SendData("STARTTLS");
                                     }
                                 }
                                 
@@ -1653,6 +1653,8 @@ namespace IceChat
                             // Start the TLS Handshake here
                             // the connection is waiting for a TLS handshake
                             
+                            // attempt TLS handshake
+                            // SendData("EHLO");    // doesnt work
                             
                             break;
                         case "691": // RPL_STARTTLSFAIL
@@ -2040,6 +2042,7 @@ namespace IceChat
             // http://ircv3.net/specs/extensions/tls-3.1.html
             if (tempValue.IndexOf("tls") > -1)
             {
+                // not secure to use!
                 // sendREQ += "tls ";
             }
 

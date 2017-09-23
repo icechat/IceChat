@@ -152,6 +152,7 @@ namespace IceChat
                     t.Dispose();
                 }
 
+
                 if (socketStream != null)
                     socketStream.Dispose();
 
@@ -512,6 +513,7 @@ namespace IceChat
             {
                 if (ServerError != null)
                     ServerError(this, "Null Socket - Can not Connect", false);
+                
                 return;
             }
 

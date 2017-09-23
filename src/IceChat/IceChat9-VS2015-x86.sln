@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceChat9-45", "IceChat9-45.csproj", "{C6F37CE4-B0A1-4048-A896-9A28B2A0127D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AEB6359F-44F9-4E8A-9033-16398D522BF2} = {AEB6359F-44F9-4E8A-9033-16398D522BF2}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPluginIceChat-45", "IPlugin\IPluginIceChat-45.csproj", "{EC8820CA-B2C2-416B-8A59-2416AA349C4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRCConnection-45", "IRCConnection\IRCConnection-45.csproj", "{AF8D549B-3209-4A7F-8768-D7CEE318A4E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IThemeIceChat-45", "IThemeIceChat\IThemeIceChat-45.csproj", "{AEB6359F-44F9-4E8A-9033-16398D522BF2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6F37CE4-B0A1-4048-A896-9A28B2A0127D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C6F37CE4-B0A1-4048-A896-9A28B2A0127D}.Debug|Any CPU.Build.0 = Debug|x86
+		{C6F37CE4-B0A1-4048-A896-9A28B2A0127D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F37CE4-B0A1-4048-A896-9A28B2A0127D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC8820CA-B2C2-416B-8A59-2416AA349C4C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EC8820CA-B2C2-416B-8A59-2416AA349C4C}.Debug|Any CPU.Build.0 = Debug|x86
+		{EC8820CA-B2C2-416B-8A59-2416AA349C4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC8820CA-B2C2-416B-8A59-2416AA349C4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF8D549B-3209-4A7F-8768-D7CEE318A4E3}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{AF8D549B-3209-4A7F-8768-D7CEE318A4E3}.Debug|Any CPU.Build.0 = Debug|x86
+		{AF8D549B-3209-4A7F-8768-D7CEE318A4E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF8D549B-3209-4A7F-8768-D7CEE318A4E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEB6359F-44F9-4E8A-9033-16398D522BF2}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{AEB6359F-44F9-4E8A-9033-16398D522BF2}.Debug|Any CPU.Build.0 = Debug|x86
+		{AEB6359F-44F9-4E8A-9033-16398D522BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB6359F-44F9-4E8A-9033-16398D522BF2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

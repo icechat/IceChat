@@ -193,6 +193,8 @@ namespace IceChat
 
             r.Close();
             fs.Close();
+
+            fs.Dispose();
         }
         
         /// <summary>
@@ -217,6 +219,8 @@ namespace IceChat
             w.Flush();
             w.Close();
             fs.Close();
+
+            fs.Dispose();
 
             _parent.FocusInputBox();
         }

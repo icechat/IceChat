@@ -257,7 +257,6 @@ namespace IceChat
                 {
                     if (line.Length > 0)
                     {
-                        System.Diagnostics.Debug.WriteLine("wide:" + line.Length);                            
                         OnCommand(this, line);
                     }
                 }
@@ -272,7 +271,7 @@ namespace IceChat
                 if (lines.Length == 1)
                 {
                     //just 1 line, add to end of text box
-
+                    /*
                     if (lines[0].Length > 350)
                     {
                         for (int index = 0; index < lines[0].Length; index += 350)
@@ -285,7 +284,10 @@ namespace IceChat
 
                     }
                     else
-                        OnCommand(this, lines[0]);
+                    */
+
+                    textInput.addToBuffer(lines[0]);
+                    OnCommand(this, lines[0]);
                     
                 }
                 else
@@ -313,10 +315,12 @@ namespace IceChat
                         {
                             if (line.Length > 0)
                             {
-                                if (line.Length < 350)
-                                {
-                                    textInput.addToBuffer(line);
-                                    OnCommand(this, line);
+                                
+                                //if (line.Length < 350)
+                                //{
+                                textInput.addToBuffer(line);
+                                OnCommand(this, line);
+                                /*
                                 }
                                 else
                                 {
@@ -331,6 +335,7 @@ namespace IceChat
 
                                     }
                                 }
+                                */ 
                             }
                         }
                     }

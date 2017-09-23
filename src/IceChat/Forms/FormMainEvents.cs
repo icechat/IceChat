@@ -1607,6 +1607,7 @@ namespace IceChat
 
                     string msgAway = iceChatOptions.PrivateAwayMessage;
                     msgAway = msgAway.Replace("$awaytime", s);
+                    msgAway = msgAway.Replace("$awayreason", connection.ServerSetting.AwayReason);
 
                     ParseOutGoingCommand(connection, "//msg " + nick + " " + msgAway);
                 }
@@ -1731,6 +1732,7 @@ namespace IceChat
 
                     string msgAway = iceChatOptions.PrivateAwayMessage;
                     msgAway = msgAway.Replace("$awaytime", s);
+                    msgAway = msgAway.Replace("$awayreason", connection.ServerSetting.AwayReason);
 
                     ParseOutGoingCommand(connection, "//msg " + nick + " " + msgAway);
                 }
@@ -1778,6 +1780,7 @@ namespace IceChat
                                     switch (connection.ServerSetting.StatusModes[0][y])
                                     {
                                         case 'q':
+                                        case 'y':
                                             u.nickColor = iceChatColors.ChannelOwnerColor;
                                             break;
                                         case 'a':
@@ -1940,6 +1943,7 @@ namespace IceChat
                                     switch (connection.ServerSetting.StatusModes[0][y])
                                     {
                                         case 'q':
+                                        case 'y':
                                             u.nickColor = iceChatColors.ChannelOwnerColor;
                                             break;
                                         case 'a':

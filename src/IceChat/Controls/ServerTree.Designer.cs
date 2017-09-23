@@ -17,6 +17,10 @@
             {
                 components.Dispose();
             }
+
+            if (_backgroundImage != null)
+                _backgroundImage.Dispose();
+
             base.Dispose(disposing);
         }
 

@@ -43,6 +43,34 @@ namespace IceChat
     public partial class FormMain
     {
 
+        // could make this a setting
+        int maxMessageLength = 300;
+        
+        private string[] SplitLongMessage(string msg)
+        {
+            string[] words = msg.Split(' ');
+            List<string> parts = new List<string>();
+            string part = string.Empty;
+            	
+            // small change if first word is longer than the partLength: (!string.IsNullOrEmpty(part)) parts.Add(partCounter, part)
+            foreach (string word in words)
+            {
+                if (part.Length + word.Length < maxMessageLength)
+                {
+                    part += string.IsNullOrEmpty(part) ? word : " " + word;
+                }
+                else
+                {
+                    parts.Add(part);
+                    part = word;
+                }
+            }
+
+            parts.Add(part);
+            
+            return parts.ToArray();
+        }
+        
 
         /// <summary>
         /// Parse out command written in Input Box or sent from Plugin
@@ -786,7 +814,21 @@ namespace IceChat
                                     {
                                         if (t.Connection == connection)
                                         {
-                                            SendData(connection, "PRIVMSG " + t.TabCaption + " :ACTION " + data + "");
+                                            //SendData(connection, "PRIVMSG " + t.TabCaption + " :ACTION " + data + "");
+
+                                            if (data.Length > maxMessageLength)
+                                            {
+                                                var lines = SplitLongMessage(data);
+                                                foreach (var line in lines)
+                                                {
+                                                    SendData(connection, "PRIVMSG " + t.TabCaption + " :ACTION " + line + "");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                SendData(connection, "PRIVMSG " + t.TabCaption + " :ACTION " + data + "");
+                                            } 
+
                                             string msg = GetMessageFormat("Self Channel Action");
                                             msg = msg.Replace("$nick", t.Connection.ServerSetting.CurrentNickName).Replace("$channel", t.TabCaption);
                                             msg = msg.Replace("$message", data);
@@ -825,7 +867,21 @@ namespace IceChat
                                     {
                                         if (t.Connection == connection)
                                         {
-                                            SendData(connection, "PRIVMSG " + t.TabCaption + " :" + data);
+                                            //SendData(connection, "PRIVMSG " + t.TabCaption + " :" + data);
+
+                                            if (data.Length > maxMessageLength)
+                                            {
+                                                var lines = SplitLongMessage(data);
+                                                foreach (var line in lines)
+                                                {
+                                                    SendData(connection, "PRIVMSG " + t.TabCaption + " :" + line);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                SendData(connection, "PRIVMSG " + t.TabCaption + " :" + data);
+                                            } 
+
                                             string msg = GetMessageFormat("Self Channel Message");
                                             msg = msg.Replace("$nick", t.Connection.ServerSetting.CurrentNickName).Replace("$channel", t.TabCaption);
 
@@ -853,6 +909,7 @@ namespace IceChat
                                                                 switch (connection.ServerSetting.StatusModes[0][y])
                                                                 {
                                                                     case 'q':
+                                                                    case 'y':
                                                                         u.nickColor = IceChatColors.ChannelOwnerColor;
                                                                         break;
                                                                     case 'a':
@@ -1055,6 +1112,9 @@ namespace IceChat
 
                                     string msg = iceChatOptions.ReturnCommand;
                                     msg = msg.Replace("$awaytime", s);
+                                    // show the away reason
+                                    msg = msg.Replace("$awayreason", connection.ServerSetting.AwayReason);
+
                                     if (iceChatOptions.SendAwayCommands == true && !connection.ServerSetting.DisableAwayMessages)
                                         ParseOutGoingCommand(connection, msg);
 
@@ -1073,6 +1133,7 @@ namespace IceChat
 
                                     string msg = iceChatOptions.AwayCommand;
                                     msg = msg.Replace("$awayreason", data);
+                                    connection.ServerSetting.AwayReason = data;
 
                                     if (iceChatOptions.SendAwayCommands == true && !connection.ServerSetting.DisableAwayMessages)
                                         ParseOutGoingCommand(connection, msg);
@@ -1701,7 +1762,21 @@ namespace IceChat
                                 IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
                                 if (t != null)
                                 {
-                                    SendData(connection, "PRIVMSG " + t.TabCaption + " :ACTION " + message + "");
+                                    //SendData(connection, "PRIVMSG " + t.TabCaption + " :ACTION " + message + "");
+
+                                    if (message.Length > maxMessageLength)
+                                    {
+                                        var lines = SplitLongMessage(message);
+                                        foreach (var line in lines)
+                                        {
+                                            SendData(connection, "PRIVMSG " + t.TabCaption + " :ACTION " + line + "");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SendData(connection, "PRIVMSG " + t.TabCaption + " :ACTION " + message + "");
+                                    } 
+
                                     string msg = GetMessageFormat("Self Channel Action");
                                     msg = msg.Replace("$nick", inputPanel.CurrentConnection.ServerSetting.CurrentNickName).Replace("$channel", t.TabCaption);
                                     msg = msg.Replace("$message", message);
@@ -2349,7 +2424,22 @@ namespace IceChat
                             {
                                 if (CurrentWindowStyle == IceTabPage.WindowType.Channel || CurrentWindowStyle == IceTabPage.WindowType.Query)
                                 {
-                                    SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :ACTION " + data + "");
+                                    //SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :ACTION " + data + "");
+
+                                    if (data.Length > maxMessageLength)
+                                    {
+                                        var lines = SplitLongMessage(data);
+                                        foreach (var line in lines)
+                                        {
+                                            SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :ACTION " + line + "");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :ACTION " + data + "");
+                                    } 
+
+
                                     string msg = GetMessageFormat("Self Channel Action");
                                     msg = msg.Replace("$nick", inputPanel.CurrentConnection.ServerSetting.CurrentNickName).Replace("$channel", CurrentWindow.TabCaption);
                                     msg = msg.Replace("$message", data);
@@ -2424,7 +2514,21 @@ namespace IceChat
                                 }
                                 else
                                 {
-                                    SendData(connection, "PRIVMSG " + nick + " :" + msg2);
+                                    //SendData(connection, "PRIVMSG " + nick + " :" + msg2);
+
+                                    if (msg2.Length > maxMessageLength)
+                                    {
+                                        var lines = SplitLongMessage(msg2);
+                                        foreach (var line in lines)
+                                        {
+                                            SendData(connection, "PRIVMSG " + nick + " :" + line);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SendData(connection, "PRIVMSG " + nick + " :" + msg2);
+                                    } 
+
 
                                     //get the color for the private message
                                     string msg = GetMessageFormat("Self Channel Message");
@@ -2475,6 +2579,7 @@ namespace IceChat
                                                                 switch (connection.ServerSetting.StatusModes[0][y])
                                                                 {
                                                                     case 'q':
+                                                                    case 'y':
                                                                         u.nickColor = IceChatColors.ChannelOwnerColor;
                                                                         break;
                                                                     case 'a':
@@ -2832,7 +2937,20 @@ namespace IceChat
 
                                 if (msg.Length > 0)
                                 {
-                                    SendData(connection, "PRIVMSG " + nick + " :" + msg);
+                                    // SendData(connection, "PRIVMSG " + nick + " :" + msg);
+
+                                    if (msg.Length > maxMessageLength)
+                                    {
+                                        var lines = SplitLongMessage(msg);
+                                        foreach (var line in lines)
+                                        {
+                                            SendData(connection, "PRIVMSG " + nick + " :" + line);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SendData(connection, "PRIVMSG " + nick + " :" + msg);
+                                    } 
 
                                     string nmsg = GetMessageFormat("Self Private Message");
                                     nmsg = nmsg.Replace("$nick", inputPanel.CurrentConnection.ServerSetting.CurrentNickName).Replace("$message", msg);
@@ -2893,8 +3011,19 @@ namespace IceChat
                             if (connection != null && data.Length > 0)
                             {
                                 if (CurrentWindowStyle == IceTabPage.WindowType.Channel)
-                                {
-                                    SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+                                {                                    
+                                    if (data.Length > maxMessageLength)
+                                    {
+                                        var lines = SplitLongMessage(data);
+                                        foreach (var line in lines)
+                                        {
+                                            SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + line);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+                                    } 
 
                                     string msg = GetMessageFormat("Self Channel Message");
                                     string nick = inputPanel.CurrentConnection.ServerSetting.CurrentNickName;
@@ -2926,6 +3055,7 @@ namespace IceChat
                                                         switch (connection.ServerSetting.StatusModes[0][y])
                                                         {
                                                             case 'q':
+                                                            case 'y':
                                                                 u.nickColor = IceChatColors.ChannelOwnerColor;
                                                                 break;
                                                             case 'a':
@@ -2964,7 +3094,20 @@ namespace IceChat
                                 }
                                 else if (CurrentWindowStyle == IceTabPage.WindowType.Query)
                                 {
-                                    SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+                                    //SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+
+                                    if (data.Length > maxMessageLength)
+                                    {
+                                        var lines = SplitLongMessage(data);
+                                        foreach (var line in lines)
+                                        {
+                                            SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + line);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+                                    } 
 
                                     string msg = GetMessageFormat("Self Private Message");
                                     msg = msg.Replace("$nick", inputPanel.CurrentConnection.ServerSetting.CurrentNickName).Replace("$message", data);
@@ -3622,7 +3765,22 @@ namespace IceChat
                             if (CurrentWindowStyle == IceTabPage.WindowType.Channel)
                             {
 
-                                SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+                                // SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+
+                                if (data.Length > maxMessageLength)
+                                {
+                                    var lines = SplitLongMessage(data);
+                                    foreach (var line in lines)
+                                    {
+                                        SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + line);
+                                    }
+                                }
+                                else
+                                {
+                                    SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+                                } 
+
+
                                 //check if we got kicked out of the channel or not, and the window is still open
                                 if (CurrentWindow.IsFullyJoined)
                                 {
@@ -3665,6 +3823,7 @@ namespace IceChat
                                                         switch (connection.ServerSetting.StatusModes[0][y])
                                                         {
                                                             case 'q':
+                                                            case 'y':
                                                                 u.nickColor = IceChatColors.ChannelOwnerColor;
                                                                 break;
                                                             case 'a':
@@ -3721,7 +3880,20 @@ namespace IceChat
                             }
                             else if (CurrentWindowStyle == IceTabPage.WindowType.Query)
                             {
-                                SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+                                // SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+
+                                if (data.Length > maxMessageLength)
+                                {
+                                    var lines = SplitLongMessage(data);
+                                    foreach (var line in lines)
+                                    {
+                                        SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + line);
+                                    }
+                                }
+                                else
+                                {
+                                    SendData(connection, "PRIVMSG " + CurrentWindow.TabCaption + " :" + data);
+                                } 
 
                                 string msg = GetMessageFormat("Self Private Message");
                                 msg = msg.Replace("$nick", connection.ServerSetting.CurrentNickName).Replace("$message", data);

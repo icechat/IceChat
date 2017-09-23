@@ -841,6 +841,7 @@ namespace IceChat
                                         switch (currentWindow.Connection.ServerSetting.StatusModes[0][y])
                                         {
                                             case 'q':
+                                            case 'y':
                                                 args.Extra = _parent.IceChatColors.ChannelOwnerColor.ToString();
                                                 u.nickColor = _parent.IceChatColors.ChannelOwnerColor;
                                                 break;

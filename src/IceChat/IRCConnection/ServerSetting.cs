@@ -701,6 +701,10 @@ namespace IceChat
         public bool Away
         { get; set; }
 
+        [XmlIgnore()]
+        public string AwayReason
+        { get; set; }
+
         //ircv3 userhost-in-name
         [XmlIgnore()]
         public bool UserhostInName

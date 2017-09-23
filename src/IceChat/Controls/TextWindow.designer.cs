@@ -20,6 +20,12 @@ namespace IceChat
             if (_logClass != null)
                 _logClass.Dispose();
 
+            if (_backgroundImage != null)
+                _backgroundImage.Dispose();
+
+            if (_buffer != null)
+                _buffer.Dispose();
+
             //System.Diagnostics.Debug.WriteLine("disposing:" + ((IceTabPage)this.Parent).TabCaption + ":" + disposing);
             //System.Diagnostics.Debug.WriteLine("disposing text window");
             //base.Dispose(disposing);

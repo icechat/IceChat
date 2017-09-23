@@ -17,6 +17,10 @@
             {
                 components.Dispose();
             }
+
+            if (_tabFont != null)
+                _tabFont.Dispose();
+
             base.Dispose(disposing);
         }
 

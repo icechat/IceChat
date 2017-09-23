@@ -1,3 +1,9 @@
+Build 9.18 Sept 23 2017
+* Remove trailing spaces from settings in Server Editor
+* Fix bug with splitting long messages
+* Make some minor adjustments to the away settings
+* Fix mode y/~ coloring problem with the Nicklist
+
 Build 9.17 Aug 26 2017
 * Removed Advanced Settings option in Server Editor, show all by default
 * Fix bug where screen can be blanked with certain characters

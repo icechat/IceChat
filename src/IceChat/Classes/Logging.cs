@@ -256,6 +256,12 @@ namespace IceChat
 
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)        
+        {
             //if (_tabPage != null)
             //    System.Diagnostics.Debug.WriteLine("Dispose Logging Class TabPage:" + _tabPage.TabCaption);
             //else if (_consoleTab != null)

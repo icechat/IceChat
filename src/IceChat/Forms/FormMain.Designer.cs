@@ -21,6 +21,11 @@ namespace IceChat
             {
                 components.Dispose();
             }
+
+            if (errorFile != null)
+                errorFile.Dispose();
+
+
             base.Dispose(disposing);
         }
 

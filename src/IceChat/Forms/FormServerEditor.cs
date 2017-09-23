@@ -399,46 +399,46 @@ namespace IceChat
             if (serverSetting == null)
                 serverSetting = new ServerSetting();
 
-            if (textServername.Text.Length == 0)
+            if (textServername.Text.Trim().Length == 0)
             {
                 MessageBox.Show("You do not have a server name");
                 return false;
             }
-            if (textNickName.Text.Length == 0)
+            if (textNickName.Text.Trim().Length == 0)
             {
                 MessageBox.Show("You do not have a nick name");
                 return false;
             }
             
-            serverSetting.NickName = textNickName.Text;
-            if (textAltNickName.Text.Length > 0)
+            serverSetting.NickName = textNickName.Text.Trim();
+            if (textAltNickName.Text.Trim().Length > 0)
                 serverSetting.AltNickName = textAltNickName.Text;
             else
-                serverSetting.AltNickName = textNickName.Text + "_";
+                serverSetting.AltNickName = textNickName.Text.Trim() + "_";
 
-            serverSetting.AwayNickName = textAwayNick.Text;
+            serverSetting.AwayNickName = textAwayNick.Text.Trim();
 
-            serverSetting.ServerName = textServername.Text;
+            serverSetting.ServerName = textServername.Text.Trim();
             serverSetting.DisplayName = textDisplayName.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;");
 
-            if (textFullName.Text.Length == 0)
-                textFullName.Text = textDefaultFullName.Text;
+            if (textFullName.Text.Trim().Length == 0)
+                textFullName.Text = textDefaultFullName.Text.Trim();
             serverSetting.FullName = textFullName.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;");
 
-            if (textQuitMessage.Text.Length == 0)
-                textQuitMessage.Text = textDefaultQuitMessage.Text;
+            if (textQuitMessage.Text.Trim().Length == 0)
+                textQuitMessage.Text = textDefaultQuitMessage.Text.Trim();
             serverSetting.QuitMessage = textQuitMessage.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;");
 
-            serverSetting.Password = textServerPassword.Text;
-            serverSetting.NickservPassword = textNickservPassword.Text;
+            serverSetting.Password = textServerPassword.Text.Trim();
+            serverSetting.NickservPassword = textNickservPassword.Text.Trim();
 
-            if (textServerPort.Text.Length == 0)
+            if (textServerPort.Text.Trim().Length == 0)
                 textServerPort.Text = "6667";
-            serverSetting.ServerPort = textServerPort.Text;
+            serverSetting.ServerPort = textServerPort.Text.Trim();
 
-            if (textIdentName.Text.Length == 0)
+            if (textIdentName.Text.Trim().Length == 0)
                 textIdentName.Text = textDefaultIdent.Text;
-            serverSetting.IdentName = textIdentName.Text;
+            serverSetting.IdentName = textIdentName.Text.Trim();
 
             serverSetting.AutoJoinEnable = checkAutoJoin.Checked;
             serverSetting.AutoJoinDelay = checkAutoJoinDelay.Checked;
@@ -571,10 +571,10 @@ namespace IceChat
             serverSetting.EchoMessage = checkEchoMessage.Checked;
 
             serverSetting.UseProxy = checkUseProxy.Checked;
-            serverSetting.ProxyIP = textProxyIP.Text;
-            serverSetting.ProxyPort = textProxyPort.Text;
-            serverSetting.ProxyUser = textProxyUser.Text;
-            serverSetting.ProxyPass = textProxyPass.Text;
+            serverSetting.ProxyIP = textProxyIP.Text.Trim();
+            serverSetting.ProxyPort = textProxyPort.Text.Trim();
+            serverSetting.ProxyUser = textProxyUser.Text.Trim();
+            serverSetting.ProxyPass = textProxyPass.Text.Trim();
 
             if (radioSocksHTTP.Checked)
                 serverSetting.ProxyType = 1;
@@ -584,10 +584,10 @@ namespace IceChat
                 serverSetting.ProxyType = 3;
 
             serverSetting.UseBNC = checkUseBNC.Checked;
-            serverSetting.BNCIP = textBNCIP.Text;
-            serverSetting.BNCPort = textBNCPort.Text;
-            serverSetting.BNCUser = textBNCUser.Text;
-            serverSetting.BNCPass = textBNCPass.Text;
+            serverSetting.BNCIP = textBNCIP.Text.Trim();
+            serverSetting.BNCPort = textBNCPort.Text.Trim();
+            serverSetting.BNCUser = textBNCUser.Text.Trim();
+            serverSetting.BNCPass = textBNCPass.Text.Trim();
 
             serverSetting.ServerNotes = textNotes.Text;
 

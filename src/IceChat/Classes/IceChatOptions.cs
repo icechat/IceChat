@@ -124,6 +124,8 @@ namespace IceChat
         
         //private int nickListSortNicksOnly = 0;
 
+        private string _menuRenderer = "Default";
+
         private int _transparency = 100;
         //private float _lineSpacing = 1;
 
@@ -373,6 +375,13 @@ namespace IceChat
         {
             get { return this._singleRowChannelBar; }
             set { this._singleRowChannelBar = value; }
+        }
+
+        [XmlElement("MenuRenderer")]
+        public string MenuRenderer
+        {
+            get { return this._menuRenderer; }
+            set { this._menuRenderer = value; }
         }
 
         [XmlElement("Transparency")]

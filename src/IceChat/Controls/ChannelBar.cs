@@ -95,6 +95,7 @@ namespace IceChat
             this.UpdateStyles();
 
             _popupMenu = new ContextMenuStrip();
+            _popupMenu.Tag = "PARENT";
 
             flashTabTimer = new System.Timers.Timer();
             flashTabTimer.Interval = 1000;
@@ -964,6 +965,9 @@ namespace IceChat
                         _popupMenu.ItemClicked -= new ToolStripItemClickedEventHandler(OnPopupMenu_ItemClicked);
                         _popupMenu.Items.Clear();
 
+                        // remove all the click handlers
+
+
                         if (GetTabPage(_selectedIndex).PinnedTab)
                             _popupMenu.Items.Add(NewMenuItem("Unpin Tab", "/unpin $1"));
                         else
@@ -1188,7 +1192,10 @@ namespace IceChat
             if (e.ClickedItem.Tag == null) return;
 
             string command = e.ClickedItem.Tag.ToString();
-            
+
+            System.Diagnostics.Debug.WriteLine("OnPopupMenuClicked:" + command);
+
+
             ((ContextMenuStrip)(sender)).Close();
 
             if (GetTabPage(_selectedIndex).WindowStyle == IceTabPage.WindowType.Console)
@@ -1410,15 +1417,21 @@ namespace IceChat
 
         private void OnPopupExtraMenuClick(object sender, EventArgs e)
         {
-            if (((ToolStripMenuItem)sender).Tag == null) return;
 
-            string command = ((ToolStripMenuItem)sender).Tag.ToString();
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+            
+            if (menuItem.Tag == null) return;
+
+            string command = menuItem.Tag.ToString();
+
+            // the OnPopupMenu_ItemClicked event already captures menu items that are not sub-menus
+            if (menuItem.Owner.Tag.ToString() == "PARENT")
+                return;
 
             if (GetTabPage(_selectedIndex).WindowStyle == IceTabPage.WindowType.Console)
             {
                 //a console command, find out which is the current tab
                 command = command.Replace("$1", "Console");
-                System.Diagnostics.Debug.WriteLine("Parse1:" + command);
                 _parent.ParseOutGoingCommand(GetTabPage("Console").CurrentConnection, command);
             }
             else
@@ -1427,7 +1440,6 @@ namespace IceChat
                 if (t != null)
                 {
                     command = command.Replace("$1", t.TabCaption);
-                    System.Diagnostics.Debug.WriteLine("Parse2:" + command);
                     _parent.ParseOutGoingCommand(t.Connection, command);
                 }
             }

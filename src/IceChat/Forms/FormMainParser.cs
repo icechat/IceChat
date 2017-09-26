@@ -133,7 +133,7 @@ namespace IceChat
 
                 data = args.Command;
 
-                // System.Diagnostics.Debug.WriteLine("Command=" + data);
+                // System.Diagnostics.Debug.WriteLine("ParseCommand=" + data);
 
                 if (data.StartsWith("//"))
                 {
@@ -320,7 +320,10 @@ namespace IceChat
                             {
                                 IceTabPage t = GetWindow(connection, data, IceTabPage.WindowType.Channel);
                                 if (t != null)
+                                {
+                                    System.Diagnostics.Debug.WriteLine(data);
                                     t.TextWindow.NoColorMode = !t.TextWindow.NoColorMode;
+                                }
                             }
                             break;
 

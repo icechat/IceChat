@@ -567,7 +567,7 @@ namespace IceChat
                     SslProtocols enabledSslProtocols;
                     
                     #if USE_NET_45
-                        enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11;
+                        enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
                     #else
                         enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
                     #endif

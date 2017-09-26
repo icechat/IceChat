@@ -10,9 +10,9 @@ call %msBuildDir%\msbuild.exe ..\src\IceChat\IceChat9-VS2015.sln /p:Configuratio
 set msBuildDir=
 
 XCOPY ..\src\IceChat\bin\Debug\IceChat2009.exe .\IceChatBuild\ 
-XCOPY ..\src\IceChat\\bin\Debug\IPluginIceChat.dll .\IceChatBuild\ 
-XCOPY ..\src\IceChat\\bin\Debug\IRCConnection.dll .\IceChatBuild\ 
-XCOPY ..\src\IceChat\\bin\Debug\IThemeIceChat.dll .\IceChatBuild\ 
+XCOPY ..\src\IceChat\bin\Debug\IPluginIceChat.dll .\IceChatBuild\ 
+XCOPY ..\src\IceChat\bin\Debug\IRCConnection.dll .\IceChatBuild\ 
+XCOPY ..\src\IceChat\bin\Debug\IThemeIceChat.dll .\IceChatBuild\ 
 
 
 echo IceChat files copied to the IceChatBuild folder

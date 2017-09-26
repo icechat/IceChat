@@ -1,3 +1,9 @@
+Build 9.19 Sept 25 2017
+* IceChat Updater now detects if you are using the .NET 4.5 Build or not and will update accordingly
+* Fix bug where some menu items from the Channel Bar menu did not work properly
+* Fix bug with certain SSL Servers not connecting
+* Menu Styles are now saved
+
 Build 9.18 Sept 23 2017
 * Remove trailing spaces from settings in Server Editor
 * Fix bug with splitting long messages

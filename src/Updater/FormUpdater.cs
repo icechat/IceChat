@@ -47,6 +47,8 @@ namespace IceChatUpdater
         private Stack<Uri> localFiles = new Stack<Uri>();
         private Stack<Uri> moveFiles = new Stack<Uri>();
 
+        private bool useNet45 = false;
+
         public FormUpdater(string[] args)
         {
             InitializeComponent();
@@ -55,12 +57,18 @@ namespace IceChatUpdater
 
             if (args.Length > 0)
             {
+
+                if (args.Length == 2)
+                    useNet45 = true;
+
                 foreach (string arg in args)
                     currentFolder = arg;
             }
             else
                 currentFolder = Application.StartupPath;
            
+
+
             labelFolder.Text = currentFolder;
             labelCurrentFile.Text = "";
             label3.Text = Application.StartupPath;
@@ -79,6 +87,16 @@ namespace IceChatUpdater
         {
 
             //get the current version of IceChat 2009 in the Same Folder
+
+            // are we checking for .net 45 or not
+            string update9XML = "update9.xml";
+
+            if (useNet45 == true)
+            {
+                update9XML = "update9-45.xml";
+                label1.Text = "Files to Update: using .NET 4.5";
+            }
+
             System.Diagnostics.FileVersionInfo fv;
             double currentVersion;
             try
@@ -96,13 +114,13 @@ namespace IceChatUpdater
             }
             
             //delete the current update.xml file if it exists
-            if (File.Exists(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "update9.xml"))
-                File.Delete(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "update9.xml");
+            if (File.Exists(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + update9XML))
+                File.Delete(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + update9XML);
 
             System.Net.WebClient webClient = new System.Net.WebClient();
-            webClient.DownloadFile("http://www.icechat.net/update9.xml", Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "update9.xml");
+            webClient.DownloadFile("http://www.icechat.net/" + update9XML, Application.StartupPath + System.IO.Path.DirectorySeparatorChar + update9XML);
             System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument();
-            xmlDoc.Load(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "update9.xml");
+            xmlDoc.Load(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + update9XML);
             
             System.Xml.XmlNodeList version = xmlDoc.GetElementsByTagName("version");
             System.Xml.XmlNodeList versiontext = xmlDoc.GetElementsByTagName("versiontext");

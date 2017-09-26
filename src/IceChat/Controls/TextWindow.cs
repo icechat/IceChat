@@ -1494,6 +1494,9 @@ namespace IceChat
             set
             {
                 _noColorMode = value;
+
+                System.Diagnostics.Debug.WriteLine("NoColorMode:" + _noColorMode);
+
                 if (this.Parent != null && this.Parent.GetType() == typeof(IceTabPage))
                 {
                     IceTabPage t = (IceTabPage)this.Parent;

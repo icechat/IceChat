@@ -348,7 +348,7 @@ namespace IceChat
         private void AddConsole(ConsoleTab tab, TextWindow window)
         {
             this.UIThread(delegate
-            {
+            {                
                 tab.Controls.Add(window);
                 if (_parent.IceChatOptions.LogConsole && tab.Connection.ServerSetting.DisableLogging == false)
                     window.SetLogFile(false);
@@ -372,6 +372,7 @@ namespace IceChat
             w.Dock = DockStyle.Fill;
             w.Font = new System.Drawing.Font(_parent.IceChatFonts.FontSettings[0].FontName, _parent.IceChatFonts.FontSettings[0].FontSize);
             w.IRCBackColor = _parent.IceChatColors.ConsoleBackColor;
+            w.NoEmoticons = true;
 
             t.Controls.Add(w);
             consoleTab.TabPages.Add(t);

@@ -12,3 +12,4 @@ src/IceChat/IRCConnection/bin/*
 src/IceChat/IThemeIceChat/obj/*
 src/IceChat/IThemeIceChat/bin/*
 
+*.cache

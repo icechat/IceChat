@@ -41,6 +41,7 @@
             this.labelAbout.ForeColor = System.Drawing.Color.Black;
             this.labelAbout.Location = new System.Drawing.Point(-1, 338);
             this.labelAbout.Name = "labelAbout";
+            this.labelAbout.Padding = new System.Windows.Forms.Padding(5);
             this.labelAbout.Size = new System.Drawing.Size(515, 108);
             this.labelAbout.TabIndex = 0;
             this.labelAbout.Text = resources.GetString("labelAbout.Text");

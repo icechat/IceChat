@@ -1,3 +1,6 @@
+Build 9.19a Sept 30 2017
+* Fix issue with multiple /server id=x commands
+
 Build 9.19 Sept 25 2017
 * IceChat Updater now detects if you are using the .NET 4.5 Build or not and will update accordingly
 * Fix bug where some menu items from the Channel Bar menu did not work properly
@@ -16,7 +19,7 @@ Build 9.17 Aug 26 2017
 * Add new Plugin Event for SwitchTab, when a new window is switched to
 
 Build 9.16a Jul 29 2017
-* Fix /server id=X command, will not create new connection, if server is already connected
+* Fix /server id=x command, will not create new connection, if server is already connected
 * Add new window for editing an Ignore Item
 * Fix /ignore command to allow just a nick
 * Added /colornick <nick> <color> command. Only works for the current channel. Use no color to reset

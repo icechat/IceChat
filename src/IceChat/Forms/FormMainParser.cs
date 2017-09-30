@@ -1249,7 +1249,6 @@ namespace IceChat
                                     }
                                 }
                             }
-                            System.Diagnostics.Debug.WriteLine("chan info done");
                             break;
                         case "/pin":
                             if (data.Length > 0)
@@ -3228,7 +3227,7 @@ namespace IceChat
                                         // have we connected already?                                        
                                         foreach (IRCConnection c in serverTree.ServerConnections.Values)
                                         {
-                                            if (c.ServerSetting == s)
+                                            if (c.ServerSetting == s && s.ID.ToString() == serverID) 
                                             {
                                                 if (!c.IsConnected)
                                                 {

@@ -1495,8 +1495,6 @@ namespace IceChat
             {
                 _noColorMode = value;
 
-                System.Diagnostics.Debug.WriteLine("NoColorMode:" + _noColorMode);
-
                 if (this.Parent != null && this.Parent.GetType() == typeof(IceTabPage))
                 {
                     IceTabPage t = (IceTabPage)this.Parent;
@@ -2740,6 +2738,12 @@ namespace IceChat
                     {                        
                         if (!isInSelection)
                             curForeColor = FormMain.Instance.IceChatColors.HyperlinkColor;
+                    }
+
+                    if (_noColorMode)
+                    {
+                        if (curForeColor == 0 && curBackColor == 0)
+                            curForeColor = 1;
                     }
 
                     if (line.Length > 0)

@@ -491,6 +491,7 @@
     <EmbeddedResource Include="Icons\refresh-icon.png" />
     <EmbeddedResource Include="Icons\query.png" />
     <EmbeddedResource Include="Icons\mute.png" />
+    <None Include="app.config" />
     <None Include="Icons\restore.png" />
     <None Include="Icons\maximize.png" />
     <EmbeddedResource Include="Icons\connect-icon-auto.png" />

@@ -132,13 +132,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormColors));
             this.tabControlColors = new System.Windows.Forms.TabControl();
             this.tabPageMessages = new System.Windows.Forms.TabPage();
             this.tabMessages = new System.Windows.Forms.TabControl();
             this.tabBasic = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonResetBasic = new System.Windows.Forms.Button();
-            this.textFormattedBasic = new IceChat.TextWindow();
             this.checkChangeBGBasic = new System.Windows.Forms.CheckBox();
             this.labelFormatMessageBasic = new System.Windows.Forms.Label();
             this.labelIRCMessagesBasic = new System.Windows.Forms.Label();
@@ -146,7 +146,6 @@
             this.tabAdvanced = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonResetAdvanced = new System.Windows.Forms.Button();
-            this.textFormattedText = new IceChat.TextWindow();
             this.textRawMessage = new System.Windows.Forms.TextBox();
             this.labelIRCMessagesAdvanced = new System.Windows.Forms.Label();
             this.checkBGColor = new System.Windows.Forms.CheckBox();
@@ -158,36 +157,18 @@
             this.tabPageTree = new System.Windows.Forms.TabPage();
             this.pictureConsoleTabHighlite = new System.Windows.Forms.PictureBox();
             this.labelConsoleTabHighlite = new System.Windows.Forms.Label();
-            this.pictureTabBuddyNotice = new System.Windows.Forms.PictureBox();
             this.labelTabBuddyNotice = new System.Windows.Forms.Label();
-            this.pictureTabBackground = new System.Windows.Forms.PictureBox();
             this.labelTabBackground = new System.Windows.Forms.Label();
-            this.pictureTabBarHover2 = new System.Windows.Forms.PictureBox();
-            this.pictureTabBarHover1 = new System.Windows.Forms.PictureBox();
             this.labelTabBarHover2 = new System.Windows.Forms.Label();
             this.labelTabBarHover1 = new System.Windows.Forms.Label();
-            this.pictureTabBarOther2 = new System.Windows.Forms.PictureBox();
-            this.pictureTabBarOther1 = new System.Windows.Forms.PictureBox();
-            this.pictureTabBarCurrent2 = new System.Windows.Forms.PictureBox();
-            this.pictureTabBarCurrent1 = new System.Windows.Forms.PictureBox();
             this.labelTabBarOther2 = new System.Windows.Forms.Label();
             this.labelTabBarOther1 = new System.Windows.Forms.Label();
             this.labelTabBarCurrent2 = new System.Windows.Forms.Label();
             this.labelTabBarCurrent1 = new System.Windows.Forms.Label();
             this.labelBackgroundColors = new System.Windows.Forms.Label();
-            this.pictureTabServerNotice = new System.Windows.Forms.PictureBox();
             this.labelTabServerNotice = new System.Windows.Forms.Label();
-            this.pictureTabAction = new System.Windows.Forms.PictureBox();
             this.labelTabAction = new System.Windows.Forms.Label();
-            this.pictureTabDefault = new System.Windows.Forms.PictureBox();
             this.labelTabDefault = new System.Windows.Forms.Label();
-            this.pictureTabOther = new System.Windows.Forms.PictureBox();
-            this.pictureTabServer = new System.Windows.Forms.PictureBox();
-            this.pictureTabQuit = new System.Windows.Forms.PictureBox();
-            this.pictureTabPart = new System.Windows.Forms.PictureBox();
-            this.pictureTabJoin = new System.Windows.Forms.PictureBox();
-            this.pictureTabMessage = new System.Windows.Forms.PictureBox();
-            this.pictureTabCurrent = new System.Windows.Forms.PictureBox();
             this.labelTabOther = new System.Windows.Forms.Label();
             this.labelTabServer = new System.Windows.Forms.Label();
             this.labelTabQuit = new System.Windows.Forms.Label();
@@ -196,14 +177,26 @@
             this.labelTabMessage = new System.Windows.Forms.Label();
             this.labelIRCEvent = new System.Windows.Forms.Label();
             this.labelTabCurrent = new System.Windows.Forms.Label();
+            this.pictureTabBuddyNotice = new System.Windows.Forms.PictureBox();
+            this.pictureTabBackground = new System.Windows.Forms.PictureBox();
+            this.pictureTabBarHover2 = new System.Windows.Forms.PictureBox();
+            this.pictureTabBarHover1 = new System.Windows.Forms.PictureBox();
+            this.pictureTabBarOther2 = new System.Windows.Forms.PictureBox();
+            this.pictureTabBarOther1 = new System.Windows.Forms.PictureBox();
+            this.pictureTabBarCurrent2 = new System.Windows.Forms.PictureBox();
+            this.pictureTabBarCurrent1 = new System.Windows.Forms.PictureBox();
+            this.pictureTabServerNotice = new System.Windows.Forms.PictureBox();
+            this.pictureTabAction = new System.Windows.Forms.PictureBox();
+            this.pictureTabDefault = new System.Windows.Forms.PictureBox();
+            this.pictureTabOther = new System.Windows.Forms.PictureBox();
+            this.pictureTabServer = new System.Windows.Forms.PictureBox();
+            this.pictureTabQuit = new System.Windows.Forms.PictureBox();
+            this.pictureTabPart = new System.Windows.Forms.PictureBox();
+            this.pictureTabJoin = new System.Windows.Forms.PictureBox();
+            this.pictureTabMessage = new System.Windows.Forms.PictureBox();
+            this.pictureTabCurrent = new System.Windows.Forms.PictureBox();
             this.tabPageNickNames = new System.Windows.Forms.TabPage();
             this.checkRandomNickColors = new System.Windows.Forms.CheckBox();
-            this.pictureDefault = new System.Windows.Forms.PictureBox();
-            this.pictureVoice = new System.Windows.Forms.PictureBox();
-            this.pictureHalfOperator = new System.Windows.Forms.PictureBox();
-            this.pictureOperator = new System.Windows.Forms.PictureBox();
-            this.pictureAdmin = new System.Windows.Forms.PictureBox();
-            this.pictureOwner = new System.Windows.Forms.PictureBox();
             this.labelDefault = new System.Windows.Forms.Label();
             this.labelVoice = new System.Windows.Forms.Label();
             this.labelHalfOperator = new System.Windows.Forms.Label();
@@ -211,49 +204,57 @@
             this.labelAdmin = new System.Windows.Forms.Label();
             this.labelChannelUserTypes = new System.Windows.Forms.Label();
             this.labelOwner = new System.Windows.Forms.Label();
+            this.pictureDefault = new System.Windows.Forms.PictureBox();
+            this.pictureVoice = new System.Windows.Forms.PictureBox();
+            this.pictureHalfOperator = new System.Windows.Forms.PictureBox();
+            this.pictureOperator = new System.Windows.Forms.PictureBox();
+            this.pictureAdmin = new System.Windows.Forms.PictureBox();
+            this.pictureOwner = new System.Windows.Forms.PictureBox();
             this.tabPageBackGround = new System.Windows.Forms.TabPage();
-            this.pictureSidePanelForeButtons = new System.Windows.Forms.PictureBox();
+            this.pictureSidePanelSplitter = new System.Windows.Forms.PictureBox();
+            this.labelSidePanelSplitter = new System.Windows.Forms.Label();
             this.labelSidePanelForeButtons = new System.Windows.Forms.Label();
-            this.pictureSidePanelButtons = new System.Windows.Forms.PictureBox();
             this.labelSidePanelButtons = new System.Windows.Forms.Label();
-            this.pictureHyperlink = new System.Windows.Forms.PictureBox();
             this.labelHyperlink = new System.Windows.Forms.Label();
-            this.pictureUnreadTextMarkerColor = new System.Windows.Forms.PictureBox();
             this.labelUnreadTextMarkerColor = new System.Windows.Forms.Label();
-            this.pictureStatusFore = new System.Windows.Forms.PictureBox();
             this.labelStatusFore = new System.Windows.Forms.Label();
-            this.pictureStatusBar = new System.Windows.Forms.PictureBox();
             this.labelStatusBar = new System.Windows.Forms.Label();
-            this.pictureInputBoxFore = new System.Windows.Forms.PictureBox();
             this.labelInputBoxFore = new System.Windows.Forms.Label();
-            this.picturePanelHeaderForeColor = new System.Windows.Forms.PictureBox();
             this.labelPanelHeaderForeColor = new System.Windows.Forms.Label();
-            this.pictureChannelListFore = new System.Windows.Forms.PictureBox();
             this.labelChannelListFore = new System.Windows.Forms.Label();
             this.labelOtherForeGroundColors = new System.Windows.Forms.Label();
-            this.pictureToolBar = new System.Windows.Forms.PictureBox();
-            this.pictureMenuBar = new System.Windows.Forms.PictureBox();
             this.labelMenuBar = new System.Windows.Forms.Label();
             this.labelToolBar = new System.Windows.Forms.Label();
-            this.pictureInputBox = new System.Windows.Forms.PictureBox();
             this.labelInputBox = new System.Windows.Forms.Label();
-            this.pictureChannelList = new System.Windows.Forms.PictureBox();
             this.labelChannelList = new System.Windows.Forms.Label();
-            this.picturePanelHeaderBG2 = new System.Windows.Forms.PictureBox();
-            this.picturePanelHeaderBG1 = new System.Windows.Forms.PictureBox();
             this.labelPanelHeaderBG2 = new System.Windows.Forms.Label();
             this.labelPanelHeaderBG1 = new System.Windows.Forms.Label();
-            this.pictureServerList = new System.Windows.Forms.PictureBox();
             this.labelServerList = new System.Windows.Forms.Label();
-            this.pictureNickList = new System.Windows.Forms.PictureBox();
             this.labelNickList = new System.Windows.Forms.Label();
-            this.pictureQuery = new System.Windows.Forms.PictureBox();
             this.labelQuery = new System.Windows.Forms.Label();
-            this.pictureChannel = new System.Windows.Forms.PictureBox();
             this.labelChannel = new System.Windows.Forms.Label();
-            this.pictureConsole = new System.Windows.Forms.PictureBox();
             this.labelBackgroundColorsWindowType = new System.Windows.Forms.Label();
             this.labelConsole = new System.Windows.Forms.Label();
+            this.pictureSidePanelForeButtons = new System.Windows.Forms.PictureBox();
+            this.pictureSidePanelButtons = new System.Windows.Forms.PictureBox();
+            this.pictureHyperlink = new System.Windows.Forms.PictureBox();
+            this.pictureUnreadTextMarkerColor = new System.Windows.Forms.PictureBox();
+            this.pictureStatusFore = new System.Windows.Forms.PictureBox();
+            this.pictureStatusBar = new System.Windows.Forms.PictureBox();
+            this.pictureInputBoxFore = new System.Windows.Forms.PictureBox();
+            this.picturePanelHeaderForeColor = new System.Windows.Forms.PictureBox();
+            this.pictureChannelListFore = new System.Windows.Forms.PictureBox();
+            this.pictureToolBar = new System.Windows.Forms.PictureBox();
+            this.pictureMenuBar = new System.Windows.Forms.PictureBox();
+            this.pictureInputBox = new System.Windows.Forms.PictureBox();
+            this.pictureChannelList = new System.Windows.Forms.PictureBox();
+            this.picturePanelHeaderBG2 = new System.Windows.Forms.PictureBox();
+            this.picturePanelHeaderBG1 = new System.Windows.Forms.PictureBox();
+            this.pictureServerList = new System.Windows.Forms.PictureBox();
+            this.pictureNickList = new System.Windows.Forms.PictureBox();
+            this.pictureQuery = new System.Windows.Forms.PictureBox();
+            this.pictureChannel = new System.Windows.Forms.PictureBox();
+            this.pictureConsole = new System.Windows.Forms.PictureBox();
             this.tabPageThemes = new System.Windows.Forms.TabPage();
             this.buttonImportTheme = new System.Windows.Forms.Button();
             this.buttonLoadTheme = new System.Windows.Forms.Button();
@@ -264,12 +265,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelColorThemesHeader = new System.Windows.Forms.Label();
             this.panelColorPicker = new System.Windows.Forms.Panel();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
             this.labelCurrent = new System.Windows.Forms.Label();
             this.buttonApply = new System.Windows.Forms.Button();
-            this.labelSidePanelSplitter = new System.Windows.Forms.Label();
-            this.pictureSidePanelSplitter = new System.Windows.Forms.PictureBox();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonHelp = new System.Windows.Forms.Button();
+            this.textFormattedBasic = new IceChat.TextWindow();
+            this.textFormattedText = new IceChat.TextWindow();
             this.tabControlColors.SuspendLayout();
             this.tabPageMessages.SuspendLayout();
             this.tabMessages.SuspendLayout();
@@ -303,6 +305,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureAdmin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureOwner)).BeginInit();
             this.tabPageBackGround.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelSplitter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelForeButtons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelButtons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureHyperlink)).BeginInit();
@@ -324,7 +327,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureChannel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConsole)).BeginInit();
             this.tabPageThemes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelSplitter)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlColors
@@ -337,9 +339,10 @@
             this.tabControlColors.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControlColors.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlColors.Location = new System.Drawing.Point(0, 0);
+            this.tabControlColors.Margin = new System.Windows.Forms.Padding(0);
             this.tabControlColors.Name = "tabControlColors";
             this.tabControlColors.SelectedIndex = 0;
-            this.tabControlColors.Size = new System.Drawing.Size(611, 361);
+            this.tabControlColors.Size = new System.Drawing.Size(611, 356);
             this.tabControlColors.TabIndex = 0;
             this.tabControlColors.Tag = "";
             // 
@@ -350,7 +353,7 @@
             this.tabPageMessages.Location = new System.Drawing.Point(4, 25);
             this.tabPageMessages.Name = "tabPageMessages";
             this.tabPageMessages.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMessages.Size = new System.Drawing.Size(603, 332);
+            this.tabPageMessages.Size = new System.Drawing.Size(603, 327);
             this.tabPageMessages.TabIndex = 0;
             this.tabPageMessages.Text = "Messages";
             this.tabPageMessages.UseVisualStyleBackColor = true;
@@ -361,10 +364,11 @@
             this.tabMessages.Controls.Add(this.tabAdvanced);
             this.tabMessages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabMessages.Location = new System.Drawing.Point(3, 3);
-            this.tabMessages.Margin = new System.Windows.Forms.Padding(2);
+            this.tabMessages.Margin = new System.Windows.Forms.Padding(0);
             this.tabMessages.Name = "tabMessages";
+            this.tabMessages.Padding = new System.Drawing.Point(0, 0);
             this.tabMessages.SelectedIndex = 0;
-            this.tabMessages.Size = new System.Drawing.Size(597, 326);
+            this.tabMessages.Size = new System.Drawing.Size(597, 321);
             this.tabMessages.TabIndex = 39;
             // 
             // tabBasic
@@ -381,7 +385,7 @@
             this.tabBasic.Margin = new System.Windows.Forms.Padding(2);
             this.tabBasic.Name = "tabBasic";
             this.tabBasic.Padding = new System.Windows.Forms.Padding(2);
-            this.tabBasic.Size = new System.Drawing.Size(589, 297);
+            this.tabBasic.Size = new System.Drawing.Size(589, 292);
             this.tabBasic.TabIndex = 2;
             this.tabBasic.Text = "Basic";
             // 
@@ -390,7 +394,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Verdana", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(306, 174);
+            this.label3.Location = new System.Drawing.Point(309, 176);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(256, 13);
@@ -401,7 +405,7 @@
             // 
             this.buttonResetBasic.AutoSize = true;
             this.buttonResetBasic.Location = new System.Drawing.Point(309, 200);
-            this.buttonResetBasic.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonResetBasic.Margin = new System.Windows.Forms.Padding(4);
             this.buttonResetBasic.Name = "buttonResetBasic";
             this.buttonResetBasic.Size = new System.Drawing.Size(126, 26);
             this.buttonResetBasic.TabIndex = 52;
@@ -409,22 +413,10 @@
             this.buttonResetBasic.UseVisualStyleBackColor = true;
             this.buttonResetBasic.Click += new System.EventHandler(this.buttonResetBasic_Click);
             // 
-            // textFormattedBasic
-            // 
-            this.textFormattedBasic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.textFormattedBasic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textFormattedBasic.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textFormattedBasic.Location = new System.Drawing.Point(13, 263);
-            this.textFormattedBasic.Margin = new System.Windows.Forms.Padding(2);
-            this.textFormattedBasic.Name = "textFormattedBasic";
-            this.textFormattedBasic.SingleLine = true;
-            this.textFormattedBasic.Size = new System.Drawing.Size(484, 19);
-            this.textFormattedBasic.TabIndex = 51;
-            // 
             // checkChangeBGBasic
             // 
             this.checkChangeBGBasic.AutoSize = true;
-            this.checkChangeBGBasic.Location = new System.Drawing.Point(266, 245);
+            this.checkChangeBGBasic.Location = new System.Drawing.Point(266, 244);
             this.checkChangeBGBasic.Margin = new System.Windows.Forms.Padding(2);
             this.checkChangeBGBasic.Name = "checkChangeBGBasic";
             this.checkChangeBGBasic.Size = new System.Drawing.Size(195, 20);
@@ -437,7 +429,7 @@
             this.labelFormatMessageBasic.AutoSize = true;
             this.labelFormatMessageBasic.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelFormatMessageBasic.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelFormatMessageBasic.Location = new System.Drawing.Point(16, 246);
+            this.labelFormatMessageBasic.Location = new System.Drawing.Point(10, 244);
             this.labelFormatMessageBasic.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFormatMessageBasic.Name = "labelFormatMessageBasic";
             this.labelFormatMessageBasic.Size = new System.Drawing.Size(144, 16);
@@ -449,7 +441,7 @@
             this.labelIRCMessagesBasic.AutoSize = true;
             this.labelIRCMessagesBasic.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelIRCMessagesBasic.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelIRCMessagesBasic.Location = new System.Drawing.Point(15, 10);
+            this.labelIRCMessagesBasic.Location = new System.Drawing.Point(10, 10);
             this.labelIRCMessagesBasic.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelIRCMessagesBasic.Name = "labelIRCMessagesBasic";
             this.labelIRCMessagesBasic.Size = new System.Drawing.Size(289, 16);
@@ -459,7 +451,7 @@
             // treeBasicMessages
             // 
             this.treeBasicMessages.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeBasicMessages.Location = new System.Drawing.Point(13, 36);
+            this.treeBasicMessages.Location = new System.Drawing.Point(10, 36);
             this.treeBasicMessages.Margin = new System.Windows.Forms.Padding(2);
             this.treeBasicMessages.Name = "treeBasicMessages";
             this.treeBasicMessages.Size = new System.Drawing.Size(282, 190);
@@ -483,7 +475,7 @@
             this.tabAdvanced.Margin = new System.Windows.Forms.Padding(2);
             this.tabAdvanced.Name = "tabAdvanced";
             this.tabAdvanced.Padding = new System.Windows.Forms.Padding(2);
-            this.tabAdvanced.Size = new System.Drawing.Size(589, 297);
+            this.tabAdvanced.Size = new System.Drawing.Size(589, 292);
             this.tabAdvanced.TabIndex = 1;
             this.tabAdvanced.Text = "Advanced";
             // 
@@ -502,7 +494,7 @@
             // buttonResetAdvanced
             // 
             this.buttonResetAdvanced.AutoSize = true;
-            this.buttonResetAdvanced.Location = new System.Drawing.Point(298, 139);
+            this.buttonResetAdvanced.Location = new System.Drawing.Point(297, 139);
             this.buttonResetAdvanced.Margin = new System.Windows.Forms.Padding(2);
             this.buttonResetAdvanced.Name = "buttonResetAdvanced";
             this.buttonResetAdvanced.Size = new System.Drawing.Size(126, 26);
@@ -510,18 +502,6 @@
             this.buttonResetAdvanced.Text = "Reset to Default";
             this.buttonResetAdvanced.UseVisualStyleBackColor = true;
             this.buttonResetAdvanced.Click += new System.EventHandler(this.buttonResetAdvanced_Click);
-            // 
-            // textFormattedText
-            // 
-            this.textFormattedText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.textFormattedText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textFormattedText.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textFormattedText.Location = new System.Drawing.Point(11, 269);
-            this.textFormattedText.Margin = new System.Windows.Forms.Padding(2);
-            this.textFormattedText.Name = "textFormattedText";
-            this.textFormattedText.SingleLine = true;
-            this.textFormattedText.Size = new System.Drawing.Size(484, 19);
-            this.textFormattedText.TabIndex = 46;
             // 
             // textRawMessage
             // 
@@ -538,7 +518,7 @@
             this.labelIRCMessagesAdvanced.AutoSize = true;
             this.labelIRCMessagesAdvanced.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelIRCMessagesAdvanced.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelIRCMessagesAdvanced.Location = new System.Drawing.Point(13, 10);
+            this.labelIRCMessagesAdvanced.Location = new System.Drawing.Point(10, 10);
             this.labelIRCMessagesAdvanced.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelIRCMessagesAdvanced.Name = "labelIRCMessagesAdvanced";
             this.labelIRCMessagesAdvanced.Size = new System.Drawing.Size(289, 16);
@@ -579,7 +559,7 @@
             // 
             this.labelFormatMessageAdvanced.AutoSize = true;
             this.labelFormatMessageAdvanced.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelFormatMessageAdvanced.Location = new System.Drawing.Point(13, 251);
+            this.labelFormatMessageAdvanced.Location = new System.Drawing.Point(10, 251);
             this.labelFormatMessageAdvanced.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFormatMessageAdvanced.Name = "labelFormatMessageAdvanced";
             this.labelFormatMessageAdvanced.Size = new System.Drawing.Size(225, 16);
@@ -603,7 +583,7 @@
             this.labelEditMessage.AutoSize = true;
             this.labelEditMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.labelEditMessage.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelEditMessage.Location = new System.Drawing.Point(13, 208);
+            this.labelEditMessage.Location = new System.Drawing.Point(10, 206);
             this.labelEditMessage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelEditMessage.Name = "labelEditMessage";
             this.labelEditMessage.Size = new System.Drawing.Size(311, 15);
@@ -615,36 +595,18 @@
             this.tabPageTree.BackColor = System.Drawing.Color.Transparent;
             this.tabPageTree.Controls.Add(this.pictureConsoleTabHighlite);
             this.tabPageTree.Controls.Add(this.labelConsoleTabHighlite);
-            this.tabPageTree.Controls.Add(this.pictureTabBuddyNotice);
             this.tabPageTree.Controls.Add(this.labelTabBuddyNotice);
-            this.tabPageTree.Controls.Add(this.pictureTabBackground);
             this.tabPageTree.Controls.Add(this.labelTabBackground);
-            this.tabPageTree.Controls.Add(this.pictureTabBarHover2);
-            this.tabPageTree.Controls.Add(this.pictureTabBarHover1);
             this.tabPageTree.Controls.Add(this.labelTabBarHover2);
             this.tabPageTree.Controls.Add(this.labelTabBarHover1);
-            this.tabPageTree.Controls.Add(this.pictureTabBarOther2);
-            this.tabPageTree.Controls.Add(this.pictureTabBarOther1);
-            this.tabPageTree.Controls.Add(this.pictureTabBarCurrent2);
-            this.tabPageTree.Controls.Add(this.pictureTabBarCurrent1);
             this.tabPageTree.Controls.Add(this.labelTabBarOther2);
             this.tabPageTree.Controls.Add(this.labelTabBarOther1);
             this.tabPageTree.Controls.Add(this.labelTabBarCurrent2);
             this.tabPageTree.Controls.Add(this.labelTabBarCurrent1);
             this.tabPageTree.Controls.Add(this.labelBackgroundColors);
-            this.tabPageTree.Controls.Add(this.pictureTabServerNotice);
             this.tabPageTree.Controls.Add(this.labelTabServerNotice);
-            this.tabPageTree.Controls.Add(this.pictureTabAction);
             this.tabPageTree.Controls.Add(this.labelTabAction);
-            this.tabPageTree.Controls.Add(this.pictureTabDefault);
             this.tabPageTree.Controls.Add(this.labelTabDefault);
-            this.tabPageTree.Controls.Add(this.pictureTabOther);
-            this.tabPageTree.Controls.Add(this.pictureTabServer);
-            this.tabPageTree.Controls.Add(this.pictureTabQuit);
-            this.tabPageTree.Controls.Add(this.pictureTabPart);
-            this.tabPageTree.Controls.Add(this.pictureTabJoin);
-            this.tabPageTree.Controls.Add(this.pictureTabMessage);
-            this.tabPageTree.Controls.Add(this.pictureTabCurrent);
             this.tabPageTree.Controls.Add(this.labelTabOther);
             this.tabPageTree.Controls.Add(this.labelTabServer);
             this.tabPageTree.Controls.Add(this.labelTabQuit);
@@ -653,11 +615,29 @@
             this.tabPageTree.Controls.Add(this.labelTabMessage);
             this.tabPageTree.Controls.Add(this.labelIRCEvent);
             this.tabPageTree.Controls.Add(this.labelTabCurrent);
+            this.tabPageTree.Controls.Add(this.pictureTabBuddyNotice);
+            this.tabPageTree.Controls.Add(this.pictureTabBackground);
+            this.tabPageTree.Controls.Add(this.pictureTabBarHover2);
+            this.tabPageTree.Controls.Add(this.pictureTabBarHover1);
+            this.tabPageTree.Controls.Add(this.pictureTabBarOther2);
+            this.tabPageTree.Controls.Add(this.pictureTabBarOther1);
+            this.tabPageTree.Controls.Add(this.pictureTabBarCurrent2);
+            this.tabPageTree.Controls.Add(this.pictureTabBarCurrent1);
+            this.tabPageTree.Controls.Add(this.pictureTabServerNotice);
+            this.tabPageTree.Controls.Add(this.pictureTabAction);
+            this.tabPageTree.Controls.Add(this.pictureTabDefault);
+            this.tabPageTree.Controls.Add(this.pictureTabOther);
+            this.tabPageTree.Controls.Add(this.pictureTabServer);
+            this.tabPageTree.Controls.Add(this.pictureTabQuit);
+            this.tabPageTree.Controls.Add(this.pictureTabPart);
+            this.tabPageTree.Controls.Add(this.pictureTabJoin);
+            this.tabPageTree.Controls.Add(this.pictureTabMessage);
+            this.tabPageTree.Controls.Add(this.pictureTabCurrent);
             this.tabPageTree.Location = new System.Drawing.Point(4, 25);
             this.tabPageTree.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageTree.Name = "tabPageTree";
             this.tabPageTree.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageTree.Size = new System.Drawing.Size(603, 332);
+            this.tabPageTree.Size = new System.Drawing.Size(603, 327);
             this.tabPageTree.TabIndex = 3;
             this.tabPageTree.Text = "Server Tree/Tabs";
             this.tabPageTree.UseVisualStyleBackColor = true;
@@ -681,17 +661,6 @@
             this.labelConsoleTabHighlite.TabIndex = 133;
             this.labelConsoleTabHighlite.Text = "Console Tabs Highlight";
             // 
-            // pictureTabBuddyNotice
-            // 
-            this.pictureTabBuddyNotice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabBuddyNotice.Location = new System.Drawing.Point(188, 208);
-            this.pictureTabBuddyNotice.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabBuddyNotice.Name = "pictureTabBuddyNotice";
-            this.pictureTabBuddyNotice.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabBuddyNotice.TabIndex = 132;
-            this.pictureTabBuddyNotice.TabStop = false;
-            this.pictureTabBuddyNotice.Tag = "Server Notice";
-            // 
             // labelTabBuddyNotice
             // 
             this.labelTabBuddyNotice.AutoSize = true;
@@ -703,16 +672,6 @@
             this.labelTabBuddyNotice.TabIndex = 131;
             this.labelTabBuddyNotice.Text = "Buddy List";
             // 
-            // pictureTabBackground
-            // 
-            this.pictureTabBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabBackground.Location = new System.Drawing.Point(525, 185);
-            this.pictureTabBackground.Name = "pictureTabBackground";
-            this.pictureTabBackground.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabBackground.TabIndex = 130;
-            this.pictureTabBackground.TabStop = false;
-            this.pictureTabBackground.Tag = "Background";
-            // 
             // labelTabBackground
             // 
             this.labelTabBackground.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -721,26 +680,6 @@
             this.labelTabBackground.Size = new System.Drawing.Size(184, 16);
             this.labelTabBackground.TabIndex = 129;
             this.labelTabBackground.Text = "Background";
-            // 
-            // pictureTabBarHover2
-            // 
-            this.pictureTabBarHover2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabBarHover2.Location = new System.Drawing.Point(525, 163);
-            this.pictureTabBarHover2.Name = "pictureTabBarHover2";
-            this.pictureTabBarHover2.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabBarHover2.TabIndex = 128;
-            this.pictureTabBarHover2.TabStop = false;
-            this.pictureTabBarHover2.Tag = "Channel Owner";
-            // 
-            // pictureTabBarHover1
-            // 
-            this.pictureTabBarHover1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabBarHover1.Location = new System.Drawing.Point(525, 141);
-            this.pictureTabBarHover1.Name = "pictureTabBarHover1";
-            this.pictureTabBarHover1.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabBarHover1.TabIndex = 127;
-            this.pictureTabBarHover1.TabStop = false;
-            this.pictureTabBarHover1.Tag = "Channel Owner";
             // 
             // labelTabBarHover2
             // 
@@ -759,46 +698,6 @@
             this.labelTabBarHover1.Size = new System.Drawing.Size(184, 16);
             this.labelTabBarHover1.TabIndex = 125;
             this.labelTabBarHover1.Text = "Hover Tab - Color 1";
-            // 
-            // pictureTabBarOther2
-            // 
-            this.pictureTabBarOther2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabBarOther2.Location = new System.Drawing.Point(525, 119);
-            this.pictureTabBarOther2.Name = "pictureTabBarOther2";
-            this.pictureTabBarOther2.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabBarOther2.TabIndex = 124;
-            this.pictureTabBarOther2.TabStop = false;
-            this.pictureTabBarOther2.Tag = "Channel Owner";
-            // 
-            // pictureTabBarOther1
-            // 
-            this.pictureTabBarOther1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabBarOther1.Location = new System.Drawing.Point(525, 96);
-            this.pictureTabBarOther1.Name = "pictureTabBarOther1";
-            this.pictureTabBarOther1.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabBarOther1.TabIndex = 123;
-            this.pictureTabBarOther1.TabStop = false;
-            this.pictureTabBarOther1.Tag = "Channel Owner";
-            // 
-            // pictureTabBarCurrent2
-            // 
-            this.pictureTabBarCurrent2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabBarCurrent2.Location = new System.Drawing.Point(525, 74);
-            this.pictureTabBarCurrent2.Name = "pictureTabBarCurrent2";
-            this.pictureTabBarCurrent2.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabBarCurrent2.TabIndex = 122;
-            this.pictureTabBarCurrent2.TabStop = false;
-            this.pictureTabBarCurrent2.Tag = "Channel Owner";
-            // 
-            // pictureTabBarCurrent1
-            // 
-            this.pictureTabBarCurrent1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabBarCurrent1.Location = new System.Drawing.Point(525, 52);
-            this.pictureTabBarCurrent1.Name = "pictureTabBarCurrent1";
-            this.pictureTabBarCurrent1.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabBarCurrent1.TabIndex = 121;
-            this.pictureTabBarCurrent1.TabStop = false;
-            this.pictureTabBarCurrent1.Tag = "Channel Owner";
             // 
             // labelTabBarOther2
             // 
@@ -846,17 +745,6 @@
             this.labelBackgroundColors.TabIndex = 116;
             this.labelBackgroundColors.Text = "Tab Background Colors";
             // 
-            // pictureTabServerNotice
-            // 
-            this.pictureTabServerNotice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabServerNotice.Location = new System.Drawing.Point(188, 184);
-            this.pictureTabServerNotice.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabServerNotice.Name = "pictureTabServerNotice";
-            this.pictureTabServerNotice.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabServerNotice.TabIndex = 104;
-            this.pictureTabServerNotice.TabStop = false;
-            this.pictureTabServerNotice.Tag = "Server Notice";
-            // 
             // labelTabServerNotice
             // 
             this.labelTabServerNotice.AutoSize = true;
@@ -867,17 +755,6 @@
             this.labelTabServerNotice.Size = new System.Drawing.Size(98, 16);
             this.labelTabServerNotice.TabIndex = 103;
             this.labelTabServerNotice.Text = "Server Notice";
-            // 
-            // pictureTabAction
-            // 
-            this.pictureTabAction.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabAction.Location = new System.Drawing.Point(188, 73);
-            this.pictureTabAction.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabAction.Name = "pictureTabAction";
-            this.pictureTabAction.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabAction.TabIndex = 102;
-            this.pictureTabAction.TabStop = false;
-            this.pictureTabAction.Tag = "New Action";
             // 
             // labelTabAction
             // 
@@ -890,17 +767,6 @@
             this.labelTabAction.TabIndex = 101;
             this.labelTabAction.Text = "New Action";
             // 
-            // pictureTabDefault
-            // 
-            this.pictureTabDefault.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabDefault.Location = new System.Drawing.Point(188, 251);
-            this.pictureTabDefault.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabDefault.Name = "pictureTabDefault";
-            this.pictureTabDefault.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabDefault.TabIndex = 55;
-            this.pictureTabDefault.TabStop = false;
-            this.pictureTabDefault.Tag = "Default Message";
-            // 
             // labelTabDefault
             // 
             this.labelTabDefault.AutoSize = true;
@@ -911,83 +777,6 @@
             this.labelTabDefault.Size = new System.Drawing.Size(55, 16);
             this.labelTabDefault.TabIndex = 54;
             this.labelTabDefault.Text = "Default";
-            // 
-            // pictureTabOther
-            // 
-            this.pictureTabOther.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabOther.Location = new System.Drawing.Point(188, 229);
-            this.pictureTabOther.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabOther.Name = "pictureTabOther";
-            this.pictureTabOther.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabOther.TabIndex = 53;
-            this.pictureTabOther.TabStop = false;
-            this.pictureTabOther.Tag = "Other Message";
-            // 
-            // pictureTabServer
-            // 
-            this.pictureTabServer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabServer.Location = new System.Drawing.Point(188, 160);
-            this.pictureTabServer.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabServer.Name = "pictureTabServer";
-            this.pictureTabServer.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabServer.TabIndex = 52;
-            this.pictureTabServer.TabStop = false;
-            this.pictureTabServer.Tag = "Server Message";
-            // 
-            // pictureTabQuit
-            // 
-            this.pictureTabQuit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabQuit.Location = new System.Drawing.Point(188, 139);
-            this.pictureTabQuit.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabQuit.Name = "pictureTabQuit";
-            this.pictureTabQuit.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabQuit.TabIndex = 51;
-            this.pictureTabQuit.TabStop = false;
-            this.pictureTabQuit.Tag = "Server Quit";
-            // 
-            // pictureTabPart
-            // 
-            this.pictureTabPart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabPart.Location = new System.Drawing.Point(188, 117);
-            this.pictureTabPart.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabPart.Name = "pictureTabPart";
-            this.pictureTabPart.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabPart.TabIndex = 50;
-            this.pictureTabPart.TabStop = false;
-            this.pictureTabPart.Tag = "Channel Part";
-            // 
-            // pictureTabJoin
-            // 
-            this.pictureTabJoin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabJoin.Location = new System.Drawing.Point(188, 96);
-            this.pictureTabJoin.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabJoin.Name = "pictureTabJoin";
-            this.pictureTabJoin.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabJoin.TabIndex = 49;
-            this.pictureTabJoin.TabStop = false;
-            this.pictureTabJoin.Tag = "Channel Join";
-            // 
-            // pictureTabMessage
-            // 
-            this.pictureTabMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabMessage.Location = new System.Drawing.Point(188, 50);
-            this.pictureTabMessage.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabMessage.Name = "pictureTabMessage";
-            this.pictureTabMessage.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabMessage.TabIndex = 47;
-            this.pictureTabMessage.TabStop = false;
-            this.pictureTabMessage.Tag = "New Message";
-            // 
-            // pictureTabCurrent
-            // 
-            this.pictureTabCurrent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureTabCurrent.Location = new System.Drawing.Point(188, 28);
-            this.pictureTabCurrent.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureTabCurrent.Name = "pictureTabCurrent";
-            this.pictureTabCurrent.Size = new System.Drawing.Size(16, 16);
-            this.pictureTabCurrent.TabIndex = 46;
-            this.pictureTabCurrent.TabStop = false;
-            this.pictureTabCurrent.Tag = "Current Tab";
             // 
             // labelTabOther
             // 
@@ -1078,16 +867,201 @@
             this.labelTabCurrent.TabIndex = 37;
             this.labelTabCurrent.Text = "Current Tab";
             // 
+            // pictureTabBuddyNotice
+            // 
+            this.pictureTabBuddyNotice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabBuddyNotice.Location = new System.Drawing.Point(188, 208);
+            this.pictureTabBuddyNotice.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabBuddyNotice.Name = "pictureTabBuddyNotice";
+            this.pictureTabBuddyNotice.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabBuddyNotice.TabIndex = 132;
+            this.pictureTabBuddyNotice.TabStop = false;
+            this.pictureTabBuddyNotice.Tag = "Server Notice";
+            // 
+            // pictureTabBackground
+            // 
+            this.pictureTabBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabBackground.Location = new System.Drawing.Point(525, 185);
+            this.pictureTabBackground.Name = "pictureTabBackground";
+            this.pictureTabBackground.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabBackground.TabIndex = 130;
+            this.pictureTabBackground.TabStop = false;
+            this.pictureTabBackground.Tag = "Background";
+            // 
+            // pictureTabBarHover2
+            // 
+            this.pictureTabBarHover2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabBarHover2.Location = new System.Drawing.Point(525, 163);
+            this.pictureTabBarHover2.Name = "pictureTabBarHover2";
+            this.pictureTabBarHover2.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabBarHover2.TabIndex = 128;
+            this.pictureTabBarHover2.TabStop = false;
+            this.pictureTabBarHover2.Tag = "Channel Owner";
+            // 
+            // pictureTabBarHover1
+            // 
+            this.pictureTabBarHover1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabBarHover1.Location = new System.Drawing.Point(525, 141);
+            this.pictureTabBarHover1.Name = "pictureTabBarHover1";
+            this.pictureTabBarHover1.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabBarHover1.TabIndex = 127;
+            this.pictureTabBarHover1.TabStop = false;
+            this.pictureTabBarHover1.Tag = "Channel Owner";
+            // 
+            // pictureTabBarOther2
+            // 
+            this.pictureTabBarOther2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabBarOther2.Location = new System.Drawing.Point(525, 119);
+            this.pictureTabBarOther2.Name = "pictureTabBarOther2";
+            this.pictureTabBarOther2.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabBarOther2.TabIndex = 124;
+            this.pictureTabBarOther2.TabStop = false;
+            this.pictureTabBarOther2.Tag = "Channel Owner";
+            // 
+            // pictureTabBarOther1
+            // 
+            this.pictureTabBarOther1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabBarOther1.Location = new System.Drawing.Point(525, 96);
+            this.pictureTabBarOther1.Name = "pictureTabBarOther1";
+            this.pictureTabBarOther1.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabBarOther1.TabIndex = 123;
+            this.pictureTabBarOther1.TabStop = false;
+            this.pictureTabBarOther1.Tag = "Channel Owner";
+            // 
+            // pictureTabBarCurrent2
+            // 
+            this.pictureTabBarCurrent2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabBarCurrent2.Location = new System.Drawing.Point(525, 74);
+            this.pictureTabBarCurrent2.Name = "pictureTabBarCurrent2";
+            this.pictureTabBarCurrent2.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabBarCurrent2.TabIndex = 122;
+            this.pictureTabBarCurrent2.TabStop = false;
+            this.pictureTabBarCurrent2.Tag = "Channel Owner";
+            // 
+            // pictureTabBarCurrent1
+            // 
+            this.pictureTabBarCurrent1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabBarCurrent1.Location = new System.Drawing.Point(525, 52);
+            this.pictureTabBarCurrent1.Name = "pictureTabBarCurrent1";
+            this.pictureTabBarCurrent1.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabBarCurrent1.TabIndex = 121;
+            this.pictureTabBarCurrent1.TabStop = false;
+            this.pictureTabBarCurrent1.Tag = "Channel Owner";
+            // 
+            // pictureTabServerNotice
+            // 
+            this.pictureTabServerNotice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabServerNotice.Location = new System.Drawing.Point(188, 184);
+            this.pictureTabServerNotice.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabServerNotice.Name = "pictureTabServerNotice";
+            this.pictureTabServerNotice.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabServerNotice.TabIndex = 104;
+            this.pictureTabServerNotice.TabStop = false;
+            this.pictureTabServerNotice.Tag = "Server Notice";
+            // 
+            // pictureTabAction
+            // 
+            this.pictureTabAction.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabAction.Location = new System.Drawing.Point(188, 73);
+            this.pictureTabAction.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabAction.Name = "pictureTabAction";
+            this.pictureTabAction.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabAction.TabIndex = 102;
+            this.pictureTabAction.TabStop = false;
+            this.pictureTabAction.Tag = "New Action";
+            // 
+            // pictureTabDefault
+            // 
+            this.pictureTabDefault.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabDefault.Location = new System.Drawing.Point(188, 251);
+            this.pictureTabDefault.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabDefault.Name = "pictureTabDefault";
+            this.pictureTabDefault.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabDefault.TabIndex = 55;
+            this.pictureTabDefault.TabStop = false;
+            this.pictureTabDefault.Tag = "Default Message";
+            // 
+            // pictureTabOther
+            // 
+            this.pictureTabOther.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabOther.Location = new System.Drawing.Point(188, 229);
+            this.pictureTabOther.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabOther.Name = "pictureTabOther";
+            this.pictureTabOther.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabOther.TabIndex = 53;
+            this.pictureTabOther.TabStop = false;
+            this.pictureTabOther.Tag = "Other Message";
+            // 
+            // pictureTabServer
+            // 
+            this.pictureTabServer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabServer.Location = new System.Drawing.Point(188, 160);
+            this.pictureTabServer.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabServer.Name = "pictureTabServer";
+            this.pictureTabServer.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabServer.TabIndex = 52;
+            this.pictureTabServer.TabStop = false;
+            this.pictureTabServer.Tag = "Server Message";
+            // 
+            // pictureTabQuit
+            // 
+            this.pictureTabQuit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabQuit.Location = new System.Drawing.Point(188, 139);
+            this.pictureTabQuit.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabQuit.Name = "pictureTabQuit";
+            this.pictureTabQuit.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabQuit.TabIndex = 51;
+            this.pictureTabQuit.TabStop = false;
+            this.pictureTabQuit.Tag = "Server Quit";
+            // 
+            // pictureTabPart
+            // 
+            this.pictureTabPart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabPart.Location = new System.Drawing.Point(188, 117);
+            this.pictureTabPart.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabPart.Name = "pictureTabPart";
+            this.pictureTabPart.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabPart.TabIndex = 50;
+            this.pictureTabPart.TabStop = false;
+            this.pictureTabPart.Tag = "Channel Part";
+            // 
+            // pictureTabJoin
+            // 
+            this.pictureTabJoin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabJoin.Location = new System.Drawing.Point(188, 96);
+            this.pictureTabJoin.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabJoin.Name = "pictureTabJoin";
+            this.pictureTabJoin.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabJoin.TabIndex = 49;
+            this.pictureTabJoin.TabStop = false;
+            this.pictureTabJoin.Tag = "Channel Join";
+            // 
+            // pictureTabMessage
+            // 
+            this.pictureTabMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabMessage.Location = new System.Drawing.Point(188, 50);
+            this.pictureTabMessage.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabMessage.Name = "pictureTabMessage";
+            this.pictureTabMessage.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabMessage.TabIndex = 47;
+            this.pictureTabMessage.TabStop = false;
+            this.pictureTabMessage.Tag = "New Message";
+            // 
+            // pictureTabCurrent
+            // 
+            this.pictureTabCurrent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureTabCurrent.Location = new System.Drawing.Point(188, 28);
+            this.pictureTabCurrent.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureTabCurrent.Name = "pictureTabCurrent";
+            this.pictureTabCurrent.Size = new System.Drawing.Size(16, 16);
+            this.pictureTabCurrent.TabIndex = 46;
+            this.pictureTabCurrent.TabStop = false;
+            this.pictureTabCurrent.Tag = "Current Tab";
+            // 
             // tabPageNickNames
             // 
             this.tabPageNickNames.BackColor = System.Drawing.Color.Transparent;
             this.tabPageNickNames.Controls.Add(this.checkRandomNickColors);
-            this.tabPageNickNames.Controls.Add(this.pictureDefault);
-            this.tabPageNickNames.Controls.Add(this.pictureVoice);
-            this.tabPageNickNames.Controls.Add(this.pictureHalfOperator);
-            this.tabPageNickNames.Controls.Add(this.pictureOperator);
-            this.tabPageNickNames.Controls.Add(this.pictureAdmin);
-            this.tabPageNickNames.Controls.Add(this.pictureOwner);
             this.tabPageNickNames.Controls.Add(this.labelDefault);
             this.tabPageNickNames.Controls.Add(this.labelVoice);
             this.tabPageNickNames.Controls.Add(this.labelHalfOperator);
@@ -1095,10 +1069,16 @@
             this.tabPageNickNames.Controls.Add(this.labelAdmin);
             this.tabPageNickNames.Controls.Add(this.labelChannelUserTypes);
             this.tabPageNickNames.Controls.Add(this.labelOwner);
+            this.tabPageNickNames.Controls.Add(this.pictureDefault);
+            this.tabPageNickNames.Controls.Add(this.pictureVoice);
+            this.tabPageNickNames.Controls.Add(this.pictureHalfOperator);
+            this.tabPageNickNames.Controls.Add(this.pictureOperator);
+            this.tabPageNickNames.Controls.Add(this.pictureAdmin);
+            this.tabPageNickNames.Controls.Add(this.pictureOwner);
             this.tabPageNickNames.Location = new System.Drawing.Point(4, 25);
             this.tabPageNickNames.Name = "tabPageNickNames";
             this.tabPageNickNames.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNickNames.Size = new System.Drawing.Size(603, 332);
+            this.tabPageNickNames.Size = new System.Drawing.Size(603, 327);
             this.tabPageNickNames.TabIndex = 1;
             this.tabPageNickNames.Text = "Nick List";
             this.tabPageNickNames.UseVisualStyleBackColor = true;
@@ -1113,72 +1093,6 @@
             this.checkRandomNickColors.TabIndex = 71;
             this.checkRandomNickColors.Text = "Randomize Nick Colors";
             this.checkRandomNickColors.UseVisualStyleBackColor = true;
-            // 
-            // pictureDefault
-            // 
-            this.pictureDefault.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureDefault.Location = new System.Drawing.Point(201, 137);
-            this.pictureDefault.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureDefault.Name = "pictureDefault";
-            this.pictureDefault.Size = new System.Drawing.Size(16, 16);
-            this.pictureDefault.TabIndex = 70;
-            this.pictureDefault.TabStop = false;
-            this.pictureDefault.Tag = "Default User";
-            // 
-            // pictureVoice
-            // 
-            this.pictureVoice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureVoice.Location = new System.Drawing.Point(201, 116);
-            this.pictureVoice.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureVoice.Name = "pictureVoice";
-            this.pictureVoice.Size = new System.Drawing.Size(16, 16);
-            this.pictureVoice.TabIndex = 67;
-            this.pictureVoice.TabStop = false;
-            this.pictureVoice.Tag = "Channel Voice";
-            // 
-            // pictureHalfOperator
-            // 
-            this.pictureHalfOperator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureHalfOperator.Location = new System.Drawing.Point(201, 94);
-            this.pictureHalfOperator.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureHalfOperator.Name = "pictureHalfOperator";
-            this.pictureHalfOperator.Size = new System.Drawing.Size(16, 16);
-            this.pictureHalfOperator.TabIndex = 66;
-            this.pictureHalfOperator.TabStop = false;
-            this.pictureHalfOperator.Tag = "Channel Half Operator";
-            // 
-            // pictureOperator
-            // 
-            this.pictureOperator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureOperator.Location = new System.Drawing.Point(201, 73);
-            this.pictureOperator.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureOperator.Name = "pictureOperator";
-            this.pictureOperator.Size = new System.Drawing.Size(16, 16);
-            this.pictureOperator.TabIndex = 65;
-            this.pictureOperator.TabStop = false;
-            this.pictureOperator.Tag = "Channel Operator";
-            // 
-            // pictureAdmin
-            // 
-            this.pictureAdmin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureAdmin.Location = new System.Drawing.Point(201, 51);
-            this.pictureAdmin.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureAdmin.Name = "pictureAdmin";
-            this.pictureAdmin.Size = new System.Drawing.Size(16, 16);
-            this.pictureAdmin.TabIndex = 64;
-            this.pictureAdmin.TabStop = false;
-            this.pictureAdmin.Tag = "Channel Admin";
-            // 
-            // pictureOwner
-            // 
-            this.pictureOwner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureOwner.Location = new System.Drawing.Point(201, 30);
-            this.pictureOwner.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureOwner.Name = "pictureOwner";
-            this.pictureOwner.Size = new System.Drawing.Size(16, 16);
-            this.pictureOwner.TabIndex = 63;
-            this.pictureOwner.TabStop = false;
-            this.pictureOwner.Tag = "Channel Owner";
             // 
             // labelDefault
             // 
@@ -1258,72 +1172,149 @@
             this.labelOwner.TabIndex = 54;
             this.labelOwner.Text = "~  Channel Owner";
             // 
+            // pictureDefault
+            // 
+            this.pictureDefault.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureDefault.Location = new System.Drawing.Point(201, 137);
+            this.pictureDefault.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureDefault.Name = "pictureDefault";
+            this.pictureDefault.Size = new System.Drawing.Size(16, 16);
+            this.pictureDefault.TabIndex = 70;
+            this.pictureDefault.TabStop = false;
+            this.pictureDefault.Tag = "Default User";
+            // 
+            // pictureVoice
+            // 
+            this.pictureVoice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureVoice.Location = new System.Drawing.Point(201, 116);
+            this.pictureVoice.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureVoice.Name = "pictureVoice";
+            this.pictureVoice.Size = new System.Drawing.Size(16, 16);
+            this.pictureVoice.TabIndex = 67;
+            this.pictureVoice.TabStop = false;
+            this.pictureVoice.Tag = "Channel Voice";
+            // 
+            // pictureHalfOperator
+            // 
+            this.pictureHalfOperator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureHalfOperator.Location = new System.Drawing.Point(201, 94);
+            this.pictureHalfOperator.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureHalfOperator.Name = "pictureHalfOperator";
+            this.pictureHalfOperator.Size = new System.Drawing.Size(16, 16);
+            this.pictureHalfOperator.TabIndex = 66;
+            this.pictureHalfOperator.TabStop = false;
+            this.pictureHalfOperator.Tag = "Channel Half Operator";
+            // 
+            // pictureOperator
+            // 
+            this.pictureOperator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureOperator.Location = new System.Drawing.Point(201, 73);
+            this.pictureOperator.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureOperator.Name = "pictureOperator";
+            this.pictureOperator.Size = new System.Drawing.Size(16, 16);
+            this.pictureOperator.TabIndex = 65;
+            this.pictureOperator.TabStop = false;
+            this.pictureOperator.Tag = "Channel Operator";
+            // 
+            // pictureAdmin
+            // 
+            this.pictureAdmin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureAdmin.Location = new System.Drawing.Point(201, 51);
+            this.pictureAdmin.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureAdmin.Name = "pictureAdmin";
+            this.pictureAdmin.Size = new System.Drawing.Size(16, 16);
+            this.pictureAdmin.TabIndex = 64;
+            this.pictureAdmin.TabStop = false;
+            this.pictureAdmin.Tag = "Channel Admin";
+            // 
+            // pictureOwner
+            // 
+            this.pictureOwner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureOwner.Location = new System.Drawing.Point(201, 30);
+            this.pictureOwner.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureOwner.Name = "pictureOwner";
+            this.pictureOwner.Size = new System.Drawing.Size(16, 16);
+            this.pictureOwner.TabIndex = 63;
+            this.pictureOwner.TabStop = false;
+            this.pictureOwner.Tag = "Channel Owner";
+            // 
             // tabPageBackGround
             // 
             this.tabPageBackGround.BackColor = System.Drawing.Color.Transparent;
             this.tabPageBackGround.Controls.Add(this.pictureSidePanelSplitter);
             this.tabPageBackGround.Controls.Add(this.labelSidePanelSplitter);
-            this.tabPageBackGround.Controls.Add(this.pictureSidePanelForeButtons);
             this.tabPageBackGround.Controls.Add(this.labelSidePanelForeButtons);
-            this.tabPageBackGround.Controls.Add(this.pictureSidePanelButtons);
             this.tabPageBackGround.Controls.Add(this.labelSidePanelButtons);
-            this.tabPageBackGround.Controls.Add(this.pictureHyperlink);
             this.tabPageBackGround.Controls.Add(this.labelHyperlink);
-            this.tabPageBackGround.Controls.Add(this.pictureUnreadTextMarkerColor);
             this.tabPageBackGround.Controls.Add(this.labelUnreadTextMarkerColor);
-            this.tabPageBackGround.Controls.Add(this.pictureStatusFore);
             this.tabPageBackGround.Controls.Add(this.labelStatusFore);
-            this.tabPageBackGround.Controls.Add(this.pictureStatusBar);
             this.tabPageBackGround.Controls.Add(this.labelStatusBar);
-            this.tabPageBackGround.Controls.Add(this.pictureInputBoxFore);
             this.tabPageBackGround.Controls.Add(this.labelInputBoxFore);
-            this.tabPageBackGround.Controls.Add(this.picturePanelHeaderForeColor);
             this.tabPageBackGround.Controls.Add(this.labelPanelHeaderForeColor);
-            this.tabPageBackGround.Controls.Add(this.pictureChannelListFore);
             this.tabPageBackGround.Controls.Add(this.labelChannelListFore);
             this.tabPageBackGround.Controls.Add(this.labelOtherForeGroundColors);
-            this.tabPageBackGround.Controls.Add(this.pictureToolBar);
-            this.tabPageBackGround.Controls.Add(this.pictureMenuBar);
             this.tabPageBackGround.Controls.Add(this.labelMenuBar);
             this.tabPageBackGround.Controls.Add(this.labelToolBar);
-            this.tabPageBackGround.Controls.Add(this.pictureInputBox);
             this.tabPageBackGround.Controls.Add(this.labelInputBox);
-            this.tabPageBackGround.Controls.Add(this.pictureChannelList);
             this.tabPageBackGround.Controls.Add(this.labelChannelList);
-            this.tabPageBackGround.Controls.Add(this.picturePanelHeaderBG2);
-            this.tabPageBackGround.Controls.Add(this.picturePanelHeaderBG1);
             this.tabPageBackGround.Controls.Add(this.labelPanelHeaderBG2);
             this.tabPageBackGround.Controls.Add(this.labelPanelHeaderBG1);
-            this.tabPageBackGround.Controls.Add(this.pictureServerList);
             this.tabPageBackGround.Controls.Add(this.labelServerList);
-            this.tabPageBackGround.Controls.Add(this.pictureNickList);
             this.tabPageBackGround.Controls.Add(this.labelNickList);
-            this.tabPageBackGround.Controls.Add(this.pictureQuery);
             this.tabPageBackGround.Controls.Add(this.labelQuery);
-            this.tabPageBackGround.Controls.Add(this.pictureChannel);
             this.tabPageBackGround.Controls.Add(this.labelChannel);
-            this.tabPageBackGround.Controls.Add(this.pictureConsole);
             this.tabPageBackGround.Controls.Add(this.labelBackgroundColorsWindowType);
             this.tabPageBackGround.Controls.Add(this.labelConsole);
+            this.tabPageBackGround.Controls.Add(this.pictureSidePanelForeButtons);
+            this.tabPageBackGround.Controls.Add(this.pictureSidePanelButtons);
+            this.tabPageBackGround.Controls.Add(this.pictureHyperlink);
+            this.tabPageBackGround.Controls.Add(this.pictureUnreadTextMarkerColor);
+            this.tabPageBackGround.Controls.Add(this.pictureStatusFore);
+            this.tabPageBackGround.Controls.Add(this.pictureStatusBar);
+            this.tabPageBackGround.Controls.Add(this.pictureInputBoxFore);
+            this.tabPageBackGround.Controls.Add(this.picturePanelHeaderForeColor);
+            this.tabPageBackGround.Controls.Add(this.pictureChannelListFore);
+            this.tabPageBackGround.Controls.Add(this.pictureToolBar);
+            this.tabPageBackGround.Controls.Add(this.pictureMenuBar);
+            this.tabPageBackGround.Controls.Add(this.pictureInputBox);
+            this.tabPageBackGround.Controls.Add(this.pictureChannelList);
+            this.tabPageBackGround.Controls.Add(this.picturePanelHeaderBG2);
+            this.tabPageBackGround.Controls.Add(this.picturePanelHeaderBG1);
+            this.tabPageBackGround.Controls.Add(this.pictureServerList);
+            this.tabPageBackGround.Controls.Add(this.pictureNickList);
+            this.tabPageBackGround.Controls.Add(this.pictureQuery);
+            this.tabPageBackGround.Controls.Add(this.pictureChannel);
+            this.tabPageBackGround.Controls.Add(this.pictureConsole);
             this.tabPageBackGround.Location = new System.Drawing.Point(4, 25);
             this.tabPageBackGround.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageBackGround.Name = "tabPageBackGround";
             this.tabPageBackGround.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageBackGround.Size = new System.Drawing.Size(603, 332);
+            this.tabPageBackGround.Size = new System.Drawing.Size(603, 327);
             this.tabPageBackGround.TabIndex = 4;
             this.tabPageBackGround.Text = "Other";
             this.tabPageBackGround.UseVisualStyleBackColor = true;
             // 
-            // pictureSidePanelForeButtons
+            // pictureSidePanelSplitter
             // 
-            this.pictureSidePanelForeButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureSidePanelForeButtons.Location = new System.Drawing.Point(466, 295);
-            this.pictureSidePanelForeButtons.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureSidePanelForeButtons.Name = "pictureSidePanelForeButtons";
-            this.pictureSidePanelForeButtons.Size = new System.Drawing.Size(16, 16);
-            this.pictureSidePanelForeButtons.TabIndex = 119;
-            this.pictureSidePanelForeButtons.TabStop = false;
-            this.pictureSidePanelForeButtons.Tag = "Channel Owner";
+            this.pictureSidePanelSplitter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureSidePanelSplitter.Location = new System.Drawing.Point(466, 170);
+            this.pictureSidePanelSplitter.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureSidePanelSplitter.Name = "pictureSidePanelSplitter";
+            this.pictureSidePanelSplitter.Size = new System.Drawing.Size(16, 16);
+            this.pictureSidePanelSplitter.TabIndex = 121;
+            this.pictureSidePanelSplitter.TabStop = false;
+            this.pictureSidePanelSplitter.Tag = "Channel Owner";
+            // 
+            // labelSidePanelSplitter
+            // 
+            this.labelSidePanelSplitter.AutoSize = true;
+            this.labelSidePanelSplitter.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelSidePanelSplitter.Location = new System.Drawing.Point(257, 170);
+            this.labelSidePanelSplitter.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelSidePanelSplitter.Name = "labelSidePanelSplitter";
+            this.labelSidePanelSplitter.Size = new System.Drawing.Size(129, 16);
+            this.labelSidePanelSplitter.TabIndex = 120;
+            this.labelSidePanelSplitter.Text = "Side Panel Splitter";
             // 
             // labelSidePanelForeButtons
             // 
@@ -1336,17 +1327,6 @@
             this.labelSidePanelForeButtons.TabIndex = 118;
             this.labelSidePanelForeButtons.Text = "Side Panel Buttons";
             // 
-            // pictureSidePanelButtons
-            // 
-            this.pictureSidePanelButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureSidePanelButtons.Location = new System.Drawing.Point(466, 147);
-            this.pictureSidePanelButtons.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureSidePanelButtons.Name = "pictureSidePanelButtons";
-            this.pictureSidePanelButtons.Size = new System.Drawing.Size(16, 16);
-            this.pictureSidePanelButtons.TabIndex = 117;
-            this.pictureSidePanelButtons.TabStop = false;
-            this.pictureSidePanelButtons.Tag = "Channel Owner";
-            // 
             // labelSidePanelButtons
             // 
             this.labelSidePanelButtons.AutoSize = true;
@@ -1357,17 +1337,6 @@
             this.labelSidePanelButtons.Size = new System.Drawing.Size(132, 16);
             this.labelSidePanelButtons.TabIndex = 116;
             this.labelSidePanelButtons.Text = "Side Panel Buttons";
-            // 
-            // pictureHyperlink
-            // 
-            this.pictureHyperlink.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureHyperlink.Location = new System.Drawing.Point(466, 270);
-            this.pictureHyperlink.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureHyperlink.Name = "pictureHyperlink";
-            this.pictureHyperlink.Size = new System.Drawing.Size(16, 16);
-            this.pictureHyperlink.TabIndex = 115;
-            this.pictureHyperlink.TabStop = false;
-            this.pictureHyperlink.Tag = "Unread Text Marker";
             // 
             // labelHyperlink
             // 
@@ -1380,17 +1349,6 @@
             this.labelHyperlink.TabIndex = 114;
             this.labelHyperlink.Text = "Hyperlink";
             // 
-            // pictureUnreadTextMarkerColor
-            // 
-            this.pictureUnreadTextMarkerColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureUnreadTextMarkerColor.Location = new System.Drawing.Point(188, 270);
-            this.pictureUnreadTextMarkerColor.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureUnreadTextMarkerColor.Name = "pictureUnreadTextMarkerColor";
-            this.pictureUnreadTextMarkerColor.Size = new System.Drawing.Size(16, 16);
-            this.pictureUnreadTextMarkerColor.TabIndex = 113;
-            this.pictureUnreadTextMarkerColor.TabStop = false;
-            this.pictureUnreadTextMarkerColor.Tag = "Unread Text Marker";
-            // 
             // labelUnreadTextMarkerColor
             // 
             this.labelUnreadTextMarkerColor.AutoSize = true;
@@ -1401,17 +1359,6 @@
             this.labelUnreadTextMarkerColor.Size = new System.Drawing.Size(138, 16);
             this.labelUnreadTextMarkerColor.TabIndex = 112;
             this.labelUnreadTextMarkerColor.Text = "Unread Text Marker";
-            // 
-            // pictureStatusFore
-            // 
-            this.pictureStatusFore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureStatusFore.Location = new System.Drawing.Point(466, 224);
-            this.pictureStatusFore.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureStatusFore.Name = "pictureStatusFore";
-            this.pictureStatusFore.Size = new System.Drawing.Size(16, 16);
-            this.pictureStatusFore.TabIndex = 111;
-            this.pictureStatusFore.TabStop = false;
-            this.pictureStatusFore.Tag = "Status Bar";
             // 
             // labelStatusFore
             // 
@@ -1424,17 +1371,6 @@
             this.labelStatusFore.TabIndex = 110;
             this.labelStatusFore.Text = "Status Bar";
             // 
-            // pictureStatusBar
-            // 
-            this.pictureStatusBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureStatusBar.Location = new System.Drawing.Point(466, 124);
-            this.pictureStatusBar.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureStatusBar.Name = "pictureStatusBar";
-            this.pictureStatusBar.Size = new System.Drawing.Size(16, 16);
-            this.pictureStatusBar.TabIndex = 109;
-            this.pictureStatusBar.TabStop = false;
-            this.pictureStatusBar.Tag = "Channel Owner";
-            // 
             // labelStatusBar
             // 
             this.labelStatusBar.AutoSize = true;
@@ -1445,17 +1381,6 @@
             this.labelStatusBar.Size = new System.Drawing.Size(78, 16);
             this.labelStatusBar.TabIndex = 108;
             this.labelStatusBar.Text = "Status Bar";
-            // 
-            // pictureInputBoxFore
-            // 
-            this.pictureInputBoxFore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureInputBoxFore.Location = new System.Drawing.Point(466, 247);
-            this.pictureInputBoxFore.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureInputBoxFore.Name = "pictureInputBoxFore";
-            this.pictureInputBoxFore.Size = new System.Drawing.Size(16, 16);
-            this.pictureInputBoxFore.TabIndex = 107;
-            this.pictureInputBoxFore.TabStop = false;
-            this.pictureInputBoxFore.Tag = "Input Box";
             // 
             // labelInputBoxFore
             // 
@@ -1468,17 +1393,6 @@
             this.labelInputBoxFore.TabIndex = 106;
             this.labelInputBoxFore.Text = "Input Box";
             // 
-            // picturePanelHeaderForeColor
-            // 
-            this.picturePanelHeaderForeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picturePanelHeaderForeColor.Location = new System.Drawing.Point(188, 247);
-            this.picturePanelHeaderForeColor.Margin = new System.Windows.Forms.Padding(2);
-            this.picturePanelHeaderForeColor.Name = "picturePanelHeaderForeColor";
-            this.picturePanelHeaderForeColor.Size = new System.Drawing.Size(16, 16);
-            this.picturePanelHeaderForeColor.TabIndex = 105;
-            this.picturePanelHeaderForeColor.TabStop = false;
-            this.picturePanelHeaderForeColor.Tag = "Side Panel Header";
-            // 
             // labelPanelHeaderForeColor
             // 
             this.labelPanelHeaderForeColor.AutoSize = true;
@@ -1489,17 +1403,6 @@
             this.labelPanelHeaderForeColor.Size = new System.Drawing.Size(127, 16);
             this.labelPanelHeaderForeColor.TabIndex = 104;
             this.labelPanelHeaderForeColor.Text = "Side Panel Header";
-            // 
-            // pictureChannelListFore
-            // 
-            this.pictureChannelListFore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureChannelListFore.Location = new System.Drawing.Point(188, 224);
-            this.pictureChannelListFore.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureChannelListFore.Name = "pictureChannelListFore";
-            this.pictureChannelListFore.Size = new System.Drawing.Size(16, 16);
-            this.pictureChannelListFore.TabIndex = 103;
-            this.pictureChannelListFore.TabStop = false;
-            this.pictureChannelListFore.Tag = "Favorite Channel List";
             // 
             // labelChannelListFore
             // 
@@ -1524,28 +1427,6 @@
             this.labelOtherForeGroundColors.TabIndex = 101;
             this.labelOtherForeGroundColors.Text = "Other Foreground colors";
             // 
-            // pictureToolBar
-            // 
-            this.pictureToolBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureToolBar.Location = new System.Drawing.Point(466, 101);
-            this.pictureToolBar.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureToolBar.Name = "pictureToolBar";
-            this.pictureToolBar.Size = new System.Drawing.Size(16, 16);
-            this.pictureToolBar.TabIndex = 100;
-            this.pictureToolBar.TabStop = false;
-            this.pictureToolBar.Tag = "Channel Owner";
-            // 
-            // pictureMenuBar
-            // 
-            this.pictureMenuBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureMenuBar.Location = new System.Drawing.Point(466, 78);
-            this.pictureMenuBar.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureMenuBar.Name = "pictureMenuBar";
-            this.pictureMenuBar.Size = new System.Drawing.Size(16, 16);
-            this.pictureMenuBar.TabIndex = 99;
-            this.pictureMenuBar.TabStop = false;
-            this.pictureMenuBar.Tag = "Channel Owner";
-            // 
             // labelMenuBar
             // 
             this.labelMenuBar.AutoSize = true;
@@ -1568,17 +1449,6 @@
             this.labelToolBar.TabIndex = 97;
             this.labelToolBar.Text = "Tool Bar";
             // 
-            // pictureInputBox
-            // 
-            this.pictureInputBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureInputBox.Location = new System.Drawing.Point(188, 170);
-            this.pictureInputBox.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureInputBox.Name = "pictureInputBox";
-            this.pictureInputBox.Size = new System.Drawing.Size(16, 16);
-            this.pictureInputBox.TabIndex = 96;
-            this.pictureInputBox.TabStop = false;
-            this.pictureInputBox.Tag = "Channel Owner";
-            // 
             // labelInputBox
             // 
             this.labelInputBox.AutoSize = true;
@@ -1590,17 +1460,6 @@
             this.labelInputBox.TabIndex = 95;
             this.labelInputBox.Text = "Input Box";
             // 
-            // pictureChannelList
-            // 
-            this.pictureChannelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureChannelList.Location = new System.Drawing.Point(188, 147);
-            this.pictureChannelList.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureChannelList.Name = "pictureChannelList";
-            this.pictureChannelList.Size = new System.Drawing.Size(16, 16);
-            this.pictureChannelList.TabIndex = 94;
-            this.pictureChannelList.TabStop = false;
-            this.pictureChannelList.Tag = "Channel Owner";
-            // 
             // labelChannelList
             // 
             this.labelChannelList.AutoSize = true;
@@ -1611,28 +1470,6 @@
             this.labelChannelList.Size = new System.Drawing.Size(144, 16);
             this.labelChannelList.TabIndex = 93;
             this.labelChannelList.Text = "Channel / Buddy List";
-            // 
-            // picturePanelHeaderBG2
-            // 
-            this.picturePanelHeaderBG2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picturePanelHeaderBG2.Location = new System.Drawing.Point(466, 54);
-            this.picturePanelHeaderBG2.Margin = new System.Windows.Forms.Padding(2);
-            this.picturePanelHeaderBG2.Name = "picturePanelHeaderBG2";
-            this.picturePanelHeaderBG2.Size = new System.Drawing.Size(16, 16);
-            this.picturePanelHeaderBG2.TabIndex = 90;
-            this.picturePanelHeaderBG2.TabStop = false;
-            this.picturePanelHeaderBG2.Tag = "Channel Owner";
-            // 
-            // picturePanelHeaderBG1
-            // 
-            this.picturePanelHeaderBG1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picturePanelHeaderBG1.Location = new System.Drawing.Point(466, 31);
-            this.picturePanelHeaderBG1.Margin = new System.Windows.Forms.Padding(2);
-            this.picturePanelHeaderBG1.Name = "picturePanelHeaderBG1";
-            this.picturePanelHeaderBG1.Size = new System.Drawing.Size(16, 16);
-            this.picturePanelHeaderBG1.TabIndex = 89;
-            this.picturePanelHeaderBG1.TabStop = false;
-            this.picturePanelHeaderBG1.Tag = "Channel Owner";
             // 
             // labelPanelHeaderBG2
             // 
@@ -1656,17 +1493,6 @@
             this.labelPanelHeaderBG1.TabIndex = 87;
             this.labelPanelHeaderBG1.Text = "Side Panel Header - Color 1";
             // 
-            // pictureServerList
-            // 
-            this.pictureServerList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureServerList.Location = new System.Drawing.Point(188, 124);
-            this.pictureServerList.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureServerList.Name = "pictureServerList";
-            this.pictureServerList.Size = new System.Drawing.Size(16, 16);
-            this.pictureServerList.TabIndex = 74;
-            this.pictureServerList.TabStop = false;
-            this.pictureServerList.Tag = "Channel Owner";
-            // 
             // labelServerList
             // 
             this.labelServerList.AutoSize = true;
@@ -1677,17 +1503,6 @@
             this.labelServerList.Size = new System.Drawing.Size(79, 16);
             this.labelServerList.TabIndex = 73;
             this.labelServerList.Text = "Server List";
-            // 
-            // pictureNickList
-            // 
-            this.pictureNickList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureNickList.Location = new System.Drawing.Point(188, 101);
-            this.pictureNickList.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureNickList.Name = "pictureNickList";
-            this.pictureNickList.Size = new System.Drawing.Size(16, 16);
-            this.pictureNickList.TabIndex = 72;
-            this.pictureNickList.TabStop = false;
-            this.pictureNickList.Tag = "Channel Owner";
             // 
             // labelNickList
             // 
@@ -1700,17 +1515,6 @@
             this.labelNickList.TabIndex = 71;
             this.labelNickList.Text = "Nick List";
             // 
-            // pictureQuery
-            // 
-            this.pictureQuery.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureQuery.Location = new System.Drawing.Point(188, 78);
-            this.pictureQuery.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureQuery.Name = "pictureQuery";
-            this.pictureQuery.Size = new System.Drawing.Size(16, 16);
-            this.pictureQuery.TabIndex = 70;
-            this.pictureQuery.TabStop = false;
-            this.pictureQuery.Tag = "Channel Owner";
-            // 
             // labelQuery
             // 
             this.labelQuery.AutoSize = true;
@@ -1722,17 +1526,6 @@
             this.labelQuery.TabIndex = 69;
             this.labelQuery.Text = "Query / DCC Chat";
             // 
-            // pictureChannel
-            // 
-            this.pictureChannel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureChannel.Location = new System.Drawing.Point(188, 54);
-            this.pictureChannel.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureChannel.Name = "pictureChannel";
-            this.pictureChannel.Size = new System.Drawing.Size(16, 16);
-            this.pictureChannel.TabIndex = 68;
-            this.pictureChannel.TabStop = false;
-            this.pictureChannel.Tag = "Channel Owner";
-            // 
             // labelChannel
             // 
             this.labelChannel.AutoSize = true;
@@ -1743,17 +1536,6 @@
             this.labelChannel.Size = new System.Drawing.Size(60, 16);
             this.labelChannel.TabIndex = 67;
             this.labelChannel.Text = "Channel";
-            // 
-            // pictureConsole
-            // 
-            this.pictureConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureConsole.Location = new System.Drawing.Point(188, 31);
-            this.pictureConsole.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureConsole.Name = "pictureConsole";
-            this.pictureConsole.Size = new System.Drawing.Size(16, 16);
-            this.pictureConsole.TabIndex = 66;
-            this.pictureConsole.TabStop = false;
-            this.pictureConsole.Tag = "Channel Owner";
             // 
             // labelBackgroundColorsWindowType
             // 
@@ -1778,6 +1560,226 @@
             this.labelConsole.TabIndex = 64;
             this.labelConsole.Text = "Console";
             // 
+            // pictureSidePanelForeButtons
+            // 
+            this.pictureSidePanelForeButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureSidePanelForeButtons.Location = new System.Drawing.Point(466, 295);
+            this.pictureSidePanelForeButtons.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureSidePanelForeButtons.Name = "pictureSidePanelForeButtons";
+            this.pictureSidePanelForeButtons.Size = new System.Drawing.Size(16, 16);
+            this.pictureSidePanelForeButtons.TabIndex = 119;
+            this.pictureSidePanelForeButtons.TabStop = false;
+            this.pictureSidePanelForeButtons.Tag = "Channel Owner";
+            // 
+            // pictureSidePanelButtons
+            // 
+            this.pictureSidePanelButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureSidePanelButtons.Location = new System.Drawing.Point(466, 147);
+            this.pictureSidePanelButtons.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureSidePanelButtons.Name = "pictureSidePanelButtons";
+            this.pictureSidePanelButtons.Size = new System.Drawing.Size(16, 16);
+            this.pictureSidePanelButtons.TabIndex = 117;
+            this.pictureSidePanelButtons.TabStop = false;
+            this.pictureSidePanelButtons.Tag = "Channel Owner";
+            // 
+            // pictureHyperlink
+            // 
+            this.pictureHyperlink.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureHyperlink.Location = new System.Drawing.Point(466, 270);
+            this.pictureHyperlink.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureHyperlink.Name = "pictureHyperlink";
+            this.pictureHyperlink.Size = new System.Drawing.Size(16, 16);
+            this.pictureHyperlink.TabIndex = 115;
+            this.pictureHyperlink.TabStop = false;
+            this.pictureHyperlink.Tag = "Unread Text Marker";
+            // 
+            // pictureUnreadTextMarkerColor
+            // 
+            this.pictureUnreadTextMarkerColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureUnreadTextMarkerColor.Location = new System.Drawing.Point(188, 270);
+            this.pictureUnreadTextMarkerColor.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureUnreadTextMarkerColor.Name = "pictureUnreadTextMarkerColor";
+            this.pictureUnreadTextMarkerColor.Size = new System.Drawing.Size(16, 16);
+            this.pictureUnreadTextMarkerColor.TabIndex = 113;
+            this.pictureUnreadTextMarkerColor.TabStop = false;
+            this.pictureUnreadTextMarkerColor.Tag = "Unread Text Marker";
+            // 
+            // pictureStatusFore
+            // 
+            this.pictureStatusFore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureStatusFore.Location = new System.Drawing.Point(466, 224);
+            this.pictureStatusFore.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureStatusFore.Name = "pictureStatusFore";
+            this.pictureStatusFore.Size = new System.Drawing.Size(16, 16);
+            this.pictureStatusFore.TabIndex = 111;
+            this.pictureStatusFore.TabStop = false;
+            this.pictureStatusFore.Tag = "Status Bar";
+            // 
+            // pictureStatusBar
+            // 
+            this.pictureStatusBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureStatusBar.Location = new System.Drawing.Point(466, 124);
+            this.pictureStatusBar.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureStatusBar.Name = "pictureStatusBar";
+            this.pictureStatusBar.Size = new System.Drawing.Size(16, 16);
+            this.pictureStatusBar.TabIndex = 109;
+            this.pictureStatusBar.TabStop = false;
+            this.pictureStatusBar.Tag = "Channel Owner";
+            // 
+            // pictureInputBoxFore
+            // 
+            this.pictureInputBoxFore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureInputBoxFore.Location = new System.Drawing.Point(466, 247);
+            this.pictureInputBoxFore.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureInputBoxFore.Name = "pictureInputBoxFore";
+            this.pictureInputBoxFore.Size = new System.Drawing.Size(16, 16);
+            this.pictureInputBoxFore.TabIndex = 107;
+            this.pictureInputBoxFore.TabStop = false;
+            this.pictureInputBoxFore.Tag = "Input Box";
+            // 
+            // picturePanelHeaderForeColor
+            // 
+            this.picturePanelHeaderForeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picturePanelHeaderForeColor.Location = new System.Drawing.Point(188, 247);
+            this.picturePanelHeaderForeColor.Margin = new System.Windows.Forms.Padding(2);
+            this.picturePanelHeaderForeColor.Name = "picturePanelHeaderForeColor";
+            this.picturePanelHeaderForeColor.Size = new System.Drawing.Size(16, 16);
+            this.picturePanelHeaderForeColor.TabIndex = 105;
+            this.picturePanelHeaderForeColor.TabStop = false;
+            this.picturePanelHeaderForeColor.Tag = "Side Panel Header";
+            // 
+            // pictureChannelListFore
+            // 
+            this.pictureChannelListFore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureChannelListFore.Location = new System.Drawing.Point(188, 224);
+            this.pictureChannelListFore.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureChannelListFore.Name = "pictureChannelListFore";
+            this.pictureChannelListFore.Size = new System.Drawing.Size(16, 16);
+            this.pictureChannelListFore.TabIndex = 103;
+            this.pictureChannelListFore.TabStop = false;
+            this.pictureChannelListFore.Tag = "Favorite Channel List";
+            // 
+            // pictureToolBar
+            // 
+            this.pictureToolBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureToolBar.Location = new System.Drawing.Point(466, 101);
+            this.pictureToolBar.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureToolBar.Name = "pictureToolBar";
+            this.pictureToolBar.Size = new System.Drawing.Size(16, 16);
+            this.pictureToolBar.TabIndex = 100;
+            this.pictureToolBar.TabStop = false;
+            this.pictureToolBar.Tag = "Channel Owner";
+            // 
+            // pictureMenuBar
+            // 
+            this.pictureMenuBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureMenuBar.Location = new System.Drawing.Point(466, 78);
+            this.pictureMenuBar.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureMenuBar.Name = "pictureMenuBar";
+            this.pictureMenuBar.Size = new System.Drawing.Size(16, 16);
+            this.pictureMenuBar.TabIndex = 99;
+            this.pictureMenuBar.TabStop = false;
+            this.pictureMenuBar.Tag = "Channel Owner";
+            // 
+            // pictureInputBox
+            // 
+            this.pictureInputBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureInputBox.Location = new System.Drawing.Point(188, 170);
+            this.pictureInputBox.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureInputBox.Name = "pictureInputBox";
+            this.pictureInputBox.Size = new System.Drawing.Size(16, 16);
+            this.pictureInputBox.TabIndex = 96;
+            this.pictureInputBox.TabStop = false;
+            this.pictureInputBox.Tag = "Channel Owner";
+            // 
+            // pictureChannelList
+            // 
+            this.pictureChannelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureChannelList.Location = new System.Drawing.Point(188, 147);
+            this.pictureChannelList.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureChannelList.Name = "pictureChannelList";
+            this.pictureChannelList.Size = new System.Drawing.Size(16, 16);
+            this.pictureChannelList.TabIndex = 94;
+            this.pictureChannelList.TabStop = false;
+            this.pictureChannelList.Tag = "Channel Owner";
+            // 
+            // picturePanelHeaderBG2
+            // 
+            this.picturePanelHeaderBG2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picturePanelHeaderBG2.Location = new System.Drawing.Point(466, 54);
+            this.picturePanelHeaderBG2.Margin = new System.Windows.Forms.Padding(2);
+            this.picturePanelHeaderBG2.Name = "picturePanelHeaderBG2";
+            this.picturePanelHeaderBG2.Size = new System.Drawing.Size(16, 16);
+            this.picturePanelHeaderBG2.TabIndex = 90;
+            this.picturePanelHeaderBG2.TabStop = false;
+            this.picturePanelHeaderBG2.Tag = "Channel Owner";
+            // 
+            // picturePanelHeaderBG1
+            // 
+            this.picturePanelHeaderBG1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picturePanelHeaderBG1.Location = new System.Drawing.Point(466, 31);
+            this.picturePanelHeaderBG1.Margin = new System.Windows.Forms.Padding(2);
+            this.picturePanelHeaderBG1.Name = "picturePanelHeaderBG1";
+            this.picturePanelHeaderBG1.Size = new System.Drawing.Size(16, 16);
+            this.picturePanelHeaderBG1.TabIndex = 89;
+            this.picturePanelHeaderBG1.TabStop = false;
+            this.picturePanelHeaderBG1.Tag = "Channel Owner";
+            // 
+            // pictureServerList
+            // 
+            this.pictureServerList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureServerList.Location = new System.Drawing.Point(188, 124);
+            this.pictureServerList.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureServerList.Name = "pictureServerList";
+            this.pictureServerList.Size = new System.Drawing.Size(16, 16);
+            this.pictureServerList.TabIndex = 74;
+            this.pictureServerList.TabStop = false;
+            this.pictureServerList.Tag = "Channel Owner";
+            // 
+            // pictureNickList
+            // 
+            this.pictureNickList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureNickList.Location = new System.Drawing.Point(188, 101);
+            this.pictureNickList.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureNickList.Name = "pictureNickList";
+            this.pictureNickList.Size = new System.Drawing.Size(16, 16);
+            this.pictureNickList.TabIndex = 72;
+            this.pictureNickList.TabStop = false;
+            this.pictureNickList.Tag = "Channel Owner";
+            // 
+            // pictureQuery
+            // 
+            this.pictureQuery.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureQuery.Location = new System.Drawing.Point(188, 78);
+            this.pictureQuery.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureQuery.Name = "pictureQuery";
+            this.pictureQuery.Size = new System.Drawing.Size(16, 16);
+            this.pictureQuery.TabIndex = 70;
+            this.pictureQuery.TabStop = false;
+            this.pictureQuery.Tag = "Channel Owner";
+            // 
+            // pictureChannel
+            // 
+            this.pictureChannel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureChannel.Location = new System.Drawing.Point(188, 54);
+            this.pictureChannel.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureChannel.Name = "pictureChannel";
+            this.pictureChannel.Size = new System.Drawing.Size(16, 16);
+            this.pictureChannel.TabIndex = 68;
+            this.pictureChannel.TabStop = false;
+            this.pictureChannel.Tag = "Channel Owner";
+            // 
+            // pictureConsole
+            // 
+            this.pictureConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureConsole.Location = new System.Drawing.Point(188, 31);
+            this.pictureConsole.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureConsole.Name = "pictureConsole";
+            this.pictureConsole.Size = new System.Drawing.Size(16, 16);
+            this.pictureConsole.TabIndex = 66;
+            this.pictureConsole.TabStop = false;
+            this.pictureConsole.Tag = "Channel Owner";
+            // 
             // tabPageThemes
             // 
             this.tabPageThemes.Controls.Add(this.buttonImportTheme);
@@ -1791,7 +1793,7 @@
             this.tabPageThemes.Location = new System.Drawing.Point(4, 25);
             this.tabPageThemes.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageThemes.Name = "tabPageThemes";
-            this.tabPageThemes.Size = new System.Drawing.Size(603, 332);
+            this.tabPageThemes.Size = new System.Drawing.Size(603, 327);
             this.tabPageThemes.TabIndex = 5;
             this.tabPageThemes.Text = "Themes";
             this.tabPageThemes.UseVisualStyleBackColor = true;
@@ -1891,36 +1893,11 @@
             this.panelColorPicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panelColorPicker.BackColor = System.Drawing.SystemColors.Control;
             this.panelColorPicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.panelColorPicker.Location = new System.Drawing.Point(3, 376);
+            this.panelColorPicker.Location = new System.Drawing.Point(3, 358);
             this.panelColorPicker.Margin = new System.Windows.Forms.Padding(2);
             this.panelColorPicker.Name = "panelColorPicker";
-            this.panelColorPicker.Size = new System.Drawing.Size(228, 126);
+            this.panelColorPicker.Size = new System.Drawing.Size(228, 118);
             this.panelColorPicker.TabIndex = 20;
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCancel.Location = new System.Drawing.Point(503, 479);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(103, 25);
-            this.buttonCancel.TabIndex = 22;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSave.Location = new System.Drawing.Point(393, 479);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(103, 25);
-            this.buttonSave.TabIndex = 21;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // labelCurrent
             // 
@@ -1934,43 +1911,96 @@
             // buttonApply
             // 
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonApply.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonApply.BackgroundImage")));
+            this.buttonApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonApply.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonApply.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonApply.Location = new System.Drawing.Point(281, 479);
+            this.buttonApply.Location = new System.Drawing.Point(287, 479);
+            this.buttonApply.Margin = new System.Windows.Forms.Padding(4);
             this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(103, 25);
+            this.buttonApply.Size = new System.Drawing.Size(100, 25);
             this.buttonApply.TabIndex = 24;
             this.buttonApply.Text = "Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
-            // labelSidePanelSplitter
+            // buttonCancel
             // 
-            this.labelSidePanelSplitter.AutoSize = true;
-            this.labelSidePanelSplitter.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelSidePanelSplitter.Location = new System.Drawing.Point(257, 170);
-            this.labelSidePanelSplitter.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelSidePanelSplitter.Name = "labelSidePanelSplitter";
-            this.labelSidePanelSplitter.Size = new System.Drawing.Size(129, 16);
-            this.labelSidePanelSplitter.TabIndex = 120;
-            this.labelSidePanelSplitter.Text = "Side Panel Splitter";
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.BackgroundImage = global::IceChat.Properties.Resources.cancel;
+            this.buttonCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonCancel.Location = new System.Drawing.Point(507, 479);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(100, 25);
+            this.buttonCancel.TabIndex = 22;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // pictureSidePanelSplitter
+            // buttonSave
             // 
-            this.pictureSidePanelSplitter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureSidePanelSplitter.Location = new System.Drawing.Point(466, 170);
-            this.pictureSidePanelSplitter.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureSidePanelSplitter.Name = "pictureSidePanelSplitter";
-            this.pictureSidePanelSplitter.Size = new System.Drawing.Size(16, 16);
-            this.pictureSidePanelSplitter.TabIndex = 121;
-            this.pictureSidePanelSplitter.TabStop = false;
-            this.pictureSidePanelSplitter.Tag = "Channel Owner";
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSave.BackgroundImage = global::IceChat.Properties.Resources.floppy;
+            this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonSave.Location = new System.Drawing.Point(397, 479);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(100, 25);
+            this.buttonSave.TabIndex = 21;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.BackgroundImage = global::IceChat.Properties.Resources.help;
+            this.buttonHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonHelp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonHelp.Location = new System.Drawing.Point(3, 479);
+            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(100, 25);
+            this.buttonHelp.TabIndex = 25;
+            this.buttonHelp.Text = "Help";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
+            // textFormattedBasic
+            // 
+            this.textFormattedBasic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.textFormattedBasic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textFormattedBasic.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textFormattedBasic.Location = new System.Drawing.Point(10, 263);
+            this.textFormattedBasic.Margin = new System.Windows.Forms.Padding(2);
+            this.textFormattedBasic.Name = "textFormattedBasic";
+            this.textFormattedBasic.SingleLine = true;
+            this.textFormattedBasic.Size = new System.Drawing.Size(484, 19);
+            this.textFormattedBasic.TabIndex = 51;
+            // 
+            // textFormattedText
+            // 
+            this.textFormattedText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.textFormattedText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textFormattedText.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textFormattedText.Location = new System.Drawing.Point(10, 269);
+            this.textFormattedText.Margin = new System.Windows.Forms.Padding(2);
+            this.textFormattedText.Name = "textFormattedText";
+            this.textFormattedText.SingleLine = true;
+            this.textFormattedText.Size = new System.Drawing.Size(484, 19);
+            this.textFormattedText.TabIndex = 46;
             // 
             // FormColors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(611, 510);
+            this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.labelCurrent);
             this.Controls.Add(this.buttonCancel);
@@ -2023,6 +2053,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureOwner)).EndInit();
             this.tabPageBackGround.ResumeLayout(false);
             this.tabPageBackGround.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelSplitter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelForeButtons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelButtons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureHyperlink)).EndInit();
@@ -2045,7 +2076,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureConsole)).EndInit();
             this.tabPageThemes.ResumeLayout(false);
             this.tabPageThemes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureSidePanelSplitter)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2084,6 +2114,7 @@
         private System.Windows.Forms.PictureBox pictureSidePanelForeButtons;
         private System.Windows.Forms.Label labelSidePanelForeButtons;
         private System.Windows.Forms.PictureBox pictureSidePanelSplitter;
-        private System.Windows.Forms.Label labelSidePanelSplitter;     
+        private System.Windows.Forms.Label labelSidePanelSplitter;
+        private System.Windows.Forms.Button buttonHelp;     
     }
 }

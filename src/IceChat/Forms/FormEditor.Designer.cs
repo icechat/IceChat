@@ -49,6 +49,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.textAliases = new System.Windows.Forms.TextBox();
             this.tabControlEditor = new System.Windows.Forms.TabControl();
+            this.buttonHelp = new System.Windows.Forms.Button();
             this.panelBottom.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -58,6 +59,7 @@
             // 
             // panelBottom
             // 
+            this.panelBottom.Controls.Add(this.buttonHelp);
             this.panelBottom.Controls.Add(this.buttonCancel);
             this.panelBottom.Controls.Add(this.buttonSave);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -70,11 +72,14 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.BackgroundImage = global::IceChat.Properties.Resources.cancel;
+            this.buttonCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonCancel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCancel.Location = new System.Drawing.Point(522, 4);
+            this.buttonCancel.Location = new System.Drawing.Point(529, 4);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(103, 25);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 25);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -83,11 +88,14 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSave.BackgroundImage = global::IceChat.Properties.Resources.floppy;
+            this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSave.Location = new System.Drawing.Point(400, 4);
+            this.buttonSave.Location = new System.Drawing.Point(419, 4);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(103, 25);
+            this.buttonSave.Size = new System.Drawing.Size(100, 25);
             this.buttonSave.TabIndex = 3;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -254,6 +262,22 @@
             this.tabControlEditor.Size = new System.Drawing.Size(632, 298);
             this.tabControlEditor.TabIndex = 0;
             // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.BackgroundImage = global::IceChat.Properties.Resources.help;
+            this.buttonHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonHelp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonHelp.Location = new System.Drawing.Point(6, 4);
+            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(100, 25);
+            this.buttonHelp.TabIndex = 26;
+            this.buttonHelp.Text = "Help";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
             // FormEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -307,5 +331,6 @@
         private System.Windows.Forms.ToolStripMenuItem mainToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.Button buttonHelp;
     }
 }

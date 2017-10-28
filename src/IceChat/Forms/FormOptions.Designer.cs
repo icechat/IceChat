@@ -32,7 +32,6 @@ namespace IceChat
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.tabControlOptions = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
-            this.pictureTSHelp = new System.Windows.Forms.PictureBox();
             this.checkJoinInvite = new System.Windows.Forms.CheckBox();
             this.buttonTrayIcon = new System.Windows.Forms.Button();
             this.textSystemTrayIcon = new System.Windows.Forms.TextBox();
@@ -236,7 +235,7 @@ namespace IceChat
             this.checkAutoAwayTray = new System.Windows.Forms.CheckBox();
             this.checkAutoReturn = new System.Windows.Forms.CheckBox();
             this.checkAutoAway = new System.Windows.Forms.CheckBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabStartup = new System.Windows.Forms.TabPage();
             this.label37 = new System.Windows.Forms.Label();
             this.textAutoPerformStartup = new System.Windows.Forms.TextBox();
             this.checkAutoPerformStartup = new System.Windows.Forms.CheckBox();
@@ -276,11 +275,12 @@ namespace IceChat
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.panelButtons = new System.Windows.Forms.Panel();
+            this.pictureTSHelp = new System.Windows.Forms.PictureBox();
+            this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.tabControlOptions.SuspendLayout();
             this.tabMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).BeginInit();
             this.tabDisplay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackTransparency)).BeginInit();
             this.tabPageNotifications.SuspendLayout();
@@ -291,8 +291,9 @@ namespace IceChat
             this.tabEmoticon.SuspendLayout();
             this.tabEvents.SuspendLayout();
             this.tabPageAway.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabStartup.SuspendLayout();
             this.panelButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlOptions
@@ -307,7 +308,7 @@ namespace IceChat
             this.tabControlOptions.Controls.Add(this.tabEmoticon);
             this.tabControlOptions.Controls.Add(this.tabEvents);
             this.tabControlOptions.Controls.Add(this.tabPageAway);
-            this.tabControlOptions.Controls.Add(this.tabPage1);
+            this.tabControlOptions.Controls.Add(this.tabStartup);
             this.tabControlOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlOptions.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlOptions.Location = new System.Drawing.Point(0, 0);
@@ -344,17 +345,9 @@ namespace IceChat
             this.tabMain.Padding = new System.Windows.Forms.Padding(4);
             this.tabMain.Size = new System.Drawing.Size(757, 289);
             this.tabMain.TabIndex = 0;
+            this.tabMain.Tag = "Main_Settings_tab";
             this.tabMain.Text = "Main";
             this.tabMain.UseVisualStyleBackColor = true;
-            // 
-            // pictureTSHelp
-            // 
-            this.pictureTSHelp.Cursor = System.Windows.Forms.Cursors.Help;
-            this.pictureTSHelp.Location = new System.Drawing.Point(613, 115);
-            this.pictureTSHelp.Name = "pictureTSHelp";
-            this.pictureTSHelp.Size = new System.Drawing.Size(16, 16);
-            this.pictureTSHelp.TabIndex = 4;
-            this.pictureTSHelp.TabStop = false;
             // 
             // checkJoinInvite
             // 
@@ -559,6 +552,7 @@ namespace IceChat
             this.tabDisplay.Padding = new System.Windows.Forms.Padding(4);
             this.tabDisplay.Size = new System.Drawing.Size(757, 289);
             this.tabDisplay.TabIndex = 1;
+            this.tabDisplay.Tag = "Display_tab";
             this.tabDisplay.Text = "Display";
             this.tabDisplay.UseVisualStyleBackColor = true;
             // 
@@ -806,6 +800,7 @@ namespace IceChat
             this.tabPageNotifications.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageNotifications.Size = new System.Drawing.Size(757, 289);
             this.tabPageNotifications.TabIndex = 10;
+            this.tabPageNotifications.Tag = "Notifications_tab";
             this.tabPageNotifications.Text = "Notifications";
             this.tabPageNotifications.UseVisualStyleBackColor = true;
             // 
@@ -943,6 +938,7 @@ namespace IceChat
             this.tabLogging.Padding = new System.Windows.Forms.Padding(3);
             this.tabLogging.Size = new System.Drawing.Size(757, 289);
             this.tabLogging.TabIndex = 6;
+            this.tabLogging.Tag = "Logging_tab";
             this.tabLogging.Text = "Logs";
             this.tabLogging.UseVisualStyleBackColor = true;
             // 
@@ -1112,6 +1108,7 @@ namespace IceChat
             this.tabFonts.Padding = new System.Windows.Forms.Padding(4);
             this.tabFonts.Size = new System.Drawing.Size(757, 289);
             this.tabFonts.TabIndex = 2;
+            this.tabFonts.Tag = "Fonts_tab";
             this.tabFonts.Text = "Fonts";
             this.tabFonts.UseVisualStyleBackColor = true;
             // 
@@ -1488,6 +1485,7 @@ namespace IceChat
             this.tabDCC.Name = "tabDCC";
             this.tabDCC.Size = new System.Drawing.Size(757, 289);
             this.tabDCC.TabIndex = 8;
+            this.tabDCC.Tag = "DCC_tab";
             this.tabDCC.Text = "DCC";
             this.tabDCC.UseVisualStyleBackColor = true;
             // 
@@ -1751,6 +1749,7 @@ namespace IceChat
             this.tabSounds.Padding = new System.Windows.Forms.Padding(4);
             this.tabSounds.Size = new System.Drawing.Size(757, 289);
             this.tabSounds.TabIndex = 3;
+            this.tabSounds.Tag = "Sounds_tab";
             this.tabSounds.Text = "Sound";
             this.tabSounds.UseVisualStyleBackColor = true;
             // 
@@ -1870,6 +1869,7 @@ namespace IceChat
             this.tabEmoticon.Padding = new System.Windows.Forms.Padding(3);
             this.tabEmoticon.Size = new System.Drawing.Size(757, 289);
             this.tabEmoticon.TabIndex = 7;
+            this.tabEmoticon.Tag = "Emoticons_tab";
             this.tabEmoticon.Text = "Emoticons";
             this.tabEmoticon.UseVisualStyleBackColor = true;
             // 
@@ -2008,6 +2008,7 @@ namespace IceChat
             this.tabEvents.Padding = new System.Windows.Forms.Padding(3);
             this.tabEvents.Size = new System.Drawing.Size(757, 289);
             this.tabEvents.TabIndex = 4;
+            this.tabEvents.Tag = "Events_tab";
             this.tabEvents.Text = "Events";
             this.tabEvents.UseVisualStyleBackColor = true;
             // 
@@ -2363,6 +2364,7 @@ namespace IceChat
             this.tabPageAway.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageAway.Size = new System.Drawing.Size(757, 289);
             this.tabPageAway.TabIndex = 9;
+            this.tabPageAway.Tag = "Away_tab";
             this.tabPageAway.Text = "Away";
             this.tabPageAway.UseVisualStyleBackColor = true;
             // 
@@ -2387,9 +2389,9 @@ namespace IceChat
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(15, 219);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(122, 16);
+            this.label25.Size = new System.Drawing.Size(120, 16);
             this.label25.TabIndex = 70;
-            this.label25.Text = "Message to Send";
+            this.label25.Text = "Message to send";
             // 
             // checkAwayMessagePrivate
             // 
@@ -2496,18 +2498,19 @@ namespace IceChat
             this.checkAutoAway.Text = "Auto away";
             this.checkAutoAway.UseVisualStyleBackColor = true;
             // 
-            // tabPage1
+            // tabStartup
             // 
-            this.tabPage1.Controls.Add(this.label37);
-            this.tabPage1.Controls.Add(this.textAutoPerformStartup);
-            this.tabPage1.Controls.Add(this.checkAutoPerformStartup);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(757, 289);
-            this.tabPage1.TabIndex = 11;
-            this.tabPage1.Text = "Startup";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabStartup.Controls.Add(this.label37);
+            this.tabStartup.Controls.Add(this.textAutoPerformStartup);
+            this.tabStartup.Controls.Add(this.checkAutoPerformStartup);
+            this.tabStartup.Location = new System.Drawing.Point(4, 25);
+            this.tabStartup.Name = "tabStartup";
+            this.tabStartup.Padding = new System.Windows.Forms.Padding(3);
+            this.tabStartup.Size = new System.Drawing.Size(757, 289);
+            this.tabStartup.TabIndex = 11;
+            this.tabStartup.Tag = "Startup_tab";
+            this.tabStartup.Text = "Startup";
+            this.tabStartup.UseVisualStyleBackColor = true;
             // 
             // label37
             // 
@@ -2843,6 +2846,7 @@ namespace IceChat
             // 
             // panelButtons
             // 
+            this.panelButtons.Controls.Add(this.buttonHelp);
             this.panelButtons.Controls.Add(this.buttonCancel);
             this.panelButtons.Controls.Add(this.buttonSave);
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -2851,15 +2855,42 @@ namespace IceChat
             this.panelButtons.Size = new System.Drawing.Size(765, 35);
             this.panelButtons.TabIndex = 3;
             // 
+            // pictureTSHelp
+            // 
+            this.pictureTSHelp.Cursor = System.Windows.Forms.Cursors.Help;
+            this.pictureTSHelp.Location = new System.Drawing.Point(613, 115);
+            this.pictureTSHelp.Name = "pictureTSHelp";
+            this.pictureTSHelp.Size = new System.Drawing.Size(16, 16);
+            this.pictureTSHelp.TabIndex = 4;
+            this.pictureTSHelp.TabStop = false;
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.BackgroundImage = global::IceChat.Properties.Resources.help;
+            this.buttonHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonHelp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonHelp.Location = new System.Drawing.Point(4, 5);
+            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(100, 25);
+            this.buttonHelp.TabIndex = 5;
+            this.buttonHelp.Text = "Help";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.BackgroundImage = global::IceChat.Properties.Resources.cancel;
+            this.buttonCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonCancel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCancel.Location = new System.Drawing.Point(662, 5);
+            this.buttonCancel.Location = new System.Drawing.Point(661, 5);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(96, 25);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 25);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -2868,12 +2899,14 @@ namespace IceChat
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSave.BackgroundImage = global::IceChat.Properties.Resources.floppy;
+            this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonSave.Location = new System.Drawing.Point(551, 5);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(103, 25);
+            this.buttonSave.Size = new System.Drawing.Size(100, 25);
             this.buttonSave.TabIndex = 3;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -2898,7 +2931,6 @@ namespace IceChat
             this.tabControlOptions.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
             this.tabMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).EndInit();
             this.tabDisplay.ResumeLayout(false);
             this.tabDisplay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackTransparency)).EndInit();
@@ -2918,9 +2950,10 @@ namespace IceChat
             this.tabEvents.PerformLayout();
             this.tabPageAway.ResumeLayout(false);
             this.tabPageAway.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabStartup.ResumeLayout(false);
+            this.tabStartup.PerformLayout();
             this.panelButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3167,7 +3200,7 @@ namespace IceChat
         private System.Windows.Forms.CheckBox checkSingleRowCB;
         private System.Windows.Forms.PictureBox pictureTSHelp;
         private System.Windows.Forms.CheckBox checkFlashPrivate;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabStartup;
         private System.Windows.Forms.TextBox textAutoPerformStartup;
         private System.Windows.Forms.CheckBox checkAutoPerformStartup;
         private System.Windows.Forms.Label label37;
@@ -3175,5 +3208,6 @@ namespace IceChat
         private System.Windows.Forms.ComboBox comboLineSpacing;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.CheckBox checkSortNickList;
+        private System.Windows.Forms.Button buttonHelp;
     }
 }

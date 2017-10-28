@@ -1068,6 +1068,57 @@ namespace IceChat
             listIgnore.Items.Clear();
         }
 
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            // go to help
+            switch (tabControlSettings.TabPages[tabControlSettings.SelectedIndex].Text)
+            {
+                case "Main Settings":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server");
+                    break;
+
+                case "Extra Settings":
+                case "IRCv3":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Extra_Settings_tab");
+                    break;
+
+                case "AutoJoin":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Auto_Join_tab");
+                    break;
+
+                case "AutoPerform":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#AutoPerform_tab");
+                    break;
+
+                case "Ignore List":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Ignore_List_tab");
+                    break;
+
+                case "Buddy List":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Buddy_List_tab");
+                    break;
+
+                case "Notes":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Notes_tab");
+                    break;
+
+                case "Proxy Settings":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Proxy_Settings_tab");
+                    break;
+
+                case "BNC Settings":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#BNC_Settings_tab");
+                    break;
+
+                case "Default Server Settings":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Default_Server_Settings");
+                    break;
+            
+            }
+
+
+        }
+
 
     }
 }

@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.labelServerPassword = new System.Windows.Forms.Label();
@@ -59,23 +57,12 @@
             this.labelNickName = new System.Windows.Forms.Label();
             this.tabPageExtra = new System.Windows.Forms.TabPage();
             this.checkDisableQueries = new System.Windows.Forms.CheckBox();
-            this.checkEchoMessage = new System.Windows.Forms.CheckBox();
-            this.checkChgHost = new System.Windows.Forms.CheckBox();
             this.checkDisableLogging = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.textReconnectTime = new System.Windows.Forms.TextBox();
-            this.checkAccountNotify = new System.Windows.Forms.CheckBox();
-            this.checkAwayNotify = new System.Windows.Forms.CheckBox();
-            this.checkExtendedJoin = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.checkDisableAwayMessages = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textPingTimer = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textSASLUser = new System.Windows.Forms.TextBox();
-            this.textSASLPass = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.checkUseSASL = new System.Windows.Forms.CheckBox();
             this.checkAutoStart = new System.Windows.Forms.CheckBox();
             this.checkDisableCTCP = new System.Windows.Forms.CheckBox();
             this.labelEncoding = new System.Windows.Forms.Label();
@@ -84,6 +71,17 @@
             this.checkPingPong = new System.Windows.Forms.CheckBox();
             this.checkMOTD = new System.Windows.Forms.CheckBox();
             this.checkModeI = new System.Windows.Forms.CheckBox();
+            this.tabPageIRCV3 = new System.Windows.Forms.TabPage();
+            this.checkEchoMessage = new System.Windows.Forms.CheckBox();
+            this.checkChgHost = new System.Windows.Forms.CheckBox();
+            this.checkAccountNotify = new System.Windows.Forms.CheckBox();
+            this.checkAwayNotify = new System.Windows.Forms.CheckBox();
+            this.checkExtendedJoin = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textSASLUser = new System.Windows.Forms.TextBox();
+            this.textSASLPass = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.checkUseSASL = new System.Windows.Forms.CheckBox();
             this.tabPageAutoJoin = new System.Windows.Forms.TabPage();
             this.buttonMoveDown = new System.Windows.Forms.Button();
             this.buttonMoveUp = new System.Windows.Forms.Button();
@@ -166,7 +164,6 @@
             this.checkIdentServer = new System.Windows.Forms.CheckBox();
             this.textDefaultNick = new System.Windows.Forms.TextBox();
             this.labelDefaultNickName = new System.Windows.Forms.Label();
-            this.buttonRemoveServer = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -180,9 +177,14 @@
             this.label8 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.buttonDuplicateServer = new System.Windows.Forms.Button();
+            this.buttonRemoveServer = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonHelp = new System.Windows.Forms.Button();
             this.tabControlSettings.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.tabPageExtra.SuspendLayout();
+            this.tabPageIRCV3.SuspendLayout();
             this.tabPageAutoJoin.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPageAutoPerform.SuspendLayout();
@@ -194,34 +196,6 @@
             this.tabPageDefault.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCancel.Location = new System.Drawing.Point(571, 300);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(103, 28);
-            this.buttonCancel.TabIndex = 19;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSave.Location = new System.Drawing.Point(454, 300);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(103, 28);
-            this.buttonSave.TabIndex = 17;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
             // tabControlSettings
             // 
             this.tabControlSettings.AccessibleDescription = "";
@@ -230,6 +204,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlSettings.Controls.Add(this.tabPageMain);
             this.tabControlSettings.Controls.Add(this.tabPageExtra);
+            this.tabControlSettings.Controls.Add(this.tabPageIRCV3);
             this.tabControlSettings.Controls.Add(this.tabPageAutoJoin);
             this.tabControlSettings.Controls.Add(this.tabPageAutoPerform);
             this.tabControlSettings.Controls.Add(this.tabPageIgnore);
@@ -243,7 +218,7 @@
             this.tabControlSettings.Multiline = true;
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(681, 292);
+            this.tabControlSettings.Size = new System.Drawing.Size(681, 298);
             this.tabControlSettings.TabIndex = 0;
             // 
             // tabPageMain
@@ -278,7 +253,7 @@
             this.tabPageMain.Location = new System.Drawing.Point(4, 46);
             this.tabPageMain.Margin = new System.Windows.Forms.Padding(0);
             this.tabPageMain.Name = "tabPageMain";
-            this.tabPageMain.Size = new System.Drawing.Size(673, 242);
+            this.tabPageMain.Size = new System.Drawing.Size(673, 248);
             this.tabPageMain.TabIndex = 0;
             this.tabPageMain.Text = "Main Settings";
             this.tabPageMain.UseVisualStyleBackColor = true;
@@ -327,9 +302,9 @@
             this.checkUseSSL.Location = new System.Drawing.Point(400, 132);
             this.checkUseSSL.Margin = new System.Windows.Forms.Padding(2);
             this.checkUseSSL.Name = "checkUseSSL";
-            this.checkUseSSL.Size = new System.Drawing.Size(145, 20);
+            this.checkUseSSL.Size = new System.Drawing.Size(176, 20);
             this.checkUseSSL.TabIndex = 54;
-            this.checkUseSSL.Text = "Connect with SSL";
+            this.checkUseSSL.Text = "Connect with SSL/TLS";
             this.checkUseSSL.UseVisualStyleBackColor = true;
             // 
             // checkInvalidCertificate
@@ -522,23 +497,12 @@
             // 
             this.tabPageExtra.BackColor = System.Drawing.Color.Transparent;
             this.tabPageExtra.Controls.Add(this.checkDisableQueries);
-            this.tabPageExtra.Controls.Add(this.checkEchoMessage);
-            this.tabPageExtra.Controls.Add(this.checkChgHost);
             this.tabPageExtra.Controls.Add(this.checkDisableLogging);
             this.tabPageExtra.Controls.Add(this.label13);
             this.tabPageExtra.Controls.Add(this.textReconnectTime);
-            this.tabPageExtra.Controls.Add(this.checkAccountNotify);
-            this.tabPageExtra.Controls.Add(this.checkAwayNotify);
-            this.tabPageExtra.Controls.Add(this.checkExtendedJoin);
-            this.tabPageExtra.Controls.Add(this.label12);
             this.tabPageExtra.Controls.Add(this.checkDisableAwayMessages);
             this.tabPageExtra.Controls.Add(this.label11);
             this.tabPageExtra.Controls.Add(this.textPingTimer);
-            this.tabPageExtra.Controls.Add(this.label9);
-            this.tabPageExtra.Controls.Add(this.textSASLUser);
-            this.tabPageExtra.Controls.Add(this.textSASLPass);
-            this.tabPageExtra.Controls.Add(this.label10);
-            this.tabPageExtra.Controls.Add(this.checkUseSASL);
             this.tabPageExtra.Controls.Add(this.checkAutoStart);
             this.tabPageExtra.Controls.Add(this.checkDisableCTCP);
             this.tabPageExtra.Controls.Add(this.labelEncoding);
@@ -552,7 +516,7 @@
             this.tabPageExtra.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageExtra.Name = "tabPageExtra";
             this.tabPageExtra.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageExtra.Size = new System.Drawing.Size(673, 242);
+            this.tabPageExtra.Size = new System.Drawing.Size(673, 248);
             this.tabPageExtra.TabIndex = 3;
             this.tabPageExtra.Text = "Extra Settings";
             this.tabPageExtra.UseVisualStyleBackColor = true;
@@ -560,35 +524,13 @@
             // checkDisableQueries
             // 
             this.checkDisableQueries.AutoSize = true;
-            this.checkDisableQueries.Location = new System.Drawing.Point(465, 10);
+            this.checkDisableQueries.Location = new System.Drawing.Point(312, 34);
             this.checkDisableQueries.Margin = new System.Windows.Forms.Padding(2);
             this.checkDisableQueries.Name = "checkDisableQueries";
             this.checkDisableQueries.Size = new System.Drawing.Size(127, 20);
             this.checkDisableQueries.TabIndex = 71;
             this.checkDisableQueries.Text = "Disable Queries";
             this.checkDisableQueries.UseVisualStyleBackColor = true;
-            // 
-            // checkEchoMessage
-            // 
-            this.checkEchoMessage.AutoSize = true;
-            this.checkEchoMessage.Location = new System.Drawing.Point(312, 178);
-            this.checkEchoMessage.Margin = new System.Windows.Forms.Padding(2);
-            this.checkEchoMessage.Name = "checkEchoMessage";
-            this.checkEchoMessage.Size = new System.Drawing.Size(121, 20);
-            this.checkEchoMessage.TabIndex = 70;
-            this.checkEchoMessage.Text = "Echo Message";
-            this.checkEchoMessage.UseVisualStyleBackColor = true;
-            // 
-            // checkChgHost
-            // 
-            this.checkChgHost.AutoSize = true;
-            this.checkChgHost.Location = new System.Drawing.Point(465, 154);
-            this.checkChgHost.Margin = new System.Windows.Forms.Padding(2);
-            this.checkChgHost.Name = "checkChgHost";
-            this.checkChgHost.Size = new System.Drawing.Size(111, 20);
-            this.checkChgHost.TabIndex = 69;
-            this.checkChgHost.Text = "Change Host";
-            this.checkChgHost.UseVisualStyleBackColor = true;
             // 
             // checkDisableLogging
             // 
@@ -619,54 +561,10 @@
             this.textReconnectTime.Size = new System.Drawing.Size(37, 23);
             this.textReconnectTime.TabIndex = 66;
             // 
-            // checkAccountNotify
-            // 
-            this.checkAccountNotify.AutoSize = true;
-            this.checkAccountNotify.Location = new System.Drawing.Point(465, 130);
-            this.checkAccountNotify.Margin = new System.Windows.Forms.Padding(2);
-            this.checkAccountNotify.Name = "checkAccountNotify";
-            this.checkAccountNotify.Size = new System.Drawing.Size(126, 20);
-            this.checkAccountNotify.TabIndex = 65;
-            this.checkAccountNotify.Text = "Account Notify";
-            this.checkAccountNotify.UseVisualStyleBackColor = true;
-            // 
-            // checkAwayNotify
-            // 
-            this.checkAwayNotify.AutoSize = true;
-            this.checkAwayNotify.Location = new System.Drawing.Point(312, 154);
-            this.checkAwayNotify.Margin = new System.Windows.Forms.Padding(2);
-            this.checkAwayNotify.Name = "checkAwayNotify";
-            this.checkAwayNotify.Size = new System.Drawing.Size(107, 20);
-            this.checkAwayNotify.TabIndex = 64;
-            this.checkAwayNotify.Text = "Away Notify";
-            this.checkAwayNotify.UseVisualStyleBackColor = true;
-            // 
-            // checkExtendedJoin
-            // 
-            this.checkExtendedJoin.AutoSize = true;
-            this.checkExtendedJoin.Location = new System.Drawing.Point(312, 130);
-            this.checkExtendedJoin.Margin = new System.Windows.Forms.Padding(2);
-            this.checkExtendedJoin.Name = "checkExtendedJoin";
-            this.checkExtendedJoin.Size = new System.Drawing.Size(118, 20);
-            this.checkExtendedJoin.TabIndex = 63;
-            this.checkExtendedJoin.Text = "Extended Join";
-            this.checkExtendedJoin.UseVisualStyleBackColor = true;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(309, 34);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(115, 16);
-            this.label12.TabIndex = 62;
-            this.label12.Text = "IRCv3 Settings";
-            // 
             // checkDisableAwayMessages
             // 
             this.checkDisableAwayMessages.AutoSize = true;
-            this.checkDisableAwayMessages.Location = new System.Drawing.Point(12, 130);
+            this.checkDisableAwayMessages.Location = new System.Drawing.Point(312, 58);
             this.checkDisableAwayMessages.Margin = new System.Windows.Forms.Padding(2);
             this.checkDisableAwayMessages.Name = "checkDisableAwayMessages";
             this.checkDisableAwayMessages.Size = new System.Drawing.Size(228, 20);
@@ -692,54 +590,6 @@
             this.textPingTimer.Size = new System.Drawing.Size(37, 23);
             this.textPingTimer.TabIndex = 59;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(309, 82);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(75, 16);
-            this.label9.TabIndex = 56;
-            this.label9.Text = "SASL user";
-            // 
-            // textSASLUser
-            // 
-            this.textSASLUser.Location = new System.Drawing.Point(465, 80);
-            this.textSASLUser.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textSASLUser.Name = "textSASLUser";
-            this.textSASLUser.Size = new System.Drawing.Size(115, 23);
-            this.textSASLUser.TabIndex = 54;
-            // 
-            // textSASLPass
-            // 
-            this.textSASLPass.Location = new System.Drawing.Point(465, 105);
-            this.textSASLPass.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textSASLPass.Name = "textSASLPass";
-            this.textSASLPass.PasswordChar = '*';
-            this.textSASLPass.Size = new System.Drawing.Size(115, 23);
-            this.textSASLPass.TabIndex = 55;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(309, 106);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(109, 16);
-            this.label10.TabIndex = 57;
-            this.label10.Text = "SASL password";
-            // 
-            // checkUseSASL
-            // 
-            this.checkUseSASL.AutoSize = true;
-            this.checkUseSASL.Location = new System.Drawing.Point(312, 58);
-            this.checkUseSASL.Margin = new System.Windows.Forms.Padding(2);
-            this.checkUseSASL.Name = "checkUseSASL";
-            this.checkUseSASL.Size = new System.Drawing.Size(154, 20);
-            this.checkUseSASL.TabIndex = 53;
-            this.checkUseSASL.Text = "Connect with SASL";
-            this.checkUseSASL.UseVisualStyleBackColor = true;
-            // 
             // checkAutoStart
             // 
             this.checkAutoStart.AutoSize = true;
@@ -754,7 +604,7 @@
             // checkDisableCTCP
             // 
             this.checkDisableCTCP.AutoSize = true;
-            this.checkDisableCTCP.Location = new System.Drawing.Point(12, 106);
+            this.checkDisableCTCP.Location = new System.Drawing.Point(312, 82);
             this.checkDisableCTCP.Margin = new System.Windows.Forms.Padding(2);
             this.checkDisableCTCP.Name = "checkDisableCTCP";
             this.checkDisableCTCP.Size = new System.Drawing.Size(160, 20);
@@ -830,6 +680,129 @@
             this.checkModeI.Text = "Set mode +i on connect";
             this.checkModeI.UseVisualStyleBackColor = true;
             // 
+            // tabPageIRCV3
+            // 
+            this.tabPageIRCV3.Controls.Add(this.checkEchoMessage);
+            this.tabPageIRCV3.Controls.Add(this.checkChgHost);
+            this.tabPageIRCV3.Controls.Add(this.checkAccountNotify);
+            this.tabPageIRCV3.Controls.Add(this.checkAwayNotify);
+            this.tabPageIRCV3.Controls.Add(this.checkExtendedJoin);
+            this.tabPageIRCV3.Controls.Add(this.label9);
+            this.tabPageIRCV3.Controls.Add(this.textSASLUser);
+            this.tabPageIRCV3.Controls.Add(this.textSASLPass);
+            this.tabPageIRCV3.Controls.Add(this.label10);
+            this.tabPageIRCV3.Controls.Add(this.checkUseSASL);
+            this.tabPageIRCV3.Location = new System.Drawing.Point(4, 46);
+            this.tabPageIRCV3.Name = "tabPageIRCV3";
+            this.tabPageIRCV3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageIRCV3.Size = new System.Drawing.Size(673, 248);
+            this.tabPageIRCV3.TabIndex = 10;
+            this.tabPageIRCV3.Text = "IRCv3";
+            this.tabPageIRCV3.UseVisualStyleBackColor = true;
+            // 
+            // checkEchoMessage
+            // 
+            this.checkEchoMessage.AutoSize = true;
+            this.checkEchoMessage.Location = new System.Drawing.Point(12, 130);
+            this.checkEchoMessage.Margin = new System.Windows.Forms.Padding(2);
+            this.checkEchoMessage.Name = "checkEchoMessage";
+            this.checkEchoMessage.Size = new System.Drawing.Size(121, 20);
+            this.checkEchoMessage.TabIndex = 81;
+            this.checkEchoMessage.Text = "Echo Message";
+            this.checkEchoMessage.UseVisualStyleBackColor = true;
+            // 
+            // checkChgHost
+            // 
+            this.checkChgHost.AutoSize = true;
+            this.checkChgHost.Location = new System.Drawing.Point(165, 106);
+            this.checkChgHost.Margin = new System.Windows.Forms.Padding(2);
+            this.checkChgHost.Name = "checkChgHost";
+            this.checkChgHost.Size = new System.Drawing.Size(111, 20);
+            this.checkChgHost.TabIndex = 80;
+            this.checkChgHost.Text = "Change Host";
+            this.checkChgHost.UseVisualStyleBackColor = true;
+            // 
+            // checkAccountNotify
+            // 
+            this.checkAccountNotify.AutoSize = true;
+            this.checkAccountNotify.Location = new System.Drawing.Point(165, 82);
+            this.checkAccountNotify.Margin = new System.Windows.Forms.Padding(2);
+            this.checkAccountNotify.Name = "checkAccountNotify";
+            this.checkAccountNotify.Size = new System.Drawing.Size(126, 20);
+            this.checkAccountNotify.TabIndex = 79;
+            this.checkAccountNotify.Text = "Account Notify";
+            this.checkAccountNotify.UseVisualStyleBackColor = true;
+            // 
+            // checkAwayNotify
+            // 
+            this.checkAwayNotify.AutoSize = true;
+            this.checkAwayNotify.Location = new System.Drawing.Point(12, 106);
+            this.checkAwayNotify.Margin = new System.Windows.Forms.Padding(2);
+            this.checkAwayNotify.Name = "checkAwayNotify";
+            this.checkAwayNotify.Size = new System.Drawing.Size(107, 20);
+            this.checkAwayNotify.TabIndex = 78;
+            this.checkAwayNotify.Text = "Away Notify";
+            this.checkAwayNotify.UseVisualStyleBackColor = true;
+            // 
+            // checkExtendedJoin
+            // 
+            this.checkExtendedJoin.AutoSize = true;
+            this.checkExtendedJoin.Location = new System.Drawing.Point(12, 82);
+            this.checkExtendedJoin.Margin = new System.Windows.Forms.Padding(2);
+            this.checkExtendedJoin.Name = "checkExtendedJoin";
+            this.checkExtendedJoin.Size = new System.Drawing.Size(118, 20);
+            this.checkExtendedJoin.TabIndex = 77;
+            this.checkExtendedJoin.Text = "Extended Join";
+            this.checkExtendedJoin.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(9, 34);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(75, 16);
+            this.label9.TabIndex = 74;
+            this.label9.Text = "SASL user";
+            // 
+            // textSASLUser
+            // 
+            this.textSASLUser.Location = new System.Drawing.Point(165, 32);
+            this.textSASLUser.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.textSASLUser.Name = "textSASLUser";
+            this.textSASLUser.Size = new System.Drawing.Size(115, 23);
+            this.textSASLUser.TabIndex = 72;
+            // 
+            // textSASLPass
+            // 
+            this.textSASLPass.Location = new System.Drawing.Point(165, 57);
+            this.textSASLPass.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.textSASLPass.Name = "textSASLPass";
+            this.textSASLPass.PasswordChar = '*';
+            this.textSASLPass.Size = new System.Drawing.Size(115, 23);
+            this.textSASLPass.TabIndex = 73;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(9, 58);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(109, 16);
+            this.label10.TabIndex = 75;
+            this.label10.Text = "SASL password";
+            // 
+            // checkUseSASL
+            // 
+            this.checkUseSASL.AutoSize = true;
+            this.checkUseSASL.Location = new System.Drawing.Point(12, 10);
+            this.checkUseSASL.Margin = new System.Windows.Forms.Padding(2);
+            this.checkUseSASL.Name = "checkUseSASL";
+            this.checkUseSASL.Size = new System.Drawing.Size(154, 20);
+            this.checkUseSASL.TabIndex = 71;
+            this.checkUseSASL.Text = "Connect with SASL";
+            this.checkUseSASL.UseVisualStyleBackColor = true;
+            // 
             // tabPageAutoJoin
             // 
             this.tabPageAutoJoin.BackColor = System.Drawing.Color.Transparent;
@@ -847,7 +820,7 @@
             this.tabPageAutoJoin.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPageAutoJoin.Name = "tabPageAutoJoin";
             this.tabPageAutoJoin.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPageAutoJoin.Size = new System.Drawing.Size(673, 242);
+            this.tabPageAutoJoin.Size = new System.Drawing.Size(673, 248);
             this.tabPageAutoJoin.TabIndex = 1;
             this.tabPageAutoJoin.Text = "AutoJoin";
             this.tabPageAutoJoin.UseVisualStyleBackColor = true;
@@ -880,7 +853,7 @@
             this.panel1.Controls.Add(this.checkAutoJoinDelay);
             this.panel1.Controls.Add(this.checkAutoJoin);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(2, 217);
+            this.panel1.Location = new System.Drawing.Point(2, 223);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(669, 22);
@@ -1011,7 +984,7 @@
             this.tabPageAutoPerform.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPageAutoPerform.Name = "tabPageAutoPerform";
             this.tabPageAutoPerform.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPageAutoPerform.Size = new System.Drawing.Size(673, 242);
+            this.tabPageAutoPerform.Size = new System.Drawing.Size(673, 248);
             this.tabPageAutoPerform.TabIndex = 2;
             this.tabPageAutoPerform.Text = "AutoPerform";
             this.tabPageAutoPerform.UseVisualStyleBackColor = true;
@@ -1023,14 +996,14 @@
             this.textAutoPerform.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textAutoPerform.Multiline = true;
             this.textAutoPerform.Name = "textAutoPerform";
-            this.textAutoPerform.Size = new System.Drawing.Size(669, 216);
+            this.textAutoPerform.Size = new System.Drawing.Size(669, 222);
             this.textAutoPerform.TabIndex = 28;
             // 
             // checkAutoPerform
             // 
             this.checkAutoPerform.AutoSize = true;
             this.checkAutoPerform.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.checkAutoPerform.Location = new System.Drawing.Point(2, 219);
+            this.checkAutoPerform.Location = new System.Drawing.Point(2, 225);
             this.checkAutoPerform.Margin = new System.Windows.Forms.Padding(2);
             this.checkAutoPerform.Name = "checkAutoPerform";
             this.checkAutoPerform.Size = new System.Drawing.Size(669, 20);
@@ -1053,7 +1026,7 @@
             this.tabPageIgnore.Location = new System.Drawing.Point(4, 46);
             this.tabPageIgnore.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageIgnore.Name = "tabPageIgnore";
-            this.tabPageIgnore.Size = new System.Drawing.Size(673, 242);
+            this.tabPageIgnore.Size = new System.Drawing.Size(673, 248);
             this.tabPageIgnore.TabIndex = 4;
             this.tabPageIgnore.Text = "Ignore List";
             this.tabPageIgnore.UseVisualStyleBackColor = true;
@@ -1154,7 +1127,7 @@
             // 
             this.checkIgnore.AutoSize = true;
             this.checkIgnore.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.checkIgnore.Location = new System.Drawing.Point(0, 222);
+            this.checkIgnore.Location = new System.Drawing.Point(0, 228);
             this.checkIgnore.Margin = new System.Windows.Forms.Padding(2);
             this.checkIgnore.Name = "checkIgnore";
             this.checkIgnore.Size = new System.Drawing.Size(673, 20);
@@ -1227,7 +1200,7 @@
             this.tabBuddyList.Margin = new System.Windows.Forms.Padding(2);
             this.tabBuddyList.Name = "tabBuddyList";
             this.tabBuddyList.Padding = new System.Windows.Forms.Padding(2);
-            this.tabBuddyList.Size = new System.Drawing.Size(673, 242);
+            this.tabBuddyList.Size = new System.Drawing.Size(673, 248);
             this.tabBuddyList.TabIndex = 7;
             this.tabBuddyList.Text = "Buddy List";
             this.tabBuddyList.UseVisualStyleBackColor = true;
@@ -1256,7 +1229,7 @@
             // 
             this.checkBuddyList.AutoSize = true;
             this.checkBuddyList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.checkBuddyList.Location = new System.Drawing.Point(2, 220);
+            this.checkBuddyList.Location = new System.Drawing.Point(2, 226);
             this.checkBuddyList.Margin = new System.Windows.Forms.Padding(2);
             this.checkBuddyList.Name = "checkBuddyList";
             this.checkBuddyList.Size = new System.Drawing.Size(669, 20);
@@ -1322,7 +1295,7 @@
             this.tabPageNotes.Location = new System.Drawing.Point(4, 46);
             this.tabPageNotes.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageNotes.Name = "tabPageNotes";
-            this.tabPageNotes.Size = new System.Drawing.Size(673, 242);
+            this.tabPageNotes.Size = new System.Drawing.Size(673, 248);
             this.tabPageNotes.TabIndex = 8;
             this.tabPageNotes.Text = "Notes";
             this.tabPageNotes.UseVisualStyleBackColor = true;
@@ -1334,7 +1307,7 @@
             this.textNotes.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textNotes.Multiline = true;
             this.textNotes.Name = "textNotes";
-            this.textNotes.Size = new System.Drawing.Size(673, 242);
+            this.textNotes.Size = new System.Drawing.Size(673, 248);
             this.textNotes.TabIndex = 29;
             // 
             // tabPageProxy
@@ -1355,7 +1328,7 @@
             this.tabPageProxy.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageProxy.Name = "tabPageProxy";
             this.tabPageProxy.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageProxy.Size = new System.Drawing.Size(673, 242);
+            this.tabPageProxy.Size = new System.Drawing.Size(673, 248);
             this.tabPageProxy.TabIndex = 6;
             this.tabPageProxy.Text = "Proxy Settings";
             this.tabPageProxy.UseVisualStyleBackColor = true;
@@ -1495,7 +1468,7 @@
             this.tabPageBNC.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageBNC.Name = "tabPageBNC";
             this.tabPageBNC.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageBNC.Size = new System.Drawing.Size(673, 242);
+            this.tabPageBNC.Size = new System.Drawing.Size(673, 248);
             this.tabPageBNC.TabIndex = 9;
             this.tabPageBNC.Text = "BNC Settings";
             this.tabPageBNC.UseVisualStyleBackColor = true;
@@ -1600,7 +1573,7 @@
             this.tabPageDefault.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageDefault.Name = "tabPageDefault";
             this.tabPageDefault.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageDefault.Size = new System.Drawing.Size(673, 242);
+            this.tabPageDefault.Size = new System.Drawing.Size(673, 248);
             this.tabPageDefault.TabIndex = 5;
             this.tabPageDefault.Text = "Default Server Settings";
             this.tabPageDefault.UseVisualStyleBackColor = true;
@@ -1702,20 +1675,6 @@
             this.labelDefaultNickName.Size = new System.Drawing.Size(35, 16);
             this.labelDefaultNickName.TabIndex = 46;
             this.labelDefaultNickName.Text = "Nick";
-            // 
-            // buttonRemoveServer
-            // 
-            this.buttonRemoveServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRemoveServer.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoveServer.Location = new System.Drawing.Point(6, 300);
-            this.buttonRemoveServer.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.buttonRemoveServer.Name = "buttonRemoveServer";
-            this.buttonRemoveServer.Padding = new System.Windows.Forms.Padding(2);
-            this.buttonRemoveServer.Size = new System.Drawing.Size(106, 28);
-            this.buttonRemoveServer.TabIndex = 37;
-            this.buttonRemoveServer.Text = "Remove";
-            this.buttonRemoveServer.UseVisualStyleBackColor = true;
-            this.buttonRemoveServer.Click += new System.EventHandler(this.buttonRemoveServer_Click);
             // 
             // textBox1
             // 
@@ -1835,22 +1794,87 @@
             // buttonDuplicateServer
             // 
             this.buttonDuplicateServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDuplicateServer.BackgroundImage = global::IceChat.Properties.Resources.duplicate;
+            this.buttonDuplicateServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonDuplicateServer.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDuplicateServer.Location = new System.Drawing.Point(127, 300);
-            this.buttonDuplicateServer.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonDuplicateServer.Location = new System.Drawing.Point(224, 302);
+            this.buttonDuplicateServer.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDuplicateServer.Name = "buttonDuplicateServer";
-            this.buttonDuplicateServer.Padding = new System.Windows.Forms.Padding(2);
-            this.buttonDuplicateServer.Size = new System.Drawing.Size(103, 28);
+            this.buttonDuplicateServer.Size = new System.Drawing.Size(114, 25);
             this.buttonDuplicateServer.TabIndex = 55;
             this.buttonDuplicateServer.Text = "Duplicate";
             this.buttonDuplicateServer.UseVisualStyleBackColor = true;
             this.buttonDuplicateServer.Click += new System.EventHandler(this.buttonDuplicateServer_Click);
+            // 
+            // buttonRemoveServer
+            // 
+            this.buttonRemoveServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoveServer.BackgroundImage = global::IceChat.Properties.Resources.delete;
+            this.buttonRemoveServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonRemoveServer.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveServer.Location = new System.Drawing.Point(114, 302);
+            this.buttonRemoveServer.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonRemoveServer.Name = "buttonRemoveServer";
+            this.buttonRemoveServer.Size = new System.Drawing.Size(100, 25);
+            this.buttonRemoveServer.TabIndex = 37;
+            this.buttonRemoveServer.Text = "Remove";
+            this.buttonRemoveServer.UseVisualStyleBackColor = true;
+            this.buttonRemoveServer.Click += new System.EventHandler(this.buttonRemoveServer_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.BackgroundImage = global::IceChat.Properties.Resources.cancel;
+            this.buttonCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonCancel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonCancel.Location = new System.Drawing.Point(578, 302);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(100, 25);
+            this.buttonCancel.TabIndex = 19;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSave.BackgroundImage = global::IceChat.Properties.Resources.floppy;
+            this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonSave.Location = new System.Drawing.Point(468, 302);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(100, 25);
+            this.buttonSave.TabIndex = 17;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHelp.BackgroundImage = global::IceChat.Properties.Resources.help;
+            this.buttonHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonHelp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonHelp.Location = new System.Drawing.Point(4, 302);
+            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(100, 25);
+            this.buttonHelp.TabIndex = 56;
+            this.buttonHelp.Text = "Help";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
             // FormServers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(681, 332);
+            this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonDuplicateServer);
             this.Controls.Add(this.buttonRemoveServer);
             this.Controls.Add(this.tabControlSettings);
@@ -1871,6 +1895,8 @@
             this.tabPageMain.PerformLayout();
             this.tabPageExtra.ResumeLayout(false);
             this.tabPageExtra.PerformLayout();
+            this.tabPageIRCV3.ResumeLayout(false);
+            this.tabPageIRCV3.PerformLayout();
             this.tabPageAutoJoin.ResumeLayout(false);
             this.tabPageAutoJoin.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -2009,21 +2035,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkAutoJoinDelay;
         private System.Windows.Forms.CheckBox checkAutoJoin;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textSASLUser;
-        private System.Windows.Forms.TextBox textSASLPass;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox checkUseSASL;
         private System.Windows.Forms.CheckBox checkAutoJoinDelayBetween;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textPingTimer;
         private System.Windows.Forms.CheckBox checkDisableAwayMessages;
         private System.Windows.Forms.CheckBox checkUseSSL;
         private System.Windows.Forms.CheckBox checkInvalidCertificate;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.CheckBox checkAwayNotify;
-        private System.Windows.Forms.CheckBox checkExtendedJoin;
-        private System.Windows.Forms.CheckBox checkAccountNotify;
         private System.Windows.Forms.Button buttonDuplicateServer;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textReconnectTime;
@@ -2034,8 +2051,6 @@
         private System.Windows.Forms.TextBox textNickservPassword;
         private System.Windows.Forms.Label labelNickservPassword;
         private System.Windows.Forms.CheckBox checkDisableLogging;
-        private System.Windows.Forms.CheckBox checkChgHost;
-        private System.Windows.Forms.CheckBox checkEchoMessage;
         private System.Windows.Forms.CheckBox checkDisableQueries;
         private System.Windows.Forms.Button buttonClearIgnores;
         private System.Windows.Forms.ColumnHeader columnHeader5;
@@ -2046,5 +2061,17 @@
         private System.Windows.Forms.ColumnHeader columnT;
         private System.Windows.Forms.ColumnHeader columnI;
         private System.Windows.Forms.ColumnHeader columnD;
+        private System.Windows.Forms.TabPage tabPageIRCV3;
+        private System.Windows.Forms.CheckBox checkEchoMessage;
+        private System.Windows.Forms.CheckBox checkChgHost;
+        private System.Windows.Forms.CheckBox checkAccountNotify;
+        private System.Windows.Forms.CheckBox checkAwayNotify;
+        private System.Windows.Forms.CheckBox checkExtendedJoin;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textSASLUser;
+        private System.Windows.Forms.TextBox textSASLPass;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox checkUseSASL;
+        private System.Windows.Forms.Button buttonHelp;
     }
 }

@@ -1995,5 +1995,10 @@ namespace IceChat
             }            
         }
 
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Colors");
+        }
+
     }
 }

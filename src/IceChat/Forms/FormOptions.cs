@@ -1050,5 +1050,12 @@ namespace IceChat
             catch { }
 
         }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            // get the current tab, and go to Wiki
+            System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Settings#" + tabControlOptions.TabPages[tabControlOptions.SelectedIndex].Tag);
+
+        }
     }
 }

@@ -779,6 +779,10 @@ namespace IceChat
         public Stack<string> LastChannelsParted
         { get { return _lastChannelsParted; } set { this._lastChannelsParted = value; } }
 
+        [XmlIgnore()]
+        public Dictionary<string, DateTime> LastAwayMessages
+        { get; set; }
+
         /*
         [XmlIgnore()]
         [XmlArray("TabOrder")]

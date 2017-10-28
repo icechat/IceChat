@@ -1593,6 +1593,26 @@ namespace IceChat
 
                 if (connection.ServerSetting.Away && iceChatOptions.SendAwayPrivateMessage)
                 {
+                    // check if we have sent a message in the past 30 minutes
+                    // and check for this user (host)
+                    if (connection.ServerSetting.LastAwayMessages != null)
+                    {
+                        // check if the key exist
+                        if (connection.ServerSetting.LastAwayMessages.ContainsKey(host))
+                        {
+                            // check the time
+                            if (connection.ServerSetting.LastAwayMessages[host].AddMinutes(30) > DateTime.Now)
+                            {
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            // it did not exist, add it
+                            connection.ServerSetting.LastAwayMessages.Add(host, DateTime.Now);
+                        }
+                    }
+                    
                     //send an away message
                     TimeSpan ts = DateTime.Now.Subtract(connection.ServerSetting.AwayStart);
 
@@ -1604,12 +1624,13 @@ namespace IceChat
                     if (ts.Days > 0)
                         s = ts.Days.ToString() + " days " + s;
 
-
                     string msgAway = iceChatOptions.PrivateAwayMessage;
                     msgAway = msgAway.Replace("$awaytime", s);
                     msgAway = msgAway.Replace("$awayreason", connection.ServerSetting.AwayReason);
 
                     ParseOutGoingCommand(connection, "//msg " + nick + " " + msgAway);
+
+                    connection.ServerSetting.LastAwayMessages[host] = DateTime.Now; 
                 }
 
             }
@@ -1718,6 +1739,29 @@ namespace IceChat
 
                 if (connection.ServerSetting.Away && iceChatOptions.SendAwayPrivateMessage)
                 {
+
+                    // check if we have sent a message in the past 30 minutes
+                    // and check for this user (host)
+                    if (connection.ServerSetting.LastAwayMessages != null)
+                    {
+                        // check if the key exist
+                        if (connection.ServerSetting.LastAwayMessages.ContainsKey(host))
+                        {
+                            // check the time
+                            if (connection.ServerSetting.LastAwayMessages[host].AddMinutes(30) > DateTime.Now)
+                            {
+                                System.Diagnostics.Debug.WriteLine("30 mins not past for " + host);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            // it did not exist, add it
+                            connection.ServerSetting.LastAwayMessages.Add(host, DateTime.Now);
+                            System.Diagnostics.Debug.WriteLine("Added " + host);
+                        }
+                    }
+                                        
                     //send an away message
                     TimeSpan ts = DateTime.Now.Subtract(connection.ServerSetting.AwayStart);
 
@@ -1735,6 +1779,8 @@ namespace IceChat
                     msgAway = msgAway.Replace("$awayreason", connection.ServerSetting.AwayReason);
 
                     ParseOutGoingCommand(connection, "//msg " + nick + " " + msgAway);
+
+                    connection.ServerSetting.LastAwayMessages[host] = DateTime.Now; 
                 }
             }
         }

@@ -125,9 +125,12 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.AutoSize = true;
-            this.buttonClose.Location = new System.Drawing.Point(354, 538);
+            this.buttonClose.BackgroundImage = global::IceChat.Properties.Resources.cancel;
+            this.buttonClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonClose.Location = new System.Drawing.Point(321, 538);
+            this.buttonClose.Margin = new System.Windows.Forms.Padding(4);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(75, 26);
+            this.buttonClose.Size = new System.Drawing.Size(100, 26);
             this.buttonClose.TabIndex = 10;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;

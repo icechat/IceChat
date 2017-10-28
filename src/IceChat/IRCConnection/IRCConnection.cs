@@ -755,6 +755,9 @@ namespace IceChat
                 {
                     ServerPreConnect(this);
 
+                    // remove all the previous entries for last messages
+                    serverSetting.LastAwayMessages.Clear();
+
                     if (serverSetting.Password != null && serverSetting.Password.Length > 0)
                         SendData("PASS " + serverSetting.Password);
 
@@ -775,7 +778,6 @@ namespace IceChat
                     
                     ServerMessage(this, "Sending User Registration Information", "");
                     
-
                     whichAddressinList = whichAddressCurrent;
                     
                     if (serverSetting.UseBNC == true)

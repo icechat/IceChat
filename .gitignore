@@ -11,5 +11,7 @@ src/IceChat/IRCConnection/obj/*
 src/IceChat/IRCConnection/bin/*
 src/IceChat/IThemeIceChat/obj/*
 src/IceChat/IThemeIceChat/bin/*
+src/Updater/bin/*
+src/Updater/obj/*
 
 *.cache

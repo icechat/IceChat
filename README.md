@@ -20,6 +20,7 @@ There are also just binaries of IceChat built with .NET 4.5 sitting in the Relea
 http://wiki.icechat.net/index.php?title=Build_from_source_code
 
 IceChat is coded using Visual Studio Express 2008. There are solutions for Visual Studio 2010 and Visual Studio 2015 included in the source code.
+You do not need Visual Studio to build IceChat though, you can just use the Batch Files supplied in the build folder.
 
 Unzip the file into any folder. It is best to use My Documents and not the Program Files folder, because of permissions issues.
 

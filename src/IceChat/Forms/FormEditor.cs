@@ -432,5 +432,23 @@ namespace IceChat
             }
         }
 
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            // alias or popups
+            switch (tabControlEditor.TabPages[tabControlEditor.SelectedIndex].Text)
+            {
+                case "Aliases":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Aliases");
+                    break;
+
+                case "PopupMenus":
+                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Popup_Menus");                    
+                    break;
+
+            }
+
+
+        }
+
     }
 }

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChannelInfo));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.textChannelKey = new System.Windows.Forms.TextBox();
@@ -54,12 +55,12 @@
             this.listViewExceptions = new System.Windows.Forms.ListView();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonApply = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.listViewQuiet = new System.Windows.Forms.ListView();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.buttonApply = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -223,7 +224,10 @@
             // 
             this.buttonRemoveBan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemoveBan.AutoSize = true;
-            this.buttonRemoveBan.Location = new System.Drawing.Point(304, 278);
+            this.buttonRemoveBan.BackgroundImage = global::IceChat.Properties.Resources.delete;
+            this.buttonRemoveBan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonRemoveBan.Location = new System.Drawing.Point(304, 277);
+            this.buttonRemoveBan.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRemoveBan.Name = "buttonRemoveBan";
             this.buttonRemoveBan.Size = new System.Drawing.Size(127, 26);
             this.buttonRemoveBan.TabIndex = 1;
@@ -288,9 +292,12 @@
             // 
             this.buttonRemoveException.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemoveException.AutoSize = true;
-            this.buttonRemoveException.Location = new System.Drawing.Point(253, 278);
+            this.buttonRemoveException.BackgroundImage = global::IceChat.Properties.Resources.delete;
+            this.buttonRemoveException.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonRemoveException.Location = new System.Drawing.Point(255, 278);
+            this.buttonRemoveException.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRemoveException.Name = "buttonRemoveException";
-            this.buttonRemoveException.Size = new System.Drawing.Size(178, 26);
+            this.buttonRemoveException.Size = new System.Drawing.Size(176, 26);
             this.buttonRemoveException.TabIndex = 2;
             this.buttonRemoveException.Text = "Remove Exception";
             this.buttonRemoveException.UseVisualStyleBackColor = true;
@@ -321,30 +328,6 @@
             // 
             this.columnHeader4.Text = "Added By";
             this.columnHeader4.Width = 400;
-            // 
-            // buttonClose
-            // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.AutoSize = true;
-            this.buttonClose.Location = new System.Drawing.Point(348, 347);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(93, 26);
-            this.buttonClose.TabIndex = 1;
-            this.buttonClose.Text = "Close";
-            this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
-            // buttonApply
-            // 
-            this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApply.AutoSize = true;
-            this.buttonApply.Location = new System.Drawing.Point(249, 347);
-            this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(93, 26);
-            this.buttonApply.TabIndex = 2;
-            this.buttonApply.Text = "Apply";
-            this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
             // tabPage4
             // 
@@ -382,6 +365,36 @@
             // 
             this.columnHeader6.Text = "Added By";
             this.columnHeader6.Width = 400;
+            // 
+            // buttonApply
+            // 
+            this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonApply.AutoSize = true;
+            this.buttonApply.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonApply.BackgroundImage")));
+            this.buttonApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonApply.Location = new System.Drawing.Point(231, 347);
+            this.buttonApply.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonApply.Name = "buttonApply";
+            this.buttonApply.Size = new System.Drawing.Size(100, 26);
+            this.buttonApply.TabIndex = 2;
+            this.buttonApply.Text = "Apply";
+            this.buttonApply.UseVisualStyleBackColor = true;
+            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            // 
+            // buttonClose
+            // 
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.AutoSize = true;
+            this.buttonClose.BackgroundImage = global::IceChat.Properties.Resources.cancel;
+            this.buttonClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonClose.Location = new System.Drawing.Point(341, 347);
+            this.buttonClose.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(100, 26);
+            this.buttonClose.TabIndex = 1;
+            this.buttonClose.Text = "Close";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // FormChannelInfo
             // 

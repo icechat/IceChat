@@ -72,9 +72,10 @@
             // buttonUpdate
             // 
             this.buttonUpdate.AutoSize = true;
-            this.buttonUpdate.Location = new System.Drawing.Point(140, 80);
+            this.buttonUpdate.Location = new System.Drawing.Point(122, 80);
+            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(122, 26);
+            this.buttonUpdate.Size = new System.Drawing.Size(140, 26);
             this.buttonUpdate.TabIndex = 4;
             this.buttonUpdate.Text = "Add/Update";
             this.buttonUpdate.UseVisualStyleBackColor = true;

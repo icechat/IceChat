@@ -469,6 +469,12 @@
   <ItemGroup>
     <Content Include="icechat9.ico">
     </Content>
+    <None Include="Resources\apply.png" />
+    <None Include="Resources\duplicate.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\floppy.png" />
+    <None Include="Resources\cancel.png" />
     <EmbeddedResource Include="Controls\IceDockPanel.resx">
       <DependentUpon>IceDockPanel.cs</DependentUpon>
     </EmbeddedResource>

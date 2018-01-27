@@ -66,6 +66,10 @@ namespace IceChat
         private Bitmap _buffer = null;
         private FormMain _parent;
 
+        private string currentKeySelected = "";
+        private int currentNickSelected = 0;
+
+
         internal class Nick : IComparable
         {
             public string nick;
@@ -216,12 +220,11 @@ namespace IceChat
         {
             return true;
         }
-
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control)
                 controlKeyDown = true;
-            
+
             if (e.KeyCode == Keys.Up)
             {
                 selectedIndex--;
@@ -242,46 +245,137 @@ namespace IceChat
                 // find a nickname that starts with letter?
                 if (currentWindow != null && sortedNickNames != null)
                 {
-                    /* this doesnt work properly.. scroll bar disappears for higher lettrs */
+                    /* this doesnt work properly.. scroll bar disappears for higher letters */
+
+                    int totalMatches = 0;
+                    int firstMatch = -1;
+
+                    bool currentKeyMatch = false;
+
                     for (int x = 0; x < sortedNickNames.Count; x++)
                     {
-                        /*
+
                         string nick = sortedNickNames[x].nick;
 
                         //replace any of the modes
                         for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
                             if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
                                 nick = nick.Substring(1);
-                        
-                        
+
+
+                        if (e.KeyCode.ToString().ToLower() == currentKeySelected)
+                        {
+                            // make it go to the next one
+                            currentKeyMatch = true;
+
+                        }
+
+
                         if (nick.ToLower().StartsWith(e.KeyCode.ToString().ToLower()))
                         {
-                            if (x > (vScrollBar.Maximum - vScrollBar.LargeChange)) 
+
+                            if (currentKeyMatch == true)
                             {
-                                System.Diagnostics.Debug.WriteLine("larger");
-                                this.topIndex = (vScrollBar.Maximum - vScrollBar.LargeChange) - 1;
-                            } 
-                            else 
+                                if (totalMatches == 0)
+                                {
+                                    firstMatch = x;
+                                }
+
+                                totalMatches++;
+
+                                if (x <= currentNickSelected)
+                                {
+                                    continue;
+                                }
+
+                            }
+
+
+                            DeSelectAllNicks();
+
+                            // check if we are in the scroll view
+                            //System.Diagnostics.Debug.WriteLine(x + " => " + vScrollBar.Value + "  to " + (vScrollBar.Value + vScrollBar.LargeChange ));
+
+                            if (x >= vScrollBar.Value && x <= (vScrollBar.Value + vScrollBar.LargeChange))
                             {
-                                System.Diagnostics.Debug.WriteLine("smaller");
+                                // no need to change
+                            }
+                            else if (x > (vScrollBar.Maximum - vScrollBar.LargeChange))
+                            {
+                                this.topIndex = (vScrollBar.Maximum - vScrollBar.LargeChange);
+                            }
+                            else
+                            {
                                 this.topIndex = x;
                             }
 
                             this.vScrollBar.Value = this.topIndex;
+
                             sortedNickNames[x].selected = true;
+                            currentWindow.GetNick(sortedNickNames[x].nick).Selected = true;
+
                             totalSelected = 1;
 
-                            //System.Diagnostics.Debug.WriteLine(vScrollBar.Value + ":" + vScrollBar.LargeChange + ":" + topIndex + ":scroll to:" + i + ":" + vScrollBar.Maximum + ":" + this.sortedNickNames.Count);                            
+                            // System.Diagnostics.Debug.WriteLine(sortedNickNames[x].nick + ": SV=" +  vScrollBar.Value + ": LC=" + vScrollBar.LargeChange + ": TI=" + topIndex + ":scroll to:" + x + ":" + vScrollBar.Maximum + ":" + this.sortedNickNames.Count);
 
                             Invalidate();
-                            break;
+
+
+                            currentKeySelected = e.KeyCode.ToString().ToLower();
+                            currentNickSelected = x;
+
+                            return;
                         }
-                        */
+
                     }
-                   
+
+                    if (currentKeyMatch == true)
+                    {
+                        //System.Diagnostics.Debug.WriteLine("Done:" + totalMatches + ":" + firstMatch);
+                        if (totalMatches > 1)
+                        {
+                            if (firstMatch > -1)
+                            {
+
+                                DeSelectAllNicks();
+
+                                //System.Diagnostics.Debug.WriteLine("First- go to:");
+                                int x = firstMatch;
+
+                                if (x >= vScrollBar.Value && x <= (vScrollBar.Value + vScrollBar.LargeChange))
+                                {
+                                    // no need to change
+                                }
+                                else if (x > (vScrollBar.Maximum - vScrollBar.LargeChange))
+                                {
+                                    this.topIndex = (vScrollBar.Maximum - vScrollBar.LargeChange);
+                                }
+                                else
+                                {
+                                    this.topIndex = x;
+                                }
+
+                                this.vScrollBar.Value = this.topIndex;
+
+                                sortedNickNames[x].selected = true;
+                                currentWindow.GetNick(sortedNickNames[x].nick).Selected = true;
+
+                                totalSelected = 1;
+
+                                Invalidate();
+
+
+                                currentNickSelected = x;
+
+                            }
+
+                        }
+
+                    }
+
                 }
             }
-        }
+        } 
 
         private void OnKeyUp(object sender, KeyEventArgs e)
         {

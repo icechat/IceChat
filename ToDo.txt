@@ -1,5 +1,7 @@
 ﻿To Do List for IceChat 9
 
+Add Estimated time remaining to DCC Download
+Add Sounds for DCC Events (download started/ended)
 Make Appx versions of IceChat 9
 Add a Theme setting which uses all Windows Theme settings for colors
 Add color options for Toolbar Buttons
@@ -40,6 +42,7 @@ Add news item on loadup, for showing IceChat news
 
 
 Pending/In Progress:
+Typing in the nicklist, does a search, bring you to those nicks. (typing in letter brings up first match)
 Remember window order when opening channels (in progress)(group by order in server tree)
 Create ice7 theme importer (in progress)
 IceChat 7 settings imported, check for / before popup menu commands (check this)
@@ -72,4 +75,4 @@ Added color setting for Side Panel Splitter
 
 
 Not Going to Implement:
-Typing in the nicklist, does a search, bring you to those nicks. (typing in letter brings up first match)
+

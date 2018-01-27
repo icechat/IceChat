@@ -606,17 +606,17 @@ namespace IceChat
                                     if (args.Channel.IndexOf(' ') > -1)
                                     {
                                         string[] c = args.Channel.Split(new char[] { ' ' }, 2);
-                                        if (connection.ServerSetting.ChannelJoins.ContainsKey(c[0]))
-                                            connection.ServerSetting.ChannelJoins[c[0]] = c[1];
+                                        if (connection.ServerSetting.ChannelJoins.ContainsKey(c[0].ToLower()))
+                                            connection.ServerSetting.ChannelJoins[c[0].ToLower()] = c[1];
                                         else
-                                            connection.ServerSetting.ChannelJoins.Add(c[0], c[1]);
+                                            connection.ServerSetting.ChannelJoins.Add(c[0].ToLower(), c[1]);
                                     }
                                     else
                                     {
-                                        if (!connection.ServerSetting.ChannelJoins.ContainsKey(args.Channel))
-                                            connection.ServerSetting.ChannelJoins.Add(args.Channel, "");
+                                        if (!connection.ServerSetting.ChannelJoins.ContainsKey(args.Channel.ToLower()))
+                                            connection.ServerSetting.ChannelJoins.Add(args.Channel.ToLower(), "");
                                         else
-                                            connection.ServerSetting.ChannelJoins[args.Channel] = "";
+                                            connection.ServerSetting.ChannelJoins[args.Channel.ToLower()] = "";
                                     }
                                     
                                     connection.SendData("JOIN " + args.Channel);
@@ -2411,12 +2411,10 @@ namespace IceChat
             {
                 t = AddWindow(connection, channel, IceTabPage.WindowType.Channel);
 
-                //System.Diagnostics.Debug.WriteLine("joined:" + channel);
                 if (connection.ServerSetting.ChannelJoins.ContainsKey(channel))
                 {
-                    //System.Diagnostics.Debug.WriteLine("key exists:" + channel + ":" + connection.ServerSetting.ChannelJoins[channel]);
-                    t.ChannelKey = connection.ServerSetting.ChannelJoins[channel];
-                    connection.ServerSetting.ChannelJoins.Remove(channel);
+                    t.ChannelKey = connection.ServerSetting.ChannelJoins[channel.ToLower()];
+                    connection.ServerSetting.ChannelJoins.Remove(channel.ToLower());
                 }
 
                 PluginArgs args = new PluginArgs(t.TextWindow, channel, connection.ServerSetting.CurrentNickName, host, "");

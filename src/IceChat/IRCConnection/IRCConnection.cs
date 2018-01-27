@@ -92,12 +92,9 @@ namespace IceChat
             reconnectTimer = new System.Timers.Timer(ss.ReconnectTime * 1000);
             reconnectTimer.Elapsed += new System.Timers.ElapsedEventHandler(OnReconnectTimerElapsed);
 
-            if (!ss.MonitorSupport)
-            {
-                buddyListTimer = new System.Timers.Timer(60000);
-                buddyListTimer.Elapsed += new System.Timers.ElapsedEventHandler(OnBuddyListTimerElapsed);
-            }
-
+            buddyListTimer = new System.Timers.Timer(60000);
+            buddyListTimer.Elapsed += new System.Timers.ElapsedEventHandler(OnBuddyListTimerElapsed);
+            
             if (ss.PingTimerMinutes < 1)    //force to 1 minute minimum
                 ss.PingTimerMinutes = 1;
             
@@ -168,7 +165,8 @@ namespace IceChat
             
             return msg;
         }
-
+        
+        /* Remove this function, as it isno longer used
         public void MonitorListCheck()
         {
             if (serverSetting.BuddyListEnable)
@@ -235,6 +233,7 @@ namespace IceChat
                 }
             }
         }
+        */
 
         public void BuddyListCheck()
         {

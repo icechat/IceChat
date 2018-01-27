@@ -2354,22 +2354,39 @@ namespace IceChat
                                 {
                                     data = connection.ServerSetting.ChannelTypes[0] + data;
                                 }
+                                error = 1;
                                 if (data.IndexOf(' ') > -1)
                                 {
                                     string[] c = data.Split(new char[] { ' ' }, 2);
-                                    if (connection.ServerSetting.ChannelJoins.ContainsKey(c[0]))
-                                        connection.ServerSetting.ChannelJoins[c[0]] = c[1];
+                                    error = 2;
+                                    if (connection.ServerSetting.ChannelJoins.ContainsKey(c[0].ToLower()))
+                                    {
+                                        error = 3;
+                                        connection.ServerSetting.ChannelJoins[c[0].ToLower()] = c[1];
+                                    }
                                     else
-                                        connection.ServerSetting.ChannelJoins.Add(c[0], c[1]);
+                                    {
+                                        error = 4;
+                                        connection.ServerSetting.ChannelJoins.Add(c[0].ToLower(), c[1]);
+                                    }
+                                    error = 5;
                                 }
                                 else
                                 {
-                                    if (!connection.ServerSetting.ChannelJoins.ContainsKey(data))
-                                        connection.ServerSetting.ChannelJoins.Add(data, "");
+                                    error = 6;
+                                    if (!connection.ServerSetting.ChannelJoins.ContainsKey(data.ToLower()))
+                                    {
+                                        error = 7;
+                                        connection.ServerSetting.ChannelJoins.Add(data.ToLower(), "");
+                                    }
                                     else
-                                        connection.ServerSetting.ChannelJoins[data] = "";
+                                    {
+                                        error = 8;
+                                        connection.ServerSetting.ChannelJoins[data.ToLower()] = "";
+                                    }
+                                    error = 9;
                                 }
-
+                                error = 10;
                                 SendData(connection, "JOIN " + data);
                             }
                             break;

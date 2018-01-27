@@ -416,7 +416,7 @@ namespace IceChat
                                     if (ircData[i].Substring(0, 8) == "MONITOR=")
                                     {
                                         //use monitor instead of ISON
-                                        serverSetting.MonitorSupport = true;
+                                        //serverSetting.MonitorSupport = true;
                                     }
                                 }
 
@@ -886,7 +886,8 @@ namespace IceChat
                                 ServerMessage(this, JoinString(ircData, 3, false), serverTimeValue);
                             }
                             break;        
-                        case "729": // eend of quiet mode for channel (+q)
+                        case "729": // end of quiet mode for channel (+q)
+                        case "387": // end if channel exception list
                             check = ChannelInfoWindowExists(this, ircData[3]);
                             if (!check)
                                 ServerMessage(this, JoinString(ircData, 3, false), serverTimeValue);                            
@@ -906,86 +907,111 @@ namespace IceChat
                             break;
                         case "376": //end of motd
                         case "422": //missing motd
-                            if (serverSetting.ForceMOTD)
+                            int motd = 0;
+                            try
                             {
-                                serverSetting.ForceMOTD = false;
-                                return;
+
+                                if (serverSetting.ForceMOTD)
+                                {
+                                    motd = 1;
+                                    serverSetting.ForceMOTD = false;
+                                    return;
+                                }
+                                motd = 2;
+                                
+                                BuddyListCheck();
+                                
+                                motd = 22;
+                                buddyListTimer.Start();
+                                
+                                motd = 3;
+                                if (fullyConnected)
+                                    return;
+                                motd = 4;
+                                ServerMessage(this, "You have successfully connected to " + serverSetting.RealServerName, serverTimeValue);
+                                motd = 5;
+                                //create default 005 responses if they are blank
+                                if (serverSetting.StatusModes == null)
+                                {
+                                    motd = 6;
+                                    serverSetting.StatusModes = new char[2][];
+                                    serverSetting.StatusModes[0] = "ov".ToCharArray();
+                                    serverSetting.StatusModes[1] = "@+".ToCharArray();
+                                }
+
+                                if (serverSetting.ChannelTypes == null)
+                                    serverSetting.ChannelTypes = "#".ToCharArray();
+                                motd = 7;
+
+                                if (serverSetting.ChannelModeAddress == null)
+                                {
+                                    motd = 8;
+                                    string[] modes = "b,k,l,imnpstrDducCNMT".Split(',');
+                                    serverSetting.ChannelModeAddress = modes[0];
+                                    serverSetting.ChannelModeParam = modes[1];
+                                    serverSetting.ChannelModeParamNotRemove = modes[2];
+                                    serverSetting.ChannelModeNoParam = modes[3];
+                                }
+
+                                if (serverSetting.SetModeI)
+                                    SendData("MODE " + serverSetting.CurrentNickName + " +i");
+                                motd = 9;
+                                //run autoperform
+                                if (serverSetting.AutoPerformEnable && serverSetting.AutoPerform != null)
+                                {
+                                    motd = 9;
+                                    ServerMessage(this, "Running AutoPerform command(s)...", serverTimeValue);
+                                    AutoPerform(this, serverSetting.AutoPerform);
+                                }
+                                motd = 10;
+                                // Nickserv password
+                                if (serverSetting.NickservPassword != null && serverSetting.NickservPassword.Length > 0)
+                                {
+                                    motd = 11;
+                                    OutGoingCommand(this, "/msg NickServ identify " + serverSetting.NickservPassword);
+                                    serverSetting.SendNickServPassword = true;
+                                }
+                                motd = 12;
+                                if (serverSetting.RejoinChannels)
+                                {
+                                    motd = 13;
+                                    //rejoin any channels that are open
+                                    AutoRejoin(this);
+                                }
+                                motd = 14;
+                                //run autojoins
+                                if (serverSetting.AutoJoinEnable && serverSetting.AutoJoinChannels != null)
+                                {
+                                    motd = 15;
+                                    ServerMessage(this, "Auto-joining Channels", serverTimeValue);
+                                    AutoJoin(this, serverSetting.AutoJoinChannels);
+                                }
+                                motd = 16;
+                                fullyConnected = true;
+                                
+                                RefreshServerTree(this);
+                                motd = 17;
+                                //read the command queue
+                                if (commandQueue.Count > 0)
+                                {
+                                    motd = 18;
+                                    foreach (string command in commandQueue)
+                                        SendData(command);
+                                }
+                                commandQueue.Clear();
+                                motd = 19
+                                    ;
+                                if (ServerFullyConnected != null)
+                                    ServerFullyConnected(this);
+                                motd = 20;
                             }
-                            
-                            
-                            BuddyListCheck();
-                            buddyListTimer.Start();
-
-                            if (fullyConnected)
-                                return;
-
-                            ServerMessage(this, "You have successfully connected to " + serverSetting.RealServerName, serverTimeValue);
-
-                            //create default 005 responses if they are blank
-                            if (serverSetting.StatusModes == null)
+                            catch(Exception exx)
                             {
-                                serverSetting.StatusModes = new char[2][];
-                                serverSetting.StatusModes[0] = "ov".ToCharArray();
-                                serverSetting.StatusModes[1] = "@+".ToCharArray();
+                                System.Diagnostics.Debug.WriteLine(motd + ":" + exx.Message);
+                                System.Diagnostics.Debug.WriteLine(exx.StackTrace);
+
+                                //WriteErrorFile(this, "ParseDataMOTD:" + data, exx);
                             }
-
-                            if (serverSetting.ChannelTypes == null)
-                                serverSetting.ChannelTypes = "#".ToCharArray();
-
-                            if (serverSetting.ChannelModeAddress == null)
-                            {
-                                string[] modes = "b,k,l,imnpstrDducCNMT".Split(',');
-                                serverSetting.ChannelModeAddress = modes[0];
-                                serverSetting.ChannelModeParam = modes[1];
-                                serverSetting.ChannelModeParamNotRemove = modes[2];
-                                serverSetting.ChannelModeNoParam = modes[3];
-                            }
-
-                            if (serverSetting.SetModeI)
-                                SendData("MODE " + serverSetting.CurrentNickName + " +i");
-
-                            //run autoperform
-                            if (serverSetting.AutoPerformEnable && serverSetting.AutoPerform != null)
-                            {
-                                ServerMessage(this, "Running AutoPerform command(s)...", serverTimeValue);
-                                AutoPerform(this, serverSetting.AutoPerform);
-                            }
-
-                            // Nickserv password
-                            if (serverSetting.NickservPassword != null && serverSetting.NickservPassword.Length > 0)
-                            {
-                                OutGoingCommand(this, "/msg NickServ identify " + serverSetting.NickservPassword);
-                                serverSetting.SendNickServPassword = true;
-                            }
-
-                            if (serverSetting.RejoinChannels)
-                            {
-                                //rejoin any channels that are open
-                                AutoRejoin(this);
-                            }
-
-                            //run autojoins
-                            if (serverSetting.AutoJoinEnable && serverSetting.AutoJoinChannels != null)
-                            {
-                                ServerMessage(this, "Auto-joining Channels", serverTimeValue);
-                                AutoJoin(this, serverSetting.AutoJoinChannels);
-                            }
-
-                            fullyConnected = true;
-
-                            RefreshServerTree(this);
-
-                            //read the command queue
-                            if (commandQueue.Count > 0)
-                            {
-                                foreach (string command in commandQueue)
-                                    SendData(command);
-                            }
-                            commandQueue.Clear();
-
-                            if (ServerFullyConnected != null)
-                                ServerFullyConnected(this);
-                            
                             break;
                         case "396":     //mode X message                            
                             msg = ircData[3] + " " + JoinString(ircData, 4, true);

@@ -1144,6 +1144,7 @@ namespace IceChat
         {
             dccSocket = new TcpClient();
             System.Diagnostics.Debug.WriteLine("start dcc chat " + ip + " on port " + port);
+            
             try
             {
                 IPAddress ipAddr = LongToIPAddress(ip);

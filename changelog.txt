@@ -1,3 +1,11 @@
+Build 9.21 Jan 27 2018
+* Attempt a fix on errors on Channel Joins
+* Fix problem with and invalid IP starting a DCC File Session causing errors
+* Fix issue that all servers were reconnecting after returning from Sleep, now only previously connected ones do
+* When nicklist is selected, goes to nicks started with first character typed
+* Added solution for latest framework for VS2017 - Called IceChat9-VS2017-latest.sln, uses .NET 4.71
+* Added a BuildIceChat.latest batch file to the build folder using .NET 4.71
+
 Build 9.20 Oct 27 2017
 * Add solution for AutoAway message spamming, will only send once every 30 mins now
 * Reverse Ctrl-Pgup and Ctrl-PgDn keys to go in proper order

@@ -2105,14 +2105,10 @@ namespace IceChat
                     if (s.NickName != c.ServerSetting.CurrentNickName && s.TriedAltNick == false)
                         _parent.ParseOutGoingCommand(c, "/nick " + s.NickName);
 
-
-                    //check for monitor list
-                    if (c.ServerSetting.MonitorSupport)
-                    {
-                        if (c.ServerSetting.BuddyListEnable)
-                            c.BuddyListCheck();
-                            //c.MonitorListCheck();
-                    }
+                    //check for buddy list
+                    if (c.ServerSetting.BuddyListEnable)
+                        c.BuddyListCheck();
+                    
                 }
             }
 

@@ -763,9 +763,9 @@ namespace IceChat
         public bool IRCV3
         { get { return this._ircv3; } set { this._ircv3 = value; } }
 
-        [XmlIgnore()]
-        public bool MonitorSupport
-        { get; set; }
+        //[XmlIgnore()]
+        //public bool MonitorSupport
+        //{ get; set; }
 
         [XmlIgnore()]
         public Variables Variables
@@ -781,6 +781,10 @@ namespace IceChat
 
         [XmlIgnore()]
         public Dictionary<string, DateTime> LastAwayMessages
+        { get; set; }
+
+        [XmlIgnore()]
+        public bool Suspended
         { get; set; }
 
         /*

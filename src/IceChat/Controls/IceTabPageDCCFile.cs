@@ -931,19 +931,20 @@ namespace IceChat
         {
             DccFileStruct dcc = (DccFileStruct)dccObject;
 
-            //IPAddress ipAddr = IPAddress.Parse(dcc.Ip);
-            
-            IPAddress ipAddr = LongToIPAddress(dcc.Ip);
-            IPEndPoint ep = new IPEndPoint(ipAddr, Convert.ToInt32(dcc.Port));
-            
-            dcc.IPAddress = ipAddr;
-            System.Diagnostics.Debug.WriteLine("ConnectDCC attempt connect to :" + dcc.Ip + ":" + ipAddr.ToString() + ":" + ipAddr + ":" + dcc.Port);
-            if (dcc.Socket != null)
-            {
-                System.Diagnostics.Debug.WriteLine("not null:" + dcc.Socket.Available);
-            }
             try
             {
+
+                IPAddress ipAddr = LongToIPAddress(dcc.Ip);
+                IPEndPoint ep = new IPEndPoint(ipAddr, Convert.ToInt32(dcc.Port));
+
+                dcc.IPAddress = ipAddr;
+                System.Diagnostics.Debug.WriteLine("ConnectDCC attempt connect to :" + dcc.Ip + ":" + ipAddr.ToString() + ":" + ipAddr + ":" + dcc.Port);
+                if (dcc.Socket != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("not null:" + dcc.Socket.Available);
+                }
+
+
                 dcc.Socket.Connect(ep);
 
                 if (dcc.Socket.Connected)
@@ -963,11 +964,12 @@ namespace IceChat
             catch (SocketException se)
             {
                 System.Diagnostics.Debug.WriteLine("DCC Connect Error " + se.ErrorCode + ":" + se.StackTrace);
+
                 FormMain.Instance.WindowMessage(dcc.Connection, "Console", "\x000304DCC File Receive Error from " + dcc.Nick + " for file " + dcc.FileName + " : " + se.Message, "", true);
+
                 if (dcc.FileStream != null)
                     dcc.FileStream.Close();
-                
-                //AddDCCFile(dcc);
+
                 dcc.Errored = true;
                 dcc.Finished = false;
                 dcc.StartTime = 0;
@@ -975,7 +977,7 @@ namespace IceChat
 
 
             }
-        }
+        } 
 
          /// <summary>
         /// Remove the specific Download File/Data from the DCC File List

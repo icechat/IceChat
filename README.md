@@ -6,34 +6,68 @@ IceChat is an open source IRC Client written in C# using WinForms.
 
 It has been fully released, but always undergoing development and improvements.
 
-It is RFC 1459 Compliant.
+It is [RFC 1459](https://tools.ietf.org/html/rfc1459.html) Compliant.
 
-Main website is http://www.icechat.net and wiki page setup at http://wiki.icechat.net 
+The primary website for IceChat is <http://www.icechat.net> and has a wiki page set up at <http://wiki.icechat.net>
 
-IceChat uses .Net Framework v3.5 by default.
+IceChat uses .NET Framework v3.5 by default.
 
-If you are experiencing connection problems to certain SSL Servers, run the BuildIceChat-4.5.cmd file in the build folder, to rebuild IceChat 9 with .Net 4.5
+If you are experiencing connection problems to certain SSL Servers, run the `BuildIceChat-4.5.cmd` file in the build folder, to rebuild IceChat 9 with .NET 4.5
 There are also just binaries of IceChat built with .NET 4.5 sitting in the Releases section.
 
 ## Building from Source Code
 
-http://wiki.icechat.net/index.php?title=Build_from_source_code
+Download the latest source code from the page, by clicking on the Download Zip button.
 
-IceChat is coded using Visual Studio Express 2008. There are solutions for Visual Studio 2010 and Visual Studio 2015 included in the source code.
-You do not need Visual Studio to build IceChat though, you can just use the Batch Files supplied in the build folder.
+Unzip the file into any folder, for example a dedicated "C:\IceChatBuild". It is best not to use the [%CommonProgramFiles%](https://en.wikipedia.org/wiki/Environment_variable#Default_values), because of permissions possible limitations.
 
-Unzip the file into any folder. It is best to use My Documents and not the Program Files folder, because of permissions issues.
+The source tree has several text files in its root folder, a build folder and a src, where the actual code and resources are located in several sub-folders.
+There are several build options in the extracted root folder.
 
-There is an BuildIceChat.cmd file in the build folder which will build IceChat 9.
+* `BuildIceChat.cmd`
+  * which uses .NET 3.5, and should be used by XP users
+* `BuildIceChat-x86.cmd`
+  * which uses .NET 3.5 and a specific project for x86 computers. This too can be used by XP users.
+* `BuildIceChat.4.5.cmd`
+  * which uses .NET 4.5.
+* `BuildIceChat.4.5-x86.cmd`
+  * which uses .NET 4.5 and a specific project for x86 computers.
+* `BuildIceChat.latest.cmd`
+  * which uses .NET 4.7.1
+* `BuildIceChatLinux.sh`
+  * A script to build IceChat 9 under Linux. See IceChat on Linux for details.
 
-If you have a problem with BuildIceChat.cmd erroring about msbuild, try BuildIceChat.4.0.cmd
+If you are not sure which version to choose, and your OS is later then XP, use the BuildIceChat.4.5.cmd.
 
-If you want to build IceChat using .Net 4 Framework, use BuildIceChat.4.5.cmd
+You can either double click on the BuildIceChat.4.5.cmd file or open a command line window (cmd.exe) and run the BuildIceChat.4.5.cmd at the prompt.
 
-You can double click the file, and it will open a command window.
+You will get at the end of the process the following lines:
 
-A new folder called IceChatBuild will be created, and once the batch file has completed, 4 files will be placed in this folder.
+```cmd
+    0 Error(s)
 
-Copy these 4 files into your IceChat installation/Program Files folder, or place them anywhere else you want.
+Time Elapsed 00:00:00.32
+..\src\IceChat\bin\Debug\IceChat2009.exe
+1 File(s) copied
+..\src\IceChat\\bin\Debug\IPluginIceChat.dll
+1 File(s) copied
+..\src\IceChat\\bin\Debug\IRCConnection.dll
+1 File(s) copied
+..\src\IceChat\\bin\Debug\IThemeIceChat.dll
+1 File(s) copied
+IceChat files copied to the IceChatBuild folder
+Press any key to continue . . .
+```
 
-To see all the changes from build to build, read the changelog.txt file in the src\IceChat folder.
+A new folder is created called IceChatBuild, and once the batch file has completed, 4 files will be placed in this folder.
+A log file named Manual_MSBuild_ReleaseVersion_LOG.log is also created.
+
+Copy these 4 files into your IceChat installation folder, or place them anywhere else you want.
+
+To see all the changes from build to build, read the changelog.txt file in the root folder.
+
+### Troubleshooting
+
+If the `BuildIceChat.cmd` returns errors, try instead to run the newer `IceChatBuild.4.5.cmd` which was specifically created for users who have errors with `IceChatBuild.cmd`.
+
+If you experience problems connecting to servers with SSL, try build with `IceChatBuild.4.5.cmd`.

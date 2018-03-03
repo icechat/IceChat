@@ -1,6 +1,6 @@
 # IceChat
 
-##IceChat IRC Client v9
+## IceChat IRC Client v9
 
 IceChat is an open source IRC Client written in C# using WinForms.
 
@@ -37,4 +37,3 @@ A new folder called IceChatBuild will be created, and once the batch file has co
 Copy these 4 files into your IceChat installation/Program Files folder, or place them anywhere else you want.
 
 To see all the changes from build to build, read the changelog.txt file in the src\IceChat folder.
-

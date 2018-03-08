@@ -1,0 +1,8 @@
+language: csharp
+
+before_install:
+- cd build
+- chmod +x BuildIceChatLinux.sh
+
+script:    # the following commands are just examples, use whatever your build process requires
+  - ./BuildIceChatLinux.sh

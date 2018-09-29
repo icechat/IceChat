@@ -32,6 +32,7 @@ namespace IceChat
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.tabControlOptions = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
+            this.pictureTSHelp = new System.Windows.Forms.PictureBox();
             this.checkJoinInvite = new System.Windows.Forms.CheckBox();
             this.buttonTrayIcon = new System.Windows.Forms.Button();
             this.textSystemTrayIcon = new System.Windows.Forms.TextBox();
@@ -236,6 +237,7 @@ namespace IceChat
             this.checkAutoReturn = new System.Windows.Forms.CheckBox();
             this.checkAutoAway = new System.Windows.Forms.CheckBox();
             this.tabStartup = new System.Windows.Forms.TabPage();
+            this.label40 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.textAutoPerformStartup = new System.Windows.Forms.TextBox();
             this.checkAutoPerformStartup = new System.Windows.Forms.CheckBox();
@@ -275,12 +277,12 @@ namespace IceChat
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.panelButtons = new System.Windows.Forms.Panel();
-            this.pictureTSHelp = new System.Windows.Forms.PictureBox();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.tabControlOptions.SuspendLayout();
             this.tabMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).BeginInit();
             this.tabDisplay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackTransparency)).BeginInit();
             this.tabPageNotifications.SuspendLayout();
@@ -293,7 +295,6 @@ namespace IceChat
             this.tabPageAway.SuspendLayout();
             this.tabStartup.SuspendLayout();
             this.panelButtons.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlOptions
@@ -348,6 +349,15 @@ namespace IceChat
             this.tabMain.Tag = "Main_Settings_tab";
             this.tabMain.Text = "Main";
             this.tabMain.UseVisualStyleBackColor = true;
+            // 
+            // pictureTSHelp
+            // 
+            this.pictureTSHelp.Cursor = System.Windows.Forms.Cursors.Help;
+            this.pictureTSHelp.Location = new System.Drawing.Point(613, 115);
+            this.pictureTSHelp.Name = "pictureTSHelp";
+            this.pictureTSHelp.Size = new System.Drawing.Size(16, 16);
+            this.pictureTSHelp.TabIndex = 4;
+            this.pictureTSHelp.TabStop = false;
             // 
             // checkJoinInvite
             // 
@@ -2500,6 +2510,7 @@ namespace IceChat
             // 
             // tabStartup
             // 
+            this.tabStartup.Controls.Add(this.label40);
             this.tabStartup.Controls.Add(this.label37);
             this.tabStartup.Controls.Add(this.textAutoPerformStartup);
             this.tabStartup.Controls.Add(this.checkAutoPerformStartup);
@@ -2511,6 +2522,16 @@ namespace IceChat
             this.tabStartup.Tag = "Startup_tab";
             this.tabStartup.Text = "Startup";
             this.tabStartup.UseVisualStyleBackColor = true;
+            // 
+            // label40
+            // 
+            this.label40.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label40.Location = new System.Drawing.Point(5, 226);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(358, 40);
+            this.label40.TabIndex = 60;
+            this.label40.Text = "These commands are not for Server auto-perform. Open the Server Editor for those." +
+                "";
             // 
             // label37
             // 
@@ -2855,15 +2876,6 @@ namespace IceChat
             this.panelButtons.Size = new System.Drawing.Size(765, 35);
             this.panelButtons.TabIndex = 3;
             // 
-            // pictureTSHelp
-            // 
-            this.pictureTSHelp.Cursor = System.Windows.Forms.Cursors.Help;
-            this.pictureTSHelp.Location = new System.Drawing.Point(613, 115);
-            this.pictureTSHelp.Name = "pictureTSHelp";
-            this.pictureTSHelp.Size = new System.Drawing.Size(16, 16);
-            this.pictureTSHelp.TabIndex = 4;
-            this.pictureTSHelp.TabStop = false;
-            // 
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -2931,6 +2943,7 @@ namespace IceChat
             this.tabControlOptions.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
             this.tabMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).EndInit();
             this.tabDisplay.ResumeLayout(false);
             this.tabDisplay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackTransparency)).EndInit();
@@ -2953,7 +2966,6 @@ namespace IceChat
             this.tabStartup.ResumeLayout(false);
             this.tabStartup.PerformLayout();
             this.panelButtons.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3209,5 +3221,6 @@ namespace IceChat
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.CheckBox checkSortNickList;
         private System.Windows.Forms.Button buttonHelp;
+        private System.Windows.Forms.Label label40;
     }
 }

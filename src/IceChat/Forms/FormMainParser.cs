@@ -2237,8 +2237,35 @@ namespace IceChat
                                         }
                                     }
 
+                                    // do a -l to list them
+                                    if (data.ToLower() == "-l")
+                                    {
+                                        System.Diagnostics.Debug.WriteLine("list ignores");
+                                        if (connection.ServerSetting.Ignores != null || connection.ServerSetting.Ignores.Length > 0)
+                                        {
+                                            for (int i = 0; i < connection.ServerSetting.Ignores.Length; i++)
+                                            {
+                                                if (connection.ServerSetting.Ignores[i].Enabled)
+                                                {
+                                                    //connection.ServerSetting.Ignores[i].IgnoreType
+                                                    ParseOutGoingCommand(connection, "/echo -> " + connection.ServerSetting.Ignores[i].Item);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // empty list
+                                            ParseOutGoingCommand(connection, "/echo Ignore list is empty for this server");
+
+                                        }
+
+                                        return;
+                                    }
+
                                     string ignoreNick = data;
                                     IgnoreType ignoreType = new IgnoreType(0);
+
+                                    bool removeIgnore = false;
 
                                     if (data.StartsWith("-"))
                                     {
@@ -2282,6 +2309,9 @@ namespace IceChat
                                                     ignoreType.All = false;
                                                     ignoreType.Invite = true;
                                                     break;
+                                                case 'r':   // remove ignore from list
+                                                    removeIgnore = true;
+                                                    break;
                                             }
                                         }
                                     }
@@ -2290,60 +2320,116 @@ namespace IceChat
                                     //check if already in ignore list or not
                                     if (connection.ServerSetting.Ignores != null)
                                     {
-                                        for (int i = 0; i < connection.ServerSetting.Ignores.Length; i++)
+                                        if (removeIgnore == false)
                                         {
-                                            string checkNick = connection.ServerSetting.Ignores[i].Item;
 
-                                            if (checkNick.ToLower() == ignoreNick.ToLower())
+                                            for (int i = 0; i < connection.ServerSetting.Ignores.Length; i++)
                                             {
-                                                if (!connection.ServerSetting.Ignores[i].Enabled)
-                                                {
-                                                    connection.ServerSetting.Ignores[i].Enabled = true;
-                                                    connection.ServerSetting.Ignores[i].IgnoreType.MergeIgnore(ignoreType);
+                                                string checkNick = connection.ServerSetting.Ignores[i].Item;
 
-                                                    ParseOutGoingCommand(connection, "/echo " + checkNick + " added to ignore list");
-                                                }
-                                                else
+                                                if (checkNick.ToLower() == ignoreNick.ToLower())
                                                 {
-                                                    // is the ignoreType set?
-                                                    if (connection.ServerSetting.Ignores[i].IgnoreType.ToString() == ignoreType.ToString())
+                                                    if (!connection.ServerSetting.Ignores[i].Enabled)
                                                     {
-                                                        connection.ServerSetting.Ignores[i].Enabled = false;
-                                                        ParseOutGoingCommand(connection, "/echo " + checkNick + " remove from ignore list");
+                                                        connection.ServerSetting.Ignores[i].Enabled = true;
+                                                        connection.ServerSetting.Ignores[i].IgnoreType.MergeIgnore(ignoreType);
+
+                                                        ParseOutGoingCommand(connection, "/echo " + checkNick + " enabled to ignore list");
                                                     }
                                                     else
                                                     {
-                                                        connection.ServerSetting.Ignores[i].IgnoreType.MergeIgnore(ignoreType);
-                                                        ParseOutGoingCommand(connection, "/echo " + checkNick + " updated in ignore list");
+                                                        // is the ignoreType set?
+                                                        if (connection.ServerSetting.Ignores[i].IgnoreType.ToString() == ignoreType.ToString())
+                                                        {
+                                                            connection.ServerSetting.Ignores[i].Enabled = false;
+                                                            ParseOutGoingCommand(connection, "/echo " + checkNick + " disabled in ignore list");
+                                                        }
+                                                        else
+                                                        {
+                                                            connection.ServerSetting.Ignores[i].IgnoreType.MergeIgnore(ignoreType);
+                                                            ParseOutGoingCommand(connection, "/echo " + checkNick + " updated in ignore list");
+                                                        }
                                                     }
-                                                }
 
+                                                    serverTree.SaveServers(serverTree.ServersCollection);
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // remove from the ignore list
+                                            bool foundMatch = false;
+                                            System.Diagnostics.Debug.WriteLine("Delete from List:" + ignoreNick);
+                                            //IgnoreListItem[] ignores; ;
+                                            IgnoreListItem[] ignores = new IgnoreListItem[connection.ServerSetting.Ignores.Length];
+                                            int counter = 0;
+                                            for (int i = 0; i < connection.ServerSetting.Ignores.Length; i++)
+                                            {
+                                                string checkNick = connection.ServerSetting.Ignores[i].Item;
+
+                                                if (checkNick.ToLower() == ignoreNick.ToLower())
+                                                {
+                                                    foundMatch = true;
+                                                    ParseOutGoingCommand(connection, "/echo " + checkNick + " removed from ignore list");
+                                                }
+                                                else
+                                                {
+
+                                                    ignores[counter] = new IgnoreListItem();
+                                                    ignores[counter].IgnoreType = new IgnoreType();
+
+                                                    ignores[counter].Item = connection.ServerSetting.Ignores[i].Item;
+                                                    ignores[counter].Enabled = connection.ServerSetting.Ignores[i].Enabled;
+
+                                                    ignores[counter].IgnoreType = connection.ServerSetting.Ignores[i].IgnoreType;
+                                                    
+                                                    counter++;
+
+                                                }
+                                            }
+                                            if (foundMatch == true)
+                                            {
+                                                // resize the array
+                                                Array.Resize(ref ignores, ignores.Length - 1);
+                                                connection.ServerSetting.Ignores = ignores;
                                                 serverTree.SaveServers(serverTree.ServersCollection);
-                                                return;
                                             }
                                         }
                                     }
 
                                     //no match found, add the new item to the IgnoreList
-                                    IgnoreListItem[] ignores = connection.ServerSetting.Ignores;
-
-                                    Array.Resize(ref ignores, ignores.Length + 1);
-                                          
-                                    ignores[ignores.Length - 1] = new IgnoreListItem();
-
-                                    ignores[ignores.Length - 1].Item = ignoreNick;
-                                    ignores[ignores.Length - 1].Enabled = true;
-
-                                    ignores[ignores.Length - 1].IgnoreType = ignoreType;
-
-                                    connection.ServerSetting.Ignores = ignores;
-                                    connection.ServerSetting.IgnoreListEnable = true;
-
-                                    ParseOutGoingCommand(connection, "/echo " + ignoreNick + " added to ignore list");
-
-                                    serverTree.SaveServers(serverTree.ServersCollection);
+                                    // only add if removeIgnore flag (-r) is not set
+                                    if (removeIgnore == false)
+                                    {
                                         
-                                    
+                                        IgnoreListItem[] ignores;
+
+                                        if (connection.ServerSetting.Ignores != null)
+                                        {
+                                            ignores = connection.ServerSetting.Ignores;
+                                            Array.Resize(ref ignores, ignores.Length + 1);
+                                        }
+                                        else
+                                        {
+                                            ignores = new IgnoreListItem[1];
+                                        }
+
+                                        ignores[ignores.Length - 1] = new IgnoreListItem();
+
+                                        ignores[ignores.Length - 1].Item = ignoreNick;
+                                        ignores[ignores.Length - 1].Enabled = true;
+
+                                        ignores[ignores.Length - 1].IgnoreType = ignoreType;
+
+                                        connection.ServerSetting.Ignores = ignores;
+                                        connection.ServerSetting.IgnoreListEnable = true;
+
+                                        ParseOutGoingCommand(connection, "/echo " + ignoreNick + " added to ignore list");
+
+                                        serverTree.SaveServers(serverTree.ServersCollection);
+
+                                    }
                                 }
                             }
                             break;

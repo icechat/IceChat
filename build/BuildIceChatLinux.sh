@@ -6,7 +6,7 @@ rm -rf ./IceChatBuild
 
 mkdir IceChatBuild
 
-xbuild ../src/IceChat/IceChat9-VS2015.sln
+msbuild ../src/IceChat/IceChat9-VS2015.sln
 
 mv ../src/IceChat/bin/Debug/* ./IceChatBuild
 

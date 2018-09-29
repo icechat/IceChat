@@ -211,6 +211,13 @@ namespace IceChat
             _popupMenu.RenderMode = ToolStripRenderMode.ManagerRenderMode;
             _popupMenu.Renderer = new EasyRenderer.EasyRender();
 
+            this.MouseWheel += new MouseEventHandler(TextWindow_MouseWheel);
+
+        }
+
+        private void TextWindow_MouseWheel(object sender, MouseEventArgs e)
+        {
+            this.ScrollWindow(e.Delta > 0);
         }
 
         private void OnMouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -1405,7 +1412,7 @@ namespace IceChat
             {
                 //console
                 ConsoleTab c = (ConsoleTab)this.Parent;
-                if (c.Connection.IsConnected)
+                if (c.Connection != null && c.Connection.IsConnected)
                     FormMain.Instance.ParseOutGoingCommand(c.Connection, "/lusers");
             }
             else if (this.Parent.GetType() == typeof(IceTabPage))
@@ -1808,6 +1815,8 @@ namespace IceChat
 
         private void AddText(string newLine, int color, string newTimeStamp)
         {
+            int errorNumber = 0;
+            
             try
             {
                 //adds a new line to the Text Window
@@ -1859,6 +1868,8 @@ namespace IceChat
 
                 int lineDiff = 99;   //how many lines to trim off
 
+                errorNumber = 1;
+
                 if (_totalLines >= (_maxTextLines - 1))
                 {
                     int x = 1;
@@ -1866,6 +1877,8 @@ namespace IceChat
                     //System.Diagnostics.Stopwatch s = new System.Diagnostics.Stopwatch();
                     //s.Start();
                     System.Diagnostics.Debug.WriteLine("reset lines start");
+
+                    errorNumber = 2;
 
                     Array.Copy(_textLines, lineDiff, _textLines, 0, _totalLines - lineDiff);
 
@@ -1879,18 +1892,22 @@ namespace IceChat
                     int removeLines = _totaldisplayLines - x;
 
                     _totaldisplayLines = x;
+                    errorNumber = 3;
 
                     Array.Copy(_displayLines, removeLines, _displayLines, 0, _totaldisplayLines);
 
                     
                     UpdateScrollBar(_totaldisplayLines);
                     Invalidate();
+                    errorNumber = 4;
 
                     //System.Diagnostics.Debug.WriteLine("reset lines end:" + s.ElapsedMilliseconds);
                     //s.Stop();
 
                     _totalLines++;
                 }
+
+                errorNumber = 5;
 
                 _textLines[_totalLines].line = newLine;
 
@@ -1899,6 +1916,8 @@ namespace IceChat
                 _textLines[_totalLines].width = MeasureString(StripAllCodes(newLine, false), g, false);
 
                 g.Dispose();
+
+                errorNumber = 6;
 
                 //_textLines[_totalLines].textColor = _foreColor;
                 _textLines[_totalLines].textColor = color;
@@ -1927,7 +1946,7 @@ namespace IceChat
             }
             catch (Exception e)
             {
-                FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection, "AddText", e);
+                FormMain.Instance.WriteErrorFile(FormMain.Instance.InputPanel.CurrentConnection, "AddText:" + errorNumber, e);
             }
         }
 

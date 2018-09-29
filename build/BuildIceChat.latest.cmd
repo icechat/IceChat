@@ -1,5 +1,5 @@
 @echo off
-echo Building IceChat using .Net Framework v4.71
+echo Building IceChat using .Net Framework v4.7.1
 
 rd .\IceChatBuild /S /Q
 md .\IceChatBuild

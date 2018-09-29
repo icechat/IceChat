@@ -1881,76 +1881,83 @@ namespace IceChat
 
             foreach (IgnoreListItem ignore in serverSetting.Ignores)
             {
-
-                if (ignore.Enabled )    //check to make sure its not disabled
+                try
                 {
-                    //check for an exact match
-                    if (nick.ToLower() == ignore.Item.ToLower()) return CheckIgnoreType(ignoreType, ignore);
-
-                    //check if we are looking for a host match
-                    if (ignore.Item.Contains("@"))
+                    if (ignore.Enabled)    //check to make sure its not disabled
                     {
-                        //do a host match
-                        string hostMatch = ignore.Item.Substring(ignore.Item.IndexOf("@") + 1).ToLower();
+                        //check for an exact match
+                        if (nick.ToLower() == ignore.Item.ToLower()) return CheckIgnoreType(ignoreType, ignore);
 
-                        // get the nick
-                        string nickMatch = "";
-
-                        // get the ident
-                        string identMatch = "";
-                        string matchIdent = "";
-
-                        if (ignore.Item.IndexOf("!") > -1)
+                        //check if we are looking for a host match
+                        if (ignore.Item.Contains("@"))
                         {
-                            identMatch = ignore.Item.Substring(ignore.Item.IndexOf("!") + 1).ToLower();
-                            identMatch = identMatch.Substring(0, identMatch.IndexOf("@"));
+                            //do a host match
+                            string hostMatch = ignore.Item.Substring(ignore.Item.IndexOf("@") + 1).ToLower();
 
-                            nickMatch = ignore.Item.Substring(0, ignore.Item.IndexOf("!")).ToLower();                        
-                        }
-                        
-                        // exact match
-                        if (ignore.Item.ToLower() == onlyHost.ToLower()) return CheckIgnoreType(ignoreType, ignore);
+                            // get the nick
+                            string nickMatch = "";
 
-                        if (hostMatch == onlyHost) return CheckIgnoreType(ignoreType, ignore);
+                            // get the ident
+                            string identMatch = "";
+                            string matchIdent = "";
 
-                        if (ignore.Item.IndexOf("!") > 0 && identMatch.Length > 0)
-                        {
-                            // nick / ident match
-                            if (host.IndexOf("@") > -1)
+                            if (ignore.Item.IndexOf("!") > -1)
                             {
-                                matchIdent = host.Substring(0, host.IndexOf("@")).TrimStart('~');
-                            }
-                        }
+                                identMatch = ignore.Item.Substring(ignore.Item.IndexOf("!") + 1).ToLower();
+                                identMatch = identMatch.Substring(0, identMatch.IndexOf("@"));
 
-                        if (hostMatch.StartsWith("*") && Match(identMatch, matchIdent) == true && Match(nickMatch, nick.ToLower()))
-                        {
-                            //match the end
-                            if (onlyHost.EndsWith(hostMatch.TrimStart('*')) && hostMatch.TrimStart('*').Length > 0) return CheckIgnoreType(ignoreType, ignore);
-
-                            // check for a nick match / ident match
-                            if (hostMatch == "*")
-                            {
-                                return CheckIgnoreType(ignoreType, ignore);
+                                nickMatch = ignore.Item.Substring(0, ignore.Item.IndexOf("!")).ToLower();
                             }
 
+                            // exact match
+                            if (ignore.Item.ToLower() == onlyHost.ToLower()) return CheckIgnoreType(ignoreType, ignore);
+
+                            if (hostMatch == onlyHost) return CheckIgnoreType(ignoreType, ignore);
+
+                            if (ignore.Item.IndexOf("!") > 0 && identMatch.Length > 0)
+                            {
+                                // nick / ident match
+                                if (host.IndexOf("@") > -1)
+                                {
+                                    matchIdent = host.Substring(0, host.IndexOf("@")).TrimStart('~');
+                                }
+                            }
+
+                            if (hostMatch.StartsWith("*") && Match(identMatch, matchIdent) == true && Match(nickMatch, nick.ToLower()))
+                            {
+                                //match the end
+                                if (onlyHost.EndsWith(hostMatch.TrimStart('*')) && hostMatch.TrimStart('*').Length > 0) return CheckIgnoreType(ignoreType, ignore);
+
+                                // check for a nick match / ident match
+                                if (hostMatch == "*")
+                                {
+                                    return CheckIgnoreType(ignoreType, ignore);
+                                }
+
+
+                            }
+                            else if (hostMatch.EndsWith("*") && Match(identMatch, matchIdent) == true && Match(nickMatch, nick.ToLower()))
+                            {
+                                //match the start of the host
+
+                                if (onlyHost.StartsWith(hostMatch.TrimEnd('*')) && hostMatch.TrimEnd('*').Length > 0) return CheckIgnoreType(ignoreType, ignore);
+
+                            }
 
                         }
-                        else if (hostMatch.EndsWith("*") && Match(identMatch, matchIdent) == true && Match(nickMatch, nick.ToLower()))
+                        else
                         {
-                            //match the start of the host
-
-                            if (onlyHost.StartsWith(hostMatch.TrimEnd('*')) && hostMatch.TrimEnd('*').Length > 0) return CheckIgnoreType(ignoreType, ignore);
+                            //check for wildcard/regex match for nick name
+                            if (ignore.Item.Contains("."))
+                                if (Regex.Match(nick, "^" + ignore, RegexOptions.IgnoreCase).Success) return CheckIgnoreType(ignoreType, ignore);
 
                         }
-                        
                     }
-                    else
-                    {
-                        //check for wildcard/regex match for nick name
-                        if (ignore.Item.Contains("."))
-                            if (Regex.Match(nick, "^" + ignore, RegexOptions.IgnoreCase).Success) return CheckIgnoreType(ignoreType, ignore);
-
-                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("CheckIgnoreError:" + ex.Message);
+                    System.Diagnostics.Debug.WriteLine(ignore.Enabled + ":" + ignore.Item + ":" + ignore.IgnoreType);
                 }
             }
 

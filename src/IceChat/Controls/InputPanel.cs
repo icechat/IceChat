@@ -28,6 +28,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace IceChat
 {
@@ -270,10 +271,23 @@ namespace IceChat
                 string[] lines = data.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 if (lines.Length == 1)
                 {
+                    
+                    System.Diagnostics.Debug.WriteLine("OnCommand 1 line:" + lines[0].Length);
+                    
                     //just 1 line, add to end of text box
-                    /*
                     if (lines[0].Length > 350)
                     {
+                        // int charCount = 0, max = 300;
+                       
+                        /*
+
+                        string[] splitLines = lines.GroupBy(w => (charCount += (((charCount % max) + w.Length + 1 >= max)
+                            ? max - (charCount % max) : 0) + w.Length + 1) / max)
+                            .Select(g => string.Join(" ", g.ToArray()))
+                            .ToArray();
+
+                        */
+
                         for (int index = 0; index < lines[0].Length; index += 350)
                         {
                             textInput.addToBuffer(lines[0].Substring(index, Math.Min(350, lines[0].Length - index)));
@@ -284,11 +298,10 @@ namespace IceChat
 
                     }
                     else
-                    */
-
-                    textInput.addToBuffer(lines[0]);
-                    OnCommand(this, lines[0]);
-                    
+                    {
+                        textInput.addToBuffer(lines[0]);
+                        OnCommand(this, lines[0]);
+                    }
                 }
                 else
                 {
@@ -316,15 +329,19 @@ namespace IceChat
                             if (line.Length > 0)
                             {
                                 
-                                //if (line.Length < 350)
-                                //{
-                                textInput.addToBuffer(line);
-                                OnCommand(this, line);
-                                /*
+                                if (line.Length < 350)
+                                {
+                                    System.Diagnostics.Debug.WriteLine("more lines:" + line.Length);
+                                
+                                    textInput.addToBuffer(line);
+                                    OnCommand(this, line);                                
+                                
                                 }
                                 else
                                 {
-                                    System.Diagnostics.Debug.WriteLine("split it up!");
+                                    System.Diagnostics.Debug.WriteLine("split it up! textInput_OnCommand");
+
+
 
                                     for (int index = 0; index < line.Length; index += 350)
                                     {
@@ -335,7 +352,7 @@ namespace IceChat
 
                                     }
                                 }
-                                */ 
+                                 
                             }
                         }
                     }
@@ -387,6 +404,7 @@ namespace IceChat
                     if (line.Length > 0)
                     {
                         //split line at 450 chars
+                        System.Diagnostics.Debug.WriteLine("SendButtonClick:" + line.Length);
                         if (line.Length < 350)
                         {
                             textBoxWide.addToBuffer(line);

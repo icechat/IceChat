@@ -190,6 +190,12 @@ namespace IceChat
             popupMenu.RenderMode = ToolStripRenderMode.ManagerRenderMode;
             popupMenu.Renderer = new EasyRenderer.EasyRender();
 
+            this.MouseWheel += new MouseEventHandler(NickList_MouseWheel);
+        }
+
+        private void NickList_MouseWheel(object sender, MouseEventArgs e)
+        {
+            this.ScrollWindow(e.Delta > 0);            
         }
 
         private void panelButtons_VisibleChanged(object sender, EventArgs e)

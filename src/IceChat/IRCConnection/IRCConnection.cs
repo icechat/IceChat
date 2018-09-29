@@ -596,7 +596,6 @@ namespace IceChat
                     howfar = 6;
                     */
 
-
                     sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, false);
 
                     // this seems to error in Mono if Accept Invalid Certs is enabled
@@ -616,6 +615,8 @@ namespace IceChat
                 {
                     if (ServerError != null)
                         ServerError(this, "SSL IO Exception Error :" + ex.Message.ToString() + ":" + howfar, false);
+
+
 
                     disconnectError = true;
                     ForceDisconnect();

@@ -996,6 +996,7 @@
             this.textAutoPerform.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textAutoPerform.Multiline = true;
             this.textAutoPerform.Name = "textAutoPerform";
+            this.textAutoPerform.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textAutoPerform.Size = new System.Drawing.Size(669, 222);
             this.textAutoPerform.TabIndex = 28;
             // 

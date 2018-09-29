@@ -178,7 +178,15 @@ namespace IceChat
             {                
                 SaveServers(serversCollection);
             }
-            
+
+
+            this.MouseWheel += new MouseEventHandler(ServerTree_MouseWheel);
+
+        }
+
+        private void ServerTree_MouseWheel(object sender, MouseEventArgs e)
+        {
+            this.ScrollWindow(e.Delta > 0);            
         }
 
         private void OnFlashTabTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)

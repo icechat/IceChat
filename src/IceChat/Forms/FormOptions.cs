@@ -1057,5 +1057,6 @@ namespace IceChat
             System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Settings#" + tabControlOptions.TabPages[tabControlOptions.SelectedIndex].Tag);
 
         }
+
     }
 }

@@ -1,3 +1,11 @@
+Build 9.21b Sep 29 2018
+* Have invalid item in ignore list not break the messages
+* Update xbuild to msbuild in BuildIceChatLinux.sh
+* Fix double click error in Welcome Tab
+* Fix Windows 10 Issue with Scrolling Windows
+* No longer need to set 'Scroll inactive windows when I hover them' to off
+* Added /ignore -r Nick command to remove from Ignore List, not disable
+
 Build 9.21 Jan 27 2018
 * Attempt a fix on errors on Channel Joins
 * Fix problem with and invalid IP starting a DCC File Session causing errors

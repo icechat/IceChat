@@ -1,5 +1,7 @@
 ﻿To Do List for IceChat 9
 
+Add a second delay between sending split messages
+Add a textbox for the transparency setting , to allow manual setting
 Add Estimated time remaining to DCC Download
 Add Sounds for DCC Events (download started/ended)
 Make Appx versions of IceChat 9

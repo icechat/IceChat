@@ -1,0 +1,6 @@
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.22\src\Plugins\Google Plugin\bin\Release\GooglePlugin.dll.config
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.22\src\Plugins\Google Plugin\bin\Release\GooglePlugin.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.22\src\Plugins\Google Plugin\bin\Release\GooglePlugin.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.22\src\Plugins\Google Plugin\obj\Release\ResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.22\src\Plugins\Google Plugin\obj\Release\GooglePlugin.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.22\src\Plugins\Google Plugin\obj\Release\GooglePlugin.pdb

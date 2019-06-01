@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IceChatEmoticon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Emoticons>
+    <Item ID="0">
+      <EmoticonImage>regular_smile.png</EmoticonImage>
+      <Trigger>:)</Trigger>
+    </Item>
+    <Item ID="1">
+      <EmoticonImage>idontknow.png</EmoticonImage>
+      <Trigger>:^)</Trigger>
+    </Item>
+    <Item ID="2">
+      <EmoticonImage>donttellanyone.png</EmoticonImage>
+      <Trigger>:-#</Trigger>
+    </Item>
+    <Item ID="3">
+      <EmoticonImage>sad_smile.png</EmoticonImage>
+      <Trigger>:(</Trigger>
+    </Item>
+    <Item ID="4">
+      <EmoticonImage>shades_smile.png</EmoticonImage>
+      <Trigger>(H)</Trigger>
+    </Item>
+    <Item ID="5">
+      <EmoticonImage>teeth_smile.png</EmoticonImage>
+      <Trigger>:D</Trigger>
+    </Item>
+    <Item ID="6">
+      <EmoticonImage>confused_smile.png</EmoticonImage>
+      <Trigger>:-S</Trigger>
+    </Item>
+    <Item ID="7">
+      <EmoticonImage>wink_smile.png</EmoticonImage>
+      <Trigger>;)</Trigger>
+    </Item>
+    <Item ID="8">
+      <EmoticonImage>angel_smile.png</EmoticonImage>
+      <Trigger>(A)</Trigger>
+    </Item>
+    <Item ID="9">
+      <EmoticonImage>angry_smile.png</EmoticonImage>
+      <Trigger>:@</Trigger>
+    </Item>
+    <Item ID="10">
+      <EmoticonImage>tongue_smile.png</EmoticonImage>
+      <Trigger>:P</Trigger>
+    </Item>
+    <Item ID="11">
+      <EmoticonImage>sweet.png</EmoticonImage>
+      <Trigger>(sw)</Trigger>
+    </Item>
+    <Item ID="12">
+      <EmoticonImage>whatchatalkingabout.png</EmoticonImage>
+      <Trigger>:|</Trigger>
+    </Item>
+    <Item ID="13">
+      <EmoticonImage>cry.png</EmoticonImage>
+      <Trigger>:'(</Trigger>
+    </Item>
+    <Item ID="14">
+      <EmoticonImage>embarrassed.png</EmoticonImage>
+      <Trigger>:$</Trigger>
+    </Item>
+    <Item ID="15">
+      <EmoticonImage>ohmygod.png</EmoticonImage>
+      <Trigger>:O</Trigger>
+    </Item>
+    <Item ID="16">
+      <EmoticonImage>sick.png</EmoticonImage>
+      <Trigger>+o(</Trigger>
+    </Item>
+    <Item ID="17">
+      <EmoticonImage>ashamed.png</EmoticonImage>
+      <Trigger>&lt;(</Trigger>
+    </Item>
+    <Item ID="18">
+      <EmoticonImage>thinking.png</EmoticonImage>
+      <Trigger>*-)</Trigger>
+    </Item>
+    <Item ID="19">
+      <EmoticonImage>nerd.png</EmoticonImage>
+      <Trigger>8-|</Trigger>
+    </Item>
+    <Item ID="20">
+      <EmoticonImage>footinmouth.png</EmoticonImage>
+      <Trigger>:-!</Trigger>
+    </Item>
+    <Item ID="21">
+      <EmoticonImage>coolsmile.png</EmoticonImage>
+      <Trigger>(h)</Trigger>
+    </Item>
+    <Item ID="22">
+      <EmoticonImage>unexpected.png</EmoticonImage>
+      <Trigger>(ue)</Trigger>
+    </Item>
+    <Item ID="23">
+      <EmoticonImage>baringteeth.png</EmoticonImage>
+      <Trigger>8o|</Trigger>
+    </Item>
+    <Item ID="24">
+      <EmoticonImage>sarcastic.png</EmoticonImage>
+      <Trigger>^o)</Trigger>
+    </Item>
+    <Item ID="25">
+      <EmoticonImage>hmm.png</EmoticonImage>
+      <Trigger>(hm)</Trigger>
+    </Item>
+    <Item ID="26">
+      <EmoticonImage>eyerolling.png</EmoticonImage>
+      <Trigger>8-)</Trigger>
+    </Item>
+    <Item ID="27">
+      <EmoticonImage>secret.png</EmoticonImage>
+      <Trigger>:-*</Trigger>
+    </Item>
+    <Item ID="28">
+      <EmoticonImage>flirt.png</EmoticonImage>
+      <Trigger>(fl)</Trigger>
+    </Item>
+    <Item ID="29">
+      <EmoticonImage>party.png</EmoticonImage>
+      <Trigger>&lt;:o)</Trigger>
+    </Item>
+    <Item ID="30">
+      <EmoticonImage>devil.png</EmoticonImage>
+      <Trigger>(6)</Trigger>
+    </Item>
+    <Item ID="31">
+      <EmoticonImage>beer.png</EmoticonImage>
+      <Trigger>(b)</Trigger>
+    </Item>
+    <Item ID="32">
+      <EmoticonImage>brokenheart.png</EmoticonImage>
+      <Trigger>(U)</Trigger>
+    </Item>
+    <Item ID="33">
+      <EmoticonImage>heart.png</EmoticonImage>
+      <Trigger>(L)</Trigger>
+    </Item>
+    <Item ID="34">
+      <EmoticonImage>cake.png</EmoticonImage>
+      <Trigger>(^)</Trigger>
+    </Item>
+    <Item ID="35">
+      <EmoticonImage>clock.png</EmoticonImage>
+      <Trigger>(O)</Trigger>
+    </Item>
+    <Item ID="36">
+      <EmoticonImage>coffee.png</EmoticonImage>
+      <Trigger>(C)</Trigger>
+    </Item>
+    <Item ID="37">
+      <EmoticonImage>dudehug.png</EmoticonImage>
+      <Trigger>({)</Trigger>
+    </Item>
+    <Item ID="38">
+      <EmoticonImage>envelope.png</EmoticonImage>
+      <Trigger>(E)</Trigger>
+    </Item>
+    <Item ID="39">
+      <EmoticonImage>film.png</EmoticonImage>
+      <Trigger>(~)</Trigger>
+    </Item>
+    <Item ID="40">
+      <EmoticonImage>girlhands.png</EmoticonImage>
+      <Trigger>(x)</Trigger>
+    </Item>
+    <Item ID="41">
+      <EmoticonImage>girlhug.png</EmoticonImage>
+      <Trigger>(})</Trigger>
+    </Item>
+    <Item ID="42">
+      <EmoticonImage>guyhands.png</EmoticonImage>
+      <Trigger>(z)</Trigger>
+    </Item>
+    <Item ID="43">
+      <EmoticonImage>kiss.png</EmoticonImage>
+      <Trigger>(K)</Trigger>
+    </Item>
+    <Item ID="44">
+      <EmoticonImage>kitty.png</EmoticonImage>
+      <Trigger>(@)</Trigger>
+    </Item>
+    <Item ID="45">
+      <EmoticonImage>lightbulb.png</EmoticonImage>
+      <Trigger>(I)</Trigger>
+    </Item>
+    <Item ID="46">
+      <EmoticonImage>martini.png</EmoticonImage>
+      <Trigger>(d)</Trigger>
+    </Item>
+    <Item ID="47">
+      <EmoticonImage>moon.png</EmoticonImage>
+      <Trigger>(S)</Trigger>
+    </Item>
+    <Item ID="48">
+      <EmoticonImage>musicalnote.png</EmoticonImage>
+      <Trigger>(M)</Trigger>
+    </Item>
+    <Item ID="49">
+      <EmoticonImage>phone.png</EmoticonImage>
+      <Trigger>(T)</Trigger>
+    </Item>
+    <Item ID="50">
+      <EmoticonImage>present.png</EmoticonImage>
+      <Trigger>(G)</Trigger>
+    </Item>
+    <Item ID="51">
+      <EmoticonImage>rainbow.png</EmoticonImage>
+      <Trigger>(R)</Trigger>
+    </Item>
+    <Item ID="52">
+      <EmoticonImage>bowwow.png</EmoticonImage>
+      <Trigger>(&amp;)</Trigger>
+    </Item>
+    <Item ID="53">
+      <EmoticonImage>rose.png</EmoticonImage>
+      <Trigger>(F)</Trigger>
+    </Item>
+    <Item ID="54">
+      <EmoticonImage>wiltedrose.png</EmoticonImage>
+      <Trigger>(W)</Trigger>
+    </Item>
+    <Item ID="55">
+      <EmoticonImage>star.png</EmoticonImage>
+      <Trigger>(*)</Trigger>
+    </Item>
+    <Item ID="56">
+      <EmoticonImage>sun.png</EmoticonImage>
+      <Trigger>(#)</Trigger>
+    </Item>
+    <Item ID="57">
+      <EmoticonImage>pizza.png</EmoticonImage>
+      <Trigger>(pi)</Trigger>
+    </Item>
+    <Item ID="58">
+      <EmoticonImage>thumbsup.png</EmoticonImage>
+      <Trigger>(y)</Trigger>
+    </Item>
+    <Item ID="59">
+      <EmoticonImage>thumbsdown.png</EmoticonImage>
+      <Trigger>(n)</Trigger>
+    </Item>
+    <Item ID="60">
+      <EmoticonImage>pepsi.png</EmoticonImage>
+      <Trigger>(p)</Trigger>
+    </Item>
+    <Item ID="61">
+      <EmoticonImage>hamburger.png</EmoticonImage>
+      <Trigger>(hh)</Trigger>
+    </Item>
+    <Item ID="62">
+      <EmoticonImage>coke.png</EmoticonImage>
+      <Trigger>(co)</Trigger>
+    </Item>
+    <Item ID="63">
+      <EmoticonImage>icecream.png</EmoticonImage>
+      <Trigger>(ic)</Trigger>
+    </Item>
+    <Item ID="64">
+      <EmoticonImage>camera.png</EmoticonImage>
+      <Trigger>(P)</Trigger>
+    </Item>
+    <Item ID="65">
+      <EmoticonImage>auto.png</EmoticonImage>
+      <Trigger>(au)</Trigger>
+    </Item>
+    <Item ID="66">
+      <EmoticonImage>airplane.png</EmoticonImage>
+      <Trigger>(ap)</Trigger>
+    </Item>
+    <Item ID="67">
+      <EmoticonImage>stormy.png</EmoticonImage>
+      <Trigger>(st)</Trigger>
+    </Item>
+    <Item ID="68">
+      <EmoticonImage>asl.png</EmoticonImage>
+      <Trigger>(?)</Trigger>
+    </Item>
+    <Item ID="69">
+      <EmoticonImage>bat.png</EmoticonImage>
+      <Trigger>:-[</Trigger>
+    </Item>
+    <Item ID="70">
+      <EmoticonImage>soccer.png</EmoticonImage>
+      <Trigger>(so)</Trigger>
+    </Item>
+    <Item ID="71">
+      <EmoticonImage>xbox.png</EmoticonImage>
+      <Trigger>(xx)</Trigger>
+    </Item>
+  </Emoticons>
+</IceChatEmoticon>

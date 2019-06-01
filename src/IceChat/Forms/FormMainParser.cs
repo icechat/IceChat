@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1727,6 +1727,7 @@ namespace IceChat
                                         {
                                             //ask for a file name
                                             OpenFileDialog dialog = new OpenFileDialog();
+                                            dialog.AutoUpgradeEnabled = false;
                                             dialog.InitialDirectory = iceChatOptions.DCCSendFolder;
                                             dialog.CheckFileExists = true;
                                             dialog.CheckPathExists = true;
@@ -4367,6 +4368,9 @@ namespace IceChat
                             else
                                 data = ReplaceFirst(data, m.Value, "Mono.Runtime not detected");
                             break;
+                        case "$args":
+                            data = ReplaceFirst(data, m.Value, _args);
+                            break;
                     }
                     m = m.NextMatch();
                 }
@@ -4649,21 +4653,32 @@ namespace IceChat
                                     }
                                 }
 
+                                if (word.StartsWith("$calc(") && word.IndexOf(')') > word.IndexOf('('))
+                                {
+                                    string input = ReturnBracketValue(word);
+
+                                    // do the MATHS!
+                                    System.Data.DataTable dt = new System.Data.DataTable();
+                                    var v = dt.Compute(input, "");
+
+                                    changedData[count] = v.ToString();
+                                }
+
                                 if (word.StartsWith("$rand(") && word.IndexOf(')') > word.IndexOf('('))
                                 {
                                     string input = ReturnBracketValue(word);
                                     //look for a comma (,)
                                     if (input.Split(',').Length == 2)
                                     {
-                                        string lownum = input.Split(',')[0];
-                                        string hinum = input.Split(',')[1];
+                                        string lownum = input.Split(',')[0].Trim();
+                                        string hinum = input.Split(',')[1].Trim();
 
                                         int lowNum, hiNum;
                                         if (Int32.TryParse(lownum, out lowNum) && Int32.TryParse(hinum, out hiNum))
                                         {
                                             //valid numbers
                                             Random r = new Random();
-                                            int randNumber = r.Next(lowNum, hiNum);
+                                            int randNumber = r.Next(lowNum, hiNum + 1); // need to add one to the higer number
 
                                             changedData[count] = randNumber.ToString();
                                         }
@@ -4677,11 +4692,11 @@ namespace IceChat
                                     {
                                         //make it a value from 1 - value
                                         int hiNum;
-                                        if (Int32.TryParse(input, out hiNum))
+                                        if (Int32.TryParse(input.Trim(), out hiNum))
                                         {
                                             //valid number
                                             Random r = new Random();
-                                            int randNumber = r.Next(1, hiNum);
+                                            int randNumber = r.Next(1, hiNum + 1); // need to add 1 to the higer number
 
                                             changedData[count] = randNumber.ToString();
                                         }
@@ -4692,6 +4707,7 @@ namespace IceChat
                                     else
                                         changedData[count] = "$null";
                                 }
+
 
                                 if (word.StartsWith("$read(") && word.IndexOf(')') > word.IndexOf('('))
                                 {

@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -363,7 +363,8 @@ namespace IceChat
         private int _maxNickLength = 15;
         private int _maxModes = 5;
         private int _reconnectTime = 60;
-        
+        private int _whichAddressInList = 1;
+
         private bool _ircv3 = false;
         private bool _extendedJoin = false;
         private bool _awayNotify = false;
@@ -624,6 +625,10 @@ namespace IceChat
         [XmlElement("ReconnectTime")]
         public int ReconnectTime
         { get { return this._reconnectTime; } set { this._reconnectTime = value; } }
+
+        [XmlElement("WhichAddressInList")]
+        public int WhichAddressInList
+        { get { return this._whichAddressInList; } set { this._whichAddressInList = value; } }
 
         [XmlIgnore()]
         public string RealServerName

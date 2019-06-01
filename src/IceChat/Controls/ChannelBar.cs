@@ -1,7 +1,7 @@
 ﻿/***********************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1425,7 +1425,7 @@ namespace IceChat
             string command = menuItem.Tag.ToString();
 
             // the OnPopupMenu_ItemClicked event already captures menu items that are not sub-menus
-            if (menuItem.Owner.Tag.ToString() == "PARENT")
+            if (menuItem.Owner.Tag != null && menuItem.Owner.Tag.ToString() == "PARENT")
                 return;
 
             if (GetTabPage(_selectedIndex).WindowStyle == IceTabPage.WindowType.Console)

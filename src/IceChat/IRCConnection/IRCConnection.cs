@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -65,7 +65,6 @@ namespace IceChat
         private System.Timers.Timer pongTimer;
         private System.Timers.Timer autoAwayTimer;
 
-        private int whichAddressinList = 1;
         private int whichAddressCurrent = 1;
         private int totalAddressinDNS = 0;
         
@@ -293,7 +292,7 @@ namespace IceChat
         {
             if (attemptReconnect)
             {
-                whichAddressinList++;
+                serverSetting.WhichAddressInList++;
 
                 ServerReconnect(this);
                 
@@ -777,9 +776,9 @@ namespace IceChat
                         SendData("USER " + serverSetting.IdentName + " \"localhost\" \"" + serverSetting.ServerName + "\" :" + serverSetting.FullName);
                     
                     ServerMessage(this, "Sending User Registration Information", "");
-                    
-                    whichAddressinList = whichAddressCurrent;
-                    
+                                        
+                    serverSetting.WhichAddressInList = whichAddressCurrent;
+
                     if (serverSetting.UseBNC == true)
                         this.fullyConnected = true;
                     
@@ -1214,11 +1213,9 @@ namespace IceChat
                                 SendData("NICK " + serverSetting.NickName);
                                 SendData("USER " + serverSetting.IdentName + " \"localhost\" \"" + serverSetting.ServerName + "\" :" + serverSetting.FullName);
 
-                                whichAddressinList = whichAddressCurrent;
-
                                 ServerMessage(this, "Sending User Registration Information", "");
 
-                                whichAddressinList = whichAddressCurrent;
+                                serverSetting.WhichAddressInList = whichAddressCurrent;    
 
                                 readBuffer = new byte[BUFFER_SIZE];
                                 if (serverSetting.UseSSL)
@@ -1326,11 +1323,9 @@ namespace IceChat
                                 SendData("NICK " + serverSetting.NickName);
                                 SendData("USER " + serverSetting.IdentName + " \"localhost\" \"" + serverSetting.ServerName + "\" :" + serverSetting.FullName);
 
-                                whichAddressinList = whichAddressCurrent;
-
                                 ServerMessage(this, "Sending User Registration Information", "");
 
-                                whichAddressinList = whichAddressCurrent;
+                                serverSetting.WhichAddressInList = whichAddressCurrent;
 
                                 readBuffer = new byte[BUFFER_SIZE];
                                 if (serverSetting.UseSSL)
@@ -1573,6 +1568,7 @@ namespace IceChat
                     //start connection with BNC server
                     whichAddressCurrent = 1;
                     totalAddressinDNS = 1;
+
                     IPAddress bncIP = null;
 
                     try
@@ -1635,15 +1631,15 @@ namespace IceChat
                     whichAddressCurrent = 1;
                     totalAddressinDNS = hostEntry.AddressList.Length;
 
-                    if (whichAddressinList > totalAddressinDNS)
-                        whichAddressinList = 1; 
+                    if (serverSetting.WhichAddressInList > totalAddressinDNS)
+                        serverSetting.WhichAddressInList = 1; 
 
                     foreach (IPAddress address in hosts.AddressList)
                     {                        
                         System.Diagnostics.Debug.WriteLine(address.AddressFamily.ToString() + ":" + address.ToString());
                         try
                         {
-                            if (whichAddressCurrent == whichAddressinList)
+                            if (whichAddressCurrent == serverSetting.WhichAddressInList)
                             {
                                 if (address.AddressFamily == AddressFamily.InterNetworkV6)
                                 {
@@ -1768,8 +1764,8 @@ namespace IceChat
                     whichAddressCurrent = 1;
                     totalAddressinDNS = hostEntry.AddressList.Length;
 
-                    if (whichAddressinList > totalAddressinDNS)
-                        whichAddressinList = 1; 
+                    if (serverSetting.WhichAddressInList > totalAddressinDNS)
+                        serverSetting.WhichAddressInList = 1; 
 
 
                     // Loop through the AddressList to obtain the supported AddressFamily. This is to avoid
@@ -1779,7 +1775,7 @@ namespace IceChat
                     {
                         try
                         {
-                            if (whichAddressCurrent == whichAddressinList)
+                            if (whichAddressCurrent == serverSetting.WhichAddressInList)
                             {
 
                                 IPEndPoint ipe = new IPEndPoint(address, Convert.ToInt32(serverSetting.ServerPort));
@@ -1792,6 +1788,7 @@ namespace IceChat
                                 serverSocket.BeginConnect(ipe, new AsyncCallback(OnConnectionReady), serverSocket);
                                 break;
                             }
+                            
                             whichAddressCurrent++;
                             if (whichAddressCurrent > hostEntry.AddressList.Length)
                                 whichAddressCurrent = 1;

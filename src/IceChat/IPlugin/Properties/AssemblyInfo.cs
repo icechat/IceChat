@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("IceChat Networks")]
 [assembly: AssemblyProduct("IceChatPlugin")]
-[assembly: AssemblyCopyright("Copyright © 2000-2017 Paul Vanderzee")]
+[assembly: AssemblyCopyright("Copyright © 2000-2018 Paul Vanderzee")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

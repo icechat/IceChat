@@ -1,8 +1,9 @@
+
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
- *                                    <www.icechat.net> 
+ * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
+ *                                    <www.icechat.net>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -26,10 +27,17 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
+using System.Runtime.InteropServices;
+using System.Diagnostics;
+using System.Collections;
+using System.Text;
+
 namespace IceChat
 {
+
     static class Program
     {
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -40,7 +48,8 @@ namespace IceChat
             //AppDomain.CurrentDomain.AssemblyLoad += new AssemblyLoadEventHandler(ShowAssemblyLoad);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
+
             bool noSplash = false;
             if (args.Length > 0)
             {
@@ -52,7 +61,7 @@ namespace IceChat
                     }
                 }
             }
-    
+
             if (noSplash)
             {
                 Application.Run(new FormMain(args, null));
@@ -68,7 +77,7 @@ namespace IceChat
 
         static void ShowAssemblyLoad(object sender, AssemblyLoadEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(e.LoadedAssembly.GetName().Name + ":"  + e.LoadedAssembly.Location);
+            System.Diagnostics.Debug.WriteLine(e.LoadedAssembly.GetName().Name + ":" + e.LoadedAssembly.Location);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

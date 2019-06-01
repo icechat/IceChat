@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1778,7 +1778,7 @@ namespace IceChat
             ofd.CheckFileExists = true;
             ofd.CheckPathExists = true;
             ofd.AddExtension = true;
-            ofd.AutoUpgradeEnabled = true;
+            ofd.AutoUpgradeEnabled = false;
             ofd.Filter = "XML file (*.xml)|Colors-*.xml";
             ofd.Title = "Which Theme File do you want to load?";
             ofd.InitialDirectory = FormMain.Instance.CurrentFolder;
@@ -1833,7 +1833,7 @@ namespace IceChat
             ofd.CheckFileExists = true;
             ofd.CheckPathExists = true;
             ofd.AddExtension = true;
-            ofd.AutoUpgradeEnabled = true;
+            ofd.AutoUpgradeEnabled = false;
             ofd.Filter = "IceChat INI Setting (*.ini)|*.ini";
             ofd.Title = "Locate the IceChat.ini settings file?";
 

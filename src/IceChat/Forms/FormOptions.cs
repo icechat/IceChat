@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2017 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -811,9 +811,13 @@ namespace IceChat
         {
             //add a new emoticon
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.AutoUpgradeEnabled = false;
+
             ofd.InitialDirectory = FormMain.Instance.EmoticonsFolder;            
             ofd.Filter = "PNG Images (*.png)|*.png";
             ofd.RestoreDirectory = true;
+            ofd.Title = "Choose a PNG file for the Emoticon Image";
+
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 //check if emoticon exists                
@@ -860,6 +864,8 @@ namespace IceChat
             try
             {
                 OpenFileDialog ofd = new OpenFileDialog();
+                ofd.AutoUpgradeEnabled = false;
+
                 if (textSound.Text.Length > 0)
                 {
                     //go to the same folder
@@ -870,6 +876,7 @@ namespace IceChat
 
                 ofd.RestoreDirectory = true;
                 ofd.Filter = "Sounds (*.wav;*.mp3)|*.wav;*.mp3";
+                ofd.Title = "Choose an MP3 or WAV File";
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                     textSound.Text = ofd.FileName;
@@ -1026,6 +1033,8 @@ namespace IceChat
             try
             {
                 OpenFileDialog ofd = new OpenFileDialog();
+                ofd.AutoUpgradeEnabled = false;
+
                 ofd.CheckFileExists = true;
                 ofd.CheckPathExists = true;
                 ofd.AddExtension = true;

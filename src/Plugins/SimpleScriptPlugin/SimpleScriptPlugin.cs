@@ -65,7 +65,7 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Simple Script Plugin";
             m_Author = "Snerf";
-            m_Version = "1.21";
+            m_Version = "1.3";
         }
 
         public override void Dispose()
@@ -301,6 +301,8 @@ namespace IceChatPlugin
                     switch (scr.ScriptEvent)
                     {
 
+                        case "Self Channel Message":
+                        case "Self Channel Action":
                         case "Channel Message":
                         case "Channel Action":
                             //use a regex match of sorts down the road
@@ -514,6 +516,32 @@ namespace IceChatPlugin
         public override PluginArgs ChannelKick(PluginArgs args)
         {
             args = CheckScripts(args, "Channel Kick");
+            return args;
+        }
+
+        public override PluginArgs InputText(PluginArgs args)
+        {
+            // args.Command = what was written
+            // args.Nick is current channel, or Console
+            // args.Extra Window Type (Channel/Query/Console)
+
+            if (args.Extra == "Channel")
+            {
+                // does it start with /me , /describe
+                                
+                System.Diagnostics.Debug.WriteLine("Channel Command:" + args.Command);
+                args = CheckScripts(args, "Self Channel Message");
+
+            }
+            else if (args.Extra == "Query")
+            {
+
+                System.Diagnostics.Debug.WriteLine("Query Command:" + args.Command);
+                args = CheckScripts(args, "Self Query Message");
+
+            }
+
+            
             return args;
         }
 

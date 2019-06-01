@@ -1,3 +1,9 @@
+Build 9.22 June 1 2019
+* Fix $rand() where it was not working with the top value
+* Added $calc() for allowing basic math functions
+* Fix File Open Dialog not working for some Windows 10 Builds
+* Last connected server in DNS Pool remembered
+
 Build 9.21b Sep 29 2018
 * Have invalid item in ignore list not break the messages
 * Update xbuild to msbuild in BuildIceChatLinux.sh

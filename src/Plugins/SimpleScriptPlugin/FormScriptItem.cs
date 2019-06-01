@@ -30,6 +30,13 @@ namespace IceChatPlugin
             comboScriptEvent.Items.Add("Channel Kick");
             comboScriptEvent.Items.Add("New Channel");
             comboScriptEvent.Items.Add("New Private");
+
+            comboScriptEvent.Items.Add("Self Channel Message");
+            comboScriptEvent.Items.Add("Self Channel Action");
+
+            comboScriptEvent.Items.Add("Self Query Message");
+            comboScriptEvent.Items.Add("Self Query Action");
+
             comboScriptEvent.Items.Add("IceChat Startup");
 
             this.scriptItem = src;

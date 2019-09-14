@@ -274,6 +274,12 @@
     <Compile Include="Classes\IceChatOptions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\ColorPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorPicker.Designer.cs">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
+    </Compile>	
     <Compile Include="Classes\IdentServer.cs" />
     <Compile Include="Controls\NickList.cs">
       <SubType>UserControl</SubType>
@@ -405,6 +411,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ColorPicker.resx">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

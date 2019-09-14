@@ -36,8 +36,6 @@ Add possibility to set option values with /set command
 Add option when autojoining channels, it opens them , but not set as active
 Add option to automatically allow accept with DCC from people in buddy list
 Allow plugins to change the colors/appearance of IceChat, w/o needing an external Theme file
-Need to save the background image settings to a config file so they save on exit and show again in reload
-Add a background image to the nicklist, server list
 Add background color for html logging
 Add news item on loadup, for showing IceChat news
 
@@ -74,6 +72,8 @@ Add ability to sort nick list by nicknames only not status
 Add Mode q (Quiet Mode) beside Exception List in Channel Popup Window
 Added color setting for Side Panel Buttons
 Added color setting for Side Panel Splitter
+Add a background image to the nicklist, server list, and saved on exit
+Background images for channels are saved on exit and show again on reload
 
 
 Not Going to Implement:

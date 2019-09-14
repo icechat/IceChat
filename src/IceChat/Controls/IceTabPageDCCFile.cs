@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1202,6 +1202,15 @@ namespace IceChat
                                 UpdateDCCFileProgress(dcc);
                                 if (dcc.TotalBytesRead == dcc.FileSize)
                                 {
+
+                                    // thank you to skyfish for this fix
+                                    buffer[0] = (byte)(rxTotal / 16777216);
+                                    buffer[1] = (byte)((rxTotal - (16777216 * buffer[0])) / 65536);
+                                    buffer[2] = (byte)((rxTotal - ((16777216 * buffer[0]) + (65536 * buffer[1]))) / 256);
+                                    buffer[3] = (byte)(rxTotal - ((16777216 * buffer[0]) + (65536 * buffer[1]) + 256 * buffer[2]));
+                                    ns.Write(buffer, 0, 4);
+                                    // end of fix
+
                                     System.Diagnostics.Debug.WriteLine("should be finished");
                                     dcc.Finished = true;
                                     dcc.FileStream.Flush();

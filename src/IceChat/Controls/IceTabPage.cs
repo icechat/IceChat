@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -305,18 +305,29 @@ namespace IceChat
         /// <param name="color"></param>
         internal void AddText(IRCConnection connection, string data, string timeStamp, bool scrollToBottom, FormMain.ServerMessageType lastMessageType)
         {
+            this.UIThread(delegate
+            {
+
             foreach (ConsoleTab t in consoleTab.TabPages)
             {
                 if (t.Connection == connection)
                 {
-                    t.LastMessageType = lastMessageType;
-                    
+                    if (consoleTab.SelectedTab == t)
+                    {
+                        t.LastMessageType = FormMain.ServerMessageType.Default;
+                    }   
+                    else
+                    {
+                        t.LastMessageType = lastMessageType;
+                    }
+
                     ((TextWindow)t.Controls[0]).AppendText(data, timeStamp);
                     if (scrollToBottom)
                         ((TextWindow)t.Controls[0]).ScrollToBottom();
                     return;
                 }
             }
+            });
         }
 
         /// <summary>
@@ -949,6 +960,11 @@ namespace IceChat
                     _eventOverLoad = cs.EventsDisable;
                     _disableSounds = cs.SoundsDisable;
                     textWindow.NoColorMode = cs.NoColorMode;
+                    if (File.Exists(cs.BackgroundImage))
+                    {
+                        // make sure the file exists
+                        textWindow.BackGroundImage = cs.BackgroundImage;
+                    }
                     _disableLogs = cs.LoggingDisable;
                     _windowIndex = cs.WindowIndex;
                     _joinEventOverload = cs.JoinEventOverload;
@@ -1978,15 +1994,20 @@ namespace IceChat
 
             Brush br;
             if (e.State == DrawItemState.Selected)
+            {
                 br = new LinearGradientBrush(bounds, IrcColor.colors[_parent.IceChatColors.TabBarCurrentBG1], IrcColor.colors[_parent.IceChatColors.TabBarCurrentBG2], 90);
+            }
             else
             {
                 // get the last message value
                 if (((ConsoleTab)consoleTab.TabPages[e.Index]).LastMessageType == FormMain.ServerMessageType.Default || tabName == "Welcome")
+                {
                     br = new LinearGradientBrush(bounds, IrcColor.colors[_parent.IceChatColors.TabBarOtherBG1], IrcColor.colors[_parent.IceChatColors.TabBarOtherBG2], 90);
+                }
                 else
+                {
                     br = new LinearGradientBrush(bounds, IrcColor.colors[_parent.IceChatColors.ConsoleTabHighlite], IrcColor.colors[_parent.IceChatColors.ConsoleTabHighlite], 90);
-                    //br = new SolidBrush( IrcColor.colors[_parent.IceChatColors.ConsoleTabHighlite]);
+                }
             }
 
             e.Graphics.FillRectangle(br, bounds);

@@ -28,24 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelColorPicker = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // panelColorPicker
-            // 
-            this.panelColorPicker.BackColor = System.Drawing.SystemColors.Control;
-            this.panelColorPicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.panelColorPicker.Location = new System.Drawing.Point(12, 2);
-            this.panelColorPicker.Name = "panelColorPicker";
-            this.panelColorPicker.Size = new System.Drawing.Size(221, 123);
-            this.panelColorPicker.TabIndex = 21;
             // 
             // FormColorPicker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(243, 131);
-            this.Controls.Add(this.panelColorPicker);
+            this.ClientSize = new System.Drawing.Size(249, 186);
             this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -62,6 +51,5 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panelColorPicker;
     }
 }

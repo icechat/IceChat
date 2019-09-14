@@ -208,9 +208,9 @@ namespace IceChat
 
                 if (FormMain.Instance.IceChatOptions.LogFormat == "Plain Text")
                 {
-                    //System.Diagnostics.Debug.WriteLine("1:"+message);
+                    System.Diagnostics.Debug.WriteLine("1:"+message);
                     message = StripCodes(message);
-                    //System.Diagnostics.Debug.WriteLine("2:"+message);
+                    System.Diagnostics.Debug.WriteLine("2:"+message);
                     message += "\r\n";
                     logFile.Write(System.Text.Encoding.UTF8.GetBytes(message), 0, System.Text.Encoding.UTF8.GetBytes(message).Length);
                 }

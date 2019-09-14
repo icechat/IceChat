@@ -108,6 +108,12 @@
     <Compile Include="Controls\BuddyList.Designer.cs">
       <DependentUpon>BuddyList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ColorPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorPicker.Designer.cs">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IceDockPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -478,6 +484,9 @@
     <None Include="Resources\help.png" />
     <None Include="Resources\floppy.png" />
     <None Include="Resources\cancel.png" />
+    <EmbeddedResource Include="Controls\ColorPicker.resx">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\IceDockPanel.resx">
       <DependentUpon>IceDockPanel.cs</DependentUpon>
     </EmbeddedResource>

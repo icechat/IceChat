@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,9 +60,12 @@ namespace IceChat
         static string ParseItalicChar = @"\x1D";      //code 29
         static string ParseCancelChar = @"\x0F";      //code 15
 
+        public static char ParseUrlStart = '\xFF0B';
+        public static char ParseUrlEnd = '\xFF0C';        
+
         public static Regex ParseColorCodes = new Regex(ParseBackColor + "|" + ParseForeColor + "|" + ParseColorChar);
         public static Regex ParseForeColorCodes = new Regex(ParseForeColor + "|" + ParseColorChar);
-        public static Regex ParseAllCodes = new Regex(ParseBackColor + "|" + ParseForeColor + "|" + ParseColorChar + "|" + ParseBoldChar + "|" + ParseUnderlineChar + "|" + ParseReverseChar + "|" + ParseItalicChar + "|" + ParseCancelChar);
+        public static Regex ParseAllCodes = new Regex(ParseBackColor + "|" + ParseForeColor + "|" + ParseColorChar + "|" + ParseBoldChar + "|" + ParseUnderlineChar + "|" + ParseReverseChar + "|" + ParseItalicChar + "|" + ParseCancelChar + "|" + ParseUrlStart + "|" + ParseUrlEnd);
 
         /// <summary>
         /// Load in embedded resources from Stream and add it to the sent object's Image Property

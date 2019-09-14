@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IceChatMessageFormat xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MessageSettings>
+    <Item>
+      <MessageName>Server Connect</MessageName>
+      <FormattedMessage>&amp;#x3;00*** Attempting to connect to $server ($serverip) on port $port</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Server Disconnect</MessageName>
+      <FormattedMessage>&amp;#x3;04*** Server disconnected on $server</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Server Reconnect</MessageName>
+      <FormattedMessage>&amp;#x3;00*** Attempting to re-connect to $server</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Invite</MessageName>
+      <FormattedMessage>&amp;#x3;00* $nick invites you to $channel</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Ctcp Reply</MessageName>
+      <FormattedMessage>&amp;#x3;12[$nick $ctcp Reply] : $reply</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Ctcp Send</MessageName>
+      <FormattedMessage>&amp;#x3;10--&gt; [$nick] $ctcp</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Ctcp Request</MessageName>
+      <FormattedMessage>&amp;#x3;07[$nick] $ctcp</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Mode</MessageName>
+      <FormattedMessage>&amp;#x3;09* $nick sets mode $mode $modeparam for $channel</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Server Mode</MessageName>
+      <FormattedMessage>&amp;#x3;09* Your mode is now $mode</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Server Notice</MessageName>
+      <FormattedMessage>&amp;#x3;09*** $server $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Server Message</MessageName>
+      <FormattedMessage>&amp;#x3;00-$server- $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>User Notice</MessageName>
+      <FormattedMessage>&amp;#x3;00--$nick-- $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Message</MessageName>
+      <FormattedMessage>&amp;#x3;00&lt;$color$status$nick&amp;#x3;&gt; $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self Channel Message</MessageName>
+      <FormattedMessage>&amp;#x3;08&lt;$nick&amp;#x3;&gt; $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Action</MessageName>
+      <FormattedMessage>&amp;#x3;13* $nick $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self Channel Action</MessageName>
+      <FormattedMessage>&amp;#x3;13* $nick $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Join</MessageName>
+      <FormattedMessage>&amp;#x3;07* $nick ($host) has joined channel $channel</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self Channel Join</MessageName>
+      <FormattedMessage>&amp;#x3;04* You have joined $channel</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Part</MessageName>
+      <FormattedMessage>&amp;#x3;03* $nick ($host) has left $channel ($reason)</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self Channel Part</MessageName>
+      <FormattedMessage>&amp;#x3;04* You have left $channel - You will be missed &amp;#x3;10($reason)</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Server Quit</MessageName>
+      <FormattedMessage>&amp;#x3;09* $nick ($host) Quit ($reason)</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Nick Change</MessageName>
+      <FormattedMessage>&amp;#x3;07* $nick is now known as $newnick</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self Nick Change</MessageName>
+      <FormattedMessage>&amp;#x3;04* You are now known as $newnick</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Kick</MessageName>
+      <FormattedMessage>&amp;#x3;08* $kickee was kicked by $nick($host) &amp;#x3;03 - Reason ($reason)</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self Channel Kick</MessageName>
+      <FormattedMessage>&amp;#x3;04* You were kicked from $channel by $kicker (&amp;#x3;03$reason)</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Private Message</MessageName>
+      <FormattedMessage>&amp;#x3;00&lt;$nick&gt; $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self Private Message</MessageName>
+      <FormattedMessage>&amp;#x3;04&lt;$nick&gt;&amp;#x3;04 $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Private Action</MessageName>
+      <FormattedMessage>&amp;#x3;13* $nick $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self Private Action</MessageName>
+      <FormattedMessage>&amp;#x3;13* $nick $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>DCC Chat Action</MessageName>
+      <FormattedMessage>&amp;#x3;13* $nick $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self DCC Chat Action</MessageName>
+      <FormattedMessage>&amp;#x3;13* $nick $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>DCC Chat Message</MessageName>
+      <FormattedMessage>&amp;#x3;00&lt;$nick&gt; $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self DCC Chat Message</MessageName>
+      <FormattedMessage>&amp;#x3;04&lt;$nick&gt; $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>DCC Chat Request</MessageName>
+      <FormattedMessage>&amp;#x3;04* $nick ($host) is requesting a DCC Chat</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>DCC File Send</MessageName>
+      <FormattedMessage>&amp;#x3;04* $nick ($host) is trying to send you a file ($file) [$filesize bytes]</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Topic Change</MessageName>
+      <FormattedMessage>&amp;#x3;03* $nick changes topic to: $topic</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Topic Text</MessageName>
+      <FormattedMessage>&amp;#x3;00Topic: $topic</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Server MOTD</MessageName>
+      <FormattedMessage>&amp;#x3;00$message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Notice</MessageName>
+      <FormattedMessage>&amp;#x3;04-$nick:$status$channel- $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Channel Other</MessageName>
+      <FormattedMessage>&amp;#x3;00$message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>User Echo</MessageName>
+      <FormattedMessage>&amp;#x3;07$message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Server Error</MessageName>
+      <FormattedMessage>&amp;#x3;04ERROR: $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>User Whois</MessageName>
+      <FormattedMessage>&amp;#x3;12-&gt;&gt; $nick $data</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>User Error</MessageName>
+      <FormattedMessage>&amp;#x3;04ERROR: $message</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>DCC Chat Connect</MessageName>
+      <FormattedMessage>&amp;#x3;00* DCC Chat Connection Established with $nick</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>DCC Chat Disconnect</MessageName>
+      <FormattedMessage>&amp;#x3;04* DCC Chat Disconnected from $nick</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>DCC Chat Outgoing</MessageName>
+      <FormattedMessage>&amp;#x3;00* DCC Chat Requested with $nick</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>DCC Chat Timeout</MessageName>
+      <FormattedMessage>&amp;#x3;00* DCC Chat with $nick timed out</FormattedMessage>
+    </Item>
+    <Item>
+      <MessageName>Self Notice</MessageName>
+      <FormattedMessage>&amp;#x3;04--&gt; $nick - $message</FormattedMessage>
+    </Item>
+  </MessageSettings>
+</IceChatMessageFormat>

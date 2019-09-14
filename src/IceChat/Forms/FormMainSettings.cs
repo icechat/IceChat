@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -816,6 +816,38 @@ namespace IceChat
                     colorPalette.listColors.Add("#666666");
                     colorPalette.listColors.Add("#444444");
 
+                    // colors 72 - 87
+                    colorPalette.listColors.Add("#5959ff");
+                    colorPalette.listColors.Add("#c459ff");
+                    colorPalette.listColors.Add("#ff66ff");
+                    colorPalette.listColors.Add("#ff59bc");
+
+                    colorPalette.listColors.Add("#ff9c9c");
+                    colorPalette.listColors.Add("#ffd39c");
+                    colorPalette.listColors.Add("#ffff9c");
+                    colorPalette.listColors.Add("#e2ff9c");
+                    colorPalette.listColors.Add("#9cff9c");
+                    colorPalette.listColors.Add("#9cffdb");
+                    colorPalette.listColors.Add("#9cffff");
+                    colorPalette.listColors.Add("#9cd3ff");
+                    colorPalette.listColors.Add("#9c9cff");
+                    colorPalette.listColors.Add("#dc9cff");
+                    colorPalette.listColors.Add("#ff9cff");
+                    colorPalette.listColors.Add("#ff94d3");
+
+                    // colors 88 - 98
+                    colorPalette.listColors.Add("#000000");
+                    colorPalette.listColors.Add("#131313");
+                    colorPalette.listColors.Add("#282828");
+                    colorPalette.listColors.Add("#363636");
+                    colorPalette.listColors.Add("#4d4d4d");
+                    colorPalette.listColors.Add("#656565");
+                    colorPalette.listColors.Add("#818181");
+                    colorPalette.listColors.Add("#9f9f9f");
+                    colorPalette.listColors.Add("#bcbcbc");
+                    colorPalette.listColors.Add("#e2e2e2");
+                    colorPalette.listColors.Add("#ffffff");
+
                 }
             }
             else
@@ -840,6 +872,8 @@ namespace IceChat
                 colorPalette.listColors.Add("#7F7F7F");
                 colorPalette.listColors.Add("#D2D2D2");
                 
+                
+                // IceChat Colors 16 - 71
                 // colors 16 - 31
                 colorPalette.listColors.Add("#CCFFCC");
                 colorPalette.listColors.Add("#0066FF");
@@ -904,10 +938,109 @@ namespace IceChat
                 colorPalette.listColors.Add("#666666");
                 colorPalette.listColors.Add("#444444");
 
+                // end of IceChat Colors 16-71
+                
+                // starf of new extended color palette
+                /*
+                colorPalette.listColors.Add("#470000");
+                colorPalette.listColors.Add("#472100");
+                colorPalette.listColors.Add("#474700");
+                colorPalette.listColors.Add("#324700");
+                colorPalette.listColors.Add("#004700");
+                colorPalette.listColors.Add("#00472c");
+                colorPalette.listColors.Add("#004747");
+                colorPalette.listColors.Add("#002747");
+                colorPalette.listColors.Add("#000047");
+                colorPalette.listColors.Add("#2e0047");
+                colorPalette.listColors.Add("#470047");
+                colorPalette.listColors.Add("#47002a");
+                colorPalette.listColors.Add("#740000");
+                colorPalette.listColors.Add("#743a00");
+                colorPalette.listColors.Add("#747400");
+                colorPalette.listColors.Add("#517400");
+                colorPalette.listColors.Add("#007400");
+                colorPalette.listColors.Add("#007449");
+                colorPalette.listColors.Add("#007474");
+                colorPalette.listColors.Add("#004074");
+                colorPalette.listColors.Add("#000074");
+                colorPalette.listColors.Add("#4b0074");
+                colorPalette.listColors.Add("#740074");
+                colorPalette.listColors.Add("#740045");
+
+                colorPalette.listColors.Add("#b50000");
+                colorPalette.listColors.Add("#b56300");
+                colorPalette.listColors.Add("#b5b500");
+                colorPalette.listColors.Add("#7db500");
+                colorPalette.listColors.Add("#00b500");
+                colorPalette.listColors.Add("#00b571");
+                colorPalette.listColors.Add("#00b5b5");
+                colorPalette.listColors.Add("#0063b5");
+                colorPalette.listColors.Add("#0000b5");
+                colorPalette.listColors.Add("#7500b5");
+                colorPalette.listColors.Add("#b500b5");
+                colorPalette.listColors.Add("#b5006b");
+
+                colorPalette.listColors.Add("#ff0000");
+                colorPalette.listColors.Add("#ff8c00");
+                colorPalette.listColors.Add("#ffff00");
+                colorPalette.listColors.Add("#b2ff00");
+                colorPalette.listColors.Add("#00ff00");
+                colorPalette.listColors.Add("#00ffa0");
+                colorPalette.listColors.Add("#00ffff");
+                colorPalette.listColors.Add("#008cff");
+                colorPalette.listColors.Add("#0000ff");
+                colorPalette.listColors.Add("#a500ff");
+                colorPalette.listColors.Add("#ff00ff");
+                colorPalette.listColors.Add("#ff0098");
+
+                colorPalette.listColors.Add("#ff5959");
+                colorPalette.listColors.Add("#ffb459");
+                colorPalette.listColors.Add("#ffff71");
+                colorPalette.listColors.Add("#cfff60");
+                colorPalette.listColors.Add("#6fff6f");
+                colorPalette.listColors.Add("#65ffc9");
+                colorPalette.listColors.Add("#6dffff");
+                colorPalette.listColors.Add("#59b4ff");
+                // end of new extended color palette
+                */
+
+                // colors 72 - 87
+                colorPalette.listColors.Add("#5959ff");
+                colorPalette.listColors.Add("#c459ff");
+                colorPalette.listColors.Add("#ff66ff");
+                colorPalette.listColors.Add("#ff59bc");
+                colorPalette.listColors.Add("#ff9c9c");
+                colorPalette.listColors.Add("#ffd39c");
+                colorPalette.listColors.Add("#ffff9c");
+                colorPalette.listColors.Add("#e2ff9c");
+                colorPalette.listColors.Add("#9cff9c");
+                colorPalette.listColors.Add("#9cffdb");
+                colorPalette.listColors.Add("#9cffff");
+                colorPalette.listColors.Add("#9cd3ff");
+                colorPalette.listColors.Add("#9c9cff");
+                colorPalette.listColors.Add("#dc9cff");
+                colorPalette.listColors.Add("#ff9cff");
+                colorPalette.listColors.Add("#ff94d3");
+
+                // colors 88 - 98
+                colorPalette.listColors.Add("#000000");
+                colorPalette.listColors.Add("#131313");
+                colorPalette.listColors.Add("#282828");
+                colorPalette.listColors.Add("#363636");
+                colorPalette.listColors.Add("#4d4d4d");
+                colorPalette.listColors.Add("#656565");
+                colorPalette.listColors.Add("#818181");
+                colorPalette.listColors.Add("#9f9f9f");
+                colorPalette.listColors.Add("#bcbcbc");
+                colorPalette.listColors.Add("#e2e2e2");
+                colorPalette.listColors.Add("#ffffff");
+
+
                 SaveColorPalette();
             }
         }
-        private void SaveColorPalette()
+
+        public void SaveColorPalette()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(IceChatColorPalette));
             TextWriter textWriter = new StreamWriter(colorPaletteFile);

@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,28 +33,29 @@ namespace IceChat
 {
     public partial class FormColorPicker : Form
     {
-        private ColorButtonArray colorPicker;
+        private ColorPicker colorPicker;
 
         public FormColorPicker()
         {
             InitializeComponent();
 
-            colorPicker = new ColorButtonArray(panelColorPicker);
-            colorPicker.OnClick += new ColorButtonArray.ColorSelected(colorPicker_OnClick);
+            colorPicker = new ColorPicker(true);
+            colorPicker.Width = 220;
+            colorPicker.Left = 5;
+            colorPicker.Top = 5;
 
-            ApplyLanguage();
+
+            colorPicker.OnClick += ColorPicker_OnClick;
+
+            this.Controls.Add(colorPicker);
+        
         }
 
-        private void ApplyLanguage()
+        private void ColorPicker_OnClick(string Code, int color)
         {
-            //buttonClose.Text = FormMain.Instance.IceChatLanguage.buttonClose;
-        }
-
-        private void colorPicker_OnClick(int colorSelected)
-        {
-            FormMain.Instance.InputPanel.AppendText((char)3 + colorSelected.ToString("00"));
+            FormMain.Instance.InputPanel.AppendText(Code);
             this.Close();
-        }
+        }        
         
         private void buttonClose_Click(object sender, EventArgs e)
         {

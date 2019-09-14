@@ -1,3 +1,13 @@
+Build 9.22a Sep 14 2019
+* Background images are saved and will show again on restart
+* Fix parsing of channel modes and channel create time, remove preceding colon
+* Upgraded to 99 colors
+* Fix issue if custom log folder does not exist, reset to default
+* Fix DCC download bug on sender not receiving file was sent successfully
+* Update SimpleScript Plugin to v1.4 adding Input Text event
+* Added ChannelNames and EndChannelNames to Plugin Events
+
+
 Build 9.22 June 1 2019
 * Fix $rand() where it was not working with the top value
 * Added $calc() for allowing basic math functions

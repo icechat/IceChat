@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -348,10 +348,10 @@ namespace IceChat
         static IrcColor()
         {
             //Color color;
-            colors = new Color[72];
+            colors = new Color[99];
 
             //load color settings from color xml file
-            if (FormMain.Instance.ColorPalette.listColors.Count == 72)
+            if (FormMain.Instance.ColorPalette.listColors.Count == 99)
             {
                 int i = 0;
                 foreach (String color in FormMain.Instance.ColorPalette.listColors)
@@ -359,6 +359,81 @@ namespace IceChat
                     colors[i] = System.Drawing.ColorTranslator.FromHtml(color);
                     i++;
                 }
+            }
+            else if (FormMain.Instance.ColorPalette.listColors.Count == 72)
+            {
+                int i = 0;
+                foreach (String color in FormMain.Instance.ColorPalette.listColors)
+                {
+                    colors[i] = System.Drawing.ColorTranslator.FromHtml(color);
+                    i++;
+                }
+
+                // add the rest
+                colors[72] = System.Drawing.ColorTranslator.FromHtml("#5959ff");
+                colors[73] = System.Drawing.ColorTranslator.FromHtml("#c459ff");
+                colors[74] = System.Drawing.ColorTranslator.FromHtml("#ff66ff");
+                colors[75] = System.Drawing.ColorTranslator.FromHtml("#ff59bc");
+                colors[76] = System.Drawing.ColorTranslator.FromHtml("#ff9c9c");
+                colors[77] = System.Drawing.ColorTranslator.FromHtml("#ffd39c");
+                colors[78] = System.Drawing.ColorTranslator.FromHtml("#ffff9c");
+                colors[79] = System.Drawing.ColorTranslator.FromHtml("#e2ff9c");
+                colors[80] = System.Drawing.ColorTranslator.FromHtml("#9cff9c");
+                colors[81] = System.Drawing.ColorTranslator.FromHtml("#9cffdb");
+                colors[82] = System.Drawing.ColorTranslator.FromHtml("#9cffff");
+                colors[83] = System.Drawing.ColorTranslator.FromHtml("#9cd3ff");
+                colors[84] = System.Drawing.ColorTranslator.FromHtml("#9c9cff");
+                colors[85] = System.Drawing.ColorTranslator.FromHtml("#dc9cff");
+                colors[86] = System.Drawing.ColorTranslator.FromHtml("#ff9cff");
+                colors[87] = System.Drawing.ColorTranslator.FromHtml("#ff94d3");
+
+
+                colors[88] = System.Drawing.ColorTranslator.FromHtml("#000000");
+                colors[89] = System.Drawing.ColorTranslator.FromHtml("#131313");
+                colors[90] = System.Drawing.ColorTranslator.FromHtml("#282828");
+                colors[91] = System.Drawing.ColorTranslator.FromHtml("#363636");
+                colors[92] = System.Drawing.ColorTranslator.FromHtml("#4d4d4d");
+                colors[93] = System.Drawing.ColorTranslator.FromHtml("#656565");
+                colors[94] = System.Drawing.ColorTranslator.FromHtml("#818181");
+                colors[95] = System.Drawing.ColorTranslator.FromHtml("#9f9f9f");
+                colors[96] = System.Drawing.ColorTranslator.FromHtml("#bcbcbc");
+                colors[97] = System.Drawing.ColorTranslator.FromHtml("#e2e2e2");
+                colors[98] = System.Drawing.ColorTranslator.FromHtml("#ffffff");
+
+
+                FormMain.Instance.ColorPalette.listColors.Add("#5959ff");
+                FormMain.Instance.ColorPalette.listColors.Add("#c459ff");
+                FormMain.Instance.ColorPalette.listColors.Add("#ff66ff");
+                FormMain.Instance.ColorPalette.listColors.Add("#ff59bc");
+                FormMain.Instance.ColorPalette.listColors.Add("#ff9c9c");
+                FormMain.Instance.ColorPalette.listColors.Add("#ffd39c");
+                FormMain.Instance.ColorPalette.listColors.Add("#ffff9c");
+                FormMain.Instance.ColorPalette.listColors.Add("#e2ff9c");
+                FormMain.Instance.ColorPalette.listColors.Add("#9cff9c");
+                FormMain.Instance.ColorPalette.listColors.Add("#9cffdb");
+                FormMain.Instance.ColorPalette.listColors.Add("#9cffff");
+                FormMain.Instance.ColorPalette.listColors.Add("#9cd3ff");
+                FormMain.Instance.ColorPalette.listColors.Add("#9c9cff");
+                FormMain.Instance.ColorPalette.listColors.Add("#dc9cff");
+                FormMain.Instance.ColorPalette.listColors.Add("#ff9cff");
+                FormMain.Instance.ColorPalette.listColors.Add("#ff94d3");
+
+                // colors 88 - 98
+                FormMain.Instance.ColorPalette.listColors.Add("#000000");
+                FormMain.Instance.ColorPalette.listColors.Add("#131313");
+                FormMain.Instance.ColorPalette.listColors.Add("#282828");
+                FormMain.Instance.ColorPalette.listColors.Add("#363636");
+                FormMain.Instance.ColorPalette.listColors.Add("#4d4d4d");
+                FormMain.Instance.ColorPalette.listColors.Add("#656565");
+                FormMain.Instance.ColorPalette.listColors.Add("#818181");
+                FormMain.Instance.ColorPalette.listColors.Add("#9f9f9f");
+                FormMain.Instance.ColorPalette.listColors.Add("#bcbcbc");
+                FormMain.Instance.ColorPalette.listColors.Add("#e2e2e2");
+                FormMain.Instance.ColorPalette.listColors.Add("#ffffff");
+
+                FormMain.Instance.SaveColorPalette();
+
+
             }
             else
             {
@@ -382,6 +457,8 @@ namespace IceChat
                 colors[15] = System.Drawing.ColorTranslator.FromHtml("#D2D2D2");
                 
                 
+                // IceChat Colors 16 - 71
+                /*
                 colors[16] = System.Drawing.ColorTranslator.FromHtml("#CCFFCC");
                 colors[17] = System.Drawing.ColorTranslator.FromHtml("#0066FF");
                 colors[18] = System.Drawing.ColorTranslator.FromHtml("#FAEBD7");
@@ -454,6 +531,108 @@ namespace IceChat
                 colors[69] = System.Drawing.ColorTranslator.FromHtml("#888888");
                 colors[70] = System.Drawing.ColorTranslator.FromHtml("#666666");
                 colors[71] = System.Drawing.ColorTranslator.FromHtml("#444444");
+
+                */
+                // http://anti.teamidiot.de/static/nei/*/extended_mirc_color_proposal.html
+
+                // alternate color codes!
+                
+                colors[16] = System.Drawing.ColorTranslator.FromHtml("#470000");
+                colors[17] = System.Drawing.ColorTranslator.FromHtml("#472100");
+                colors[18] = System.Drawing.ColorTranslator.FromHtml("#474700");
+                colors[19] = System.Drawing.ColorTranslator.FromHtml("#324700");
+                colors[20] = System.Drawing.ColorTranslator.FromHtml("#004700");
+                colors[21] = System.Drawing.ColorTranslator.FromHtml("#00472c");
+                colors[22] = System.Drawing.ColorTranslator.FromHtml("#004747");
+                colors[23] = System.Drawing.ColorTranslator.FromHtml("#002747");
+                colors[24] = System.Drawing.ColorTranslator.FromHtml("#000047");
+                colors[25] = System.Drawing.ColorTranslator.FromHtml("#2e0047");
+                colors[26] = System.Drawing.ColorTranslator.FromHtml("#470047");
+                colors[27] = System.Drawing.ColorTranslator.FromHtml("#47002a");
+
+                colors[28] = System.Drawing.ColorTranslator.FromHtml("#740000");
+                colors[29] = System.Drawing.ColorTranslator.FromHtml("#743a00");
+                colors[30] = System.Drawing.ColorTranslator.FromHtml("#747400");
+                colors[31] = System.Drawing.ColorTranslator.FromHtml("#517400");
+                colors[32] = System.Drawing.ColorTranslator.FromHtml("#007400");
+                colors[33] = System.Drawing.ColorTranslator.FromHtml("#007449");
+                colors[34] = System.Drawing.ColorTranslator.FromHtml("#007474");
+                colors[35] = System.Drawing.ColorTranslator.FromHtml("#004074");
+                colors[36] = System.Drawing.ColorTranslator.FromHtml("#000074");
+                colors[37] = System.Drawing.ColorTranslator.FromHtml("#4b0074");
+                colors[38] = System.Drawing.ColorTranslator.FromHtml("#740074");
+                colors[39] = System.Drawing.ColorTranslator.FromHtml("#740045");
+
+                colors[40] = System.Drawing.ColorTranslator.FromHtml("#b50000");
+                colors[41] = System.Drawing.ColorTranslator.FromHtml("#b56300");
+                colors[42] = System.Drawing.ColorTranslator.FromHtml("#b5b500");
+                colors[43] = System.Drawing.ColorTranslator.FromHtml("#7db500");
+                colors[44] = System.Drawing.ColorTranslator.FromHtml("#00b500");
+                colors[45] = System.Drawing.ColorTranslator.FromHtml("#00b571");
+                colors[46] = System.Drawing.ColorTranslator.FromHtml("#00b5b5");
+                colors[47] = System.Drawing.ColorTranslator.FromHtml("#0063b5");
+                colors[48] = System.Drawing.ColorTranslator.FromHtml("#0000b5");
+                colors[49] = System.Drawing.ColorTranslator.FromHtml("#7500b5");
+                colors[50] = System.Drawing.ColorTranslator.FromHtml("#b500b5");
+                colors[51] = System.Drawing.ColorTranslator.FromHtml("#b5006b");
+
+                colors[52] = System.Drawing.ColorTranslator.FromHtml("#ff0000");
+                colors[53] = System.Drawing.ColorTranslator.FromHtml("#ff8c00");
+                colors[54] = System.Drawing.ColorTranslator.FromHtml("#ffff00");
+                colors[55] = System.Drawing.ColorTranslator.FromHtml("#b2ff00");
+                colors[56] = System.Drawing.ColorTranslator.FromHtml("#00ff00");
+                colors[57] = System.Drawing.ColorTranslator.FromHtml("#00ffa0");
+                colors[58] = System.Drawing.ColorTranslator.FromHtml("#00ffff");
+                colors[59] = System.Drawing.ColorTranslator.FromHtml("#008cff");
+                colors[60] = System.Drawing.ColorTranslator.FromHtml("#0000ff");
+                colors[71] = System.Drawing.ColorTranslator.FromHtml("#a500ff");
+                colors[62] = System.Drawing.ColorTranslator.FromHtml("#ff00ff");
+                colors[63] = System.Drawing.ColorTranslator.FromHtml("#ff0098");
+
+                colors[64] = System.Drawing.ColorTranslator.FromHtml("#ff5959");
+                colors[65] = System.Drawing.ColorTranslator.FromHtml("#ffb459");
+                colors[66] = System.Drawing.ColorTranslator.FromHtml("#ffff71");
+                colors[67] = System.Drawing.ColorTranslator.FromHtml("#cfff60");
+                colors[68] = System.Drawing.ColorTranslator.FromHtml("#6fff6f");
+                colors[69] = System.Drawing.ColorTranslator.FromHtml("#65ffc9");
+                colors[70] = System.Drawing.ColorTranslator.FromHtml("#6dffff");
+                colors[71] = System.Drawing.ColorTranslator.FromHtml("#59b4ff");
+
+                // end of new color palette
+
+
+                colors[72] = System.Drawing.ColorTranslator.FromHtml("#5959ff");
+                colors[73] = System.Drawing.ColorTranslator.FromHtml("#c459ff");
+                colors[74] = System.Drawing.ColorTranslator.FromHtml("#ff66ff");
+                colors[75] = System.Drawing.ColorTranslator.FromHtml("#ff59bc");
+                colors[76] = System.Drawing.ColorTranslator.FromHtml("#ff9c9c");
+                colors[77] = System.Drawing.ColorTranslator.FromHtml("#ffd39c");
+                colors[78] = System.Drawing.ColorTranslator.FromHtml("#ffff9c");
+                colors[79] = System.Drawing.ColorTranslator.FromHtml("#e2ff9c");
+                colors[80] = System.Drawing.ColorTranslator.FromHtml("#9cff9c");
+                colors[81] = System.Drawing.ColorTranslator.FromHtml("#9cffdb");
+                colors[82] = System.Drawing.ColorTranslator.FromHtml("#9cffff");
+                colors[83] = System.Drawing.ColorTranslator.FromHtml("#9cd3ff");
+                colors[84] = System.Drawing.ColorTranslator.FromHtml("#9c9cff");
+                colors[85] = System.Drawing.ColorTranslator.FromHtml("#dc9cff");
+                colors[86] = System.Drawing.ColorTranslator.FromHtml("#ff9cff");
+                colors[87] = System.Drawing.ColorTranslator.FromHtml("#ff94d3");
+
+
+                colors[88] = System.Drawing.ColorTranslator.FromHtml("#000000");
+                colors[89] = System.Drawing.ColorTranslator.FromHtml("#131313");
+                colors[90] = System.Drawing.ColorTranslator.FromHtml("#282828");
+                colors[91] = System.Drawing.ColorTranslator.FromHtml("#363636");
+                colors[92] = System.Drawing.ColorTranslator.FromHtml("#4d4d4d");
+                colors[93] = System.Drawing.ColorTranslator.FromHtml("#656565");
+                colors[94] = System.Drawing.ColorTranslator.FromHtml("#818181");
+                colors[95] = System.Drawing.ColorTranslator.FromHtml("#9f9f9f");
+                colors[96] = System.Drawing.ColorTranslator.FromHtml("#bcbcbc");
+                colors[97] = System.Drawing.ColorTranslator.FromHtml("#e2e2e2");
+                colors[98] = System.Drawing.ColorTranslator.FromHtml("#ffffff");
+
+                
+
             }
         }
     }

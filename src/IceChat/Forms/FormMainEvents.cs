@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -652,6 +652,23 @@ namespace IceChat
 
                 if (nickList.CurrentWindow == t)
                     nickList.RefreshList(t);
+
+                // run plugin
+                if (loadedPlugins.Count > 0)
+                {
+                    PluginArgs args = new PluginArgs(connection);
+                    args.Channel = channel;
+                    
+                    foreach (Plugin p in loadedPlugins)
+                    {
+                        IceChatPlugin ipc = p as IceChatPlugin;
+                        if (ipc != null)
+                        {
+                            if (ipc.plugin.Enabled == true)
+                                ipc.plugin.EndChannelNames(args);
+                        }
+                    }
+                }
             }
             else
             {
@@ -701,7 +718,6 @@ namespace IceChat
                             msg = msg.Replace("$message", b.Nick + " is offline");
 
                         mainChannelBar.GetTabPage("Console").AddText(connection, msg, timeStamp, false, ServerMessageType.BuddyNotice);
-                        mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.BuddyNotice;
 
                     }
                 }
@@ -734,7 +750,6 @@ namespace IceChat
                                 msg = msg.Replace("$message", b.Nick + " is online");
                                 
                                 mainChannelBar.GetTabPage("Console").AddText(connection, msg, timeStamp, false, ServerMessageType.BuddyNotice);
-                                mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.BuddyNotice;
                             }
 
                             b.Connected = true;
@@ -770,7 +785,6 @@ namespace IceChat
                             msg = msg.Replace("$message", b.Nick + " is offline");
 
                             mainChannelBar.GetTabPage("Console").AddText(connection, msg, timeStamp, false, ServerMessageType.BuddyNotice);
-                            mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.BuddyNotice;
                         }
 
                         b.Connected = false;
@@ -881,6 +895,26 @@ namespace IceChat
                 IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
                 if (t != null)
                 {
+
+                    // run plugin
+                    if (loadedPlugins.Count > 0)
+                    {
+                        PluginArgs args = new PluginArgs(connection);
+                        args.Nick = string.Join(" ", nicks);
+                        args.Channel = channel;
+
+                        foreach (Plugin p in loadedPlugins)
+                        {
+                            IceChatPlugin ipc = p as IceChatPlugin;
+                            if (ipc != null)
+                            {
+                                if (ipc.plugin.Enabled == true)
+                                    ipc.plugin.ChannelNames(args);
+                            }
+                       }
+                    }
+
+
                     if (t.IsFullyJoined)
                     {
                         //just show the message to the console
@@ -931,6 +965,7 @@ namespace IceChat
                                 }
                             }
                         }
+
                     }
                 }
                 else
@@ -1085,13 +1120,13 @@ namespace IceChat
                     SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "TIME " + System.DateTime.Now.ToString() + ((char)1).ToString());
                     break;
                 case "USERINFO":
-                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "USERINFO IceChat IRC Client : Download at http://www.icechat.net" + ((char)1).ToString());
+                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "USERINFO IceChat IRC Client : Download at https://www.icechat.net" + ((char)1).ToString());
                     break;
                 case "CLIENTINFO":
                     SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "CLIENTINFO This client supports: UserInfo, Finger, Version, Source, Ping, Time and ClientInfo" + ((char)1).ToString());
                     break;
                 case "SOURCE":
-                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "SOURCE " + FormMain.ProgramID + " " + FormMain.VersionID + " http://www.icechat.net" + ((char)1).ToString());
+                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "SOURCE " + FormMain.ProgramID + " " + FormMain.VersionID + " https://www.icechat.net" + ((char)1).ToString());
                     break;
                 case "FINGER":
                     SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "FINGER Stop fingering me" + ((char)1).ToString());
@@ -1157,7 +1192,6 @@ namespace IceChat
             if (iceChatOptions.UserNoticeEventLocation == 0)
             {
                 mainChannelBar.GetTabPage("Console").AddText(connection, args.Message, timeStamp, false, ServerMessageType.Other);
-                mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.Other;
             }
             else if (iceChatOptions.UserNoticeEventLocation == 1)
             {
@@ -1229,7 +1263,6 @@ namespace IceChat
             {
                 //send data to console
                 mainChannelBar.GetTabPage("Console").AddText(connection, args.Message, timeStamp, false, ServerMessageType.ServerNotice);
-                mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.ServerNotice;
             }
             else if (iceChatOptions.ServerNoticeEventLocation == 1)
             {
@@ -1287,7 +1320,6 @@ namespace IceChat
             {
                 //send data to console
                 mainChannelBar.GetTabPage("Console").AddText(connection, args.Message, timeStamp, false, ServerMessageType.ServerMessage);
-                mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.ServerMessage;
             }
             else if (iceChatOptions.ServerMessageEventLocation == 1)
             {
@@ -1317,7 +1349,6 @@ namespace IceChat
             msg = msg.Replace("$message", message);
 
             mainChannelBar.GetTabPage("Console").AddText(connection, msg, timeStamp, false, ServerMessageType.ServerMessage);
-            mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.ServerMessage;
             
             if (!connection.ServerSetting.DisableSounds)
                 PlaySoundFile("conmsg");
@@ -1406,7 +1437,6 @@ namespace IceChat
                     {
                         //send data to console
                         mainChannelBar.GetTabPage("Console").AddText(connection, error, "", false, ServerMessageType.ServerMessage);
-                        mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.ServerMessage;
                     }
                     else if (iceChatOptions.ServerErrorEventLocation == 1)
                     {
@@ -2451,6 +2481,9 @@ namespace IceChat
                     }
                 }
 
+                // blank out the channel topic by default
+                t.ChannelTopic = "";
+
                 serverTree.Invalidate();
 
                 string msg = GetMessageFormat("Self Channel Join");
@@ -3215,7 +3248,6 @@ namespace IceChat
                 {
                     //send it to the console
                     mainChannelBar.GetTabPage("Console").AddText(connection, args.Message, timeStamp, false, ServerMessageType.Other);
-                    mainChannelBar.GetTabPage("Console").LastMessageType = ServerMessageType.Other;
                 }
             }
         }

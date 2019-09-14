@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2015 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -65,7 +65,7 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Simple Script Plugin";
             m_Author = "Snerf";
-            m_Version = "1.3";
+            m_Version = "1.4";
         }
 
         public override void Dispose()
@@ -449,6 +449,25 @@ namespace IceChatPlugin
 
                             }
                             break;
+
+                        case "Input Text":
+                            // change the input text
+                            // scr.TextMatch replaced with scr.ChannelMatch
+
+                            command = args.Command.Replace(scr.TextMatch, scr.ChannelMatch);
+
+                            // need to replace again from plugins
+                            command = command.Replace(@"\%C", "\x0003");
+                            command = command.Replace(@"\%B", "\x0002");
+                            command = command.Replace(@"\%U", "\x001F");
+                            command = command.Replace(@"\%I", "\x001D");
+                            command = command.Replace(@"\%R", "\x0016");
+                            command = command.Replace(@"\%O", "\x000F");
+
+                            args.Command = command;
+
+                            break;
+
                     }
 
                 }
@@ -524,6 +543,10 @@ namespace IceChatPlugin
             // args.Command = what was written
             // args.Nick is current channel, or Console
             // args.Extra Window Type (Channel/Query/Console)
+
+            
+            args = CheckScripts(args, "Input Text");
+
 
             if (args.Extra == "Channel")
             {

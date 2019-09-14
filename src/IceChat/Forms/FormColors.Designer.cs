@@ -1893,15 +1893,15 @@
             this.panelColorPicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panelColorPicker.BackColor = System.Drawing.SystemColors.Control;
             this.panelColorPicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.panelColorPicker.Location = new System.Drawing.Point(3, 358);
+            this.panelColorPicker.Location = new System.Drawing.Point(3, 361);
             this.panelColorPicker.Margin = new System.Windows.Forms.Padding(2);
             this.panelColorPicker.Name = "panelColorPicker";
-            this.panelColorPicker.Size = new System.Drawing.Size(228, 118);
+            this.panelColorPicker.Size = new System.Drawing.Size(260, 180);
             this.panelColorPicker.TabIndex = 20;
             // 
             // labelCurrent
             // 
-            this.labelCurrent.Location = new System.Drawing.Point(254, 376);
+            this.labelCurrent.Location = new System.Drawing.Point(286, 376);
             this.labelCurrent.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCurrent.Name = "labelCurrent";
             this.labelCurrent.Size = new System.Drawing.Size(150, 32);
@@ -1915,7 +1915,7 @@
             this.buttonApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonApply.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonApply.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonApply.Location = new System.Drawing.Point(287, 479);
+            this.buttonApply.Location = new System.Drawing.Point(287, 545);
             this.buttonApply.Margin = new System.Windows.Forms.Padding(4);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(100, 25);
@@ -1930,7 +1930,7 @@
             this.buttonCancel.BackgroundImage = global::IceChat.Properties.Resources.cancel;
             this.buttonCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCancel.Location = new System.Drawing.Point(507, 479);
+            this.buttonCancel.Location = new System.Drawing.Point(507, 545);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 25);
@@ -1946,7 +1946,7 @@
             this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSave.Location = new System.Drawing.Point(397, 479);
+            this.buttonSave.Location = new System.Drawing.Point(397, 545);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(100, 25);
@@ -1962,7 +1962,7 @@
             this.buttonHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonHelp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonHelp.Location = new System.Drawing.Point(3, 479);
+            this.buttonHelp.Location = new System.Drawing.Point(3, 545);
             this.buttonHelp.Margin = new System.Windows.Forms.Padding(4);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 25);
@@ -1999,7 +1999,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(611, 510);
+            this.ClientSize = new System.Drawing.Size(611, 576);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.labelCurrent);

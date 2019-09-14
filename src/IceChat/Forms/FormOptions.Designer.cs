@@ -1040,7 +1040,7 @@ namespace IceChat
             this.checkSeperateLogs.Name = "checkSeperateLogs";
             this.checkSeperateLogs.Size = new System.Drawing.Size(173, 20);
             this.checkSeperateLogs.TabIndex = 25;
-            this.checkSeperateLogs.Text = "Seperate logs per day";
+            this.checkSeperateLogs.Text = "Separate logs per day";
             this.checkSeperateLogs.UseVisualStyleBackColor = true;
             // 
             // checkLogQuery

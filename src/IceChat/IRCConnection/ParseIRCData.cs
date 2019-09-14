@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -757,8 +757,8 @@ namespace IceChat
                             break;
                         case "324":     //channel modes
                             channel = ircData[3];
-                            msg = "Channel modes for " + channel + " are :" + JoinString(ircData, 4, false);
-                            ChannelMode(this, channel, "", channel, JoinString(ircData, 4, false), serverTimeValue);
+                            msg = "Channel modes for " + channel + " are :" + RemoveColon(JoinString(ircData, 4, false));
+                            ChannelMode(this, channel, "", channel, RemoveColon(JoinString(ircData, 4, false)), serverTimeValue); 
                             GenericChannelMessage(this, channel, msg, serverTimeValue);
                             break;
                         
@@ -770,7 +770,7 @@ namespace IceChat
                         case "329":     //channel creation time
                             channel = ircData[3];
                             DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                            date = date.AddSeconds(Convert.ToDouble(ircData[4]));
+                            date = date.AddSeconds(Convert.ToDouble(RemoveColon(ircData[4])));
                             msg = "Channel Created on: " + date.ToShortTimeString() + " " + date.ToShortDateString();
                             GenericChannelMessage(this, channel, msg, serverTimeValue);
                             break;
@@ -1754,11 +1754,11 @@ namespace IceChat
                             ServerError(this, msg, true);
                             break;
                         case "401": //no such nick
+                        case "402": //no such server
                             // this should go to a query window if it exist
                             msg = JoinString(ircData, 4, false);
                             WhoisData(this, ircData[3], msg, serverTimeValue);                            
                             break;
-                        case "402": //no such server
                         case "403": //no such channel
                         case "405": //joined too many channels
                         case "407": //no message delivered

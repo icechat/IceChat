@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2018 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,8 +41,8 @@ namespace IceChat
     {
         internal delegate void SaveColorsDelegate(IceChatColors colors, IceChatMessageFormat messages);        
         internal event SaveColorsDelegate SaveColors;
-
-        private ColorButtonArray colorPicker;
+        
+        private ColorPicker colorPicker;
 
         private Hashtable messageIdentifiers;
 
@@ -135,8 +135,16 @@ namespace IceChat
             messageIdentifiers = new Hashtable();
             AddMessageIdentifiers();
 
-            colorPicker = new ColorButtonArray(panelColorPicker);
-            colorPicker.OnClick += new ColorButtonArray.ColorSelected(colorPicker_OnClick);
+            colorPicker = new ColorPicker(false);
+            colorPicker.Width = 220;
+            colorPicker.Left = 5;
+
+            
+            this.panelColorPicker.Controls.Add(colorPicker);
+            colorPicker.OnClick += new ColorPicker.ColorSelected(colorPicker_OnClick);
+    
+            //colorPicker = new ColorButtonArray(panelColorPicker);
+            //colorPicker.OnClick += new ColorButtonArray.ColorSelected(colorPicker_OnClick);
             
             treeMessages.AfterSelect += new TreeViewEventHandler(treeMessages_AfterSelect);
             textRawMessage.TextChanged+=new EventHandler(textRawMessage_TextChanged);
@@ -217,7 +225,164 @@ namespace IceChat
         {
             currentColorPick = sender;
             colorPicker.SelectedColor = (int)((PictureBox)sender).Tag;
-            labelCurrent.Text = "Current Selected:" + Environment.NewLine + GetLabelText((PictureBox)sender);            
+            labelCurrent.Text = "Current Selected:" + Environment.NewLine + GetLabelText((PictureBox)sender);
+        }
+
+
+        private void colorPicker_OnClick(string Code, int colorSelected)
+        //{
+        //private void colorPicker_OnClick(int colorSelected)
+        {
+            if (tabControlColors.SelectedTab.Text == "Messages")
+            {
+                //check if we are in basic or advanced
+                if (tabMessages.SelectedTab.Text == "Advanced")
+                {
+
+                    if (treeMessages.SelectedNode == null)
+                        return;
+
+                    //add in the color code in the current place in the textbox
+                    if (this.checkBGColor.Checked == true)
+                    {
+                        textFormattedText.IRCBackColor = colorSelected;
+
+                        if (textRawMessage.Text.StartsWith(""))
+                        {
+                            System.Diagnostics.Debug.WriteLine(textRawMessage.SelectionStart);
+                            //find the comma if it exists
+                            if (textRawMessage.SelectionStart == 0)
+                            {
+                                int result;
+                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out result))
+                                {
+                                    if (textRawMessage.Text.Substring(3, 1) == ",")
+                                    {
+                                        System.Diagnostics.Debug.WriteLine(textRawMessage.Text.Substring(4, 2));
+                                        int result2;
+                                        if (int.TryParse(textRawMessage.Text.Substring(4, 2), out result2))
+                                        {
+                                            System.Diagnostics.Debug.WriteLine("01,01");
+
+                                        }
+                                        else
+                                        {
+                                            System.Diagnostics.Debug.WriteLine("01,1");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //comma is not after the color
+                                        //we should add one
+                                        System.Diagnostics.Debug.WriteLine("no comma");
+
+                                    }
+
+                                    System.Diagnostics.Debug.WriteLine(textRawMessage.Text.Substring(3, 1));
+                                    System.Diagnostics.Debug.WriteLine("2");
+                                    //textRawMessage.Text = "" + textRawMessage.Text.Substring(1,2) +"," + colorSelected.ToString("00")
+                                    textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(3);
+                                }
+                                else
+                                {
+                                    System.Diagnostics.Debug.WriteLine("1");
+                                    if (textRawMessage.Text.Substring(2, 1) == ",")
+                                    {
+
+
+
+                                    }
+
+
+                                    textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(2);
+                                }
+                            }
+
+                            //else
+                            //    this.textRawMessage.SelectedText = "" + colorSelected.ToString("00");
+
+                        }
+
+
+                    }
+                    else
+                    {
+                        if (textRawMessage.Text.StartsWith(""))
+                        {
+                            if (textRawMessage.SelectionStart == 0)
+                            {
+                                int result;
+                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out result))
+                                    textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(3);
+                                else
+                                    textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(2);
+                            }
+                            else
+                                this.textRawMessage.SelectedText = "" + colorSelected.ToString("00");
+                        }
+                        else
+                            this.textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text;
+                    }
+                }
+                else
+                {
+                    //basic settings
+                    if (treeBasicMessages.SelectedNode == null)
+                    {
+                        MessageBox.Show("Please select a message to edit", "Edit Colors");
+                        return;
+                    }
+                    else if (treeBasicMessages.SelectedNode.Tag == null)
+                    {
+                        MessageBox.Show("Please select a message to edit", "Edit Colors");
+                        return;
+                    }
+                    if (this.checkChangeBGBasic.Checked == true)
+                    {
+                        textFormattedBasic.IRCBackColor = colorSelected;
+                    }
+                    else
+                    {
+                        string message = treeBasicMessages.SelectedNode.Tag.ToString();
+                        message = message.Replace("&#x3;", ((char)3).ToString());
+                        message = RemoveColorCodes(message);
+
+                        message = "" + colorSelected.ToString("00") + message;
+                        message = message.Replace(((char)3).ToString(), "&#x3;");
+
+                        treeBasicMessages.SelectedNode.Tag = message;
+
+                        UpdateBasicText();
+                    }
+                }
+            }
+
+            if (tabControlColors.SelectedTab.Text == "Nick List")
+            {
+                if (currentColorPick != null)
+                {
+                    ((PictureBox)currentColorPick).BackColor = IrcColor.colors[colorSelected];
+                    ((PictureBox)currentColorPick).Tag = colorSelected;
+                }
+            }
+
+            if (tabControlColors.SelectedTab.Text == "Server Tree/Tabs")
+            {
+                if (currentColorPick != null)
+                {
+                    ((PictureBox)currentColorPick).BackColor = IrcColor.colors[colorSelected];
+                    ((PictureBox)currentColorPick).Tag = colorSelected;
+                }
+            }
+
+            if (tabControlColors.SelectedTab.Text == "Other")
+            {
+                if (currentColorPick != null)
+                {
+                    ((PictureBox)currentColorPick).BackColor = IrcColor.colors[colorSelected];
+                    ((PictureBox)currentColorPick).Tag = colorSelected;
+                }
+            }
         }
 
         private string GetLabelText(PictureBox sender)
@@ -518,161 +683,7 @@ namespace IceChat
         }
 
         #endregion
-
-        private void colorPicker_OnClick(int colorSelected)
-        {
-            if (tabControlColors.SelectedTab.Text == "Messages")
-            {
-                //check if we are in basic or advanced
-                if (tabMessages.SelectedTab.Text == "Advanced")
-                {
-
-                    if (treeMessages.SelectedNode == null)
-                        return;
-
-                    //add in the color code in the current place in the textbox
-                    if (this.checkBGColor.Checked == true)
-                    {
-                        textFormattedText.IRCBackColor = colorSelected;
-
-                        if (textRawMessage.Text.StartsWith(""))
-                        {
-                            System.Diagnostics.Debug.WriteLine(textRawMessage.SelectionStart);
-                            //find the comma if it exists
-                            if (textRawMessage.SelectionStart == 0)
-                            {
-                                int result;
-                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out result))
-                                {
-                                    if (textRawMessage.Text.Substring(3, 1) == ",")
-                                    {
-                                        System.Diagnostics.Debug.WriteLine(textRawMessage.Text.Substring(4, 2));
-                                        int result2;
-                                        if (int.TryParse(textRawMessage.Text.Substring(4, 2), out result2))
-                                        {
-                                            System.Diagnostics.Debug.WriteLine("01,01");
-
-                                        }
-                                        else
-                                        {
-                                            System.Diagnostics.Debug.WriteLine("01,1");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        //comma is not after the color
-                                        //we should add one
-                                        System.Diagnostics.Debug.WriteLine("no comma");
-
-                                    }
-                                    
-                                    System.Diagnostics.Debug.WriteLine(textRawMessage.Text.Substring(3,1));
-                                    System.Diagnostics.Debug.WriteLine("2");
-                                    //textRawMessage.Text = "" + textRawMessage.Text.Substring(1,2) +"," + colorSelected.ToString("00")
-                                    textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(3);
-                                }
-                                else
-                                {
-                                    System.Diagnostics.Debug.WriteLine("1");
-                                    if (textRawMessage.Text.Substring(2, 1) == ",")
-                                    {
-                                    
-
-
-                                    }
-                                    
-                                    
-                                    textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(2);
-                                }
-                            }
-                            
-                            //else
-                            //    this.textRawMessage.SelectedText = "" + colorSelected.ToString("00");
-                            
-                        }
-
-
-                    }
-                    else
-                    {
-                        if (textRawMessage.Text.StartsWith(""))
-                        {
-                            if (textRawMessage.SelectionStart == 0)
-                            {
-                                int result;
-                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out result))
-                                    textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(3);
-                                else
-                                    textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(2);
-                            }
-                            else
-                                this.textRawMessage.SelectedText = "" + colorSelected.ToString("00");
-                        }
-                        else
-                            this.textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text;
-                    }
-                }
-                else
-                {
-                    //basic settings
-                    if (treeBasicMessages.SelectedNode == null)
-                    {
-                        MessageBox.Show("Please select a message to edit","Edit Colors");                        
-                        return;
-                    }
-                    else if (treeBasicMessages.SelectedNode.Tag == null)
-                    {
-                        MessageBox.Show("Please select a message to edit", "Edit Colors");                        
-                        return;
-                    }
-                    if (this.checkChangeBGBasic.Checked == true)
-                    {
-                        textFormattedBasic.IRCBackColor = colorSelected;
-                    }
-                    else
-                    {                        
-                        string message = treeBasicMessages.SelectedNode.Tag.ToString();
-                        message = message.Replace("&#x3;", ((char)3).ToString());
-                        message = RemoveColorCodes(message);
-                        
-                        message = "" + colorSelected.ToString("00") + message;
-                        message = message.Replace(((char)3).ToString(),"&#x3;");
-
-                        treeBasicMessages.SelectedNode.Tag = message;
-                        
-                        UpdateBasicText();
-                    }
-                }
-            }
-
-            if (tabControlColors.SelectedTab.Text == "Nick List")
-            {
-                if (currentColorPick != null)
-                {
-                    ((PictureBox)currentColorPick).BackColor = IrcColor.colors[colorSelected];
-                    ((PictureBox)currentColorPick).Tag = colorSelected;
-                }
-            }
-            
-            if (tabControlColors.SelectedTab.Text == "Server Tree/Tabs")
-            {
-                if (currentColorPick != null)
-                {
-                    ((PictureBox)currentColorPick).BackColor = IrcColor.colors[colorSelected];
-                    ((PictureBox)currentColorPick).Tag = colorSelected;
-                }
-            }
-            
-            if (tabControlColors.SelectedTab.Text == "Other")
-            {
-                if (currentColorPick != null)
-                {
-                    ((PictureBox)currentColorPick).BackColor = IrcColor.colors[colorSelected];
-                    ((PictureBox)currentColorPick).Tag = colorSelected;
-                }
-            }
-        }
-
+        
         private void treeBasicMessages_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Parent == null)

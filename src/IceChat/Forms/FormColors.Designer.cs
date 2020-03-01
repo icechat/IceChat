@@ -132,13 +132,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormColors));
             this.tabControlColors = new System.Windows.Forms.TabControl();
             this.tabPageMessages = new System.Windows.Forms.TabPage();
             this.tabMessages = new System.Windows.Forms.TabControl();
             this.tabBasic = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonResetBasic = new System.Windows.Forms.Button();
+            this.textFormattedBasic = new IceChat.TextWindow();
             this.checkChangeBGBasic = new System.Windows.Forms.CheckBox();
             this.labelFormatMessageBasic = new System.Windows.Forms.Label();
             this.labelIRCMessagesBasic = new System.Windows.Forms.Label();
@@ -146,6 +146,7 @@
             this.tabAdvanced = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonResetAdvanced = new System.Windows.Forms.Button();
+            this.textFormattedText = new IceChat.TextWindow();
             this.textRawMessage = new System.Windows.Forms.TextBox();
             this.labelIRCMessagesAdvanced = new System.Windows.Forms.Label();
             this.checkBGColor = new System.Windows.Forms.CheckBox();
@@ -270,8 +271,6 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
-            this.textFormattedBasic = new IceChat.TextWindow();
-            this.textFormattedText = new IceChat.TextWindow();
             this.tabControlColors.SuspendLayout();
             this.tabPageMessages.SuspendLayout();
             this.tabMessages.SuspendLayout();
@@ -397,7 +396,7 @@
             this.label3.Location = new System.Drawing.Point(309, 176);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(256, 13);
+            this.label3.Size = new System.Drawing.Size(255, 13);
             this.label3.TabIndex = 55;
             this.label3.Text = "Background colors are under the Other Tab";
             // 
@@ -411,7 +410,19 @@
             this.buttonResetBasic.TabIndex = 52;
             this.buttonResetBasic.Text = "Reset to Default";
             this.buttonResetBasic.UseVisualStyleBackColor = true;
-            this.buttonResetBasic.Click += new System.EventHandler(this.buttonResetBasic_Click);
+            this.buttonResetBasic.Click += new System.EventHandler(this.ButtonResetBasic_Click);
+            // 
+            // textFormattedBasic
+            // 
+            this.textFormattedBasic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.textFormattedBasic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textFormattedBasic.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textFormattedBasic.Location = new System.Drawing.Point(10, 263);
+            this.textFormattedBasic.Margin = new System.Windows.Forms.Padding(2);
+            this.textFormattedBasic.Name = "textFormattedBasic";
+            this.textFormattedBasic.SingleLine = true;
+            this.textFormattedBasic.Size = new System.Drawing.Size(484, 19);
+            this.textFormattedBasic.TabIndex = 51;
             // 
             // checkChangeBGBasic
             // 
@@ -487,7 +498,7 @@
             this.label2.Location = new System.Drawing.Point(297, 178);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(256, 13);
+            this.label2.Size = new System.Drawing.Size(255, 13);
             this.label2.TabIndex = 54;
             this.label2.Text = "Background colors are under the Other Tab";
             // 
@@ -501,7 +512,19 @@
             this.buttonResetAdvanced.TabIndex = 53;
             this.buttonResetAdvanced.Text = "Reset to Default";
             this.buttonResetAdvanced.UseVisualStyleBackColor = true;
-            this.buttonResetAdvanced.Click += new System.EventHandler(this.buttonResetAdvanced_Click);
+            this.buttonResetAdvanced.Click += new System.EventHandler(this.ButtonResetAdvanced_Click);
+            // 
+            // textFormattedText
+            // 
+            this.textFormattedText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.textFormattedText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textFormattedText.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textFormattedText.Location = new System.Drawing.Point(10, 269);
+            this.textFormattedText.Margin = new System.Windows.Forms.Padding(2);
+            this.textFormattedText.Name = "textFormattedText";
+            this.textFormattedText.SingleLine = true;
+            this.textFormattedText.Size = new System.Drawing.Size(484, 19);
+            this.textFormattedText.TabIndex = 46;
             // 
             // textRawMessage
             // 
@@ -863,7 +886,7 @@
             this.labelTabCurrent.Location = new System.Drawing.Point(15, 31);
             this.labelTabCurrent.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTabCurrent.Name = "labelTabCurrent";
-            this.labelTabCurrent.Size = new System.Drawing.Size(87, 16);
+            this.labelTabCurrent.Size = new System.Drawing.Size(85, 16);
             this.labelTabCurrent.TabIndex = 37;
             this.labelTabCurrent.Text = "Current Tab";
             // 
@@ -1112,7 +1135,7 @@
             this.labelVoice.Location = new System.Drawing.Point(15, 119);
             this.labelVoice.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelVoice.Name = "labelVoice";
-            this.labelVoice.Size = new System.Drawing.Size(115, 16);
+            this.labelVoice.Size = new System.Drawing.Size(114, 16);
             this.labelVoice.TabIndex = 59;
             this.labelVoice.Text = "+ Channel Voice";
             // 
@@ -1356,7 +1379,7 @@
             this.labelUnreadTextMarkerColor.Location = new System.Drawing.Point(15, 270);
             this.labelUnreadTextMarkerColor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelUnreadTextMarkerColor.Name = "labelUnreadTextMarkerColor";
-            this.labelUnreadTextMarkerColor.Size = new System.Drawing.Size(138, 16);
+            this.labelUnreadTextMarkerColor.Size = new System.Drawing.Size(137, 16);
             this.labelUnreadTextMarkerColor.TabIndex = 112;
             this.labelUnreadTextMarkerColor.Text = "Unread Text Marker";
             // 
@@ -1445,7 +1468,7 @@
             this.labelToolBar.Location = new System.Drawing.Point(257, 101);
             this.labelToolBar.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelToolBar.Name = "labelToolBar";
-            this.labelToolBar.Size = new System.Drawing.Size(62, 16);
+            this.labelToolBar.Size = new System.Drawing.Size(61, 16);
             this.labelToolBar.TabIndex = 97;
             this.labelToolBar.Text = "Tool Bar";
             // 
@@ -1808,7 +1831,7 @@
             this.buttonImportTheme.TabIndex = 63;
             this.buttonImportTheme.Text = "Import IceChat 7 Themes";
             this.buttonImportTheme.UseVisualStyleBackColor = true;
-            this.buttonImportTheme.Click += new System.EventHandler(this.buttonImportTheme_Click);
+            this.buttonImportTheme.Click += new System.EventHandler(this.ButtonImportTheme_Click);
             // 
             // buttonLoadTheme
             // 
@@ -1820,7 +1843,7 @@
             this.buttonLoadTheme.TabIndex = 62;
             this.buttonLoadTheme.Text = "Load Theme";
             this.buttonLoadTheme.UseVisualStyleBackColor = true;
-            this.buttonLoadTheme.Click += new System.EventHandler(this.buttonLoadTheme_Click);
+            this.buttonLoadTheme.Click += new System.EventHandler(this.ButtonLoadTheme_Click);
             // 
             // labelCurrentTheme
             // 
@@ -1852,7 +1875,7 @@
             this.buttonRemoveTheme.TabIndex = 59;
             this.buttonRemoveTheme.Text = "Remove Theme";
             this.buttonRemoveTheme.UseVisualStyleBackColor = true;
-            this.buttonRemoveTheme.Click += new System.EventHandler(this.buttonRemoveTheme_Click);
+            this.buttonRemoveTheme.Click += new System.EventHandler(this.ButtonRemoveTheme_Click);
             // 
             // buttonAddTheme
             // 
@@ -1864,7 +1887,7 @@
             this.buttonAddTheme.TabIndex = 58;
             this.buttonAddTheme.Text = "Add New Theme";
             this.buttonAddTheme.UseVisualStyleBackColor = true;
-            this.buttonAddTheme.Click += new System.EventHandler(this.buttonAddTheme_Click);
+            this.buttonAddTheme.Click += new System.EventHandler(this.ButtonAddTheme_Click);
             // 
             // label1
             // 
@@ -1874,7 +1897,7 @@
             this.label1.Size = new System.Drawing.Size(334, 80);
             this.label1.TabIndex = 57;
             this.label1.Text = "To add a new Theme, first change all the Color/Message settings, then click on \"A" +
-                "dd New Theme\" button and use a new theme name.";
+    "dd New Theme\" button and use a new theme name.";
             // 
             // labelColorThemesHeader
             // 
@@ -1911,54 +1934,50 @@
             // buttonApply
             // 
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApply.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonApply.BackgroundImage")));
             this.buttonApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonApply.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonApply.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonApply.Location = new System.Drawing.Point(287, 545);
+            this.buttonApply.Location = new System.Drawing.Point(291, 545);
             this.buttonApply.Margin = new System.Windows.Forms.Padding(4);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(100, 25);
             this.buttonApply.TabIndex = 24;
             this.buttonApply.Text = "Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            this.buttonApply.Click += new System.EventHandler(this.ButtonApply_Click);
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.BackgroundImage = global::IceChat.Properties.Resources.cancel;
             this.buttonCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCancel.Location = new System.Drawing.Point(507, 545);
+            this.buttonCancel.Location = new System.Drawing.Point(399, 545);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 25);
             this.buttonCancel.TabIndex = 22;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.BackgroundImage = global::IceChat.Properties.Resources.floppy;
             this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSave.Location = new System.Drawing.Point(397, 545);
+            this.buttonSave.Location = new System.Drawing.Point(507, 545);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(100, 25);
             this.buttonSave.TabIndex = 21;
-            this.buttonSave.Text = "Save";
+            this.buttonSave.Text = "OK";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.BackgroundImage = global::IceChat.Properties.Resources.help;
             this.buttonHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonHelp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1969,31 +1988,7 @@
             this.buttonHelp.TabIndex = 25;
             this.buttonHelp.Text = "Help";
             this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
-            // 
-            // textFormattedBasic
-            // 
-            this.textFormattedBasic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.textFormattedBasic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textFormattedBasic.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textFormattedBasic.Location = new System.Drawing.Point(10, 263);
-            this.textFormattedBasic.Margin = new System.Windows.Forms.Padding(2);
-            this.textFormattedBasic.Name = "textFormattedBasic";
-            this.textFormattedBasic.SingleLine = true;
-            this.textFormattedBasic.Size = new System.Drawing.Size(484, 19);
-            this.textFormattedBasic.TabIndex = 51;
-            // 
-            // textFormattedText
-            // 
-            this.textFormattedText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.textFormattedText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textFormattedText.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textFormattedText.Location = new System.Drawing.Point(10, 269);
-            this.textFormattedText.Margin = new System.Windows.Forms.Padding(2);
-            this.textFormattedText.Name = "textFormattedText";
-            this.textFormattedText.SingleLine = true;
-            this.textFormattedText.Size = new System.Drawing.Size(484, 19);
-            this.textFormattedText.TabIndex = 46;
+            this.buttonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
             // FormColors
             // 

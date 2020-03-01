@@ -79,7 +79,7 @@
             this.buttonUpdate.TabIndex = 4;
             this.buttonUpdate.Text = "Add/Update";
             this.buttonUpdate.UseVisualStyleBackColor = true;
-            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+            this.buttonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);
             // 
             // FormBuddyItem
             // 

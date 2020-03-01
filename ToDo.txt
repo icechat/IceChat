@@ -15,7 +15,6 @@ Add an option for Line Spacing (will need to wait for text window rewrite)
 allow /colortab command to also change the background color
 add option to auto pin new channels
 Add splitter for topic to change height
-Add Server Wide No Color Mode
 Add 5 second delay for AutoPerform option
 Add to Nick HiLite plugin, allow different colors for different User Modes (!&@+)
 Add to Highlite Color Plugin to change background color
@@ -74,6 +73,7 @@ Added color setting for Side Panel Buttons
 Added color setting for Side Panel Splitter
 Add a background image to the nicklist, server list, and saved on exit
 Background images for channels are saved on exit and show again on reload
+Add Server Wide No Color Mode
 
 
 Not Going to Implement:

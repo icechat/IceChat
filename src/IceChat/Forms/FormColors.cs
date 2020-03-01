@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -135,23 +135,25 @@ namespace IceChat
             messageIdentifiers = new Hashtable();
             AddMessageIdentifiers();
 
-            colorPicker = new ColorPicker(false);
-            colorPicker.Width = 220;
-            colorPicker.Left = 5;
+            colorPicker = new ColorPicker(false)
+            {
+                Width = 220,
+                Left = 5
+            };
 
-            
+
             this.panelColorPicker.Controls.Add(colorPicker);
-            colorPicker.OnClick += new ColorPicker.ColorSelected(colorPicker_OnClick);
+            colorPicker.OnClick += new ColorPicker.ColorSelected(ColorPicker_OnClick);
     
             //colorPicker = new ColorButtonArray(panelColorPicker);
             //colorPicker.OnClick += new ColorButtonArray.ColorSelected(colorPicker_OnClick);
             
-            treeMessages.AfterSelect += new TreeViewEventHandler(treeMessages_AfterSelect);
-            textRawMessage.TextChanged+=new EventHandler(textRawMessage_TextChanged);
-            textRawMessage.KeyDown += new KeyEventHandler(textRawMessage_KeyDown);
-            listIdentifiers.DoubleClick += new EventHandler(listIdentifiers_DoubleClick);
+            treeMessages.AfterSelect += new TreeViewEventHandler(TreeMessages_AfterSelect);
+            textRawMessage.TextChanged+=new EventHandler(TextRawMessage_TextChanged);
+            textRawMessage.KeyDown += new KeyEventHandler(TextRawMessage_KeyDown);
+            listIdentifiers.DoubleClick += new EventHandler(ListIdentifiers_DoubleClick);
 
-            treeBasicMessages.AfterSelect += new TreeViewEventHandler(treeBasicMessages_AfterSelect);
+            treeBasicMessages.AfterSelect += new TreeViewEventHandler(TreeBasicMessages_AfterSelect);
 
             tabMessages.SelectedTab = tabBasic;
 
@@ -169,8 +171,7 @@ namespace IceChat
             //load any plugin addons
             foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
             {
-                IceChatPlugin ipc = p as IceChatPlugin;
-                if (ipc != null)
+                if (p is IceChatPlugin ipc)
                 {
                     if (ipc.plugin.Enabled == true)
                         ipc.plugin.LoadColorsForm(this.tabControlColors);
@@ -183,9 +184,11 @@ namespace IceChat
             {
                 foreach (ThemeItem theme in FormMain.Instance.IceChatOptions.Theme)
                 {
-                    ComboItem item = new ComboItem();
-                    item.ThemeName = theme.ThemeName;
-                    item.ThemeType = theme.ThemeType;
+                    ComboItem item = new ComboItem
+                    {
+                        ThemeName = theme.ThemeName,
+                        ThemeType = theme.ThemeType
+                    };
                     comboTheme.Items.Add(item);
                 }
             }
@@ -194,10 +197,12 @@ namespace IceChat
             {
                 foreach (IThemeIceChat theme in FormMain.Instance.IceChatPluginThemes)
                 {
-                    ComboItem item = new ComboItem();
-                    item.ThemeName = theme.Name;
-                    item.ThemeType = "Plugin";
-                    item.FileName = theme.FileName;
+                    ComboItem item = new ComboItem
+                    {
+                        ThemeName = theme.Name,
+                        ThemeType = "Plugin",
+                        FileName = theme.FileName
+                    };
                     comboTheme.Items.Add(item);
                 }
 
@@ -205,7 +210,7 @@ namespace IceChat
 
             comboTheme.Text = FormMain.Instance.IceChatOptions.CurrentTheme;
 
-            this.comboTheme.SelectedIndexChanged += new System.EventHandler(this.comboTheme_SelectedIndexChanged);
+            this.comboTheme.SelectedIndexChanged += new System.EventHandler(this.ComboTheme_SelectedIndexChanged);
 
         }
 
@@ -229,7 +234,7 @@ namespace IceChat
         }
 
 
-        private void colorPicker_OnClick(string Code, int colorSelected)
+        private void ColorPicker_OnClick(string Code, int colorSelected)
         //{
         //private void colorPicker_OnClick(int colorSelected)
         {
@@ -253,14 +258,12 @@ namespace IceChat
                             //find the comma if it exists
                             if (textRawMessage.SelectionStart == 0)
                             {
-                                int result;
-                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out result))
+                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out int result))
                                 {
                                     if (textRawMessage.Text.Substring(3, 1) == ",")
                                     {
                                         System.Diagnostics.Debug.WriteLine(textRawMessage.Text.Substring(4, 2));
-                                        int result2;
-                                        if (int.TryParse(textRawMessage.Text.Substring(4, 2), out result2))
+                                        if (int.TryParse(textRawMessage.Text.Substring(4, 2), out int result2))
                                         {
                                             System.Diagnostics.Debug.WriteLine("01,01");
 
@@ -311,8 +314,7 @@ namespace IceChat
                         {
                             if (textRawMessage.SelectionStart == 0)
                             {
-                                int result;
-                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out result))
+                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out int result))
                                     textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(3);
                                 else
                                     textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(2);
@@ -398,7 +400,7 @@ namespace IceChat
             }
         }
 
-        private void textRawMessage_KeyDown(object sender, KeyEventArgs e)
+        private void TextRawMessage_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Control)
             {
@@ -432,7 +434,7 @@ namespace IceChat
             }
         }
 
-        private void listIdentifiers_DoubleClick(object sender, EventArgs e)
+        private void ListIdentifiers_DoubleClick(object sender, EventArgs e)
         {
             int s = listIdentifiers.SelectedIndex;
 
@@ -473,8 +475,10 @@ namespace IceChat
             }
             else
             {
-                ArrayList a = new ArrayList();
-                a.Add(Identifier);
+                ArrayList a = new ArrayList
+                {
+                    Identifier
+                };
                 messageIdentifiers.Add(MessageName, a);
             }
 
@@ -684,7 +688,7 @@ namespace IceChat
 
         #endregion
         
-        private void treeBasicMessages_AfterSelect(object sender, TreeViewEventArgs e)
+        private void TreeBasicMessages_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Parent == null)
             {
@@ -745,7 +749,7 @@ namespace IceChat
         
         }
 
-        private void treeMessages_AfterSelect(object sender, TreeViewEventArgs e)
+        private void TreeMessages_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Parent == null)
             {
@@ -994,7 +998,7 @@ namespace IceChat
             }
         }
 
-        private void textRawMessage_TextChanged(object sender, EventArgs e)
+        private void TextRawMessage_TextChanged(object sender, EventArgs e)
         {
             UpdateFormattedText();
         }
@@ -1043,73 +1047,101 @@ namespace IceChat
                 {
                     if (msg.MessageName.StartsWith("Channel"))
                     {
-                        TreeNode t = new TreeNode(msg.MessageName);
-                        t.Tag = msg.FormattedMessage;
+                        TreeNode t = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeMessages.Nodes[0].Nodes.Add(t);
 
-                        TreeNode t2 = new TreeNode(msg.MessageName);
-                        t2.Tag = msg.FormattedMessage;
+                        TreeNode t2 = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeBasicMessages.Nodes[0].Nodes.Add(t2);
                     }
                     else if (msg.MessageName.StartsWith("Server"))
                     {
-                        TreeNode t = new TreeNode(msg.MessageName);
-                        t.Tag = msg.FormattedMessage;
+                        TreeNode t = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeMessages.Nodes[1].Nodes.Add(t);
 
-                        TreeNode t2 = new TreeNode(msg.MessageName);
-                        t2.Tag = msg.FormattedMessage;
+                        TreeNode t2 = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeBasicMessages.Nodes[1].Nodes.Add(t2);
                     }
                     else if (msg.MessageName.StartsWith("Private"))
                     {
-                        TreeNode t = new TreeNode(msg.MessageName);
-                        t.Tag = msg.FormattedMessage;
+                        TreeNode t = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeMessages.Nodes[2].Nodes.Add(t);
 
-                        TreeNode t2 = new TreeNode(msg.MessageName);
-                        t2.Tag = msg.FormattedMessage;
+                        TreeNode t2 = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeBasicMessages.Nodes[2].Nodes.Add(t2);
 
                     }
                     else if (msg.MessageName.StartsWith("Self"))
                     {
-                        TreeNode t = new TreeNode(msg.MessageName);
-                        t.Tag = msg.FormattedMessage;
+                        TreeNode t = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeMessages.Nodes[3].Nodes.Add(t);
 
-                        TreeNode t2 = new TreeNode(msg.MessageName);
-                        t2.Tag = msg.FormattedMessage;
+                        TreeNode t2 = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeBasicMessages.Nodes[3].Nodes.Add(t2);
                     }
                     else if (msg.MessageName.StartsWith("Ctcp"))
                     {
-                        TreeNode t = new TreeNode(msg.MessageName);
-                        t.Tag = msg.FormattedMessage;
+                        TreeNode t = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeMessages.Nodes[4].Nodes.Add(t);
 
-                        TreeNode t2 = new TreeNode(msg.MessageName);
-                        t2.Tag = msg.FormattedMessage;
+                        TreeNode t2 = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeBasicMessages.Nodes[4].Nodes.Add(t2);
                     }
                     else if (msg.MessageName.StartsWith("DCC"))
                     {
-                        TreeNode t = new TreeNode(msg.MessageName);
-                        t.Tag = msg.FormattedMessage;
+                        TreeNode t = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeMessages.Nodes[5].Nodes.Add(t);
 
-                        TreeNode t2 = new TreeNode(msg.MessageName);
-                        t2.Tag = msg.FormattedMessage;
+                        TreeNode t2 = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeBasicMessages.Nodes[5].Nodes.Add(t2);
                     }
                     else
                     {
-                        TreeNode t = new TreeNode(msg.MessageName);
-                        t.Tag = msg.FormattedMessage;
+                        TreeNode t = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeMessages.Nodes[6].Nodes.Add(t);
 
-                        TreeNode t2 = new TreeNode(msg.MessageName);
-                        t2.Tag = msg.FormattedMessage;
+                        TreeNode t2 = new TreeNode(msg.MessageName)
+                        {
+                            Tag = msg.FormattedMessage
+                        };
                         treeBasicMessages.Nodes[6].Nodes.Add(t2);
                     }
                 }
@@ -1324,7 +1356,7 @@ namespace IceChat
             iceChatColors.RandomizeNickColors = checkRandomNickColors.Checked;
         }
 
-        private void saveSettings()
+        private void SaveSettings()
         {
             UpdateColors();
 
@@ -1344,9 +1376,11 @@ namespace IceChat
                     if (theme.ThemeType == "XML")
                     {
                         //System.Diagnostics.Debug.WriteLine("saving theme: " + theme.ThemeName);
-                        FormMain.Instance.IceChatOptions.Theme[i] = new ThemeItem();
-                        FormMain.Instance.IceChatOptions.Theme[i].ThemeName = theme.ThemeName;
-                        FormMain.Instance.IceChatOptions.Theme[i].ThemeType = "XML";
+                        FormMain.Instance.IceChatOptions.Theme[i] = new ThemeItem
+                        {
+                            ThemeName = theme.ThemeName,
+                            ThemeType = "XML"
+                        };
                         i++;
                     }
                 }
@@ -1355,41 +1389,41 @@ namespace IceChat
             else
             {
                 FormMain.Instance.IceChatOptions.Theme = new ThemeItem[1];
-                FormMain.Instance.IceChatOptions.Theme[0] = new ThemeItem();
-                FormMain.Instance.IceChatOptions.Theme[0].ThemeName = "Default";
-                FormMain.Instance.IceChatOptions.Theme[0].ThemeType = "XML";
+                FormMain.Instance.IceChatOptions.Theme[0] = new ThemeItem
+                {
+                    ThemeName = "Default",
+                    ThemeType = "XML"
+                };
 
                 FormMain.Instance.IceChatOptions.CurrentTheme = "Default";
             }
 
             foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
             {
-                IceChatPlugin ipc = p as IceChatPlugin;
-                if (ipc != null)
+                if (p is IceChatPlugin ipc)
                 {
                     if (ipc.plugin.Enabled == true)
                         ipc.plugin.SaveColorsForm();
                 }
             }
 
-            if (SaveColors != null)
-                SaveColors(this.iceChatColors, this.iceChatMessages);
+            SaveColors?.Invoke(this.iceChatColors, this.iceChatMessages);
 
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
-            saveSettings();
+            SaveSettings();
 
             this.Close();
         }
 
-        private void buttonApply_Click(object sender, EventArgs e)
+        private void ButtonApply_Click(object sender, EventArgs e)
         {
-            saveSettings();
+            SaveSettings();
         }
         
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -1557,7 +1591,7 @@ namespace IceChat
             return newMessage;
         }
 
-        private void buttonResetBasic_Click(object sender, EventArgs e)
+        private void ButtonResetBasic_Click(object sender, EventArgs e)
         {
             //reset the selected color setting back to the default color
             if (treeBasicMessages.SelectedNode == null)
@@ -1576,7 +1610,7 @@ namespace IceChat
             treeBasicMessages.Select();
         }
 
-        private void buttonResetAdvanced_Click(object sender, EventArgs e)
+        private void ButtonResetAdvanced_Click(object sender, EventArgs e)
         {
             if (treeMessages.SelectedNode == null)
                 return;
@@ -1607,13 +1641,15 @@ namespace IceChat
 
         }
 
-        private void buttonAddTheme_Click(object sender, EventArgs e)
+        private void ButtonAddTheme_Click(object sender, EventArgs e)
         {
             //add the current color settings as a new theme
             //ask for the new theme
-            InputBoxDialog i = new InputBoxDialog();            
-            i.FormPrompt = "New IceChat Theme Name";
-            i.FormCaption = "Add IceChat Theme";
+            InputBoxDialog i = new InputBoxDialog
+            {
+                FormPrompt = "New IceChat Theme Name",
+                FormCaption = "Add IceChat Theme"
+            };
             if (i.ShowDialog() == DialogResult.OK)
             //i.ShowDialog();
             {
@@ -1641,11 +1677,13 @@ namespace IceChat
                     textWriter2.Dispose();
 
                     //add in the theme name into IceChatOptions
-                    
+
                     //make it the current theme
-                    ComboItem item = new ComboItem();
-                    item.ThemeName = fileName;
-                    item.ThemeType = "XML";
+                    ComboItem item = new ComboItem
+                    {
+                        ThemeName = fileName,
+                        ThemeType = "XML"
+                    };
                     comboTheme.Items.Add(item);
                     
                     comboTheme.Text = fileName;
@@ -1655,7 +1693,7 @@ namespace IceChat
             }
         }
 
-        private void buttonRemoveTheme_Click(object sender, EventArgs e)
+        private void ButtonRemoveTheme_Click(object sender, EventArgs e)
         {
             //remove the current selected theme
             if (comboTheme.Text == "Default")
@@ -1670,7 +1708,7 @@ namespace IceChat
             comboTheme.SelectedIndex = 0;
         }
 
-        private void comboTheme_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboTheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             //change the current theme
             //ComboItem item = (ComboItem)comboTheme.SelectedItem;
@@ -1781,18 +1819,20 @@ namespace IceChat
             }
         }
 
-        private void buttonLoadTheme_Click(object sender, EventArgs e)
+        private void ButtonLoadTheme_Click(object sender, EventArgs e)
         {
             //load a new theme file(s)
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.DefaultExt = ".xml";
-            ofd.CheckFileExists = true;
-            ofd.CheckPathExists = true;
-            ofd.AddExtension = true;
-            ofd.AutoUpgradeEnabled = false;
-            ofd.Filter = "XML file (*.xml)|Colors-*.xml";
-            ofd.Title = "Which Theme File do you want to load?";
-            ofd.InitialDirectory = FormMain.Instance.CurrentFolder;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                DefaultExt = ".xml",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                AddExtension = true,
+                AutoUpgradeEnabled = false,
+                Filter = "XML file (*.xml)|Colors-*.xml",
+                Title = "Which Theme File do you want to load?",
+                InitialDirectory = FormMain.Instance.CurrentFolder
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -1814,9 +1854,11 @@ namespace IceChat
                 if (themeName.Length > 0)
                 {
                     //add the new theme name
-                    ComboItem item = new ComboItem();
-                    item.ThemeName = themeName;
-                    item.ThemeType = "XML";
+                    ComboItem item = new ComboItem
+                    {
+                        ThemeName = themeName,
+                        ThemeType = "XML"
+                    };
                     comboTheme.Items.Add(item);
 
                     //make new theme default theme
@@ -1828,25 +1870,29 @@ namespace IceChat
 
         private ServerMessageFormatItem NewMessageFormat(string messageName, string message)
         {
-            ServerMessageFormatItem m = new ServerMessageFormatItem();
-            m.MessageName = messageName;
-            m.FormattedMessage = message;
+            ServerMessageFormatItem m = new ServerMessageFormatItem
+            {
+                MessageName = messageName,
+                FormattedMessage = message
+            };
             return m;
         }
 
-        private void buttonImportTheme_Click(object sender, EventArgs e)
+        private void ButtonImportTheme_Click(object sender, EventArgs e)
         {
             //this will load an icechat 7 theme
             //do it the same way as icechat 7 did, from the clipboard
 
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.DefaultExt = ".ini";
-            ofd.CheckFileExists = true;
-            ofd.CheckPathExists = true;
-            ofd.AddExtension = true;
-            ofd.AutoUpgradeEnabled = false;
-            ofd.Filter = "IceChat INI Setting (*.ini)|*.ini";
-            ofd.Title = "Locate the IceChat.ini settings file?";
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                DefaultExt = ".ini",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                AddExtension = true,
+                AutoUpgradeEnabled = false,
+                Filter = "IceChat INI Setting (*.ini)|*.ini",
+                Title = "Locate the IceChat.ini settings file?"
+            };
 
             string directory = Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "IceChat";
 
@@ -1875,29 +1921,30 @@ namespace IceChat
                         if (name == "Default")
                             name = "DefaultIce7";
 
-                        IceChatColors ic = new IceChatColors();
-
-                        ic.ChannelAdminColor = Convert.ToInt32(colors[38]);
-                        ic.ChannelBackColor = Convert.ToInt32(colors[43]);
-                        ic.ChannelListBackColor = Convert.ToInt32(colors[63]);
-                        ic.ChannelListForeColor = Convert.ToInt32(colors[86]);
-                        ic.ChannelOwnerColor = Convert.ToInt32(colors[39]);
-                        ic.ChannelRegularColor = Convert.ToInt32(colors[34]);
-                        ic.ChannelVoiceColor = Convert.ToInt32(colors[35]);
-                        ic.ChannelHalfOpColor = Convert.ToInt32(colors[36]);
-                        ic.ChannelOpColor = Convert.ToInt32(colors[37]);
-                        ic.ConsoleBackColor = Convert.ToInt32(colors[42]);
-                        ic.InputboxBackColor = Convert.ToInt32(colors[52]);
-                        ic.InputboxForeColor = Convert.ToInt32(colors[25]);
-                        ic.NickListBackColor = Convert.ToInt32(colors[53]);
-                        ic.PanelHeaderBG1 = Convert.ToInt32(colors[70]);
-                        ic.PanelHeaderBG2 = Convert.ToInt32(colors[71]);
-                        ic.PanelHeaderForeColor = Convert.ToInt32(colors[88]);
-                        ic.QueryBackColor = Convert.ToInt32(colors[44]);
-                        ic.RandomizeNickColors = false;
-                        ic.ServerListBackColor = Convert.ToInt32(colors[54]);
-                        ic.StatusbarBackColor = Convert.ToInt32(colors[90]);
-                        ic.StatusbarForeColor = Convert.ToInt32(colors[89]);
+                        IceChatColors ic = new IceChatColors
+                        {
+                            ChannelAdminColor = Convert.ToInt32(colors[38]),
+                            ChannelBackColor = Convert.ToInt32(colors[43]),
+                            ChannelListBackColor = Convert.ToInt32(colors[63]),
+                            ChannelListForeColor = Convert.ToInt32(colors[86]),
+                            ChannelOwnerColor = Convert.ToInt32(colors[39]),
+                            ChannelRegularColor = Convert.ToInt32(colors[34]),
+                            ChannelVoiceColor = Convert.ToInt32(colors[35]),
+                            ChannelHalfOpColor = Convert.ToInt32(colors[36]),
+                            ChannelOpColor = Convert.ToInt32(colors[37]),
+                            ConsoleBackColor = Convert.ToInt32(colors[42]),
+                            InputboxBackColor = Convert.ToInt32(colors[52]),
+                            InputboxForeColor = Convert.ToInt32(colors[25]),
+                            NickListBackColor = Convert.ToInt32(colors[53]),
+                            PanelHeaderBG1 = Convert.ToInt32(colors[70]),
+                            PanelHeaderBG2 = Convert.ToInt32(colors[71]),
+                            PanelHeaderForeColor = Convert.ToInt32(colors[88]),
+                            QueryBackColor = Convert.ToInt32(colors[44]),
+                            RandomizeNickColors = false,
+                            ServerListBackColor = Convert.ToInt32(colors[54]),
+                            StatusbarBackColor = Convert.ToInt32(colors[90]),
+                            StatusbarForeColor = Convert.ToInt32(colors[89])
+                        };
 
                         ic.StatusbarBackColor = Convert.ToInt32(colors[67]);
                         ic.SideBarButtonsForeColor = Convert.ToInt32(colors[1]);
@@ -1923,8 +1970,10 @@ namespace IceChat
                         textWriterC.Close();
                         textWriterC.Dispose();
 
-                        IceChatMessageFormat im = new IceChatMessageFormat();
-                        im.MessageSettings = new ServerMessageFormatItem[49];
+                        IceChatMessageFormat im = new IceChatMessageFormat
+                        {
+                            MessageSettings = new ServerMessageFormatItem[49]
+                        };
 
                         im.MessageSettings[0] = NewMessageFormat("Server Connect", "&#x3;" + colors[18] + "*** Attempting to connect to $server ($serverip) on port $port");
                         im.MessageSettings[1] = NewMessageFormat("Server Disconnect", "&#x3;" + colors[19] + "*** Server disconnected on $server");
@@ -1994,9 +2043,11 @@ namespace IceChat
                             textWriterIM.Close();
                             textWriterIM.Dispose();
 
-                            ComboItem item = new ComboItem();
-                            item.ThemeName = name;
-                            item.ThemeType = "XML";
+                            ComboItem item = new ComboItem
+                            {
+                                ThemeName = name,
+                                ThemeType = "XML"
+                            };
                             comboTheme.Items.Add(item);
                         }
                     }
@@ -2006,9 +2057,9 @@ namespace IceChat
             }            
         }
 
-        private void buttonHelp_Click(object sender, EventArgs e)
+        private void ButtonHelp_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Colors");
+            System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=Colors");
         }
 
     }

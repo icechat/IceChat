@@ -65,7 +65,7 @@
             this.buttonEmoticonPicker.Size = new System.Drawing.Size(28, 94);
             this.buttonEmoticonPicker.TabIndex = 2;
             this.buttonEmoticonPicker.UseVisualStyleBackColor = true;
-            this.buttonEmoticonPicker.Click += new System.EventHandler(this.buttonEmoticonPicker_Click);
+            this.buttonEmoticonPicker.Click += new System.EventHandler(this.ButtonEmoticonPicker_Click);
             // 
             // buttonColorPicker
             // 
@@ -75,7 +75,7 @@
             this.buttonColorPicker.Size = new System.Drawing.Size(28, 94);
             this.buttonColorPicker.TabIndex = 3;
             this.buttonColorPicker.UseVisualStyleBackColor = true;
-            this.buttonColorPicker.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            this.buttonColorPicker.Click += new System.EventHandler(this.ButtonColorPicker_Click);
             // 
             // buttonHelp
             // 
@@ -87,7 +87,7 @@
             this.buttonHelp.TabIndex = 5;
             this.buttonHelp.Text = "?";
             this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonHelp_MouseDown);
+            this.buttonHelp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonHelp_MouseDown);
             // 
             // contextHelpMenu
             // 
@@ -117,7 +117,7 @@
             this.toolStripMenuItem1.Size = new System.Drawing.Size(266, 22);
             this.toolStripMenuItem1.Tag = "/nick $?=\'Choose new Nick name\'";
             this.toolStripMenuItem1.Text = "Change Your Nick name";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem2
             // 
@@ -125,7 +125,7 @@
             this.toolStripMenuItem2.Size = new System.Drawing.Size(266, 22);
             this.toolStripMenuItem2.Tag = "/msg $?=\'Insert Nick name\' message";
             this.toolStripMenuItem2.Text = "Send a private message to some one";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem4
             // 
@@ -133,7 +133,7 @@
             this.toolStripMenuItem4.Size = new System.Drawing.Size(266, 22);
             this.toolStripMenuItem4.Tag = "/whois $?=\'Insert Nick name\'";
             this.toolStripMenuItem4.Text = "Perform a whois";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem5
             // 
@@ -141,7 +141,7 @@
             this.toolStripMenuItem5.Size = new System.Drawing.Size(266, 22);
             this.toolStripMenuItem5.Tag = "/ping $?=\'Insert Nick name\'";
             this.toolStripMenuItem5.Text = "Ping some one";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // menuChannel
             // 
@@ -159,7 +159,7 @@
             this.toolStripMenuItem6.Size = new System.Drawing.Size(158, 22);
             this.toolStripMenuItem6.Tag = "/join $?=\'Insert Channel name\'";
             this.toolStripMenuItem6.Text = "Join a channel";
-            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem6.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem7
             // 
@@ -167,7 +167,7 @@
             this.toolStripMenuItem7.Size = new System.Drawing.Size(158, 22);
             this.toolStripMenuItem7.Tag = "/part";
             this.toolStripMenuItem7.Text = "Leave a channel";
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem7.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem8
             // 
@@ -175,7 +175,7 @@
             this.toolStripMenuItem8.Size = new System.Drawing.Size(158, 22);
             this.toolStripMenuItem8.Tag = "/me action";
             this.toolStripMenuItem8.Text = "Send an action";
-            this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem8.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // menuServer
             // 
@@ -192,7 +192,7 @@
             this.toolStripMenuItem9.Size = new System.Drawing.Size(176, 22);
             this.toolStripMenuItem9.Tag = "/server $?=\'Insert Server name\'";
             this.toolStripMenuItem9.Text = "Connect to a server";
-            this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem9.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem10
             // 
@@ -200,7 +200,7 @@
             this.toolStripMenuItem10.Size = new System.Drawing.Size(176, 22);
             this.toolStripMenuItem10.Tag = "/quit";
             this.toolStripMenuItem10.Text = "Quit a server";
-            this.toolStripMenuItem10.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem10.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem3
             // 
@@ -208,7 +208,7 @@
             this.toolStripMenuItem3.Size = new System.Drawing.Size(193, 22);
             this.toolStripMenuItem3.Tag = "/help";
             this.toolStripMenuItem3.Text = "Get More Help";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // panelWideText
             // 
@@ -251,7 +251,7 @@
             this.buttonSend.TabIndex = 3;
             this.buttonSend.Text = "Send";
             this.buttonSend.UseVisualStyleBackColor = true;
-            this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
+            this.buttonSend.Click += new System.EventHandler(this.ButtonSend_Click);
             // 
             // buttonReset
             // 
@@ -263,7 +263,7 @@
             this.buttonReset.TabIndex = 8;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = true;
-            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            this.buttonReset.Click += new System.EventHandler(this.ButtonReset_Click);
             // 
             // textInput
             // 

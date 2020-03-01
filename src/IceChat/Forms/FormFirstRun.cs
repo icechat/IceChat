@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -187,10 +187,12 @@ namespace IceChat
 
 
             FormMain.Instance.IceChatOptions.Theme = new ThemeItem[totalThemes];
-            
-            FormMain.Instance.IceChatOptions.Theme[0] = new ThemeItem();
-            FormMain.Instance.IceChatOptions.Theme[0].ThemeName = "Default";
-            FormMain.Instance.IceChatOptions.Theme[0].ThemeType = "XML";
+
+            FormMain.Instance.IceChatOptions.Theme[0] = new ThemeItem
+            {
+                ThemeName = "Default",
+                ThemeType = "XML"
+            };
 
             int t = 1;
             foreach (FileInfo fi in xmlFiles)
@@ -198,9 +200,11 @@ namespace IceChat
                 if (fi.Name.StartsWith("Colors-"))
                 {
                     string themeName = fi.Name.Replace("Colors-", "").Replace(".xml", ""); ;
-                    FormMain.Instance.IceChatOptions.Theme[t] = new ThemeItem();
-                    FormMain.Instance.IceChatOptions.Theme[t].ThemeName = themeName;
-                    FormMain.Instance.IceChatOptions.Theme[t].ThemeType = "XML";
+                    FormMain.Instance.IceChatOptions.Theme[t] = new ThemeItem
+                    {
+                        ThemeName = themeName,
+                        ThemeType = "XML"
+                    };
                     t++;
                 }
             }
@@ -209,16 +213,18 @@ namespace IceChat
 
             if (comboData.Text.Length > 0)
             {
-                ServerSetting s = new ServerSetting();
-                s.ID = ID;
-                s.ServerName = comboData.Text;
-                s.NickName = _nickName;
-                s.AltNickName = _nickName + "_";
-                s.ServerPort = "6667";
-                s.FullName = FormMain.Instance.IceChatOptions.DefaultFullName;
-                s.IdentName = FormMain.Instance.IceChatOptions.DefaultIdent;
-                s.QuitMessage = FormMain.Instance.IceChatOptions.DefaultQuitMessage;
-                s.SetModeI = true;
+                ServerSetting s = new ServerSetting
+                {
+                    ID = ID,
+                    ServerName = comboData.Text,
+                    NickName = _nickName,
+                    AltNickName = _nickName + "_",
+                    ServerPort = "6667",
+                    FullName = FormMain.Instance.IceChatOptions.DefaultFullName,
+                    IdentName = FormMain.Instance.IceChatOptions.DefaultIdent,
+                    QuitMessage = FormMain.Instance.IceChatOptions.DefaultQuitMessage,
+                    SetModeI = true
+                };
 
                 if (comboData.Text.ToLower() == "irc.quakenet.org")
                 {
@@ -235,16 +241,18 @@ namespace IceChat
             {
                 if (server != comboData.Text && server.Length > 0)
                 {
-                    ServerSetting ss = new ServerSetting();
-                    ss.ID = ID;
-                    ss.ServerName = server;
-                    ss.NickName = _nickName;
-                    ss.AltNickName = _nickName + "_";
-                    ss.ServerPort = "6667";
-                    ss.SetModeI = true;
-                    ss.FullName = FormMain.Instance.IceChatOptions.DefaultFullName;
-                    ss.IdentName = FormMain.Instance.IceChatOptions.DefaultIdent;
-                    ss.QuitMessage = FormMain.Instance.IceChatOptions.DefaultQuitMessage;
+                    ServerSetting ss = new ServerSetting
+                    {
+                        ID = ID,
+                        ServerName = server,
+                        NickName = _nickName,
+                        AltNickName = _nickName + "_",
+                        ServerPort = "6667",
+                        SetModeI = true,
+                        FullName = FormMain.Instance.IceChatOptions.DefaultFullName,
+                        IdentName = FormMain.Instance.IceChatOptions.DefaultIdent,
+                        QuitMessage = FormMain.Instance.IceChatOptions.DefaultQuitMessage
+                    };
 
                     if (server.ToLower() == "irc.quakenet.org")
                     {
@@ -291,10 +299,10 @@ namespace IceChat
             string popupsFile = _currentFolder + System.IO.Path.DirectorySeparatorChar + "IceChatPopups.xml";
             IceChatPopupMenus popupList = new IceChatPopupMenus();
 
-            popupList.AddPopup(newPopupMenu("Console", Console_Popup));
-            popupList.AddPopup(newPopupMenu("Channel", Channel_Popup));
-            popupList.AddPopup(newPopupMenu("Query", Query_Popup));
-            popupList.AddPopup(newPopupMenu("NickList", Nicklist_Popup));
+            popupList.AddPopup(NewPopupMenu("Console", Console_Popup));
+            popupList.AddPopup(NewPopupMenu("Channel", Channel_Popup));
+            popupList.AddPopup(NewPopupMenu("Query", Query_Popup));
+            popupList.AddPopup(NewPopupMenu("NickList", Nicklist_Popup));
 
             XmlSerializer serializerP = new XmlSerializer(typeof(IceChatPopupMenus));
             TextWriter textWriterP = new StreamWriter(popupsFile);
@@ -304,15 +312,17 @@ namespace IceChat
 
         }
 
-        private PopupMenuItem newPopupMenu(string type, string[] menu)
+        private PopupMenuItem NewPopupMenu(string type, string[] menu)
         {
-            PopupMenuItem p = new PopupMenuItem();
-            p.PopupType = type;
-            p.Menu = menu;
+            PopupMenuItem p = new PopupMenuItem
+            {
+                PopupType = type,
+                Menu = menu
+            };
             return p;
         }
 
-        private void buttonNext_Click(object sender, EventArgs e)
+        private void ButtonNext_Click(object sender, EventArgs e)
         {
             //check if a nickname has been set
             if (_currentStep == 0)
@@ -326,21 +336,23 @@ namespace IceChat
             CurrentStep++;
         }
 
-        private void buttonBack_Click(object sender, EventArgs e)
+        private void ButtonBack_Click(object sender, EventArgs e)
         {
             CurrentStep--;
         }
 
-        private void buttonImport_Click(object sender, EventArgs e)
+        private void ButtonImport_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.DefaultExt = ".ini";
-            ofd.CheckFileExists = true;
-            ofd.CheckPathExists = true;
-            ofd.AddExtension = true;
-            ofd.AutoUpgradeEnabled = true;
-            ofd.Filter = "IceChat Setting (*.ini)|icechat.ini";
-            ofd.Title = "Locate the IceChat.ini settings file?";
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                DefaultExt = ".ini",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                AddExtension = true,
+                AutoUpgradeEnabled = true,
+                Filter = "IceChat Setting (*.ini)|icechat.ini",
+                Title = "Locate the IceChat.ini settings file?"
+            };
 
             string directory = Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "IceChat";
 
@@ -473,39 +485,40 @@ namespace IceChat
                         if (name == "Default")
                             name = "DefaultIce7";
 
-                        IceChatColors ic = new IceChatColors();
-
-                        ic.ChannelAdminColor = Convert.ToInt32(colors[38]);
-                        ic.ChannelBackColor = Convert.ToInt32(colors[43]);
-                        ic.ChannelListBackColor = Convert.ToInt32(colors[63]);
-                        ic.ChannelListForeColor = Convert.ToInt32(colors[86]);
-                        ic.ChannelOwnerColor = Convert.ToInt32(colors[39]);
-                        ic.ChannelRegularColor = Convert.ToInt32(colors[34]);
-                        ic.ChannelVoiceColor = Convert.ToInt32(colors[35]);
-                        ic.ChannelHalfOpColor = Convert.ToInt32(colors[36]);
-                        ic.ChannelOpColor = Convert.ToInt32(colors[37]);
-                        ic.ConsoleBackColor = Convert.ToInt32(colors[42]);
-                        ic.InputboxBackColor = Convert.ToInt32(colors[52]);
-                        ic.InputboxForeColor = Convert.ToInt32(colors[25]);
-                        ic.NickListBackColor = Convert.ToInt32(colors[53]);
-                        ic.PanelHeaderBG1 = Convert.ToInt32(colors[70]);
-                        ic.PanelHeaderBG2 = Convert.ToInt32(colors[71]);
-                        ic.PanelHeaderForeColor = Convert.ToInt32(colors[88]);
-                        ic.QueryBackColor = Convert.ToInt32(colors[44]);
-                        ic.RandomizeNickColors = false;
-                        ic.ServerListBackColor = Convert.ToInt32(colors[54]);
-                        ic.StatusbarBackColor = Convert.ToInt32(colors[90]);
-                        ic.StatusbarForeColor = Convert.ToInt32(colors[89]);
-                        ic.TabBarChannelJoin = Convert.ToInt32(colors[30]);
-                        ic.TabBarChannelPart = Convert.ToInt32(colors[31]);
-                        ic.TabBarCurrent = Convert.ToInt32(colors[28]);
-                        ic.TabBarDefault = Convert.ToInt32(colors[41]);
-                        ic.TabBarNewMessage = Convert.ToInt32(colors[29]);
-                        ic.TabBarOtherMessage = Convert.ToInt32(colors[32]);
-                        ic.TabBarServerMessage = Convert.ToInt32(colors[32]);
-                        ic.TabBarServerQuit = Convert.ToInt32(colors[32]);
-                        ic.ToolbarBackColor = Convert.ToInt32(colors[68]);
-                        ic.UnreadTextMarkerColor = Convert.ToInt32(colors[67]);
+                        IceChatColors ic = new IceChatColors
+                        {
+                            ChannelAdminColor = Convert.ToInt32(colors[38]),
+                            ChannelBackColor = Convert.ToInt32(colors[43]),
+                            ChannelListBackColor = Convert.ToInt32(colors[63]),
+                            ChannelListForeColor = Convert.ToInt32(colors[86]),
+                            ChannelOwnerColor = Convert.ToInt32(colors[39]),
+                            ChannelRegularColor = Convert.ToInt32(colors[34]),
+                            ChannelVoiceColor = Convert.ToInt32(colors[35]),
+                            ChannelHalfOpColor = Convert.ToInt32(colors[36]),
+                            ChannelOpColor = Convert.ToInt32(colors[37]),
+                            ConsoleBackColor = Convert.ToInt32(colors[42]),
+                            InputboxBackColor = Convert.ToInt32(colors[52]),
+                            InputboxForeColor = Convert.ToInt32(colors[25]),
+                            NickListBackColor = Convert.ToInt32(colors[53]),
+                            PanelHeaderBG1 = Convert.ToInt32(colors[70]),
+                            PanelHeaderBG2 = Convert.ToInt32(colors[71]),
+                            PanelHeaderForeColor = Convert.ToInt32(colors[88]),
+                            QueryBackColor = Convert.ToInt32(colors[44]),
+                            RandomizeNickColors = false,
+                            ServerListBackColor = Convert.ToInt32(colors[54]),
+                            StatusbarBackColor = Convert.ToInt32(colors[90]),
+                            StatusbarForeColor = Convert.ToInt32(colors[89]),
+                            TabBarChannelJoin = Convert.ToInt32(colors[30]),
+                            TabBarChannelPart = Convert.ToInt32(colors[31]),
+                            TabBarCurrent = Convert.ToInt32(colors[28]),
+                            TabBarDefault = Convert.ToInt32(colors[41]),
+                            TabBarNewMessage = Convert.ToInt32(colors[29]),
+                            TabBarOtherMessage = Convert.ToInt32(colors[32]),
+                            TabBarServerMessage = Convert.ToInt32(colors[32]),
+                            TabBarServerQuit = Convert.ToInt32(colors[32]),
+                            ToolbarBackColor = Convert.ToInt32(colors[68]),
+                            UnreadTextMarkerColor = Convert.ToInt32(colors[67])
+                        };
 
                         XmlSerializer serializerC = new XmlSerializer(typeof(IceChatColors));
                         string themeFile = FormMain.Instance.CurrentFolder + System.IO.Path.DirectorySeparatorChar + "Colors-" + name + ".xml";
@@ -515,8 +528,10 @@ namespace IceChat
                         textWriterC.Dispose();
 
 
-                        IceChatMessageFormat im = new IceChatMessageFormat();
-                        im.MessageSettings = new ServerMessageFormatItem[49];
+                        IceChatMessageFormat im = new IceChatMessageFormat
+                        {
+                            MessageSettings = new ServerMessageFormatItem[49]
+                        };
 
                         im.MessageSettings[0] = NewMessageFormat("Server Connect", "&#x3;" + colors[18] + "*** Attempting to connect to $server ($serverip) on port $port");
                         im.MessageSettings[1] = NewMessageFormat("Server Disconnect", "&#x3;" + colors[19] + "*** Server disconnected on $server");
@@ -580,9 +595,11 @@ namespace IceChat
 
                     icechatOptions.Theme = new ThemeItem[themes.Length + 1];
 
-                    icechatOptions.Theme[0] = new ThemeItem();
-                    icechatOptions.Theme[0].ThemeName = "Default";
-                    icechatOptions.Theme[0].ThemeType = "XML";
+                    icechatOptions.Theme[0] = new ThemeItem
+                    {
+                        ThemeName = "Default",
+                        ThemeType = "XML"
+                    };
 
                     int t = 1;
                     foreach (string theme in themes)
@@ -591,16 +608,18 @@ namespace IceChat
                         if (name == "Default")
                             name = "DefaultIce7";
 
-                        icechatOptions.Theme[t] = new ThemeItem();
-                        icechatOptions.Theme[t].ThemeName = name;
-                        icechatOptions.Theme[t].ThemeType = "XML";
+                        icechatOptions.Theme[t] = new ThemeItem
+                        {
+                            ThemeName = name,
+                            ThemeType = "XML"
+                        };
 
                         t++;
                     }
 
                     icechatOptions.DefaultNick = parser.GetSetting("Default Server Settings", "NickName", "");
                     icechatOptions.DefaultFullName = parser.GetSetting("Default Server Settings", "FullName", "The Chat Cool People Use");
-                    icechatOptions.DefaultIdent = parser.GetSetting("Default Server Settings", "Ident", "IceChat9");
+                    icechatOptions.DefaultIdent = parser.GetSetting("Default Server Settings", "Ident", "IceChat95");
                     icechatOptions.DefaultQuitMessage = parser.GetSetting("Default Server Settings", "QuitMessage", "$randquit");
 
                     icechatOptions.TimeStamp = parser.GetSetting("Main Settings", "TimeStampFormat", "").Replace("n", "m");
@@ -687,10 +706,10 @@ namespace IceChat
 
                     IceChatPopupMenus popupList = new IceChatPopupMenus();
 
-                    popupList.AddPopup(newPopupMenu("NickList", nickPopup));
-                    popupList.AddPopup(newPopupMenu("Console", consolePopup));
-                    popupList.AddPopup(newPopupMenu("Channel", channelPopup));
-                    popupList.AddPopup(newPopupMenu("Query", queryPopup));
+                    popupList.AddPopup(NewPopupMenu("NickList", nickPopup));
+                    popupList.AddPopup(NewPopupMenu("Console", consolePopup));
+                    popupList.AddPopup(NewPopupMenu("Channel", channelPopup));
+                    popupList.AddPopup(NewPopupMenu("Query", queryPopup));
 
                     XmlSerializer serializerP = new XmlSerializer(typeof(IceChatPopupMenus));
                     TextWriter textWriterP = new StreamWriter(FormMain.Instance.PopupsFile);
@@ -706,35 +725,36 @@ namespace IceChat
 
                     for (int i = 1; i <= totalServers; i++)
                     {
-                        ServerSetting s = new ServerSetting();
+                        ServerSetting s = new ServerSetting
+                        {
+                            ID = i,
+                            ServerName = sParser.GetSetting(i.ToString(), "ServerName", ""),
+                            NickName = sParser.GetSetting(i.ToString(), "Nickname", ""),
+                            AltNickName = sParser.GetSetting(i.ToString(), "AltNickName", ""),
+                            AwayNickName = sParser.GetSetting(i.ToString(), "AwayNick", ""),
 
-                        s.ID = i;
-                        s.ServerName = sParser.GetSetting(i.ToString(), "ServerName", "");
-                        s.NickName = sParser.GetSetting(i.ToString(), "Nickname", "");
-                        s.AltNickName = sParser.GetSetting(i.ToString(), "AltNickName", "");
-                        s.AwayNickName = sParser.GetSetting(i.ToString(), "AwayNick", "");
+                            ServerPort = sParser.GetSetting(i.ToString(), "ServerPort", "6667"),
+                            FullName = sParser.GetSetting(i.ToString(), "FullName", "The Chat Cool People Use"),
+                            IdentName = sParser.GetSetting(i.ToString(), "Ident", "IceChat95"),
+                            QuitMessage = sParser.GetSetting(i.ToString(), "QuitMessage", "$randquit"),
+                            SetModeI = sParser.GetSettingBool(i.ToString(), "AutoModeI", true),
+                            ShowMOTD = sParser.GetSettingBool(i.ToString(), "ShowMOTD", true),
+                            ShowPingPong = sParser.GetSettingBool(i.ToString(), "ShowPingPong", false),
+                            RejoinChannels = sParser.GetSettingBool(i.ToString(), "RejoinChannels", true),
+                            AutoStart = sParser.GetSettingBool(i.ToString(), "AutoStartup", false),
+                            UseSSL = sParser.GetSettingBool(i.ToString(), "UseSSL", false),
+                            Password = sParser.GetSetting(i.ToString(), "ServerPassword", ""),
+                            NickservPassword = sParser.GetSetting(i.ToString(), "NickServPass", ""),
 
-                        s.ServerPort = sParser.GetSetting(i.ToString(), "ServerPort", "6667");
-                        s.FullName = sParser.GetSetting(i.ToString(), "FullName", "The Chat Cool People Use");
-                        s.IdentName = sParser.GetSetting(i.ToString(), "Ident", "IceChat9");
-                        s.QuitMessage = sParser.GetSetting(i.ToString(), "QuitMessage", "$randquit");
-                        s.SetModeI = sParser.GetSettingBool(i.ToString(), "AutoModeI", true);
-                        s.ShowMOTD = sParser.GetSettingBool(i.ToString(), "ShowMOTD", true);
-                        s.ShowPingPong = sParser.GetSettingBool(i.ToString(), "ShowPingPong", false);
-                        s.RejoinChannels = sParser.GetSettingBool(i.ToString(), "RejoinChannels", true);
-                        s.AutoStart = sParser.GetSettingBool(i.ToString(), "AutoStartup", false);
-                        s.UseSSL = sParser.GetSettingBool(i.ToString(), "UseSSL", false);
-                        s.Password = sParser.GetSetting(i.ToString(), "ServerPassword", "");
-                        s.NickservPassword = sParser.GetSetting(i.ToString(), "NickServPass", "");
+                            AutoJoinEnable = sParser.GetSettingBool(i.ToString(), "AutoJoinListEnable", true),
+                            AutoJoinDelay = sParser.GetSettingBool(i.ToString(), "AutoJoinDelay", false),
+                            AutoPerformEnable = sParser.GetSettingBool(i.ToString(), "AutoPerformEnable", true),
 
-                        s.AutoJoinEnable = sParser.GetSettingBool(i.ToString(), "AutoJoinListEnable", true);
-                        s.AutoJoinDelay = sParser.GetSettingBool(i.ToString(), "AutoJoinDelay", false);
-                        s.AutoPerformEnable = sParser.GetSettingBool(i.ToString(), "AutoPerformEnable", true);
-
-                        s.BNCIP = sParser.GetSetting(i.ToString(), "BNCServer", "");
-                        s.BNCPort = sParser.GetSetting(i.ToString(), "BNCPort", "");
-                        s.BNCUser = sParser.GetSetting(i.ToString(), "BNCUserName", "");
-                        s.BNCPass = sParser.GetSetting(i.ToString(), "BNCPassword", "");
+                            BNCIP = sParser.GetSetting(i.ToString(), "BNCServer", ""),
+                            BNCPort = sParser.GetSetting(i.ToString(), "BNCPort", ""),
+                            BNCUser = sParser.GetSetting(i.ToString(), "BNCUserName", ""),
+                            BNCPass = sParser.GetSetting(i.ToString(), "BNCPassword", "")
+                        };
 
 
                         if (sParser.GetSetting(i.ToString(), "AutoJoin0", "").Length > 0)
@@ -786,8 +806,7 @@ namespace IceChat
                     textWriterS.Close();
                     textWriterS.Dispose();
 
-                    if (SaveOptions != null)
-                        SaveOptions(icechatOptions, icechatFonts);
+                    SaveOptions?.Invoke(icechatOptions, icechatFonts);
 
 
                     this.Close();
@@ -802,18 +821,22 @@ namespace IceChat
 
         private ServerMessageFormatItem NewMessageFormat(string messageName, string message)
         {
-            ServerMessageFormatItem m = new ServerMessageFormatItem();
-            m.MessageName = messageName;
-            m.FormattedMessage = message;
+            ServerMessageFormatItem m = new ServerMessageFormatItem
+            {
+                MessageName = messageName,
+                FormattedMessage = message
+            };
             return m;
         }
 
         private FontSettingItem NewFontSetting(string windowType, string fontName, int fontSize)
         {
-            FontSettingItem f = new FontSettingItem();
-            f.WindowType = windowType;
-            f.FontName = fontName;
-            f.FontSize = fontSize;
+            FontSettingItem f = new FontSettingItem
+            {
+                WindowType = windowType,
+                FontName = fontName,
+                FontSize = fontSize
+            };
             return f;
         }
 

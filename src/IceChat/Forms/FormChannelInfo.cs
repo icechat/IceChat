@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@ namespace IceChat
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(OnFormClosing);
             this.Load +=new EventHandler(OnLoad);
-            this.textTopic.KeyDown += new KeyEventHandler(textTopic_KeyDown);
+            this.textTopic.KeyDown += new KeyEventHandler(TextTopic_KeyDown);
 
             this.channel = Channel;
             this.textTopic.Text = channel.ChannelTopic.Replace("&#x3;", ((char)3).ToString());
@@ -81,7 +81,7 @@ namespace IceChat
             }
 
             //parse out the modes
-            foreach (IceTabPage.channelMode cm in channel.ChannelModesHash.Values)
+            foreach (IceTabPage.ChannelMode cm in channel.ChannelModesHash.Values)
             {
                 switch (cm.mode)
                 {
@@ -179,12 +179,12 @@ namespace IceChat
             this.channel.ChannelInfoForm = null;
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void textTopic_KeyDown(object sender, KeyEventArgs e)
+        private void TextTopic_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Control)
             {
@@ -221,7 +221,7 @@ namespace IceChat
                 return "";
         }
 
-        private void buttonRemoveBan_Click(object sender, EventArgs e)
+        private void ButtonRemoveBan_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listViewBans.SelectedItems)
             {
@@ -230,7 +230,7 @@ namespace IceChat
             }
         }
 
-        private void buttonRemoveException_Click(object sender, EventArgs e)
+        private void ButtonRemoveException_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listViewExceptions.SelectedItems)
             {
@@ -239,8 +239,8 @@ namespace IceChat
             }
 
         }
-
-        private void buttonApply_Click(object sender, EventArgs e)
+        
+        private void ButtonApply_Click(object sender, EventArgs e)
         {
             //check for new mode settings
             string addModes = "";
@@ -344,7 +344,7 @@ namespace IceChat
             }
         }
 
-        private void copyToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CopyToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //copy to clipboard
             if (listViewBans.SelectedItems.Count == 1)

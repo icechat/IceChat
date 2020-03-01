@@ -17,7 +17,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -83,6 +83,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase">
@@ -354,6 +355,9 @@
     <EmbeddedResource Include="Forms\FormFloat.resx">
       <DependentUpon>FormFloat.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormIgnoreItem.resx">
+      <DependentUpon>FormIgnoreItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -414,7 +418,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ColorPicker.resx">
       <DependentUpon>ColorPicker.cs</DependentUpon>
-    </EmbeddedResource>	
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -500,6 +504,7 @@
     <EmbeddedResource Include="Icons\refresh-icon.png" />
     <EmbeddedResource Include="Icons\query.png" />
     <EmbeddedResource Include="Icons\mute.png" />
+    <None Include="app.config" />
     <None Include="Icons\restore.png" />
     <None Include="Icons\maximize.png" />
     <EmbeddedResource Include="Icons\connect-icon-auto.png" />

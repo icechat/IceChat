@@ -1,14 +1,10 @@
 http://wiki.icechat.net/index.php?title=Build_from_source_code
 
-IceChat is coded using Visual Studio Express 2008. There are solutions for Visual Studio 2010, Visual Studio 2015 and Visual Studio 2017 included in the source code.
+IceChat 9.5 is coded using Visual Studio 2017 with .NET 4.5.2. 
 
 Unzip the file into any folder. It is best to use My Documents and not the Program Files folder, because of permissions issues.
 
-There is an BuildIceChat.cmd file in the build folder which will build IceChat 9.
-
-If you have a problem with BuildIceChat.cmd erroring about msbuild, try BuildIceChat.4.0.cmd
-
-If you want to build IceChat using .Net 4 Framework, use BuildIceChat.4.5.cmd
+There is an BuildIceChat.4.5.cmd file in the build folder which will build IceChat 9.5.
 
 You can double click the file, and it will open a command window.
 

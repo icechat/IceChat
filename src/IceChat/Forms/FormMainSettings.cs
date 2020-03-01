@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,8 +44,10 @@ namespace IceChat
     {
         private void LoadDefaultMessageSettings()
         {
-            IceChatMessageFormat oldMessage = new IceChatMessageFormat();
-            oldMessage.MessageSettings = new ServerMessageFormatItem[49];
+            IceChatMessageFormat oldMessage = new IceChatMessageFormat
+            {
+                MessageSettings = new ServerMessageFormatItem[49]
+            };
 
             if (iceChatMessages.MessageSettings != null)
                 iceChatMessages.MessageSettings.CopyTo(oldMessage.MessageSettings, 0);
@@ -264,8 +266,10 @@ namespace IceChat
 
         private void LoadDefaultFontSettings()
         {
-            IceChatFontSetting oldFonts = new IceChatFontSetting();
-            oldFonts.FontSettings = new FontSettingItem[9];
+            IceChatFontSetting oldFonts = new IceChatFontSetting
+            {
+                FontSettings = new FontSettingItem[9]
+            };
 
             if (iceChatFonts.FontSettings != null)
             {
@@ -329,18 +333,22 @@ namespace IceChat
 
         private ServerMessageFormatItem NewMessageFormat(string messageName, string message)
         {
-            ServerMessageFormatItem m = new ServerMessageFormatItem();
-            m.MessageName = messageName;
-            m.FormattedMessage = message;
+            ServerMessageFormatItem m = new ServerMessageFormatItem
+            {
+                MessageName = messageName,
+                FormattedMessage = message
+            };
             return m;
         }
 
         private FontSettingItem NewFontSetting(string windowType, string fontName, int fontSize)
         {
-            FontSettingItem f = new FontSettingItem();
-            f.WindowType = windowType;
-            f.FontName = fontName;
-            f.FontSize = fontSize;
+            FontSettingItem f = new FontSettingItem
+            {
+                WindowType = windowType,
+                FontName = fontName,
+                FontSize = fontSize
+            };
             return f;
         }
 

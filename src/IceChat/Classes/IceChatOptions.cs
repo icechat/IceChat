@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -108,7 +108,7 @@ namespace IceChat
         private bool _autoGetRouterIP = true;
 
         private string _language = "English";
-        private string _identName = "IceChat9";
+        private string _identName = "IceChat95";
         private string _fullName = "The Chat Cool People Use";
         private string _quitMessage = "$randquit";
         private string _afterNickComplete = "";
@@ -1135,10 +1135,10 @@ namespace IceChat
                 set { parent = value; }
             }
 
-            public string getSoundFile()
+            public string GetSoundFile()
             {
                 if (file!=null && file.Length>0) return file;
-                if (parent!=null) return parent.getSoundFile();
+                if (parent!=null) return parent.GetSoundFile();
                 return null;
             }
 
@@ -1179,7 +1179,7 @@ namespace IceChat
             soundList.Add(s);
         }
 
-        public SoundEntry getSound(string key)
+        public SoundEntry GetSound(string key)
         {
             foreach (SoundEntry x in soundList)
             {
@@ -1191,7 +1191,7 @@ namespace IceChat
             return null;
         }
 
-        public SoundEntry getSound(int index)
+        public SoundEntry GetSound(int index)
         {
             return soundList[index];
         }

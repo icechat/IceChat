@@ -112,23 +112,9 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonApply.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAAAXNSR0IArs4c
-        6QAAAARnQU1BAACxjwv8YQUAAACHUExURQAAAMfHx2ZmZi4uLv///6enp9ra2h4eHkBAQPX19UZGRm5u
-        bgYGBjg4OKmpqYqKirW1tebm5ldXV8/PzyYmJlRUVPHx8czMzDw8PMHBwQ0NDePj4/f390JCQiQkJAAA
-        ACwsLGtra/v7+wgICHJycj4+Pqurq0RERDAwMMnJydHR0fPz8w4ODtFsvssAAAAJcEhZcwAACwwAAAsM
-        AT9AIsgAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAAFnRFWHRDcmVhdGlv
-        biBUaW1lADEwLzIxLzE3l3R3GQAAAJVJREFUKFNlj9sOwiAQRKdlUVpLtVaLWmuiaNTE//8+Z8HEh84L
-        nBPYC0RjXYzOpquKUDdgmmfIoiX4svQ8WhU9YAp9XBigp3AwlTJj4ARWteb9Oi5APMDLeB8kfIDBESNW
-        5yUemxOwv12JWWi2IiVRv3S7zOKJqWh3SRy0aG47rslVajsfbDb6f7n6txxjpxgnXV/kC3krCGY6yKzY
-        AAAAAElFTkSuQmCC
-</value>
-  </data>
 </root>

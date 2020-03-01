@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,7 +112,7 @@ namespace IceChat
             this.btnOK.Size = new System.Drawing.Size(64, 24);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "&OK";
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // buttonCancel
             // 
@@ -124,7 +124,7 @@ namespace IceChat
             this.buttonCancel.Size = new System.Drawing.Size(64, 24);
             this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "&Cancel";
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // txtInput
             // 
@@ -219,14 +219,14 @@ namespace IceChat
             buttonCancel.Text = "Cancel";
         }
 
-        private void btnOK_Click(object sender, System.EventArgs e)
+        private void BtnOK_Click(object sender, System.EventArgs e)
         {
             InputResponse = this.txtInput.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
-        private void buttonCancel_Click(object sender, System.EventArgs e)
+        private void ButtonCancel_Click(object sender, System.EventArgs e)
         {
             this.DialogResult = DialogResult.No;
             this.Close();

@@ -1,7 +1,7 @@
 ﻿/***********************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -94,17 +94,23 @@ namespace IceChat
             this.SetStyle(ControlStyles.ResizeRedraw | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
             this.UpdateStyles();
 
-            _popupMenu = new ContextMenuStrip();
-            _popupMenu.Tag = "PARENT";
+            _popupMenu = new ContextMenuStrip
+            {
+                Tag = "PARENT"
+            };
 
-            flashTabTimer = new System.Timers.Timer();
-            flashTabTimer.Interval = 1000;
+            flashTabTimer = new System.Timers.Timer
+            {
+                Interval = 1000
+            };
             flashTabTimer.Elapsed += new System.Timers.ElapsedEventHandler(OnFlashTabTimerElapsed);
 
-            toolTip = new ToolTip();
-            toolTip.AutoPopDelay = 3000;
-            toolTip.ForeColor = System.Drawing.SystemColors.InfoText;
-            toolTip.BackColor = System.Drawing.SystemColors.Info;
+            toolTip = new ToolTip
+            {
+                AutoPopDelay = 3000,
+                ForeColor = System.Drawing.SystemColors.InfoText,
+                BackColor = System.Drawing.SystemColors.Info
+            };
 
         }
 
@@ -159,8 +165,10 @@ namespace IceChat
 
                 if (this.SelectedIndexChanged != null)
                 {
-                    TabEventArgs e = new TabEventArgs();
-                    e.IsHandled = true;
+                    TabEventArgs e = new TabEventArgs
+                    {
+                        IsHandled = true
+                    };
                     SelectedIndexChanged(this, e);
                 }
             }
@@ -412,9 +420,11 @@ namespace IceChat
 
                 }
 
-                StringFormat stringFormat = new StringFormat();
-                stringFormat.Alignment = StringAlignment.Near;
-                stringFormat.LineAlignment = StringAlignment.Center;
+                StringFormat stringFormat = new StringFormat
+                {
+                    Alignment = StringAlignment.Near,
+                    LineAlignment = StringAlignment.Center
+                };
 
                 Brush br = null;
 
@@ -640,7 +650,7 @@ namespace IceChat
                         SelectedIndex = i;
 
                         //for single row.. scroll into view. if needed
-                        checkTabLocation(i);
+                        CheckTabLocation(i);
 
                         this.Invalidate();
                         break;
@@ -655,7 +665,7 @@ namespace IceChat
             }
         }
 
-        private void checkTabLocation(int i)
+        private void CheckTabLocation(int i)
         {
             if (singleRow && i < _tabSizeRects.Count)
             {
@@ -683,7 +693,7 @@ namespace IceChat
 
         }
 
-        private IceTabPage setSelectedByClickLocation(Point pClickLocation)
+        private IceTabPage SetSelectedByClickLocation(Point pClickLocation)
         {
             if (_tabSizeRects.Count == 0) return null;
 
@@ -696,7 +706,7 @@ namespace IceChat
                     {
                         this._selectedIndex = i;
 
-                        checkTabLocation(i);
+                        CheckTabLocation(i);
                     }
 
                     break;
@@ -770,7 +780,7 @@ namespace IceChat
                             if (hover_Tab != null)
                             {
                                 SwapTabPages(_dragTab, hover_Tab);
-                                _dragTab = setSelectedByClickLocation(e.Location);
+                                _dragTab = SetSelectedByClickLocation(e.Location);
                                 this.Invalidate();
                             }
                         }
@@ -886,8 +896,10 @@ namespace IceChat
                         SelectTab(GetTabPage(_selectedIndex));
                     }
 
-                    TabEventArgs te = new TabEventArgs();
-                    te.IsHandled = false;
+                    TabEventArgs te = new TabEventArgs
+                    {
+                        IsHandled = false
+                    };
                     SelectedIndexChanged(this, te);
 
                     return;
@@ -895,7 +907,7 @@ namespace IceChat
             }
 
             _dragStartPosition = new Point(e.X, e.Y);
-            _dragTab = setSelectedByClickLocation(e.Location);
+            _dragTab = SetSelectedByClickLocation(e.Location);
 
             if (e.Button == MouseButtons.Middle)
             {
@@ -939,8 +951,7 @@ namespace IceChat
                     {
                         foreach (Plugin p in _parent.LoadedPlugins)
                         {
-                            IceChatPlugin ipc = p as IceChatPlugin;
-                            if (ipc != null)
+                            if (p is IceChatPlugin ipc)
                             {
                                 if (ipc.plugin.Enabled == true)
                                 {
@@ -988,28 +999,38 @@ namespace IceChat
                         _popupMenu.Items.Add(NewMenuItem("Change Font", "/font $1"));
 
 
-                        ToolStripMenuItem colorMode = new ToolStripMenuItem("No Color Mode");
-                        colorMode.Tag = "/colormode $1";
-                        colorMode.Checked = GetTabPage(_selectedIndex).TextWindow.NoColorMode;
-                        
+                        ToolStripMenuItem colorMode = new ToolStripMenuItem("No Color Mode")
+                        {
+                            Tag = "/colormode $1",
+                            Checked = GetTabPage(_selectedIndex).TextWindow.NoColorMode
+                        };
+
                         ToolStripMenuItem log = new ToolStripMenuItem("Logging");
-                        ToolStripMenuItem openLog = new ToolStripMenuItem("Open Log Folder");
-                        openLog.Tag = "/run " + GetTabPage(_selectedIndex).TextWindow.LogFileLocation;
-                        ToolStripMenuItem disableLog = new ToolStripMenuItem("Disable Logging");
-                        disableLog.Tag = "/logging $1";
+                        ToolStripMenuItem openLog = new ToolStripMenuItem("Open Log Folder")
+                        {
+                            Tag = "/run " + GetTabPage(_selectedIndex).TextWindow.LogFileLocation
+                        };
+                        ToolStripMenuItem disableLog = new ToolStripMenuItem("Disable Logging")
+                        {
+                            Tag = "/logging $1"
+                        };
 
                         //add a way to disable channel log reload                        
                         log.DropDownItems.Add(openLog);
                         log.DropDownItems.Add(disableLog);
                         
                         ToolStripMenuItem events = new ToolStripMenuItem("Events");
-                        ToolStripMenuItem disableFlash = new ToolStripMenuItem("Disable Flashing/Color Changes");
-                        disableFlash.Tag = "/flashing $1";
-                        disableFlash.Checked = GetTabPage(_selectedIndex).EventOverLoad;
+                        ToolStripMenuItem disableFlash = new ToolStripMenuItem("Disable Flashing/Color Changes")
+                        {
+                            Tag = "/flashing $1",
+                            Checked = GetTabPage(_selectedIndex).EventOverLoad
+                        };
 
-                        ToolStripMenuItem disableSounds = new ToolStripMenuItem("Disable Sounds");
-                        disableSounds.Tag = "/sounds $1";
-                        disableSounds.Checked = GetTabPage(_selectedIndex).DisableSounds;
+                        ToolStripMenuItem disableSounds = new ToolStripMenuItem("Disable Sounds")
+                        {
+                            Tag = "/sounds $1",
+                            Checked = GetTabPage(_selectedIndex).DisableSounds
+                        };
 
                         events.DropDownItems.Add(disableFlash);
                         events.DropDownItems.Add(disableSounds);
@@ -1029,8 +1050,7 @@ namespace IceChat
                          {
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
-                                IceChatPlugin ipc = p as IceChatPlugin;
-                                if (ipc != null)
+                                if (p is IceChatPlugin ipc)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {
@@ -1077,8 +1097,7 @@ namespace IceChat
                         {
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
-                                IceChatPlugin ipc = p as IceChatPlugin;
-                                if (ipc != null)
+                                if (p is IceChatPlugin ipc)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {
@@ -1237,8 +1256,10 @@ namespace IceChat
 
         private ToolStripMenuItem NewMenuItem(string caption, string command)
         {
-            ToolStripMenuItem t = new ToolStripMenuItem(caption);
-            t.Tag = command;
+            ToolStripMenuItem t = new ToolStripMenuItem(caption)
+            {
+                Tag = command
+            };
             return t;
         }
 

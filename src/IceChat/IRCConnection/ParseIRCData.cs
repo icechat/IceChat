@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -159,8 +159,7 @@ namespace IceChat
                 if (RawServerIncomingDataOverRide != null)
                     data = RawServerIncomingDataOverRide(this, data);
 
-                if (RawServerIncomingData != null)
-                    RawServerIncomingData(this, data);
+                RawServerIncomingData?.Invoke(this, data);
 
                 // parse any server tags
                 if (ircData[0].StartsWith("@"))
@@ -1001,8 +1000,7 @@ namespace IceChat
                                 commandQueue.Clear();
                                 motd = 19
                                     ;
-                                if (ServerFullyConnected != null)
-                                    ServerFullyConnected(this);
+                                ServerFullyConnected?.Invoke(this);
                                 motd = 20;
                             }
                             catch(Exception exx)
@@ -1080,8 +1078,7 @@ namespace IceChat
 
                                                 if (dccData.Length > 4)
                                                 {
-                                                    uint uresult;
-                                                    if (!uint.TryParse(dccData[dccData.Length - 1], out uresult))
+                                                    if (!uint.TryParse(dccData[dccData.Length - 1], out uint uresult))
                                                     {
                                                         return;
                                                     }
@@ -1117,8 +1114,7 @@ namespace IceChat
                                                         //http://trout.snt.utwente.nl/ubbthreads/ubbthreads.php?ubb=showflat&Number=139329&site_id=1#import
 
                                                         System.Diagnostics.Debug.WriteLine("PASSIVE DCC " + id + ":" + fileSize + ":" + port + ":" + ip + ":" + file);
-                                                        if (DCCPassive != null)
-                                                            DCCPassive(this, nick, host, ip, file, fileSize, 0, false, id);
+                                                        DCCPassive?.Invoke(this, nick, host, ip, file, fileSize, 0, false, id);
 
                                                         return;
                                                     }
@@ -1155,8 +1151,7 @@ namespace IceChat
                                                 System.Diagnostics.Debug.WriteLine("DCC SEND:" + dccData[0] + "::" + dccData[1] + "::" + dccData[2] + "::" + dccData[3]);
 
                                                 //check if filesize is a valid number
-                                                uint result;
-                                                if (!uint.TryParse(dccData[3], out result))
+                                                if (!uint.TryParse(dccData[3], out uint result))
                                                     return;
 
                                                 //check if quotes around file name

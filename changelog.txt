@@ -1,11 +1,20 @@
-Build 9.22a Sep 14 2019
+Build 9.49 March 1 2020
+* Built now with .NET 4.5.2 using VS Studio 2017
+* All Plugins converted to .NET 4.5.2
 * Background images are saved and will show again on restart
 * Fix parsing of channel modes and channel create time, remove preceding colon
 * Upgraded to 99 colors
 * Fix issue if custom log folder does not exist, reset to default
 * Fix DCC download bug on sender not receiving file was sent successfully
-* Update SimpleScript Plugin to v1.4 adding Input Text event
+* Fix CTCP issue with not sending a colon
 * Added ChannelNames and EndChannelNames to Plugin Events
+* Plugins can now reference other DLL's properly
+* Added No Color Mode (Disable Colors) to Server Settings, for all channels on server
+* $os now returns Windows Product Name
+* $osversion returns Windows Version number
+* If multiple nicks are selected in the nick list, in the popupmenu, $1, $2, $3, etc can be used in command to replace selected nicks
+* Right clicking an item in the nick list will no select/deselect
+* Update SimpleScript Plugin to v1.4 adding Input Text event
 
 
 Build 9.22 June 1 2019

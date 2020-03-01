@@ -99,7 +99,7 @@
             this.buttonNext.Size = new System.Drawing.Size(55, 51);
             this.buttonNext.TabIndex = 6;
             this.buttonNext.UseVisualStyleBackColor = true;
-            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            this.buttonNext.Click += new System.EventHandler(this.ButtonNext_Click);
             // 
             // buttonBack
             // 
@@ -108,7 +108,7 @@
             this.buttonBack.Size = new System.Drawing.Size(55, 51);
             this.buttonBack.TabIndex = 7;
             this.buttonBack.UseVisualStyleBackColor = true;
-            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
+            this.buttonBack.Click += new System.EventHandler(this.ButtonBack_Click);
             // 
             // buttonImport
             // 
@@ -119,7 +119,7 @@
             this.buttonImport.TabIndex = 8;
             this.buttonImport.Text = "Import IceChat 7 Settings";
             this.buttonImport.UseVisualStyleBackColor = true;
-            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
+            this.buttonImport.Click += new System.EventHandler(this.ButtonImport_Click);
             // 
             // FormFirstRun
             // 

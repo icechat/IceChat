@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,27 +86,24 @@ namespace IceChat
             _id = id;
         }
 
-        private void buttonAccept_Click(object sender, EventArgs e)
+        private void ButtonAccept_Click(object sender, EventArgs e)
         {
-            if (DCCFileAcceptResult != null)
-                DCCFileAcceptResult(DialogResult.Yes, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
+            DCCFileAcceptResult?.Invoke(DialogResult.Yes, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
 
             this.Close();
         }
 
-        private void buttonReject_Click(object sender, EventArgs e)
+        private void ButtonReject_Click(object sender, EventArgs e)
         {
-            if (DCCFileAcceptResult != null)
-                DCCFileAcceptResult(DialogResult.No, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
-            
+            DCCFileAcceptResult?.Invoke(DialogResult.No, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
+
             this.Close();
         }
 
-        private void buttonIgnore_Click(object sender, EventArgs e)
+        private void ButtonIgnore_Click(object sender, EventArgs e)
         {
-            if (DCCFileAcceptResult != null)
-                DCCFileAcceptResult(DialogResult.Ignore, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
-            
+            DCCFileAcceptResult?.Invoke(DialogResult.Ignore, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
+
             this.Close();
 
         }

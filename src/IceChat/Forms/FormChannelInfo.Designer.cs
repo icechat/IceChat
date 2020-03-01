@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChannelInfo));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.textChannelKey = new System.Windows.Forms.TextBox();
@@ -46,19 +45,19 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.buttonRemoveBan = new System.Windows.Forms.Button();
             this.listViewBans = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripBans = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.buttonRemoveException = new System.Windows.Forms.Button();
             this.listViewExceptions = new System.Windows.Forms.ListView();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.listViewQuiet = new System.Windows.Forms.ListView();
-            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonApply = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
@@ -71,9 +70,9 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -199,8 +198,8 @@
             // 
             // textTopic
             // 
-            this.textTopic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textTopic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textTopic.Location = new System.Drawing.Point(6, 6);
             this.textTopic.Multiline = true;
             this.textTopic.Name = "textTopic";
@@ -224,7 +223,6 @@
             // 
             this.buttonRemoveBan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemoveBan.AutoSize = true;
-            this.buttonRemoveBan.BackgroundImage = global::IceChat.Properties.Resources.delete;
             this.buttonRemoveBan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonRemoveBan.Location = new System.Drawing.Point(304, 277);
             this.buttonRemoveBan.Margin = new System.Windows.Forms.Padding(4);
@@ -233,13 +231,13 @@
             this.buttonRemoveBan.TabIndex = 1;
             this.buttonRemoveBan.Text = "Remove Ban";
             this.buttonRemoveBan.UseVisualStyleBackColor = true;
-            this.buttonRemoveBan.Click += new System.EventHandler(this.buttonRemoveBan_Click);
+            this.buttonRemoveBan.Click += new System.EventHandler(this.ButtonRemoveBan_Click);
             // 
             // listViewBans
             // 
-            this.listViewBans.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewBans.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewBans.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
@@ -274,7 +272,7 @@
             this.copyToClipboardToolStripMenuItem.Name = "copyToClipboardToolStripMenuItem";
             this.copyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.copyToClipboardToolStripMenuItem.Text = "Copy to Clipboard";
-            this.copyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem_Click);
+            this.copyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.CopyToClipboardToolStripMenuItem_Click);
             // 
             // tabPage3
             // 
@@ -292,7 +290,6 @@
             // 
             this.buttonRemoveException.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemoveException.AutoSize = true;
-            this.buttonRemoveException.BackgroundImage = global::IceChat.Properties.Resources.delete;
             this.buttonRemoveException.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonRemoveException.Location = new System.Drawing.Point(255, 278);
             this.buttonRemoveException.Margin = new System.Windows.Forms.Padding(4);
@@ -301,13 +298,13 @@
             this.buttonRemoveException.TabIndex = 2;
             this.buttonRemoveException.Text = "Remove Exception";
             this.buttonRemoveException.UseVisualStyleBackColor = true;
-            this.buttonRemoveException.Click += new System.EventHandler(this.buttonRemoveException_Click);
+            this.buttonRemoveException.Click += new System.EventHandler(this.ButtonRemoveException_Click);
             // 
             // listViewExceptions
             // 
-            this.listViewExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewExceptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewExceptions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
@@ -342,9 +339,9 @@
             // 
             // listViewQuiet
             // 
-            this.listViewQuiet.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewQuiet.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewQuiet.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader6});
@@ -370,7 +367,6 @@
             // 
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApply.AutoSize = true;
-            this.buttonApply.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonApply.BackgroundImage")));
             this.buttonApply.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonApply.Location = new System.Drawing.Point(231, 347);
             this.buttonApply.Margin = new System.Windows.Forms.Padding(4);
@@ -379,22 +375,21 @@
             this.buttonApply.TabIndex = 2;
             this.buttonApply.Text = "Apply";
             this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            this.buttonApply.Click += new System.EventHandler(this.ButtonApply_Click);
             // 
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.AutoSize = true;
-            this.buttonClose.BackgroundImage = global::IceChat.Properties.Resources.cancel;
             this.buttonClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonClose.Location = new System.Drawing.Point(341, 347);
             this.buttonClose.Margin = new System.Windows.Forms.Padding(4);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(100, 26);
             this.buttonClose.TabIndex = 1;
-            this.buttonClose.Text = "Close";
+            this.buttonClose.Text = "OK";
             this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // FormChannelInfo
             // 

@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,11 +51,11 @@ namespace IceChat
             this._parent = parent;
 
             this.Paint += new PaintEventHandler(OnHeaderPaint);
-            this.panelButtons.Resize += new EventHandler(panelButtons_Resize);
+            this.panelButtons.Resize += new EventHandler(PanelButtons_Resize);
             this.Resize += new EventHandler(OnResize);
             this.MouseDown += new MouseEventHandler(OnMouseDown);
 
-            this.treeBuddies.NodeMouseDoubleClick += new TreeNodeMouseClickEventHandler(treeBuddies_NodeMouseDoubleClick);
+            this.treeBuddies.NodeMouseDoubleClick += new TreeNodeMouseClickEventHandler(TreeBuddies_NodeMouseDoubleClick);
             this.treeBuddies.ShowNodeToolTips = true;
 
             this.DoubleBuffered = true;
@@ -64,7 +64,7 @@ namespace IceChat
             
         }
 
-        private void treeBuddies_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void TreeBuddies_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             _parent.ParseOutGoingCommand((IRCConnection)e.Node.Tag, "/query " + e.Node.Text);            
         }
@@ -97,7 +97,7 @@ namespace IceChat
             buttonRemove.Text = iceChatLanguage.favChanbuttonRemove;
         }
 
-        private void panelButtons_Resize(object sender, EventArgs e)
+        private void PanelButtons_Resize(object sender, EventArgs e)
         {
             this.buttonAdd.Width = (panelButtons.Width / 2) - 4;
             this.buttonMessage.Width = buttonAdd.Width;
@@ -148,9 +148,11 @@ namespace IceChat
                     }
                 }
             }
-            StringFormat sf = new StringFormat();
-            sf.Alignment = StringAlignment.Center;
-            
+            StringFormat sf = new StringFormat
+            {
+                Alignment = StringAlignment.Center
+            };
+
             Font headerFont = new Font("Verdana", 10);
 
             Rectangle centered = headerR;
@@ -187,24 +189,24 @@ namespace IceChat
             }
         }
        
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void ButtonAdd_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Edit Buddy List in Server Editor");
         }
 
        
 
-        private void buttonMessage_Click(object sender, EventArgs e)
+        private void ButtonMessage_Click(object sender, EventArgs e)
         {
             //
         }
 
-        private void buttonEdit_Click(object sender, EventArgs e)
+        private void ButtonEdit_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Edit Buddy List in Server Editor");
         }
 
-        private void buttonRemove_Click(object sender, EventArgs e)
+        private void ButtonRemove_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Edit Buddy List in Server Editor");
         }
@@ -313,9 +315,11 @@ namespace IceChat
                     //check if buddy is already in list
                     RemoveBuddy(connection, buddy);
 
-                    TreeNode t = new TreeNode();
-                    t.Text = buddy.Nick;
-                    t.Tag = connection;
+                    TreeNode t = new TreeNode
+                    {
+                        Text = buddy.Nick,
+                        Tag = connection
+                    };
 
                     if (buddy.Connected)
                     {

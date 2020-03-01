@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,8 +62,8 @@ namespace IceChat
             this.buttonEmoticonPicker.Image = StaticMethods.LoadResourceImage("Smile.png");
             this.buttonColorPicker.Image = StaticMethods.LoadResourceImage("color.png");
 
-            textInput.OnCommand += new IceInputBox.SendCommand(textInput_OnCommand);
-            textBoxWide.OnCommand += new IceInputBox.SendCommand(textBoxWide_OnCommand);
+            textInput.OnCommand += new IceInputBox.SendCommand(TextInput_OnCommand);
+            textBoxWide.OnCommand += new IceInputBox.SendCommand(TextBoxWide_OnCommand);
 
             textInput.OnHotKey += Input_OnHotKey;
             textBoxWide.OnHotKey += Input_OnHotKey; 
@@ -245,11 +245,10 @@ namespace IceChat
 
         private void Input_OnHotKey(object sender, KeyEventArgs e)
         {
-            if (OnHotKey != null)
-                OnHotKey(sender, e);
+            OnHotKey?.Invoke(sender, e);
         } 
 
-        private void textBoxWide_OnCommand(object sender, string data)
+        private void TextBoxWide_OnCommand(object sender, string data)
         {
             if (OnCommand != null)
             {
@@ -264,7 +263,7 @@ namespace IceChat
             }
         }
 
-        private void textInput_OnCommand(object sender, string data)
+        private void TextInput_OnCommand(object sender, string data)
         {
             if (OnCommand != null)
             {
@@ -290,7 +289,7 @@ namespace IceChat
 
                         for (int index = 0; index < lines[0].Length; index += 350)
                         {
-                            textInput.addToBuffer(lines[0].Substring(index, Math.Min(350, lines[0].Length - index)));
+                            textInput.AddToBuffer(lines[0].Substring(index, Math.Min(350, lines[0].Length - index)));
 
                             // send this command with a bit of a delay.. or you excess flood!
                             OnCommand(this, lines[0].Substring(index, Math.Min(350, lines[0].Length - index)));
@@ -299,7 +298,7 @@ namespace IceChat
                     }
                     else
                     {
-                        textInput.addToBuffer(lines[0]);
+                        textInput.AddToBuffer(lines[0]);
                         OnCommand(this, lines[0]);
                     }
                 }
@@ -333,7 +332,7 @@ namespace IceChat
                                 {
                                     System.Diagnostics.Debug.WriteLine("more lines:" + line.Length);
                                 
-                                    textInput.addToBuffer(line);
+                                    textInput.AddToBuffer(line);
                                     OnCommand(this, line);                                
                                 
                                 }
@@ -345,7 +344,7 @@ namespace IceChat
 
                                     for (int index = 0; index < line.Length; index += 350)
                                     {
-                                        textInput.addToBuffer(line.Substring(index, Math.Min(350, line.Length - index)));
+                                        textInput.AddToBuffer(line.Substring(index, Math.Min(350, line.Length - index)));
 
                                         // send this command with a bit of a delay.. or you excess flood!
                                         OnCommand(this, line.Substring(index, Math.Min(350, line.Length - index)));
@@ -407,7 +406,7 @@ namespace IceChat
                         System.Diagnostics.Debug.WriteLine("SendButtonClick:" + line.Length);
                         if (line.Length < 350)
                         {
-                            textBoxWide.addToBuffer(line);
+                            textBoxWide.AddToBuffer(line);
 
                             OnCommand(this, line);
                         }
@@ -418,7 +417,7 @@ namespace IceChat
                             //split it up
                             for (int index = 0; index < line.Length; index += 350)
                             {                                
-                                textBoxWide.addToBuffer(line.Substring(index, Math.Min(350, line.Length - index)));
+                                textBoxWide.AddToBuffer(line.Substring(index, Math.Min(350, line.Length - index)));
                                                                 
                                 // send this command with a bit of a delay.. or you excess flood!
                                 OnCommand(this, line.Substring(index, Math.Min(350, line.Length - index)));
@@ -440,53 +439,57 @@ namespace IceChat
             }
         }
         
-        private void buttonSend_Click(object sender, EventArgs e)
+        private void ButtonSend_Click(object sender, EventArgs e)
         {
             SendButtonClick();
         }
 
-        private void buttonEmoticonPicker_Click(object sender, EventArgs e)
+        private void ButtonEmoticonPicker_Click(object sender, EventArgs e)
         {
             //show the emoticon picker form
-            FormEmoticons fe = new FormEmoticons();
-            fe.Top = (FormMain.Instance.Top + FormMain.Instance.Height) - 220;
-            fe.Left = FormMain.Instance.Left + 10;
+            FormEmoticons fe = new FormEmoticons
+            {
+                Top = (FormMain.Instance.Top + FormMain.Instance.Height) - 220,
+                Left = FormMain.Instance.Left + 10
+            };
             fe.ShowDialog(this);
 
             FormMain.Instance.FocusInputBox();
         }
 
-        private void buttonColorPicker_Click(object sender, EventArgs e)
+        private void ButtonColorPicker_Click(object sender, EventArgs e)
         {
-            FormColorPicker fc = new FormColorPicker();
-            fc.Top = (FormMain.Instance.Top + FormMain.Instance.Height) - 280;
-            fc.Left = FormMain.Instance.Left + 10;
+            FormColorPicker fc = new FormColorPicker
+            {
+                Top = (FormMain.Instance.Top + FormMain.Instance.Height) - 280,
+                Left = FormMain.Instance.Left + 10
+            };
             fc.ShowDialog(this);
 
             FormMain.Instance.FocusInputBox();
         }
 
-        private void buttonNext_Click(object sender, EventArgs e)
+        private void ButtonNext_Click(object sender, EventArgs e)
         {
             //find next search
         }
 
-        private void buttonPrevious_Click(object sender, EventArgs e)
+        private void ButtonPrevious_Click(object sender, EventArgs e)
         {
             //find previous search
         }
 
-        private void buttonHelp_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void ButtonHelp_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             contextHelpMenu.Show(buttonHelp, e.Location);
         }
 
-        private void toolStripHelpMenuOnClick(object sender, System.EventArgs e)
+        private void ToolStripHelpMenuOnClick(object sender, System.EventArgs e)
         {
             OnCommand(this, "//addtext " + ((System.Windows.Forms.ToolStripMenuItem)sender).Tag.ToString());
         }
 
-        private void buttonReset_Click(object sender, EventArgs e)
+        private void ButtonReset_Click(object sender, EventArgs e)
         {
             //go back to a normal panel
             ShowWideTextPanel = false;

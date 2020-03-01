@@ -49,7 +49,7 @@
             this.listChannels.Name = "listChannels";
             this.listChannels.Size = new System.Drawing.Size(150, 215);
             this.listChannels.TabIndex = 0;
-            this.listChannels.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listChannels_MouseDoubleClick);
+            this.listChannels.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListChannels_MouseDoubleClick);
             // 
             // panelButtons
             // 
@@ -74,7 +74,7 @@
             this.buttonRemove.TabIndex = 3;
             this.buttonRemove.Text = "Remove";
             this.buttonRemove.UseVisualStyleBackColor = true;
-            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            this.buttonRemove.Click += new System.EventHandler(this.ButtonRemove_Click);
             // 
             // buttonEdit
             // 
@@ -86,7 +86,7 @@
             this.buttonEdit.TabIndex = 2;
             this.buttonEdit.Text = "Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
+            this.buttonEdit.Click += new System.EventHandler(this.ButtonEdit_Click);
             // 
             // buttonJoin
             // 
@@ -98,7 +98,7 @@
             this.buttonJoin.TabIndex = 1;
             this.buttonJoin.Text = "Join";
             this.buttonJoin.UseVisualStyleBackColor = true;
-            this.buttonJoin.Click += new System.EventHandler(this.buttonJoin_Click);
+            this.buttonJoin.Click += new System.EventHandler(this.ButtonJoin_Click);
             // 
             // buttonAdd
             // 
@@ -110,7 +110,7 @@
             this.buttonAdd.TabIndex = 0;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // ChannelList
             // 

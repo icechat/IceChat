@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -192,24 +192,24 @@ namespace IceChat
 
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void buttonPing_Click(object sender, EventArgs e)
+        private void ButtonPing_Click(object sender, EventArgs e)
         {
             textCtcpReply.Text = "Waiting for reply...";
             FormMain.Instance.ParseOutGoingCommand(_connection, "/ping " + _nick);
         }
 
-        private void buttonVersion_Click(object sender, EventArgs e)
+        private void ButtonVersion_Click(object sender, EventArgs e)
         {
             textCtcpReply.Text = "Waiting for reply...";
             FormMain.Instance.ParseOutGoingCommand(_connection, "/version " + _nick);
         }
 
-        private void textSendMessage_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        private void TextSendMessage_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)13)
             {

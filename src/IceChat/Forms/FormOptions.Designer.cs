@@ -185,9 +185,9 @@ namespace IceChat
             this.buttonRemoveEmoticon = new System.Windows.Forms.Button();
             this.buttonAddEmoticon = new System.Windows.Forms.Button();
             this.listViewEmot = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageListEmoticons = new System.Windows.Forms.ImageList(this.components);
             this.tabEvents = new System.Windows.Forms.TabPage();
             this.comboNickEvent = new System.Windows.Forms.ComboBox();
@@ -377,7 +377,7 @@ namespace IceChat
             this.buttonTrayIcon.TabIndex = 72;
             this.buttonTrayIcon.Text = "...";
             this.buttonTrayIcon.UseVisualStyleBackColor = true;
-            this.buttonTrayIcon.Click += new System.EventHandler(this.buttonTrayIcon_Click);
+            this.buttonTrayIcon.Click += new System.EventHandler(this.ButtonTrayIcon_Click);
             // 
             // textSystemTrayIcon
             // 
@@ -393,7 +393,7 @@ namespace IceChat
             this.label36.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label36.Location = new System.Drawing.Point(12, 174);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(180, 16);
+            this.label36.Size = new System.Drawing.Size(179, 16);
             this.label36.TabIndex = 70;
             this.label36.Text = "System Tray icon (32x32)";
             // 
@@ -411,7 +411,7 @@ namespace IceChat
             this.label20.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label20.Location = new System.Drawing.Point(12, 148);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(156, 16);
+            this.label20.Size = new System.Drawing.Size(155, 16);
             this.label20.TabIndex = 68;
             this.label20.Text = "System Tray icon text";
             // 
@@ -779,7 +779,7 @@ namespace IceChat
             this.trackTransparency.TabIndex = 21;
             this.trackTransparency.TickFrequency = 5;
             this.trackTransparency.Value = 100;
-            this.trackTransparency.Scroll += new System.EventHandler(this.trackTransparency_Scroll);
+            this.trackTransparency.Scroll += new System.EventHandler(this.TrackTransparency_Scroll);
             // 
             // checkShowUnreadLine
             // 
@@ -989,7 +989,7 @@ namespace IceChat
             this.buttonChangeLogs.TabIndex = 29;
             this.buttonChangeLogs.Text = "Change logs folder";
             this.buttonChangeLogs.UseVisualStyleBackColor = true;
-            this.buttonChangeLogs.Click += new System.EventHandler(this.buttonChangeLogs_Click);
+            this.buttonChangeLogs.Click += new System.EventHandler(this.ButtonChangeLogs_Click);
             // 
             // checkLogWindow
             // 
@@ -1031,7 +1031,7 @@ namespace IceChat
             this.buttonBrowseLogs.TabIndex = 26;
             this.buttonBrowseLogs.Text = "Browse logs folder";
             this.buttonBrowseLogs.UseVisualStyleBackColor = true;
-            this.buttonBrowseLogs.Click += new System.EventHandler(this.buttonBrowseLogs_Click);
+            this.buttonBrowseLogs.Click += new System.EventHandler(this.ButtonBrowseLogs_Click);
             // 
             // checkSeperateLogs
             // 
@@ -1138,7 +1138,7 @@ namespace IceChat
             this.buttonChannelBar.TabIndex = 56;
             this.buttonChannelBar.Text = "Select";
             this.buttonChannelBar.UseVisualStyleBackColor = true;
-            this.buttonChannelBar.Click += new System.EventHandler(this.buttonChannelBar_Click);
+            this.buttonChannelBar.Click += new System.EventHandler(this.ButtonChannelBar_Click);
             // 
             // textChannelBarFont
             // 
@@ -1175,7 +1175,7 @@ namespace IceChat
             this.buttonMenuBar.TabIndex = 35;
             this.buttonMenuBar.Text = "Select";
             this.buttonMenuBar.UseVisualStyleBackColor = true;
-            this.buttonMenuBar.Click += new System.EventHandler(this.buttonMenuBar_Click);
+            this.buttonMenuBar.Click += new System.EventHandler(this.ButtonMenuBar_Click);
             // 
             // textMenuBarFont
             // 
@@ -1212,7 +1212,7 @@ namespace IceChat
             this.buttonDockTab.TabIndex = 34;
             this.buttonDockTab.Text = "Select";
             this.buttonDockTab.UseVisualStyleBackColor = true;
-            this.buttonDockTab.Click += new System.EventHandler(this.buttonDockTab_Click);
+            this.buttonDockTab.Click += new System.EventHandler(this.ButtonDockTab_Click);
             // 
             // textDockTabFont
             // 
@@ -1237,7 +1237,7 @@ namespace IceChat
             this.labelDockTabFont.AutoSize = true;
             this.labelDockTabFont.Location = new System.Drawing.Point(15, 177);
             this.labelDockTabFont.Name = "labelDockTabFont";
-            this.labelDockTabFont.Size = new System.Drawing.Size(46, 16);
+            this.labelDockTabFont.Size = new System.Drawing.Size(44, 16);
             this.labelDockTabFont.TabIndex = 47;
             this.labelDockTabFont.Text = "Tabs:";
             // 
@@ -1249,7 +1249,7 @@ namespace IceChat
             this.buttonInputFont.TabIndex = 33;
             this.buttonInputFont.Text = "Select";
             this.buttonInputFont.UseVisualStyleBackColor = true;
-            this.buttonInputFont.Click += new System.EventHandler(this.buttonInputFont_Click);
+            this.buttonInputFont.Click += new System.EventHandler(this.ButtonInputFont_Click);
             // 
             // buttonServerListFont
             // 
@@ -1259,7 +1259,7 @@ namespace IceChat
             this.buttonServerListFont.TabIndex = 32;
             this.buttonServerListFont.Text = "Select";
             this.buttonServerListFont.UseVisualStyleBackColor = true;
-            this.buttonServerListFont.Click += new System.EventHandler(this.buttonServerListFont_Click);
+            this.buttonServerListFont.Click += new System.EventHandler(this.ButtonServerListFont_Click);
             // 
             // textInputFont
             // 
@@ -1305,7 +1305,7 @@ namespace IceChat
             this.buttonNickListFont.TabIndex = 31;
             this.buttonNickListFont.Text = "Select";
             this.buttonNickListFont.UseVisualStyleBackColor = true;
-            this.buttonNickListFont.Click += new System.EventHandler(this.buttonNickListFont_Click);
+            this.buttonNickListFont.Click += new System.EventHandler(this.ButtonNickListFont_Click);
             // 
             // textNickListFontSize
             // 
@@ -1333,7 +1333,7 @@ namespace IceChat
             this.buttonQueryFont.TabIndex = 30;
             this.buttonQueryFont.Text = "Select";
             this.buttonQueryFont.UseVisualStyleBackColor = true;
-            this.buttonQueryFont.Click += new System.EventHandler(this.buttonQueryFont_Click);
+            this.buttonQueryFont.Click += new System.EventHandler(this.ButtonQueryFont_Click);
             // 
             // textQueryFontSize
             // 
@@ -1361,7 +1361,7 @@ namespace IceChat
             this.buttonChannelFont.TabIndex = 29;
             this.buttonChannelFont.Text = "Select";
             this.buttonChannelFont.UseVisualStyleBackColor = true;
-            this.buttonChannelFont.Click += new System.EventHandler(this.buttonChannelFont_Click);
+            this.buttonChannelFont.Click += new System.EventHandler(this.ButtonChannelFont_Click);
             // 
             // textChannelFontSize
             // 
@@ -1389,7 +1389,7 @@ namespace IceChat
             this.buttonConsoleFont.TabIndex = 28;
             this.buttonConsoleFont.Text = "Select";
             this.buttonConsoleFont.UseVisualStyleBackColor = true;
-            this.buttonConsoleFont.Click += new System.EventHandler(this.buttonConsoleFont_Click);
+            this.buttonConsoleFont.Click += new System.EventHandler(this.ButtonConsoleFont_Click);
             // 
             // textConsoleFontSize
             // 
@@ -1564,7 +1564,7 @@ namespace IceChat
             this.linkWhatisMyIP.TabIndex = 45;
             this.linkWhatisMyIP.TabStop = true;
             this.linkWhatisMyIP.Text = "What is my IP address?";
-            this.linkWhatisMyIP.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkWhatisMyIP_LinkClicked);
+            this.linkWhatisMyIP.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkWhatisMyIP_LinkClicked);
             // 
             // textDCCLocalIP
             // 
@@ -1610,7 +1610,7 @@ namespace IceChat
             this.buttonDCCSendFolder.TabIndex = 43;
             this.buttonDCCSendFolder.Text = "...";
             this.buttonDCCSendFolder.UseVisualStyleBackColor = true;
-            this.buttonDCCSendFolder.Click += new System.EventHandler(this.buttonDCCSendFolder_Click);
+            this.buttonDCCSendFolder.Click += new System.EventHandler(this.ButtonDCCSendFolder_Click);
             // 
             // buttonDCCReceiveFolder
             // 
@@ -1620,7 +1620,7 @@ namespace IceChat
             this.buttonDCCReceiveFolder.TabIndex = 42;
             this.buttonDCCReceiveFolder.Text = "...";
             this.buttonDCCReceiveFolder.UseVisualStyleBackColor = true;
-            this.buttonDCCReceiveFolder.Click += new System.EventHandler(this.buttonDCCReceiveFolder_Click);
+            this.buttonDCCReceiveFolder.Click += new System.EventHandler(this.ButtonDCCReceiveFolder_Click);
             // 
             // textDCCSendFolder
             // 
@@ -1781,7 +1781,7 @@ namespace IceChat
             this.buttonStop.TabIndex = 57;
             this.buttonStop.Text = "Stop";
             this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            this.buttonStop.Click += new System.EventHandler(this.ButtonStop_Click);
             // 
             // label18
             // 
@@ -1817,7 +1817,7 @@ namespace IceChat
             this.buttonTest.TabIndex = 54;
             this.buttonTest.Text = "Play";
             this.buttonTest.UseVisualStyleBackColor = true;
-            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            this.buttonTest.Click += new System.EventHandler(this.ButtonTest_Click);
             // 
             // buttonChooseSound
             // 
@@ -1827,7 +1827,7 @@ namespace IceChat
             this.buttonChooseSound.TabIndex = 53;
             this.buttonChooseSound.Text = "...";
             this.buttonChooseSound.UseVisualStyleBackColor = true;
-            this.buttonChooseSound.Click += new System.EventHandler(this.buttonChooseSound_Click);
+            this.buttonChooseSound.Click += new System.EventHandler(this.ButtonChooseSound_Click);
             // 
             // textSound
             // 
@@ -1835,7 +1835,7 @@ namespace IceChat
             this.textSound.Name = "textSound";
             this.textSound.Size = new System.Drawing.Size(450, 23);
             this.textSound.TabIndex = 4;
-            this.textSound.TextChanged += new System.EventHandler(this.textSound_TextChanged);
+            this.textSound.TextChanged += new System.EventHandler(this.TextSound_TextChanged);
             // 
             // labelSoundFile
             // 
@@ -1863,7 +1863,7 @@ namespace IceChat
             this.listBoxSounds.Name = "listBoxSounds";
             this.listBoxSounds.Size = new System.Drawing.Size(393, 148);
             this.listBoxSounds.TabIndex = 52;
-            this.listBoxSounds.SelectedIndexChanged += new System.EventHandler(this.listBoxSounds_SelectedIndexChanged);
+            this.listBoxSounds.SelectedIndexChanged += new System.EventHandler(this.ListBoxSounds_SelectedIndexChanged);
             // 
             // tabEmoticon
             // 
@@ -1891,7 +1891,7 @@ namespace IceChat
             this.buttonResetEmoticons.TabIndex = 6;
             this.buttonResetEmoticons.Text = "Reset";
             this.buttonResetEmoticons.UseVisualStyleBackColor = true;
-            this.buttonResetEmoticons.Click += new System.EventHandler(this.buttonResetEmoticons_Click);
+            this.buttonResetEmoticons.Click += new System.EventHandler(this.ButtonResetEmoticons_Click);
             // 
             // buttonBrowseEmoticon
             // 
@@ -1901,7 +1901,7 @@ namespace IceChat
             this.buttonBrowseEmoticon.TabIndex = 5;
             this.buttonBrowseEmoticon.Text = "Browse Folder";
             this.buttonBrowseEmoticon.UseVisualStyleBackColor = true;
-            this.buttonBrowseEmoticon.Click += new System.EventHandler(this.buttonBrowseEmoticon_Click);
+            this.buttonBrowseEmoticon.Click += new System.EventHandler(this.ButtonBrowseEmoticon_Click);
             // 
             // checkEmoticons
             // 
@@ -1921,7 +1921,7 @@ namespace IceChat
             this.buttonEditTrigger.TabIndex = 3;
             this.buttonEditTrigger.Text = "Edit Trigger";
             this.buttonEditTrigger.UseVisualStyleBackColor = true;
-            this.buttonEditTrigger.Click += new System.EventHandler(this.buttonEditTrigger_Click);
+            this.buttonEditTrigger.Click += new System.EventHandler(this.ButtonEditTrigger_Click);
             // 
             // buttonRemoveEmoticon
             // 
@@ -1931,7 +1931,7 @@ namespace IceChat
             this.buttonRemoveEmoticon.TabIndex = 2;
             this.buttonRemoveEmoticon.Text = "Remove Emoticon";
             this.buttonRemoveEmoticon.UseVisualStyleBackColor = true;
-            this.buttonRemoveEmoticon.Click += new System.EventHandler(this.buttonRemoveEmoticon_Click);
+            this.buttonRemoveEmoticon.Click += new System.EventHandler(this.ButtonRemoveEmoticon_Click);
             // 
             // buttonAddEmoticon
             // 
@@ -1941,7 +1941,7 @@ namespace IceChat
             this.buttonAddEmoticon.TabIndex = 1;
             this.buttonAddEmoticon.Text = "Add Emoticon";
             this.buttonAddEmoticon.UseVisualStyleBackColor = true;
-            this.buttonAddEmoticon.Click += new System.EventHandler(this.buttonAddEmoticon_Click);
+            this.buttonAddEmoticon.Click += new System.EventHandler(this.ButtonAddEmoticon_Click);
             // 
             // listViewEmot
             // 
@@ -2238,7 +2238,7 @@ namespace IceChat
             this.labelTopicEvent.AutoSize = true;
             this.labelTopicEvent.Location = new System.Drawing.Point(460, 150);
             this.labelTopicEvent.Name = "labelTopicEvent";
-            this.labelTopicEvent.Size = new System.Drawing.Size(57, 16);
+            this.labelTopicEvent.Size = new System.Drawing.Size(56, 16);
             this.labelTopicEvent.TabIndex = 10;
             this.labelTopicEvent.Text = "Topics:";
             // 
@@ -2531,7 +2531,7 @@ namespace IceChat
             this.label40.Size = new System.Drawing.Size(358, 40);
             this.label40.TabIndex = 60;
             this.label40.Text = "These commands are not for Server auto-perform. Open the Server Editor for those." +
-                "";
+    "";
             // 
             // label37
             // 
@@ -2541,7 +2541,7 @@ namespace IceChat
             this.label37.Size = new System.Drawing.Size(358, 40);
             this.label37.TabIndex = 59;
             this.label37.Text = "These commands are run at IceChat Startup    Place a ; before the command to disa" +
-                "ble it";
+    "ble it";
             // 
             // textAutoPerformStartup
             // 
@@ -2879,7 +2879,6 @@ namespace IceChat
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.BackgroundImage = global::IceChat.Properties.Resources.help;
             this.buttonHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonHelp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2890,39 +2889,37 @@ namespace IceChat
             this.buttonHelp.TabIndex = 5;
             this.buttonHelp.Text = "Help";
             this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            this.buttonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.BackgroundImage = global::IceChat.Properties.Resources.cancel;
             this.buttonCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonCancel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCancel.Location = new System.Drawing.Point(661, 5);
+            this.buttonCancel.Location = new System.Drawing.Point(553, 5);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 25);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.BackgroundImage = global::IceChat.Properties.Resources.floppy;
             this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSave.Location = new System.Drawing.Point(551, 5);
+            this.buttonSave.Location = new System.Drawing.Point(661, 5);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(100, 25);
             this.buttonSave.TabIndex = 3;
-            this.buttonSave.Text = "Save";
+            this.buttonSave.Text = "OK";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // FormSettings
             // 

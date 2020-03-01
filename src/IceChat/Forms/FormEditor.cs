@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ namespace IceChat
             this.Load += new EventHandler(FormEditor_Load);
             popupTypeToolStripMenuItem.Visible = false;
 
-            tabControlEditor.SelectedIndexChanged += new EventHandler(tabControlEditor_SelectedIndexChanged);
+            tabControlEditor.SelectedIndexChanged += new EventHandler(TabControlEditor_SelectedIndexChanged);
             textAliases.KeyDown += new KeyEventHandler(OnKeyDown);
             textPopups.KeyDown += new KeyEventHandler(OnKeyDown);
 
@@ -93,8 +93,7 @@ namespace IceChat
             //load any plugin addons
             foreach (Plugin p in FormMain.Instance.LoadedPlugins)
             {
-                IceChatPlugin ipc = p as IceChatPlugin;
-                if (ipc != null)
+                if (p is IceChatPlugin ipc)
                 {
                     if (ipc.plugin.Enabled == true)
                         ipc.plugin.LoadEditorForm(this.tabControlEditor, this.menuStripMain);
@@ -163,7 +162,7 @@ namespace IceChat
         }
 
 
-        private void tabControlEditor_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabControlEditor_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControlEditor.SelectedTab.Text != "PopupMenus")
             {
@@ -258,17 +257,17 @@ namespace IceChat
             return null;
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
             this.saveToolStripMenuItem.PerformClick();
         }
 
-        private void closeToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void CloseToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -289,9 +288,11 @@ namespace IceChat
                     queryPopup = popups;
 
 
-                PopupMenuItem p = new PopupMenuItem();
-                p.PopupType = currentPopup;
-                p.Menu = popups;
+                PopupMenuItem p = new PopupMenuItem
+                {
+                    PopupType = currentPopup,
+                    Menu = popups
+                };
                 popupList.ReplacePopup(p.PopupType, p);
 
                 FormMain.Instance.IceChatPopupMenus = popupList;
@@ -304,7 +305,7 @@ namespace IceChat
             }
 
         }
-        private void nickListToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NickListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //save the current popup
             if (currentPopup == "NickList") return;
@@ -317,7 +318,7 @@ namespace IceChat
             LoadPopups(nickListPopup);
         }
 
-        private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ConsoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (currentPopup == "Console") return;
 
@@ -329,7 +330,7 @@ namespace IceChat
             LoadPopups(consolePopup);
         }
 
-        private void channelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ChannelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (currentPopup == "Channel") return;
 
@@ -341,7 +342,7 @@ namespace IceChat
             LoadPopups(channelPopup);
         }
 
-        private void queryToolStripMenuItem_Click(object sender, EventArgs e)
+        private void QueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (currentPopup == "Query") return;
 
@@ -353,7 +354,7 @@ namespace IceChat
             LoadPopups(queryPopup);
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //save all the settings
             try
@@ -377,8 +378,10 @@ namespace IceChat
                         {
                             //start of a multilined alias
                             isMultiLine = true;
-                            multiLineAlias = new AliasItem();
-                            multiLineAlias.AliasName = alias.Substring(0, alias.IndexOf(' '));
+                            multiLineAlias = new AliasItem
+                            {
+                                AliasName = alias.Substring(0, alias.IndexOf(' '))
+                            };
                             aliasCommands = "";
                         }
                         else if (alias == "}")
@@ -392,9 +395,11 @@ namespace IceChat
                         else if (!isMultiLine)
                         {
                             //just a normal alias
-                            AliasItem a = new AliasItem();
-                            a.AliasName = alias.Substring(0, alias.IndexOf(' '));
-                            a.Command = new String[] { alias.Substring(alias.IndexOf(' ') + 1) };
+                            AliasItem a = new AliasItem
+                            {
+                                AliasName = alias.Substring(0, alias.IndexOf(' ')),
+                                Command = new String[] { alias.Substring(alias.IndexOf(' ') + 1) }
+                            };
                             aliasList.AddAlias(a);
                             a = null;
                         }
@@ -414,8 +419,7 @@ namespace IceChat
                 //save any plugin addons for the Script Editor
                 foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
                 {
-                    IceChatPlugin ipc = p as IceChatPlugin;
-                    if (ipc != null)
+                    if (p is IceChatPlugin ipc)
                     {
                         if (ipc.plugin.Enabled == true)
                             ipc.plugin.SaveEditorForm();
@@ -432,7 +436,7 @@ namespace IceChat
             }
         }
 
-        private void buttonHelp_Click(object sender, EventArgs e)
+        private void ButtonHelp_Click(object sender, EventArgs e)
         {
             // alias or popups
             switch (tabControlEditor.TabPages[tabControlEditor.SelectedIndex].Text)

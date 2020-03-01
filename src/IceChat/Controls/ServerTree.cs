@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,8 +86,8 @@ namespace IceChat
             this.FontChanged += new EventHandler(OnFontChanged);
             this.Resize += new EventHandler(OnResize);
             this.KeyDown += new KeyEventHandler(OnKeyDown);
-            this.panelButtons.Resize += new EventHandler(panelButtons_Resize);
-            this.panelButtons.VisibleChanged += new EventHandler(panelButtons_VisibleChanged);
+            this.panelButtons.Resize += new EventHandler(PanelButtons_Resize);
+            this.panelButtons.VisibleChanged += new EventHandler(PanelButtons_VisibleChanged);
             this.vScrollBar.Scroll += new ScrollEventHandler(OnScroll);
             this.DoubleBuffered = true;
 
@@ -132,9 +132,11 @@ namespace IceChat
                         
                         foreach (string item in s.IgnoreList)
                         {
-                            s.Ignores[i] = new IgnoreListItem();
-                            s.Ignores[i].IgnoreType = new IgnoreType();
-                            
+                            s.Ignores[i] = new IgnoreListItem
+                            {
+                                IgnoreType = new IgnoreType()
+                            };
+
                             if (item.StartsWith(";")) {
                                 s.Ignores[i].Item = item.Substring(1);
                                 s.Ignores[i].Enabled = false;
@@ -162,14 +164,18 @@ namespace IceChat
                 serverID++;
             }
 
-            flashTabTimer = new System.Timers.Timer();
-            flashTabTimer.Interval = 1000;
+            flashTabTimer = new System.Timers.Timer
+            {
+                Interval = 1000
+            };
             flashTabTimer.Elapsed += new System.Timers.ElapsedEventHandler(OnFlashTabTimerElapsed);
 
-            toolTip = new ToolTip();
-            toolTip.AutoPopDelay = 3000;
-            toolTip.ForeColor = System.Drawing.SystemColors.InfoText;
-            toolTip.BackColor = System.Drawing.SystemColors.Info;
+            toolTip = new ToolTip
+            {
+                AutoPopDelay = 3000,
+                ForeColor = System.Drawing.SystemColors.InfoText,
+                BackColor = System.Drawing.SystemColors.Info
+            };
 
             Invalidate();
 
@@ -194,7 +200,7 @@ namespace IceChat
             this.Invalidate();
         }
 
-        private void panelButtons_VisibleChanged(object sender, EventArgs e)
+        private void PanelButtons_VisibleChanged(object sender, EventArgs e)
         {
             if (this.panelButtons.Visible == true)
                 this.vScrollBar.Height = this.Height - (this.headerHeight + this.panelButtons.Height);
@@ -287,7 +293,7 @@ namespace IceChat
             Invalidate();
         }
 
-        private void panelButtons_Resize(object sender, EventArgs e)
+        private void PanelButtons_Resize(object sender, EventArgs e)
         {
             buttonConnect.Width = (panelButtons.Width / 2) - 4;
             buttonDisconnect.Width = buttonConnect.Width;
@@ -371,8 +377,7 @@ namespace IceChat
                         return;
                     }
 
-                    if (NewServerConnection != null)
-                        NewServerConnection(GetServerSetting(selectedServerID));
+                    NewServerConnection?.Invoke(GetServerSetting(selectedServerID));
                 }
             }
         }
@@ -782,8 +787,7 @@ namespace IceChat
                         //add the menu's created by plugins
                         foreach (Plugin p in _parent.LoadedPlugins)
                         {
-                            IceChatPlugin ipc = p as IceChatPlugin;
-                            if (ipc != null)
+                            if (p is IceChatPlugin ipc)
                             {
                                 if (ipc.plugin.Enabled == true)
                                 {
@@ -821,13 +825,17 @@ namespace IceChat
                             //t.Tag = command;
                             if (((IceTabPage)findNode).Detached)
                             {
-                                attachMenu = new ToolStripMenuItem("Attach Tab");
-                                attachMenu.Tag = "/attach";
+                                attachMenu = new ToolStripMenuItem("Attach Tab")
+                                {
+                                    Tag = "/attach"
+                                };
                             }
                             else
                             {
-                                attachMenu  = new ToolStripMenuItem("Detach Tab");
-                                attachMenu.Tag = "/detach";
+                                attachMenu = new ToolStripMenuItem("Detach Tab")
+                                {
+                                    Tag = "/detach"
+                                };
                             }
                             
                             attachMenu.Click += new EventHandler(OnPopupMenuClick);
@@ -965,8 +973,7 @@ namespace IceChat
                             //add the menu's created by plugins
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
-                                IceChatPlugin ipc = p as IceChatPlugin;
-                                if (ipc != null)
+                                if (p is IceChatPlugin ipc)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {
@@ -984,7 +991,7 @@ namespace IceChat
                                                 ToolStripMenuItem ti = ipc.plugin.MenuItemShow(t);
                                                 col.Add(ti);
                                             }
-                                            
+
                                             this.contextMenuChannel.Items.AddRange(col.ToArray());
                                         }
                                     }
@@ -1012,8 +1019,7 @@ namespace IceChat
                             //add the menu's created by plugins
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
-                                IceChatPlugin ipc = p as IceChatPlugin;
-                                if (ipc != null)
+                                if (p is IceChatPlugin ipc)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {
@@ -1210,10 +1216,12 @@ namespace IceChat
                                 t = new ToolStripSeparator();
                             else
                             {
-                                t = new ToolStripMenuItem(caption);
-                                t.ForeColor = SystemColors.MenuText;
-                                t.BackColor = SystemColors.Menu;
-                                
+                                t = new ToolStripMenuItem(caption)
+                                {
+                                    ForeColor = SystemColors.MenuText,
+                                    BackColor = SystemColors.Menu
+                                };
+
                                 t.Click += new EventHandler(OnPopupMenuClick);
                                 t.Tag = command;
                             }
@@ -1251,7 +1259,7 @@ namespace IceChat
 
         }
 
-        private void panelTop_Paint(object sender, PaintEventArgs e)
+        private void PanelTop_Paint(object sender, PaintEventArgs e)
         {
             Bitmap buffer = new Bitmap(this.Width, headerHeight, e.Graphics);
             Graphics g = Graphics.FromImage(buffer);
@@ -1261,8 +1269,10 @@ namespace IceChat
             Brush l = new LinearGradientBrush(headerR, IrcColor.colors[_parent.IceChatColors.PanelHeaderBG1], IrcColor.colors[_parent.IceChatColors.PanelHeaderBG2], 300);
             g.FillRectangle(l, headerR);
 
-            StringFormat sf = new StringFormat();
-            sf.Alignment = StringAlignment.Center;
+            StringFormat sf = new StringFormat
+            {
+                Alignment = StringAlignment.Center
+            };
             Rectangle centered = headerR;
             centered.Offset(0, (int)(headerR.Height - e.Graphics.MeasureString(headerCaption, headerFont).Height) / 2);
 
@@ -1303,8 +1313,10 @@ namespace IceChat
                 Brush l = new LinearGradientBrush(headerR, IrcColor.colors[_parent.IceChatColors.PanelHeaderBG1], IrcColor.colors[_parent.IceChatColors.PanelHeaderBG2], 300);
                 g.FillRectangle(l, headerR);
 
-                StringFormat sf = new StringFormat();
-                sf.Alignment = StringAlignment.Center;
+                StringFormat sf = new StringFormat
+                {
+                    Alignment = StringAlignment.Center
+                };
                 Rectangle centered = headerR;
                 centered.Offset(0, (int)(headerR.Height - e.Graphics.MeasureString(headerCaption, headerFont).Height) / 2);
 
@@ -1398,8 +1410,7 @@ namespace IceChat
                     {
                         //get the color code, 1 digit or 2
                         color = nodes[4].Substring(5, 1);
-                        int result;
-                        if (Int32.TryParse(nodes[4].Substring(6, 1), out result))
+                        if (Int32.TryParse(nodes[4].Substring(6, 1), out int result))
                             color += nodes[4].Substring(6, 1);
                         nodes[4] = nodes[4].Substring(5 + color.Length);
                     }
@@ -2022,7 +2033,7 @@ namespace IceChat
 
         #region Server Tree Buttons
         
-        private void buttonConnect_Click(object sender, EventArgs e)
+        private void ButtonConnect_Click(object sender, EventArgs e)
         {
             _parent.FocusInputBox();
 
@@ -2039,11 +2050,10 @@ namespace IceChat
                 }
                 return;
             }
-            if (NewServerConnection != null)
-                NewServerConnection(GetServerSetting(selectedServerID));
+            NewServerConnection?.Invoke(GetServerSetting(selectedServerID));
         }
 
-        private void buttonDisconnect_Click(object sender, EventArgs e)
+        private void ButtonDisconnect_Click(object sender, EventArgs e)
         {
             _parent.FocusInputBox();
 
@@ -2061,7 +2071,7 @@ namespace IceChat
             }
         }
 
-        private void buttonEdit_Click(object sender, EventArgs e)
+        private void ButtonEdit_Click(object sender, EventArgs e)
         {
             //open up the Server Editor
             //check if a server is selected or not
@@ -2093,8 +2103,7 @@ namespace IceChat
         /// </summary>
         private void OnSaveDefaultServer()
         {
-            if (SaveDefault != null)
-                SaveDefault();            
+            SaveDefault?.Invoke();
         }
         
         private void OnSaveServer(ServerSetting s, bool removeServer)
@@ -2117,6 +2126,19 @@ namespace IceChat
                     if (c.ServerSetting.BuddyListEnable)
                         c.BuddyListCheck();
                     
+                    // find all windows/channels for nocolormode
+                    for (int i = FormMain.Instance.ChannelBar.TabPages.Count - 1; i >= 0; i--)
+                    {
+                        if (FormMain.Instance.ChannelBar.TabPages[i].WindowStyle == IceTabPage.WindowType.Channel)
+                        {
+                            if (FormMain.Instance.ChannelBar.TabPages[i].Connection == c)
+                            {
+                                FormMain.Instance.ChannelBar.TabPages[i].TextWindow.NoColorMode = s.NoColorMode;
+                            }
+                        }
+                    }
+
+
                 }
             }
 
@@ -2165,7 +2187,7 @@ namespace IceChat
             _parent.FocusInputBox();
         }
 
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void ButtonAdd_Click(object sender, EventArgs e)
         {
             if (Application.OpenForms["FormServers"] as FormServers != null)
             {
@@ -2183,7 +2205,7 @@ namespace IceChat
         #endregion
 
         #region Server Popup Menus
-        private void connectToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ConnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _parent.FocusInputBox();
 
@@ -2198,12 +2220,11 @@ namespace IceChat
                 }
                 return;
             }
-            if (NewServerConnection != null)
-                NewServerConnection(GetServerSetting(selectedServerID));
+            NewServerConnection?.Invoke(GetServerSetting(selectedServerID));
 
         }
 
-        private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DisconnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _parent.FocusInputBox();
 
@@ -2221,7 +2242,7 @@ namespace IceChat
             }
         }
 
-        private void autoStartToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AutoStartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _parent.FocusInputBox();
 
@@ -2236,7 +2257,7 @@ namespace IceChat
 
 
 
-        private void forceDisconnectToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ForceDisconnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _parent.FocusInputBox();
 
@@ -2250,7 +2271,7 @@ namespace IceChat
             }
         }
 
-        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        private void EditToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (selectedServerID > 0)
             {
@@ -2269,7 +2290,7 @@ namespace IceChat
 
         }
 
-        private void autoJoinToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AutoJoinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _parent.FocusInputBox();
 
@@ -2284,7 +2305,7 @@ namespace IceChat
             }
         }
 
-        private void autoPerformToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AutoPerformToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _parent.FocusInputBox();
 
@@ -2299,7 +2320,7 @@ namespace IceChat
 
         }
 
-        private void openLogFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenLogFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _parent.FocusInputBox();
 
@@ -2316,7 +2337,7 @@ namespace IceChat
             }
         }
 
-        private void clearChannelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClearChannelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //clear the channel window for the selected channel
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2325,7 +2346,7 @@ namespace IceChat
 
         }
 
-        private void closeChannelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CloseChannelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //close the channel
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2333,7 +2354,7 @@ namespace IceChat
                 _parent.ParseOutGoingCommand(((IceTabPage)findNode).Connection, "/part " + ((IceTabPage)findNode).TabCaption);
         }
 
-        private void reJoinChannelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ReJoinChannelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //do a channel hop
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2341,7 +2362,7 @@ namespace IceChat
                 _parent.ParseOutGoingCommand(((IceTabPage)findNode).Connection, "/hop " + ((IceTabPage)findNode).TabCaption);                
         }
 
-        private void addToAutoJoinToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddToAutoJoinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //add channel to autojoin
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2351,7 +2372,7 @@ namespace IceChat
 
 
 
-        private void channelInformationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ChannelInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //popup channel information window
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2359,7 +2380,7 @@ namespace IceChat
                 _parent.ParseOutGoingCommand(((IceTabPage)findNode).Connection, "/chaninfo " + ((IceTabPage)findNode).TabCaption);
         }
 
-        private void channelFontToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ChannelFontToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //popup change font window for channel
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2368,7 +2389,7 @@ namespace IceChat
 
         }
 
-        private void noColorModeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NoColorModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //change the channel to No Color Mode or back again
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2378,7 +2399,7 @@ namespace IceChat
             }
         }
 
-        private void openChannelLogFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenChannelLogFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //open the log folder for the channel
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2390,7 +2411,7 @@ namespace IceChat
             }
 
         }
-        private void disableLoggingToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DisableLoggingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
@@ -2408,7 +2429,7 @@ namespace IceChat
             }
         }
 
-        private void disableEventsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DisableEventsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
@@ -2417,7 +2438,7 @@ namespace IceChat
             }
         }
 
-        private void disableSoundsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DisableSoundsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
@@ -2426,7 +2447,7 @@ namespace IceChat
             }
         }
 
-        private void inChannelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void InChannelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //channel joins in channel
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2454,7 +2475,7 @@ namespace IceChat
 
         }
 
-        private void inConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+        private void InConsoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //channel joins in console
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2482,7 +2503,7 @@ namespace IceChat
             }
         }
 
-        private void hideToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HideToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //hide channel joins1
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2510,7 +2531,7 @@ namespace IceChat
 
         }
 
-        private void inChannelToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void InChannelToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //channel parts in channel
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2538,7 +2559,7 @@ namespace IceChat
 
         }
 
-        private void inConsoleToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void InConsoleToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //channel parts in console
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2566,7 +2587,7 @@ namespace IceChat
 
         }
 
-        private void hideToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void HideToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //channel parts hide
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2593,7 +2614,7 @@ namespace IceChat
             }
         }
 
-        private void inChannelToolStripMenuItem2_Click(object sender, EventArgs e)
+        private void InChannelToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             //join events in channel
             hideJoinPartQuitToolStripMenuItem.Checked = false;
@@ -2624,7 +2645,7 @@ namespace IceChat
 
         }
 
-        private void inConsoleToolStripMenuItem2_Click(object sender, EventArgs e)
+        private void InConsoleToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             //part events in console
             hideJoinPartQuitToolStripMenuItem.Checked = false;
@@ -2652,7 +2673,7 @@ namespace IceChat
             }
         }
 
-        private void hideToolStripMenuItem2_Click(object sender, EventArgs e)
+        private void HideToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             //quit events hide
             hideJoinPartQuitToolStripMenuItem.Checked = false;
@@ -2681,7 +2702,7 @@ namespace IceChat
             }
         }
 
-        private void hideJoinPartQuitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HideJoinPartQuitToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
             // hide all joins / parts / quits with 1 click
@@ -2696,7 +2717,7 @@ namespace IceChat
 
         }
 
-        private void clearQueryToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClearQueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //clear query window
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2704,7 +2725,7 @@ namespace IceChat
                 ((IceTabPage)findNode).TextWindow.ClearTextWindow();
         }
 
-        private void closeQueryToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CloseQueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //close query window
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2713,7 +2734,7 @@ namespace IceChat
 
         }
 
-        private void userInformationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UserInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //user information for query nick
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2721,7 +2742,7 @@ namespace IceChat
                 _parent.ParseOutGoingCommand(((IceTabPage)findNode).Connection, "/userinfo " + ((IceTabPage)findNode).TabCaption);
         }
 
-        private void silenceUserToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SilenceUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //silence query user
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2729,7 +2750,7 @@ namespace IceChat
                 _parent.ParseOutGoingCommand(((IceTabPage)findNode).Connection, "/silence +" + ((IceTabPage)findNode).TabCaption);
         }
 
-        private void disableSoundsQueryMenuItem_Click(object sender, EventArgs e)
+        private void DisableSoundsQueryMenuItem_Click(object sender, EventArgs e)
         {
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
@@ -2738,21 +2759,21 @@ namespace IceChat
             }
         }
 
-        private void clearWindowDCCChat_Click(object sender, EventArgs e)
+        private void ClearWindowDCCChat_Click(object sender, EventArgs e)
         {
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
                 ((IceTabPage)findNode).TextWindow.ClearTextWindow();
         }
 
-        private void closeWindowDCCChat_Click(object sender, EventArgs e)
+        private void CloseWindowDCCChat_Click(object sender, EventArgs e)
         {
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
                 _parent.ParseOutGoingCommand(((IceTabPage)findNode).Connection, "/close " + ((IceTabPage)findNode).TabCaption);
         }
 
-        private void closeChannenListToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void CloseChannenListToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //close the channel list window
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2761,31 +2782,31 @@ namespace IceChat
 
         }
 
-        private void toolStripMenuClearDebug_Click(object sender, EventArgs e)
+        private void ToolStripMenuClearDebug_Click(object sender, EventArgs e)
         {
             //clear debug window
             _parent.ParseOutGoingCommand(null, "/clear Debug");
         }
 
-        private void toolStripMenuCloseDebug_Click(object sender, EventArgs e)
+        private void ToolStripMenuCloseDebug_Click(object sender, EventArgs e)
         {
             //close debug window
             _parent.ParseOutGoingCommand(null, "/close debug");
         }
 
-        private void toolStripMenuCloseDCC_Click(object sender, EventArgs e)
+        private void ToolStripMenuCloseDCC_Click(object sender, EventArgs e)
         {
             _parent.ParseOutGoingCommand(null, "/close DCC Files");
         }
 
-        private void disconnectDCCChat_Click(object sender, EventArgs e)
+        private void DisconnectDCCChat_Click(object sender, EventArgs e)
         {
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
                 ((IceTabPage)findNode).DisconnectDCC();
         }
 
-        private void clearWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClearWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //clear the window for the selected @window
             object findNode = FindNodeValue(selectedNodeIndex);
@@ -2794,7 +2815,7 @@ namespace IceChat
 
         }
 
-        private void closeWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CloseWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             object findNode = FindNodeValue(selectedNodeIndex);
             if (findNode.GetType() == typeof(IceTabPage))
@@ -2802,7 +2823,7 @@ namespace IceChat
         }
 
 
-        private void removeServerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveServerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _parent.FocusInputBox();
 

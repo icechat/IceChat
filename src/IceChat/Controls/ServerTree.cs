@@ -376,8 +376,8 @@ namespace IceChat
                         }
                         return;
                     }
-
-                    NewServerConnection?.Invoke(GetServerSetting(selectedServerID));
+                    if (NewServerConnection != null)
+                        NewServerConnection(GetServerSetting(selectedServerID));
                 }
             }
         }
@@ -787,7 +787,8 @@ namespace IceChat
                         //add the menu's created by plugins
                         foreach (Plugin p in _parent.LoadedPlugins)
                         {
-                            if (p is IceChatPlugin ipc)
+                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                             {
                                 if (ipc.plugin.Enabled == true)
                                 {
@@ -973,7 +974,8 @@ namespace IceChat
                             //add the menu's created by plugins
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {
@@ -1019,7 +1021,8 @@ namespace IceChat
                             //add the menu's created by plugins
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {
@@ -1410,7 +1413,8 @@ namespace IceChat
                     {
                         //get the color code, 1 digit or 2
                         color = nodes[4].Substring(5, 1);
-                        if (Int32.TryParse(nodes[4].Substring(6, 1), out int result))
+                        int result;
+                        if (Int32.TryParse(nodes[4].Substring(6, 1), out result))
                             color += nodes[4].Substring(6, 1);
                         nodes[4] = nodes[4].Substring(5 + color.Length);
                     }
@@ -2050,7 +2054,9 @@ namespace IceChat
                 }
                 return;
             }
-            NewServerConnection?.Invoke(GetServerSetting(selectedServerID));
+
+            if (NewServerConnection != null)
+                NewServerConnection(GetServerSetting(selectedServerID));
         }
 
         private void ButtonDisconnect_Click(object sender, EventArgs e)
@@ -2103,7 +2109,8 @@ namespace IceChat
         /// </summary>
         private void OnSaveDefaultServer()
         {
-            SaveDefault?.Invoke();
+            if (SaveDefault != null)
+                SaveDefault();
         }
         
         private void OnSaveServer(ServerSetting s, bool removeServer)
@@ -2220,7 +2227,9 @@ namespace IceChat
                 }
                 return;
             }
-            NewServerConnection?.Invoke(GetServerSetting(selectedServerID));
+
+            if (NewServerConnection != null)
+                NewServerConnection(GetServerSetting(selectedServerID));
 
         }
 

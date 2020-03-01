@@ -1048,7 +1048,8 @@ namespace IceChat
 
             foreach (Plugin p in  _parent.LoadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         args = ipc.plugin.DCCChatTimeOut(args);
@@ -1158,7 +1159,8 @@ namespace IceChat
 
                     foreach (Plugin p in _parent.LoadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 args = ipc.plugin.DCCChatConnected(args);
@@ -1217,7 +1219,8 @@ namespace IceChat
 
                     foreach (Plugin p in  _parent.LoadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 args = ipc.plugin.DCCChatConnected(args);
@@ -1312,7 +1315,8 @@ namespace IceChat
 
             foreach (Plugin p in  _parent.LoadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         args = ipc.plugin.DCCChatClosed(args);
@@ -1351,7 +1355,8 @@ namespace IceChat
 
                         foreach (Plugin p in  _parent.LoadedPlugins)
                         {
-                            if (p is IceChatPlugin ipc)
+                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                             {
                                 if (ipc.plugin.Enabled == true)
                                     args = ipc.plugin.DCCChatMessage(args);
@@ -1379,7 +1384,8 @@ namespace IceChat
 
                         foreach (Plugin p in _parent.LoadedPlugins)
                         {
-                            if (p is IceChatPlugin ipc)
+                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                             {
                                 if (ipc.plugin.Enabled == true)
                                     args = ipc.plugin.DCCChatMessage(args);
@@ -2573,7 +2579,8 @@ namespace IceChat
             int result;
             if (lvi1.ListView.Sorting == SortOrder.Ascending)
             {
-                if (int.TryParse(str1, out int r1) && int.TryParse(str2, out int r2))
+                int r1, r2;
+                if (int.TryParse(str1, out r1) && int.TryParse(str2, out r2))
                 {
                     //check if numeric
                     if (Convert.ToInt32(str1) > Convert.ToInt32(str2))
@@ -2586,7 +2593,8 @@ namespace IceChat
             }
             else
             {
-                if (int.TryParse(str1, out int r3) && int.TryParse(str2, out int r4))
+                int r3, r4;
+                if (int.TryParse(str1, out r3) && int.TryParse(str2, out r4))
                 {
                     //check if numeric
                     if (Convert.ToInt32(str1) < Convert.ToInt32(str2))

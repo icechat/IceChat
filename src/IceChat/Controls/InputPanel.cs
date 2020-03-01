@@ -245,7 +245,8 @@ namespace IceChat
 
         private void Input_OnHotKey(object sender, KeyEventArgs e)
         {
-            OnHotKey?.Invoke(sender, e);
+            if (OnHotKey != null)
+                OnHotKey(sender, e);
         } 
 
         private void TextBoxWide_OnCommand(object sender, string data)

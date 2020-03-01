@@ -88,21 +88,24 @@ namespace IceChat
 
         private void ButtonAccept_Click(object sender, EventArgs e)
         {
-            DCCFileAcceptResult?.Invoke(DialogResult.Yes, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
+            if (DCCFileAcceptResult != null)
+                DCCFileAcceptResult(DialogResult.Yes, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
 
             this.Close();
         }
 
         private void ButtonReject_Click(object sender, EventArgs e)
         {
-            DCCFileAcceptResult?.Invoke(DialogResult.No, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
+            if (DCCFileAcceptResult != null)
+                DCCFileAcceptResult(DialogResult.No, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
 
             this.Close();
         }
 
         private void ButtonIgnore_Click(object sender, EventArgs e)
         {
-            DCCFileAcceptResult?.Invoke(DialogResult.Ignore, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
+            if (DCCFileAcceptResult != null)
+                DCCFileAcceptResult(DialogResult.Ignore, _connection, _nick, _host, _port, _ip, _file, _fileSize, _filePos, _resume, _id);
 
             this.Close();
 

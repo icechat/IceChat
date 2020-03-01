@@ -49,7 +49,8 @@ namespace IceChat
 
         private void IrcTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            OnTimerElapsed?.Invoke(this.timerID, this.timerCommand);
+            if (OnTimerElapsed != null)
+            OnTimerElapsed(this.timerID, this.timerCommand);
 
             timerCounter++;
             

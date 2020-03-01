@@ -49,7 +49,8 @@ namespace IceChat
 
         private void ButtonUpdate_Click(object sender, EventArgs e)
         {
-            AddBuddyList?.Invoke(textBuddyNick.Text, textBuddyNetwork.Text, _newItem);
+            if (AddBuddyList != null)
+                AddBuddyList(textBuddyNick.Text, textBuddyNetwork.Text, _newItem);
 
             this.Close();
         }

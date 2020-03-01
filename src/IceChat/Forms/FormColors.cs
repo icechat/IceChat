@@ -171,7 +171,8 @@ namespace IceChat
             //load any plugin addons
             foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+                if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         ipc.plugin.LoadColorsForm(this.tabControlColors);
@@ -258,12 +259,14 @@ namespace IceChat
                             //find the comma if it exists
                             if (textRawMessage.SelectionStart == 0)
                             {
-                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out int result))
+                                int result;
+                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out result))
                                 {
                                     if (textRawMessage.Text.Substring(3, 1) == ",")
                                     {
                                         System.Diagnostics.Debug.WriteLine(textRawMessage.Text.Substring(4, 2));
-                                        if (int.TryParse(textRawMessage.Text.Substring(4, 2), out int result2))
+                                        int result2;
+                                        if (int.TryParse(textRawMessage.Text.Substring(4, 2), out result2))
                                         {
                                             System.Diagnostics.Debug.WriteLine("01,01");
 
@@ -314,7 +317,8 @@ namespace IceChat
                         {
                             if (textRawMessage.SelectionStart == 0)
                             {
-                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out int result))
+                                int result;
+                                if (int.TryParse(textRawMessage.Text.Substring(1, 2), out result))
                                     textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(3);
                                 else
                                     textRawMessage.Text = "" + colorSelected.ToString("00") + textRawMessage.Text.Substring(2);
@@ -1400,14 +1404,15 @@ namespace IceChat
 
             foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+                if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         ipc.plugin.SaveColorsForm();
                 }
             }
-
-            SaveColors?.Invoke(this.iceChatColors, this.iceChatMessages);
+            if (SaveColors != null)
+                SaveColors(this.iceChatColors, this.iceChatMessages);
 
         }
 

@@ -220,7 +220,8 @@ namespace IceChat
 
                 foreach (Plugin p in FormMain.Instance.LoadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+                    if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.HotKey(args, new KeyEventArgs(Keys.Control | Keys.V));
@@ -414,7 +415,8 @@ namespace IceChat
                 {
                     if (e.KeyValue >= 112 && e.KeyValue <= 120)
                     {
-                        OnHotKey?.Invoke(this, e);
+                        if (OnHotKey != null)
+                            OnHotKey(this, e);
                     }
                 }                 
                 

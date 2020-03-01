@@ -127,7 +127,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (((IceChatPlugin)ipc).plugin.Enabled == true)
                             args = ((IceChatPlugin)ipc).plugin.InputText(args);
@@ -347,7 +348,8 @@ namespace IceChat
                                     else
                                     {
                                         // make sure 2nd value is an integer
-                                        if (Int32.TryParse(split[1], out int intColor))
+                                        int intColor;
+                                        if (Int32.TryParse(split[1], out intColor))
                                         {
                                             if (intColor < 72 && intColor > -1)
                                             {
@@ -624,7 +626,8 @@ namespace IceChat
                             //change the background color for the current or selected window
                             if (data.Length > 0)
                             {
-                                if (Int32.TryParse(data, out int result))
+                                int result;
+                                if (Int32.TryParse(data, out result))
                                 {
                                     if (result >= 0 && result < 72)
                                     {
@@ -1442,7 +1445,8 @@ namespace IceChat
                             {
                                 string channel = data.Split(' ')[0];
                                 string server = data.Split(' ')[1];
-                                if (Int32.TryParse(server, out int serverID))
+                                int serverID;
+                                if (Int32.TryParse(server, out serverID))
                                 {
                                     //switch to this window
                                     for (int i = 0; i < mainChannelBar.TabPages.Count; i++)
@@ -1804,7 +1808,8 @@ namespace IceChat
                                     //dns a host
                                     try
                                     {
-                                        if (System.Net.IPAddress.TryParse(data, out System.Net.IPAddress address))
+                                        System.Net.IPAddress address;
+                                        if (System.Net.IPAddress.TryParse(data, out address))
                                         {
                                             // do a reverse dns
                                             System.Net.IPHostEntry host = System.Net.Dns.GetHostEntry(data);
@@ -1820,7 +1825,8 @@ namespace IceChat
                                             args.Extra = data;
                                             foreach (Plugin p in loadedPlugins)
                                             {
-                                                if (p is IceChatPlugin ipc)
+                                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                                 {
                                                     if (ipc.plugin.Enabled == true)
                                                         args = ipc.plugin.DNSResolve(args);
@@ -2745,7 +2751,8 @@ namespace IceChat
                                             {
                                                 //get the color
                                                 string color = msg.Substring(0, 6);
-                                                if (Int32.TryParse(msg.Substring(6, 1), out int result))
+                                                int result;
+                                                if (Int32.TryParse(msg.Substring(6, 1), out result))
                                                     color += msg.Substring(6, 1);
                                                 if (command.ToLower() == "/msgsec")
                                                     msg = color + "*" + nick + "* *";
@@ -3297,7 +3304,8 @@ namespace IceChat
                             if (data.Length > 0 && data.IndexOf(' ') > -1)
                             {
                                 string[] param = data.Split(new char[] { ' ' }, 2);
-                                if (Int32.TryParse(param[0], out int result))
+                                int result;
+                                if (Int32.TryParse(param[0], out result))
                                 {
                                     //result is the server id
                                     foreach (IRCConnection c in serverTree.ServerConnections.Values)
@@ -3440,7 +3448,8 @@ namespace IceChat
                                         else
                                         {
                                             //no space, check if value is a number or not                                            
-                                            if (int.TryParse(sp, out int result))
+                                            int result;
+                                            if (int.TryParse(sp, out result))
                                             {
                                                 s.ServerPort = sp;
                                             }
@@ -4385,7 +4394,8 @@ namespace IceChat
                             string plugins = "";
                             foreach (Plugin p in loadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                         plugins += ipc.plugin.Name + " : ";
@@ -4722,8 +4732,8 @@ namespace IceChat
                                     {
                                         string lownum = input.Split(',')[0].Trim();
                                         string hinum = input.Split(',')[1].Trim();
-
-                                        if (Int32.TryParse(lownum, out int lowNum) && Int32.TryParse(hinum, out int hiNum))
+                                        int lowNum, hiNum;
+                                        if (Int32.TryParse(lownum, out lowNum) && Int32.TryParse(hinum, out hiNum))
                                         {
                                             //valid numbers
                                             Random r = new Random();
@@ -4740,7 +4750,8 @@ namespace IceChat
                                     else if (input.IndexOf(',') == -1)
                                     {
                                         //make it a value from 1 - value
-                                        if (Int32.TryParse(input.Trim(), out int hiNum))
+                                        int hiNum;
+                                        if (Int32.TryParse(input.Trim(), out hiNum))
                                         {
                                             //valid number
                                             Random r = new Random();

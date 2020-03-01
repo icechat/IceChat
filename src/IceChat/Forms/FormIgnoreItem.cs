@@ -191,7 +191,8 @@ namespace IceChat
 
             }
 
-            UpdateIgnoreList?.Invoke(_lvi);
+            if (UpdateIgnoreList != null)
+                UpdateIgnoreList(_lvi);
 
             this.Close();
 

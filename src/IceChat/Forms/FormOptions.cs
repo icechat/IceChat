@@ -297,7 +297,8 @@ namespace IceChat
             //load any plugin addons
             foreach (Plugin p in FormMain.Instance.LoadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         ipc.plugin.LoadSettingsForm(this.tabControlOptions);
@@ -530,7 +531,8 @@ namespace IceChat
             else
             {
                 //check if value is an integer
-                if (Int32.TryParse(textAutoAwayMinutes.Text, out int result))
+                int result;
+                if (Int32.TryParse(textAutoAwayMinutes.Text, out result))
                     iceChatOptions.AutoAwayTime = result;
                 else
                 {
@@ -547,14 +549,15 @@ namespace IceChat
 
             foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+                if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         ipc.plugin.SaveSettingsForm();
                 }
             }
-
-            SaveOptions?.Invoke();
+            if (SaveOptions != null)
+                SaveOptions();
 
             this.Close();
         }

@@ -1509,7 +1509,8 @@ namespace IceChat
 
                             foreach (Plugin p in FormMain.Instance.LoadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                         ipc.plugin.DCCFileComplete(args);
@@ -1533,7 +1534,8 @@ namespace IceChat
 
                             foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                         ipc.plugin.DCCFileError(args);

@@ -202,7 +202,8 @@ namespace IceChat
             FormMain.Instance.IceChatOptions.IdentServer = checkIdentServer.Checked;
             FormMain.Instance.IceChatOptions.ReconnectServer = checkServerReconnect.Checked;
 
-            SaveDefaultServer?.Invoke();
+            if (SaveDefaultServer != null)
+                SaveDefaultServer();
         }
 
         /// <summary>
@@ -557,7 +558,8 @@ namespace IceChat
             serverSetting.SSLAcceptInvalidCertificate = checkInvalidCertificate.Checked;
             serverSetting.Encoding = comboEncoding.Text;
 
-            if (Int32.TryParse(textPingTimer.Text, out int result))
+            int result;
+            if (Int32.TryParse(textPingTimer.Text, out result))
             {
                 serverSetting.PingTimerMinutes = Convert.ToInt32(textPingTimer.Text);
             }
@@ -605,10 +607,14 @@ namespace IceChat
             if (newServer == true)
             {
                 //add in the server to the server collection
-                NewServer?.Invoke(serverSetting);
+                if (NewServer != null)
+                    NewServer(serverSetting);
             }
             else
-                SaveServer?.Invoke(serverSetting, false);
+            {
+                if (SaveServer != null)
+                    SaveServer(serverSetting, false);
+            }
 
             return true;
         }
@@ -805,7 +811,8 @@ namespace IceChat
                     UseSSL = serverSetting.UseSSL
                 };
 
-                NewServer?.Invoke(dupe);
+                if (NewServer != null)
+                    NewServer(dupe);
 
                 this.Close();
 

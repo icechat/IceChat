@@ -159,7 +159,8 @@ namespace IceChat
                 if (RawServerIncomingDataOverRide != null)
                     data = RawServerIncomingDataOverRide(this, data);
 
-                RawServerIncomingData?.Invoke(this, data);
+                if (RawServerIncomingData != null)
+                    RawServerIncomingData(this, data);
 
                 // parse any server tags
                 if (ircData[0].StartsWith("@"))
@@ -1000,7 +1001,7 @@ namespace IceChat
                                 commandQueue.Clear();
                                 motd = 19
                                     ;
-                                ServerFullyConnected?.Invoke(this);
+                                ServerFullyConnected(this);
                                 motd = 20;
                             }
                             catch(Exception exx)
@@ -1078,7 +1079,8 @@ namespace IceChat
 
                                                 if (dccData.Length > 4)
                                                 {
-                                                    if (!uint.TryParse(dccData[dccData.Length - 1], out uint uresult))
+                                                    uint uresult;
+                                                    if (!uint.TryParse(dccData[dccData.Length - 1], out uresult))
                                                     {
                                                         return;
                                                     }
@@ -1114,7 +1116,8 @@ namespace IceChat
                                                         //http://trout.snt.utwente.nl/ubbthreads/ubbthreads.php?ubb=showflat&Number=139329&site_id=1#import
 
                                                         System.Diagnostics.Debug.WriteLine("PASSIVE DCC " + id + ":" + fileSize + ":" + port + ":" + ip + ":" + file);
-                                                        DCCPassive?.Invoke(this, nick, host, ip, file, fileSize, 0, false, id);
+                                                        if (DCCPassive != null)
+                                                            DCCPassive(this, nick, host, ip, file, fileSize, 0, false, id);
 
                                                         return;
                                                     }
@@ -1151,7 +1154,8 @@ namespace IceChat
                                                 System.Diagnostics.Debug.WriteLine("DCC SEND:" + dccData[0] + "::" + dccData[1] + "::" + dccData[2] + "::" + dccData[3]);
 
                                                 //check if filesize is a valid number
-                                                if (!uint.TryParse(dccData[3], out uint result))
+                                                uint result;
+                                                if (!uint.TryParse(dccData[3], out result))
                                                     return;
 
                                                 //check if quotes around file name

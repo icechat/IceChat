@@ -91,7 +91,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             ipc.plugin.ServerPreConnect(args);
@@ -180,7 +181,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             ipc.plugin.ServerConnect(args);
@@ -238,7 +240,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             ipc.plugin.ServerDisconnect(args);
@@ -400,7 +403,8 @@ namespace IceChat
                     args.Command = autoCommand;
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 args = ipc.plugin.AutoPerformCommand(args);
@@ -456,7 +460,8 @@ namespace IceChat
                                         args.Channel = tw.TabCaption;
                                         foreach (Plugin p in loadedPlugins)
                                         {
-                                            if (p is IceChatPlugin ipc)
+                                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                             {
                                                 if (ipc.plugin.Enabled == true)
                                                     args = ipc.plugin.AutoJoinChannel(args);
@@ -470,7 +475,8 @@ namespace IceChat
                                         args.Channel = tw.TabCaption;
                                         foreach (Plugin p in loadedPlugins)
                                         {
-                                            if (p is IceChatPlugin ipc)
+                                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                             {
                                                 if (ipc.plugin.Enabled == true)
                                                     args = ipc.plugin.AutoJoinChannel(args);
@@ -487,7 +493,8 @@ namespace IceChat
                                         args.Channel = tw.TabCaption;
                                         foreach (Plugin p in loadedPlugins)
                                         {
-                                            if (p is IceChatPlugin ipc)
+                                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                             {
                                                 if (ipc.plugin.Enabled == true)
                                                     args = ipc.plugin.RejoinChannel(args);
@@ -502,7 +509,8 @@ namespace IceChat
                                         args.Channel = tw.TabCaption;
                                         foreach (Plugin p in loadedPlugins)
                                         {
-                                            if (p is IceChatPlugin ipc)
+                                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                             {
                                                 if (ipc.plugin.Enabled == true)
                                                     args = ipc.plugin.RejoinChannel(args);
@@ -542,7 +550,8 @@ namespace IceChat
                                 args.Channel = channels[x];
                                 foreach (Plugin p in loadedPlugins)
                                 {
-                                    if (p is IceChatPlugin ipc)
+                                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                     {
                                         if (ipc.plugin.Enabled == true)
                                             args = ipc.plugin.AutoJoinChannel(args);
@@ -556,7 +565,8 @@ namespace IceChat
                                 args.Channel = channels[x];
                                 foreach (Plugin p in loadedPlugins)
                                 {
-                                    if (p is IceChatPlugin ipc)
+                                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                     {
                                         if (ipc.plugin.Enabled == true)
                                             args = ipc.plugin.AutoJoinChannel(args);
@@ -573,7 +583,8 @@ namespace IceChat
                                 args.Channel = channels[x];
                                 foreach (Plugin p in loadedPlugins)
                                 {
-                                    if (p is IceChatPlugin ipc)
+                                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                     {
                                         if (ipc.plugin.Enabled == true)
                                             args = ipc.plugin.AutoJoinChannel(args);
@@ -587,7 +598,8 @@ namespace IceChat
                                 args.Channel = channels[x];
                                 foreach (Plugin p in loadedPlugins)
                                 {
-                                    if (p is IceChatPlugin ipc)
+                                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                     {
                                         if (ipc.plugin.Enabled == true)
                                             args = ipc.plugin.AutoJoinChannel(args);
@@ -655,7 +667,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 ipc.plugin.EndChannelNames(args);
@@ -755,7 +768,8 @@ namespace IceChat
                                 args.Extra = "online";
                                 foreach (Plugin p in loadedPlugins)
                                 {
-                                    if (p is IceChatPlugin ipc)
+                                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                     {
                                         if (ipc.plugin.Enabled == true)
                                             ipc.plugin.BuddyList(args);
@@ -788,7 +802,8 @@ namespace IceChat
                         {
                             foreach (Plugin p in loadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                         ipc.plugin.BuddyList(args);
@@ -865,7 +880,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 ipc.plugin.WhoReply(args);
@@ -899,7 +915,8 @@ namespace IceChat
 
                         foreach (Plugin p in loadedPlugins)
                         {
-                            if (p is IceChatPlugin ipc)
+                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                             {
                                 if (ipc.plugin.Enabled == true)
                                     ipc.plugin.ChannelNames(args);
@@ -989,7 +1006,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.CtcpReply(args);
@@ -1051,7 +1069,8 @@ namespace IceChat
 
             foreach (Plugin p in loadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         args = ipc.plugin.CtcpMessage(args);
@@ -1077,7 +1096,8 @@ namespace IceChat
                         string plugins = "";
                         foreach (Plugin p in loadedPlugins)
                         {
-                            if (p is IceChatPlugin ipc)
+                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                             {
                                 if (ipc.plugin.Enabled == true)
                                     plugins += ipc.plugin.Name + " " + ipc.plugin.Version + " : ";
@@ -1142,7 +1162,8 @@ namespace IceChat
 
             foreach (Plugin p in loadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         args = ipc.plugin.UserNotice(args);
@@ -1227,7 +1248,8 @@ namespace IceChat
 
             foreach (Plugin p in loadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         args = ipc.plugin.ServerNotice(args);
@@ -1288,7 +1310,8 @@ namespace IceChat
 
             foreach (Plugin p in loadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         args = ipc.plugin.ServerMessage(args);
@@ -1405,7 +1428,8 @@ namespace IceChat
 
                         foreach (Plugin p in loadedPlugins)
                         {
-                            if (p is IceChatPlugin ipc)
+                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                             {
                                 if (ipc.plugin.Enabled == true)
                                     ipc.plugin.ServerError(args);
@@ -1453,7 +1477,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             ipc.plugin.WhoisUser(args);
@@ -1514,7 +1539,8 @@ namespace IceChat
             {
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.QueryMessage(args);
@@ -1540,7 +1566,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 args = ipc.plugin.QueryAction(args);
@@ -1672,7 +1699,8 @@ namespace IceChat
                 // check if we want to disable the event
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.QueryMessage(args);
@@ -1700,7 +1728,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.QueryMessage(args);
@@ -1882,7 +1911,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.ChannelAction(args);
@@ -2059,7 +2089,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.ChannelMessage(args);
@@ -2161,7 +2192,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.ServerQuit(args);
@@ -2265,7 +2297,8 @@ namespace IceChat
 
                         foreach (Plugin p in loadedPlugins)
                         {
-                            if (p is IceChatPlugin ipc)
+                            IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                             {
                                 if (ipc.plugin.Enabled == true)
                                     args = ipc.plugin.ChannelJoin(args);
@@ -2330,7 +2363,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.ChannelPart(args);
@@ -2392,7 +2426,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.ChannelKick(args);
@@ -2442,7 +2477,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             ipc.plugin.ChannelJoin(args);
@@ -2462,7 +2498,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 ipc.plugin.ChannelJoin(args);
@@ -2524,7 +2561,8 @@ namespace IceChat
 
             foreach (Plugin p in loadedPlugins)
             {
-                if (p is IceChatPlugin ipc)
+                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         args = ipc.plugin.ChannelPart(args);
@@ -2601,7 +2639,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.ChannelKick(args);
@@ -2687,7 +2726,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 ipc.plugin.NickChange(args);
@@ -2851,7 +2891,8 @@ namespace IceChat
                 };
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             ar = ipc.plugin.ChannelTopic(ar);
@@ -2874,7 +2915,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 args = ipc.plugin.ChannelTopic(args);
@@ -2907,7 +2949,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 args = ipc.plugin.ChannelTopic(args);
@@ -2991,7 +3034,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 ipc.plugin.ChannelMode(args);
@@ -3179,7 +3223,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.ChannelInvite(args);
@@ -3229,7 +3274,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.ChannelNotice(args);
@@ -3273,7 +3319,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             ipc.plugin.ServerRaw(args);
@@ -3294,7 +3341,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.ServerRawOverride(args);
@@ -3333,7 +3381,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             ipc.plugin.ServerRaw(args);
@@ -3542,7 +3591,8 @@ namespace IceChat
 
                 foreach (Plugin p in loadedPlugins)
                 {
-                    if (p is IceChatPlugin ipc)
+                    IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.DCCChatOpen(args);
@@ -3611,7 +3661,8 @@ namespace IceChat
 
                             foreach (Plugin p in loadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                         ipc.plugin.DCCFileStart(args);
@@ -3636,7 +3687,8 @@ namespace IceChat
 
                             foreach (Plugin p in loadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                         ipc.plugin.DCCFileResume(args);
@@ -3718,7 +3770,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 ipc.plugin.DCCFileStart(args);
@@ -3743,7 +3796,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 ipc.plugin.DCCFileResume(args);
@@ -3818,7 +3872,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 ipc.plugin.DCCFileStart(args);
@@ -3843,7 +3898,8 @@ namespace IceChat
 
                     foreach (Plugin p in loadedPlugins)
                     {
-                        if (p is IceChatPlugin ipc)
+                        IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
                                 ipc.plugin.DCCFileResume(args);

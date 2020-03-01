@@ -805,8 +805,8 @@ namespace IceChat
                     serializerS.Serialize(textWriterS, servers);
                     textWriterS.Close();
                     textWriterS.Dispose();
-
-                    SaveOptions?.Invoke(icechatOptions, icechatFonts);
+                    if (SaveOptions != null)
+                        SaveOptions(icechatOptions, icechatFonts);
 
 
                     this.Close();

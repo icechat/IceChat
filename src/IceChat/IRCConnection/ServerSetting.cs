@@ -103,7 +103,8 @@ namespace IceChat
                     };
 
                     //is this really necessary ?
-                    if (Int32.TryParse(value.ToString(), out int result))
+                    int result;
+                    if (Int32.TryParse(value.ToString(), out result))
                         item.type = typeof(int);
                     else
                         item.type = typeof(string);

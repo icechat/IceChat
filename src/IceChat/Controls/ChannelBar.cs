@@ -951,7 +951,8 @@ namespace IceChat
                     {
                         foreach (Plugin p in _parent.LoadedPlugins)
                         {
-                            if (p is IceChatPlugin ipc)
+                            IceChatPlugin ipc = p as IceChatPlugin;
+                            if (ipc != null)
                             {
                                 if (ipc.plugin.Enabled == true)
                                 {
@@ -1050,7 +1051,8 @@ namespace IceChat
                          {
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {
@@ -1097,7 +1099,8 @@ namespace IceChat
                         {
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {

@@ -509,7 +509,7 @@ namespace IceChat
 
             if (serverSocket == null)
             {
-                ServerError?.Invoke(this, "Null Socket - Can not Connect", false);
+                ServerError(this, "Null Socket - Can not Connect", false);
 
                 return;
             }
@@ -542,7 +542,7 @@ namespace IceChat
             catch (SocketException se)
             {
 
-                ServerError?.Invoke(this, "Socket Exception Error1: " + se.Message, false);
+                ServerError(this, "Socket Exception Error1: " + se.Message, false);
 
                 disconnectError = true;
                 ForceDisconnect();
@@ -601,7 +601,7 @@ namespace IceChat
                 }
                 catch (System.Security.Authentication.AuthenticationException ae)
                 {
-                    ServerError?.Invoke(this, "SSL Authentication Error :" + ae.Message.ToString(), false);
+                    ServerError(this, "SSL Authentication Error :" + ae.Message.ToString(), false);
 
                     disconnectError = true;
                     ForceDisconnect();
@@ -609,7 +609,7 @@ namespace IceChat
                 }
                 catch (System.IO.IOException ex)
                 {
-                    ServerError?.Invoke(this, "SSL IO Exception Error :" + ex.Message.ToString() + ":" + howfar, false);
+                    ServerError(this, "SSL IO Exception Error :" + ex.Message.ToString() + ":" + howfar, false);
 
                     disconnectError = true;
                     ForceDisconnect();
@@ -618,7 +618,7 @@ namespace IceChat
                 }
                 catch (Exception e)
                 {
-                    ServerError?.Invoke(this, "SSL Exception Error :" + e.Message.ToString(), false);
+                    ServerError(this, "SSL Exception Error :" + e.Message.ToString(), false);
 
                     disconnectError = true;
                     ForceDisconnect();
@@ -679,7 +679,7 @@ namespace IceChat
                                 else
                                     socketStream.BeginWrite(d, 0, d.Length, new AsyncCallback(OnSendData), socketStream);
 
-                                ServerMessage?.Invoke(this, "Socks 4 Connection Established with " + serverSetting.ProxyIP + " , waiting for Authorization", "");
+                                ServerMessage(this, "Socks 4 Connection Established with " + serverSetting.ProxyIP + " , waiting for Authorization", "");
                             }
                             catch (SocketException)
                             {
@@ -727,7 +727,7 @@ namespace IceChat
                             else
                                 socketStream.BeginWrite(d, 0, nIndex, new AsyncCallback(OnSendData), socketStream);
 
-                            ServerMessage?.Invoke(this, "Socks 5 Connection Established with " + serverSetting.ProxyIP, "");
+                            ServerMessage(this, "Socks 5 Connection Established with " + serverSetting.ProxyIP, "");
                         }
                         catch (SocketException)
                         {
@@ -779,14 +779,14 @@ namespace IceChat
 
             catch (SocketException se)
             {
-                ServerError?.Invoke(this, "Socket Exception Error:" + se.Message.ToString() + ":" + se.ErrorCode, false);
+                ServerError(this, "Socket Exception Error:" + se.Message.ToString() + ":" + se.ErrorCode, false);
 
                 disconnectError = true;
                 ForceDisconnect();
             }
             catch (Exception e)
             {
-                ServerError?.Invoke(this, "Exception Error:" + serverSetting.UseBNC + ":" + e.Message.ToString(), false);
+                ServerError(this, "Exception Error:" + serverSetting.UseBNC + ":" + e.Message.ToString(), false);
 
                 disconnectError = true;
                 ForceDisconnect();
@@ -847,7 +847,7 @@ namespace IceChat
                 //check if the socket is still connected
                 if (serverSocket == null)
                 {
-                    ServerError?.Invoke(this, "Error: You are not connected (Socket not created) - Can not send", false);
+                    ServerError(this, "Error: You are not connected (Socket not created) - Can not send", false);
 
                     return;
                 }
@@ -881,8 +881,8 @@ namespace IceChat
                                         m_PendingWriteSSL = true;
 
                                     sslStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), sslStream);
-
-                                    RawServerOutgoingData?.Invoke(this, data);
+                                    if (RawServerOutgoingData != null)
+                                        RawServerOutgoingData(this, data);
                                 }
                                 else
                                 {
@@ -893,7 +893,7 @@ namespace IceChat
                             catch (SocketException se)
                             {
                                 //some kind of a socket error
-                                ServerError?.Invoke(this, "You are not Connected - Can not send (SSL):  " + se.Message, false);
+                                ServerError(this, "You are not Connected - Can not send (SSL):  " + se.Message, false);
 
                                 attemptReconnect = true;
                                 disconnectError = true;
@@ -910,7 +910,7 @@ namespace IceChat
                             }
                             catch (Exception ex)
                             {
-                                ServerError?.Invoke(this, "SSL Exception Error - Can not send:" + ex.Message, false);
+                                ServerError(this, "SSL Exception Error - Can not send:" + ex.Message, false);
 
                                 attemptReconnect = true;
                                 disconnectError = true;
@@ -919,7 +919,7 @@ namespace IceChat
                         }
                         else
                         {
-                            ServerError?.Invoke(this, "You are not Connected (SSL Socket Disconnected) - Can not send:" + data, false);
+                            ServerError(this, "You are not Connected (SSL Socket Disconnected) - Can not send:" + data, false);
 
                             System.Diagnostics.Debug.WriteLine("ssl not connected error");
 
@@ -937,12 +937,13 @@ namespace IceChat
                                 socketStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), socketStream);
 
                                 //raise an event for the debug window
-                                RawServerOutgoingData?.Invoke(this, data);
+                                if (RawServerOutgoingData != null)
+                                    RawServerOutgoingData(this, data);
                             }
                             catch (SocketException se)
                             {
                                 //some kind of a socket error
-                                ServerError?.Invoke(this, "You are not Connected - Can not send: " + se.Message, false);
+                                ServerError(this, "You are not Connected - Can not send: " + se.Message, false);
 
                                 attemptReconnect = true;
                                 disconnectError = true;
@@ -956,7 +957,7 @@ namespace IceChat
                             }
                             catch (Exception ex)
                             {
-                                ServerError?.Invoke(this, "Exception Error - Can not send:" + ex.Message, false);
+                                ServerError(this, "Exception Error - Can not send:" + ex.Message, false);
 
                                 attemptReconnect = true;
                                 disconnectError = true;
@@ -965,7 +966,7 @@ namespace IceChat
                         }
                         else
                         {
-                            ServerError?.Invoke(this, "You are not connected (Socket Disconnected) - Can not send:" + data, false);
+                            ServerError(this, "You are not connected (Socket Disconnected) - Can not send:" + data, false);
 
                             attemptReconnect = true;
                             disconnectError = true;
@@ -990,7 +991,7 @@ namespace IceChat
                 //check if the socket is still connected
                 if (serverSocket == null)
                 {
-                    ServerError?.Invoke(this, "Error: You are not Connected (Socket not created) - Can not send", false);
+                    ServerError(this, "Error: You are not Connected (Socket not created) - Can not send", false);
                     return;
                 }
 
@@ -1017,7 +1018,8 @@ namespace IceChat
                             {
                                 //raise an event for the debug window
                                 string strData = Encoding.GetEncoding(serverSetting.Encoding).GetString(readBuffer);
-                                RawServerOutgoingData?.Invoke(this, strData);
+                                if (RawServerOutgoingData != null)
+                                    RawServerOutgoingData(this, strData);
 
                                 sslStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), sslStream);
 
@@ -1025,7 +1027,7 @@ namespace IceChat
                             catch (SocketException se)
                             {
                                 //some kind of a socket error
-                                ServerError?.Invoke(this, "You are not Connected - Can not send (SSL):" + se.Message, false);
+                                ServerError(this, "You are not Connected - Can not send (SSL):" + se.Message, false);
 
                                 attemptReconnect = true;
                                 disconnectError = true;
@@ -1040,7 +1042,7 @@ namespace IceChat
                         }
                         else
                         {
-                            ServerError?.Invoke(this, "You are not Connected (SSL Socket Disconnected) - Can not send:" + bytData.ToString(), false);
+                            ServerError(this, "You are not Connected (SSL Socket Disconnected) - Can not send:" + bytData.ToString(), false);
 
                             attemptReconnect = true;
                             disconnectError = true;
@@ -1056,7 +1058,8 @@ namespace IceChat
                             {
                                 //raise an event for the debug window
                                 string strData = Encoding.GetEncoding(serverSetting.Encoding).GetString(readBuffer);
-                                RawServerOutgoingData?.Invoke(this, strData);
+                                if (RawServerOutgoingData != null)
+                                    RawServerOutgoingData(this, strData);
 
                                 socketStream.BeginWrite(bytData, 0, bytData.Length, new AsyncCallback(OnSendData), socketStream);
 
@@ -1064,7 +1067,7 @@ namespace IceChat
                             catch (SocketException se)
                             {
                                 //some kind of a socket error
-                                ServerError?.Invoke(this, "You are not Connected - Can not send:" + serverSetting.UseBNC + ":" + se.Message, false);
+                                ServerError(this, "You are not Connected - Can not send:" + serverSetting.UseBNC + ":" + se.Message, false);
 
                                 attemptReconnect = true;
                                 disconnectError = true;
@@ -1079,7 +1082,7 @@ namespace IceChat
                         }
                         else
                         {
-                            ServerError?.Invoke(this, "You are not Connected (Socket Disconnected) - Can not send:" + bytData.ToString(), false);
+                            ServerError(this, "You are not Connected (Socket Disconnected) - Can not send:" + bytData.ToString(), false);
 
                             attemptReconnect = true;
                             disconnectError = true;
@@ -1125,11 +1128,11 @@ namespace IceChat
             }
             catch (SocketException se)
             {
-                ServerError?.Invoke(this, "SendData Socket Error:" + se.Message.ToString(), false);
+                ServerError(this, "SendData Socket Error:" + se.Message.ToString(), false);
             }
             catch (Exception e)
             {
-                ServerError?.Invoke(this, "SendData Error:" + e.Message.ToString(), false);
+                ServerError(this, "SendData Error:" + e.Message.ToString(), false);
 
                 attemptReconnect = true;
                 disconnectError = true;
@@ -1218,7 +1221,7 @@ namespace IceChat
 
                             if (readBuffer[1] == 0xFF)
                             {
-                                ServerError?.Invoke(this, "Proxy Server Error: None of the authentication method was accepted by proxy server.", false);
+                                ServerError(this, "Proxy Server Error: None of the authentication method was accepted by proxy server.", false);
                                 ForceDisconnect();
                             }
                             else if (readBuffer[1] == 0x00)  //send proxy information
@@ -1427,7 +1430,7 @@ namespace IceChat
                     else
                     {
                         //connection lost                    
-                        ServerError?.Invoke(this, "Connection Lost", false);
+                        ServerError(this, "Connection Lost", false);
 
                         ForceDisconnect();
 
@@ -1635,7 +1638,7 @@ namespace IceChat
                         }
                         catch (Exception e)
                         {
-                            ServerError?.Invoke(this, "Connect - IPV6 Exception Error:" + e.InnerException.ToString() + ":" + e.Source + ":" + e.StackTrace.ToString() + ":" + e.Message.ToString(), false);
+                            ServerError(this, "Connect - IPV6 Exception Error:" + e.InnerException.ToString() + ":" + e.Source + ":" + e.StackTrace.ToString() + ":" + e.Message.ToString(), false);
 
                             whichAddressCurrent++;
                             if (whichAddressCurrent > hostEntry.AddressList.Length)
@@ -1712,7 +1715,8 @@ namespace IceChat
                 else
                 {
                     //this will fail on an IPv6 address
-                    if (IPAddress.TryParse(serverSetting.ServerName, out IPAddress ipAddress))
+                    IPAddress ipAddress = null;
+                    if (IPAddress.TryParse(serverSetting.ServerName, out ipAddress))
                     {
                         IPEndPoint ipe = new IPEndPoint(ipAddress, Convert.ToInt32(serverSetting.ServerPort));
                         serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -1762,7 +1766,7 @@ namespace IceChat
                         }
                         catch (Exception e)
                         {
-                            ServerError?.Invoke(this, "Connect - Exception Error:" + e.InnerException.ToString() + ":" + e.Source + ":" + e.StackTrace.ToString() + ":" + e.Message.ToString(), false);
+                            ServerError(this, "Connect - Exception Error:" + e.InnerException.ToString() + ":" + e.Source + ":" + e.StackTrace.ToString() + ":" + e.Message.ToString(), false);
 
                             whichAddressCurrent++;
                             if (whichAddressCurrent > hostEntry.AddressList.Length)
@@ -1785,7 +1789,7 @@ namespace IceChat
             }
             catch (SocketException se)
             {
-                ServerError?.Invoke(this, "Socket Error " + se.ErrorCode + " :" + se.Message + " - http://msdn.microsoft.com/en-us/library/ms740668.aspx for further information", false);
+                ServerError(this, "Socket Error " + se.ErrorCode + " :" + se.Message + " - http://msdn.microsoft.com/en-us/library/ms740668.aspx for further information", false);
 
                 System.Diagnostics.Debug.WriteLine(se.StackTrace);
                 

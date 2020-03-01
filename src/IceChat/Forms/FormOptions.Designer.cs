@@ -280,6 +280,7 @@ namespace IceChat
             this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.label41 = new System.Windows.Forms.Label();
             this.tabControlOptions.SuspendLayout();
             this.tabMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTSHelp)).BeginInit();
@@ -1742,6 +1743,7 @@ namespace IceChat
             // 
             // tabSounds
             // 
+            this.tabSounds.Controls.Add(this.label41);
             this.tabSounds.Controls.Add(this.checkPlayActive);
             this.tabSounds.Controls.Add(this.buttonStop);
             this.tabSounds.Controls.Add(this.label18);
@@ -1788,7 +1790,7 @@ namespace IceChat
             this.label18.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.Location = new System.Drawing.Point(419, 23);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(203, 148);
+            this.label18.Size = new System.Drawing.Size(203, 118);
             this.label18.TabIndex = 9;
             this.label18.Text = resources.GetString("label18.Text");
             // 
@@ -2921,6 +2923,15 @@ namespace IceChat
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
+            // label41
+            // 
+            this.label41.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(419, 155);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(258, 19);
+            this.label41.TabIndex = 59;
+            this.label41.Text = "Files need to stay in Sounds Folder.";
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -3219,5 +3230,6 @@ namespace IceChat
         private System.Windows.Forms.CheckBox checkSortNickList;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label label41;
     }
 }

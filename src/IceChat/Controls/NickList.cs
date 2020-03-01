@@ -994,7 +994,8 @@ namespace IceChat
                             //howFar = 11;
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
-                                if (p is IceChatPlugin ipc)
+                                IceChatPlugin ipc = p as IceChatPlugin;
+                                if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                         args = ipc.plugin.NickListDraw(args);
@@ -1010,7 +1011,8 @@ namespace IceChat
                             else
                             {
                                 //check if args.Extra is numeric and within color range                            
-                                if (Int32.TryParse(args.Extra, out int result))
+                                int result;
+                                if (Int32.TryParse(args.Extra, out result))
                                 {
                                     if (result >= 0 && result < 72)
                                     {

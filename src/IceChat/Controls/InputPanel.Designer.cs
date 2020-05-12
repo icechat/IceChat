@@ -49,12 +49,21 @@
             this.panelWideText = new System.Windows.Forms.Panel();
             this.textBoxWide = new IceInputBox(this);
             this.panelSend = new System.Windows.Forms.Panel();
+
+            this.panelSearch = new System.Windows.Forms.Panel();
+            this.panelButtons = new System.Windows.Forms.Panel();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            this.searchText = new System.Windows.Forms.TextBox();
+
             this.buttonSend = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
             this.textInput = new IceInputBox(this);
             this.contextHelpMenu.SuspendLayout();
             this.panelWideText.SuspendLayout();
             this.panelSend.SuspendLayout();
+            this.panelButtons.SuspendLayout();
+            this.panelSearch.SuspendLayout();
+
             this.SuspendLayout();
             // 
             // buttonEmoticonPicker
@@ -280,20 +289,54 @@
             // 
             // InputPanel
             // 
+            // searchPanel
+            // buttonsPanel
+            this.panelSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSearch.Height = 20;
+            this.panelSearch.BackColor = System.Drawing.Color.White;
+            this.panelSearch.Visible = false;
+
+            this.searchText.Text = "Search Text Here";
+            this.searchText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchText.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.searchText.Margin = new System.Windows.Forms.Padding(0);            
+
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonSearch.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Size = new System.Drawing.Size(72, 71);
+            this.buttonSearch.Visible = false;
+
+            this.panelSearch.Controls.Add(searchText);
+           // this.panelSearch.Controls.Add(buttonSearch);
+
+            this.panelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelButtons.Size = new System.Drawing.Size(631, 94);
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.textInput);
-            this.Controls.Add(this.panelWideText);
-            this.Controls.Add(this.panelSend);
-            this.Controls.Add(this.buttonHelp);
-            this.Controls.Add(this.buttonColorPicker);
-            this.Controls.Add(this.buttonEmoticonPicker);
+
+            this.panelButtons.Controls.Add(this.textInput);
+            this.panelButtons.Controls.Add(this.panelWideText);
+            this.panelButtons.Controls.Add(this.panelSend);
+            this.panelButtons.Controls.Add(this.buttonHelp);
+            this.panelButtons.Controls.Add(this.buttonColorPicker);
+            this.panelButtons.Controls.Add(this.buttonEmoticonPicker);
+
+            this.Controls.Add(panelButtons);
+            this.Controls.Add(panelSearch);
+
             this.Name = "InputPanel";
-            this.Size = new System.Drawing.Size(631, 94);
+
             this.contextHelpMenu.ResumeLayout(false);
             this.panelWideText.ResumeLayout(false);
             this.panelWideText.PerformLayout();
             this.panelSend.ResumeLayout(false);
+            this.panelButtons.ResumeLayout(false);
+            this.panelSearch.ResumeLayout(false);
+
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,9 +363,17 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
         private System.Windows.Forms.Panel panelWideText;
+
+        private System.Windows.Forms.Panel panelSearch;
+        private System.Windows.Forms.Panel panelButtons;
+
+        private System.Windows.Forms.TextBox searchText;
         private IceInputBox textBoxWide;
+
         private System.Windows.Forms.Panel panelSend;
+
         private System.Windows.Forms.Button buttonSend;
         private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }

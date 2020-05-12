@@ -154,7 +154,10 @@ namespace IceChat
                 string msg;                
                 string tempValue;
                 bool check;
-                string serverTimeValue = "";                
+                string serverTimeValue = "";
+
+                System.Diagnostics.Debug.WriteLine(data);
+
 
                 if (RawServerIncomingDataOverRide != null)
                     data = RawServerIncomingDataOverRide(this, data);
@@ -770,6 +773,10 @@ namespace IceChat
                         case "329":     //channel creation time
                             channel = ircData[3];
                             DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+
+                            System.Diagnostics.Debug.WriteLine("329-time=" + ircData[4]);
+                            System.Diagnostics.Debug.WriteLine(data);
+
                             date = date.AddSeconds(Convert.ToDouble(RemoveColon(ircData[4])));
                             msg = "Channel Created on: " + date.ToShortTimeString() + " " + date.ToShortDateString();
                             GenericChannelMessage(this, channel, msg, serverTimeValue);
@@ -790,7 +797,12 @@ namespace IceChat
                             channel = ircData[3];
                             nick = ircData[4];
                             DateTime date2 = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                            date2 = date2.AddSeconds(Convert.ToDouble(ircData[5]));
+                            // is ircdata[5] the time?
+                            // 1580099515
+                            System.Diagnostics.Debug.WriteLine("333-time=" + ircData[5]);
+                            System.Diagnostics.Debug.WriteLine(data);
+
+                            date2 = date2.AddSeconds(Convert.ToDouble( RemoveColon(ircData[5])));
 
                             check = ChannelInfoWindowExists(this, channel);
                             if (check)
@@ -806,6 +818,15 @@ namespace IceChat
                             break;
                         case "343":
                             ServerMessage(this, JoinString(ircData, 3, false), serverTimeValue);
+                            break;
+                        case "344": // whois data
+                            nick = ircData[3];
+                            check = UserInfoWindowExists(this, nick);
+                            if (check)
+                                return;
+                            msg = JoinString(ircData, 5, true);
+                            WhoisData(this, ircData[3], msg, serverTimeValue);
+
                             break;
                         case "348": //channel exception list
                             channel = ircData[3];

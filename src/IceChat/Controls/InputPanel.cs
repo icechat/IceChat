@@ -62,12 +62,27 @@ namespace IceChat
             this.buttonEmoticonPicker.Image = StaticMethods.LoadResourceImage("Smile.png");
             this.buttonColorPicker.Image = StaticMethods.LoadResourceImage("color.png");
 
+           
+
+            // searchText.KeyDown += SearchText_KeyDown;
+            // buttonSearch.Click += SearchButton_Click;
+            
             textInput.OnCommand += new IceInputBox.SendCommand(TextInput_OnCommand);
             textBoxWide.OnCommand += new IceInputBox.SendCommand(TextBoxWide_OnCommand);
 
             textInput.OnHotKey += Input_OnHotKey;
             textBoxWide.OnHotKey += Input_OnHotKey; 
 
+        }
+
+        private void SearchText_KeyDown(object sender, KeyEventArgs e)
+        {
+            // throw new NotImplementedException();
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         internal int CurrentHistoryItem
@@ -222,6 +237,9 @@ namespace IceChat
         {
             this.textInput.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxBackColor];
             this.textInput.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxForeColor];
+
+            //this.searchText.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxBackColor];
+            //this.searchText.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxForeColor];
 
             this.textBoxWide.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxBackColor];
             this.textBoxWide.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxForeColor];

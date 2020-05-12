@@ -559,15 +559,17 @@ namespace IceChat
                   
                     //sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback, this.LocalCertificateSelectionCallback);
                     sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
-                    
-                    SslProtocols enabledSslProtocols;
-                    
-                    #if USE_NET_45
-                        enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
-                    #else
+
+                    SslProtocols enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
+
+                    /*
+                    //if USE_NET_45
+                     enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
+                    //else
                         enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
-                    #endif
-                    
+                    //endif
+                    */
+
                     howfar = 5;
                     // ask in irc.gnome.org #mono
                     // using sslStream.AuthenticateAsClient, I get an error: Ssl error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAIL ERROR:   at /build/mono/src/mono-5.0.0/external/boringssl/ssl/handshake_client.c:1132

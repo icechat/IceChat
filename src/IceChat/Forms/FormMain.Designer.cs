@@ -334,7 +334,6 @@ namespace IceChat
             this.fontSettingsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.fontSettingsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("fontSettingsToolStripMenuItem.Image")));
             this.fontSettingsToolStripMenuItem.Name = "fontSettingsToolStripMenuItem";
-            this.fontSettingsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
             this.fontSettingsToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.fontSettingsToolStripMenuItem.Text = "Font Settings...";
             this.fontSettingsToolStripMenuItem.Click += new System.EventHandler(this.FontSettingsToolStripMenuItem_Click);
@@ -1158,7 +1157,10 @@ namespace IceChat
             this.inputPanel.Location = new System.Drawing.Point(0, 525);
             this.inputPanel.Margin = new System.Windows.Forms.Padding(4);
             this.inputPanel.Name = "inputPanel";
-            this.inputPanel.Size = new System.Drawing.Size(924, 26);
+            //this.inputPanel.Size = new System.Drawing.Size(924, 26);
+
+            this.inputPanel.Size = new System.Drawing.Size(924, 126);
+
             this.inputPanel.TabIndex = 0;
             //
             // FormMain

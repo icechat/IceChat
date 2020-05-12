@@ -1,4 +1,4 @@
-Build 9.49 March 1 2020
+Build 9.49 April 10 2020
 * Built now with .NET 4.5.2 using VS Studio 2017
 * All Plugins converted to .NET 4.5.2
 * Background images are saved and will show again on restart
@@ -13,9 +13,10 @@ Build 9.49 March 1 2020
 * $os now returns Windows Product Name
 * $osversion returns Windows Version number
 * If multiple nicks are selected in the nick list, in the popupmenu, $1, $2, $3, etc can be used in command to replace selected nicks
-* Right clicking an item in the nick list will no select/deselect
+* Right clicking an item in the nick list will not select/deselect
 * Update SimpleScript Plugin to v1.4 adding Input Text event
-
+* CTRL-F No longer opens Fonts Window
+* Passwords in Server Editor now show on hovering over textbox
 
 Build 9.22 June 1 2019
 * Fix $rand() where it was not working with the top value

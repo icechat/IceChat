@@ -474,7 +474,8 @@ namespace IceChat
                     }
                     else if (e.KeyCode == Keys.F)
                     {
-                        FormMain.Instance.fontSettingsToolStripMenuItem.PerformClick();
+                        // search for text
+                        System.Diagnostics.Debug.WriteLine("Search for Text:CTRL-F");
                         e.Handled = true;
                     }
                     else if (e.KeyCode == Keys.G)
@@ -741,6 +742,8 @@ namespace IceChat
                 if (e.KeyCode == Keys.F3 && e.Modifiers != Keys.Control && e.Modifiers != Keys.Alt)
                 {
                     // searching!
+                    System.Diagnostics.Debug.WriteLine("Search for Text:F3");
+
                     e.Handled = true;
                 }
 

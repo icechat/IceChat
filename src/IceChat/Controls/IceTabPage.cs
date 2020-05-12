@@ -2210,6 +2210,7 @@ if (ipc != null)
                 Dock = DockStyle.Right,
                 Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
             };
+            searchButton.Size = new System.Drawing.Size(72, 23);
 
             searchButton.Click += new EventHandler(OnSearchButtonClick);
             

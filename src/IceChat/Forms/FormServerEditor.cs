@@ -85,10 +85,7 @@ namespace IceChat
             this.checkModeI.Checked = true;
             this.checkNoColorMode.Checked = false;
 
-            this.textDisplayName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
-            this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
-            this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
-            this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
+            this.SetDefaultHandlers();
 
             ApplyLanguage();
         }
@@ -120,6 +117,43 @@ namespace IceChat
             }
         }
 
+        private void SetDefaultHandlers()
+        {
+
+            this.textDisplayName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
+            this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
+            this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
+            this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
+
+
+            this.textServerPassword.MouseEnter += Password_MouseEnter;
+            this.textServerPassword.MouseLeave += Password_MouseLeave;
+            this.textServerPassword.GotFocus += Password_MouseEnter;
+            this.textServerPassword.LostFocus += Password_MouseLeave;
+
+            this.textNickservPassword.MouseEnter += Password_MouseEnter;
+            this.textNickservPassword.MouseLeave += Password_MouseLeave;
+            this.textNickservPassword.GotFocus += Password_MouseEnter;
+            this.textNickservPassword.LostFocus += Password_MouseLeave;
+
+            this.textSASLPass.MouseEnter += Password_MouseEnter;
+            this.textSASLPass.MouseLeave += Password_MouseLeave;
+            this.textSASLPass.GotFocus += Password_MouseEnter;
+            this.textSASLPass.LostFocus += Password_MouseLeave;
+
+            this.textBNCPass.MouseEnter += Password_MouseEnter;
+            this.textBNCPass.MouseLeave += Password_MouseLeave;
+            this.textBNCPass.GotFocus += Password_MouseEnter;
+            this.textBNCPass.LostFocus += Password_MouseLeave;
+
+            this.textProxyPass.MouseEnter += Password_MouseEnter;
+            this.textProxyPass.MouseLeave += Password_MouseLeave;
+            this.textProxyPass.GotFocus += Password_MouseEnter;
+            this.textProxyPass.LostFocus += Password_MouseLeave;
+
+
+        }
+
         public FormServers(ServerSetting s)
         {
             InitializeComponent();
@@ -143,10 +177,8 @@ namespace IceChat
             
             LoadDefaultServerSettings();
 
-            this.textDisplayName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
-            this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
-            this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
-            this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
+            this.SetDefaultHandlers();
+
 
             //if (s.conn
             foreach (IRCConnection c in FormMain.Instance.ServerTree.ServerConnections.Values)
@@ -167,8 +199,21 @@ namespace IceChat
             }
 
             ApplyLanguage();
-        }       
-        
+        }
+
+        private void Password_MouseLeave(object sender, EventArgs e)
+        {
+            if (((TextBox)sender).Focused == false)
+            {
+                ((TextBox)sender).PasswordChar = '*';
+            }
+        }
+
+        private void Password_MouseEnter(object sender, EventArgs e)
+        {
+            ((TextBox)sender).PasswordChar = '\0'; ;
+        }
+
         private void ApplyLanguage()
         {
 

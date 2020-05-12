@@ -669,6 +669,12 @@ namespace IceChat
             if (((ToolStripMenuItem)sender).Tag == null) return;
 
             string command = ((ToolStripMenuItem)sender).Tag.ToString();
+
+            if (command.Substring(0, 2) != "//")
+                command = "/" + command;
+
+            System.Diagnostics.Debug.WriteLine("NickPopup:" + command);
+
             if (command.Length > 0)
             {
                 _parent.ParseOutGoingCommand(currentWindow.Connection, command);

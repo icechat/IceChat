@@ -595,7 +595,7 @@ namespace IceChat
 
             AddMsgIdent("Private Message", "$nick - nickname who messaged");
             AddMsgIdent("Private Message", "$host - hostname of nick");
-            AddMsgIdent("Private Message", "$message - channel message");
+            AddMsgIdent("Private Message", "$message - private message");
 
             AddMsgIdent("Self Private Message", "$nick - yourself");
             AddMsgIdent("Self Private Message", "$host - your hostname");

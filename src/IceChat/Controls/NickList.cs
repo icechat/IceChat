@@ -235,14 +235,37 @@ namespace IceChat
             if (e.Control)
                 controlKeyDown = true;
 
-            if (e.KeyCode == Keys.Up)
+            if (e.KeyCode == Keys.Up && selectedIndex > 0)
             {
                 selectedIndex--;
+
+                if (totalSelected > 0 && controlKeyDown == false)
+                {
+                    //deselect all the previous ones
+                    DeSelectAllNicks();
+                    totalSelected = 1;
+                }
+
+                sortedNickNames[selectedIndex].selected = true;
+                currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = true;
+
                 Invalidate();
             }
-            else if (e.KeyCode == Keys.Down)
+            else if (e.KeyCode == Keys.Down && selectedIndex < sortedNickNames.Count)
             {
                 selectedIndex++;
+                
+                if (totalSelected > 0 && controlKeyDown == false)
+
+                {
+                    //deselect all the previous ones
+                    DeSelectAllNicks();
+                    totalSelected = 1;
+                }
+
+                sortedNickNames[selectedIndex].selected = true;
+                currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = true;
+
                 Invalidate();
             }
             else if (e.KeyCode == Keys.Apps)
@@ -262,95 +285,53 @@ namespace IceChat
 
                     bool currentKeyMatch = false;
 
-                    for (int x = 0; x < sortedNickNames.Count; x++)
+
+                    try
                     {
 
-                        string nick = sortedNickNames[x].nick;
-
-                        //replace any of the modes
-                        for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
-                            if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
-                                nick = nick.Substring(1);
-
-
-                        if (e.KeyCode.ToString().ToLower() == currentKeySelected)
-                        {
-                            // make it go to the next one
-                            currentKeyMatch = true;
-
-                        }
-
-
-                        if (nick.ToLower().StartsWith(e.KeyCode.ToString().ToLower()))
+                        for (int x = 0; x < sortedNickNames.Count; x++)
                         {
 
-                            if (currentKeyMatch == true)
+                            string nick = sortedNickNames[x].nick;
+
+                            //replace any of the modes
+                            for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
+                                if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
+                                    nick = nick.Substring(1);
+
+
+                            if (e.KeyCode.ToString().ToLower() == currentKeySelected)
                             {
-                                if (totalMatches == 0)
+                                // make it go to the next one
+                                currentKeyMatch = true;
+
+                            }
+
+
+                            if (nick.ToLower().StartsWith(e.KeyCode.ToString().ToLower()))
+                            {
+
+                                if (currentKeyMatch == true)
                                 {
-                                    firstMatch = x;
+                                    if (totalMatches == 0)
+                                    {
+                                        firstMatch = x;
+                                    }
+
+                                    totalMatches++;
+
+                                    if (x <= currentNickSelected)
+                                    {
+                                        continue;
+                                    }
+
                                 }
 
-                                totalMatches++;
-
-                                if (x <= currentNickSelected)
-                                {
-                                    continue;
-                                }
-
-                            }
-
-
-                            DeSelectAllNicks();
-
-                            // check if we are in the scroll view
-                            //System.Diagnostics.Debug.WriteLine(x + " => " + vScrollBar.Value + "  to " + (vScrollBar.Value + vScrollBar.LargeChange ));
-
-                            if (x >= vScrollBar.Value && x <= (vScrollBar.Value + vScrollBar.LargeChange))
-                            {
-                                // no need to change
-                            }
-                            else if (x > (vScrollBar.Maximum - vScrollBar.LargeChange))
-                            {
-                                this.topIndex = (vScrollBar.Maximum - vScrollBar.LargeChange);
-                            }
-                            else
-                            {
-                                this.topIndex = x;
-                            }
-
-                            this.vScrollBar.Value = this.topIndex;
-
-                            sortedNickNames[x].selected = true;
-                            currentWindow.GetNick(sortedNickNames[x].nick).Selected = true;
-
-                            totalSelected = 1;
-
-                            // System.Diagnostics.Debug.WriteLine(sortedNickNames[x].nick + ": SV=" +  vScrollBar.Value + ": LC=" + vScrollBar.LargeChange + ": TI=" + topIndex + ":scroll to:" + x + ":" + vScrollBar.Maximum + ":" + this.sortedNickNames.Count);
-
-                            Invalidate();
-
-
-                            currentKeySelected = e.KeyCode.ToString().ToLower();
-                            currentNickSelected = x;
-
-                            return;
-                        }
-
-                    }
-
-                    if (currentKeyMatch == true)
-                    {
-                        //System.Diagnostics.Debug.WriteLine("Done:" + totalMatches + ":" + firstMatch);
-                        if (totalMatches > 1)
-                        {
-                            if (firstMatch > -1)
-                            {
 
                                 DeSelectAllNicks();
 
-                                //System.Diagnostics.Debug.WriteLine("First- go to:");
-                                int x = firstMatch;
+                                // check if we are in the scroll view
+                                //System.Diagnostics.Debug.WriteLine(x + " => " + vScrollBar.Value + "  to " + (vScrollBar.Value + vScrollBar.LargeChange ));
 
                                 if (x >= vScrollBar.Value && x <= (vScrollBar.Value + vScrollBar.LargeChange))
                                 {
@@ -372,15 +353,67 @@ namespace IceChat
 
                                 totalSelected = 1;
 
+                                // System.Diagnostics.Debug.WriteLine(sortedNickNames[x].nick + ": SV=" +  vScrollBar.Value + ": LC=" + vScrollBar.LargeChange + ": TI=" + topIndex + ":scroll to:" + x + ":" + vScrollBar.Maximum + ":" + this.sortedNickNames.Count);
+
                                 Invalidate();
 
 
+                                currentKeySelected = e.KeyCode.ToString().ToLower();
                                 currentNickSelected = x;
+
+                                return;
+                            }
+
+                        }
+
+                        if (currentKeyMatch == true)
+                        {
+                            //System.Diagnostics.Debug.WriteLine("Done:" + totalMatches + ":" + firstMatch);
+                            if (totalMatches > 1)
+                            {
+                                if (firstMatch > -1)
+                                {
+
+                                    DeSelectAllNicks();
+
+                                    //System.Diagnostics.Debug.WriteLine("First- go to:");
+                                    int x = firstMatch;
+
+                                    if (x >= vScrollBar.Value && x <= (vScrollBar.Value + vScrollBar.LargeChange))
+                                    {
+                                        // no need to change
+                                    }
+                                    else if (x > (vScrollBar.Maximum - vScrollBar.LargeChange))
+                                    {
+                                        this.topIndex = (vScrollBar.Maximum - vScrollBar.LargeChange);
+                                    }
+                                    else
+                                    {
+                                        this.topIndex = x;
+                                    }
+
+                                    this.vScrollBar.Value = this.topIndex;
+
+                                    sortedNickNames[x].selected = true;
+                                    currentWindow.GetNick(sortedNickNames[x].nick).Selected = true;
+
+                                    totalSelected = 1;
+
+                                    Invalidate();
+
+
+                                    currentNickSelected = x;
+
+                                }
 
                             }
 
                         }
 
+                    }
+                    catch(Exception)
+                    {
+                        // catch the error
                     }
 
                 }
@@ -747,6 +780,7 @@ namespace IceChat
         protected override void OnPaint(PaintEventArgs e)
         {
             //int howFar = 0;
+            
             int i = 0;
             try
             {
@@ -1108,12 +1142,14 @@ namespace IceChat
             }
             catch (Exception)
             {
+                System.Diagnostics.Debug.WriteLine("NickLIst OnPaint Error:");
+
                 /*
                 if (currentWindow != null)
                     _parent.WriteErrorFile(currentWindow.Connection, "NickList OnPaint:H=" + howFar + ":i=" + i + ":ti=" + topIndex + ":" + headerCaption + ":NickCount=" + currentWindow.Nicks.Values.Count + ":NC=" + sortedNickNames.Count, ee);
                 else
                     _parent.WriteErrorFile(null, "NickList OnPaint: null", ee);
-                */ 
+                */
             }
         }
 

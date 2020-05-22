@@ -813,8 +813,31 @@ if (ipc != null)
                         case "/beep":
                             System.Media.SystemSounds.Beep.Play();
                             break;
+                        case "/windowsize":
+                            CurrentWindowMessage(connection, "\x00034Current Window Size is: " + CurrentWindow.Width + ":" + CurrentWindow.Height, "", true);
+                            if (data.Length > 0)
+                            {
+                                // set a new size?
+                                // width height
+                                string[] values = data.Split(new char[] { ' ' }, 2);
+
+                                if (CurrentWindow.DockedForm == true && values.Length == 2)
+                                {
+                                
+                                    if (CurrentWindow.Parent.GetType() == typeof(FormWindow))
+                                    {
+                                        CurrentWindow.Parent.Width = Convert.ToInt32(values[0]);
+                                        CurrentWindow.Parent.Height = Convert.ToInt32(values[1]);
+
+                                        CurrentWindowMessage(connection, "\x00034New Window Size is: " + values[0] + ":" + values[1], "", true);
+
+                                    }
+
+                                }
+                            }
+                            break;
                         case "/size":
-                            CurrentWindowMessage(connection, "\x00034Window Size is: " + this.Width + ":" + this.Height, "", true);
+                            CurrentWindowMessage(connection, "\x00034Main Window Size is: " + this.Width + ":" + this.Height, "", true);
                             break;
                         case "/ame":    //me command for all channels
                             if (connection != null && data.Length > 0)
@@ -4395,7 +4418,7 @@ if (ipc != null)
                             foreach (Plugin p in loadedPlugins)
                             {
                                 IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                                if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                         plugins += ipc.plugin.Name + " : ";

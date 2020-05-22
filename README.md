@@ -24,7 +24,7 @@ There are several build options in the extracted root folder.
 * `BuildIceChat.4.5.cmd`
   * which uses .NET 4.5.
 * `BuildIceChat.4.5-x86.cmd`
-  * which uses .NET 4.5 and a specific project for x86 computers.
+  * which uses .NET 4.5 and a specific project for x86 - 32bit computers.
 * `BuildIceChat.latest.cmd`
   * which uses .NET 4.7.1
 * `BuildIceChatLinux.sh`

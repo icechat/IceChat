@@ -1,3 +1,7 @@
+Build 9.49.02 May 22 2020
+* Fix arrow keys in the Nicklist
+* Fix background colors sometimes wrapping to the next line
+
 Build 9.49 April 10 2020
 * Built now with .NET 4.5.2 using VS Studio 2017
 * All Plugins converted to .NET 4.5.2

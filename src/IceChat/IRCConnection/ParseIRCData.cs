@@ -156,7 +156,7 @@ namespace IceChat
                 bool check;
                 string serverTimeValue = "";
 
-                System.Diagnostics.Debug.WriteLine(data);
+                //System.Diagnostics.Debug.WriteLine(data);
 
 
                 if (RawServerIncomingDataOverRide != null)
@@ -774,8 +774,8 @@ namespace IceChat
                             channel = ircData[3];
                             DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, 0);
 
-                            System.Diagnostics.Debug.WriteLine("329-time=" + ircData[4]);
-                            System.Diagnostics.Debug.WriteLine(data);
+                            //System.Diagnostics.Debug.WriteLine("329-time=" + ircData[4]);
+                            //System.Diagnostics.Debug.WriteLine(data);
 
                             date = date.AddSeconds(Convert.ToDouble(RemoveColon(ircData[4])));
                             msg = "Channel Created on: " + date.ToShortTimeString() + " " + date.ToShortDateString();
@@ -799,8 +799,8 @@ namespace IceChat
                             DateTime date2 = new DateTime(1970, 1, 1, 0, 0, 0, 0);
                             // is ircdata[5] the time?
                             // 1580099515
-                            System.Diagnostics.Debug.WriteLine("333-time=" + ircData[5]);
-                            System.Diagnostics.Debug.WriteLine(data);
+                            //System.Diagnostics.Debug.WriteLine("333-time=" + ircData[5]);
+                            //System.Diagnostics.Debug.WriteLine(data);
 
                             date2 = date2.AddSeconds(Convert.ToDouble( RemoveColon(ircData[5])));
 
@@ -1091,11 +1091,11 @@ namespace IceChat
                                                 if (CheckIgnoreList(nick, host, IgnoreListType.DCC) == true) return;                                                 
                                                 
                                                 msg = msg.Substring(8).Trim();
-                                                System.Diagnostics.Debug.WriteLine("PRIVMSG:" + msg);
+                                                //System.Diagnostics.Debug.WriteLine("PRIVMSG:" + msg);
 
                                                 string[] dccData = msg.Split(' ');
                                                 //sometimes the filenames can be include in quotes
-                                                System.Diagnostics.Debug.WriteLine("length:" + dccData.Length);
+                                                //System.Diagnostics.Debug.WriteLine("length:" + dccData.Length);
                                                 //PRIVMSG Snerf :DCC SEND serial.txt 1614209982 20052 71
 
                                                 if (dccData.Length > 4)
@@ -1124,7 +1124,7 @@ namespace IceChat
                                                             string[] words = msg.Split('"');
                                                             if (words.Length == 3)
                                                                 file = words[1];
-                                                            System.Diagnostics.Debug.WriteLine(words.Length);
+                                                            //System.Diagnostics.Debug.WriteLine(words.Length);
                                                             foreach (string w in words)
                                                             {
                                                                 System.Diagnostics.Debug.WriteLine(w);

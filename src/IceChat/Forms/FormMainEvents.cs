@@ -1007,7 +1007,7 @@ if (ipc != null)
                 foreach (Plugin p in loadedPlugins)
                 {
                     IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                    if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             args = ipc.plugin.CtcpReply(args);
@@ -1070,7 +1070,7 @@ if (ipc != null)
             foreach (Plugin p in loadedPlugins)
             {
                 IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         args = ipc.plugin.CtcpMessage(args);
@@ -1082,14 +1082,17 @@ if (ipc != null)
                 return;
                         
             CurrentWindowMessage(connection, args.Message, timeStamp, false);
-            
+
+            String os = (string)Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion", "ProductName", string.Empty).ToString();
+
             switch (ctcp)
             {
                 case "VERSION":
-                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "VERSION " + ProgramID + " " + VersionID + " - Build " + BuildNumber + " : " + GetOperatingSystemName() + ((char)1).ToString());
+                    // get the operating system name
+                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "VERSION " + ProgramID + " " + VersionID + " - Build " + BuildNumber + " : " + os);
                     break;
                 case "ICECHAT":
-                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "VERSION " + ProgramID + " " + VersionID + " - Build " + BuildNumber + " : " + GetOperatingSystemName() + ((char)1).ToString());
+                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "VERSION " + ProgramID + " " + VersionID + " - Build " + BuildNumber + " : " + os);
                     //see if we have any plugins
                     if (loadedPlugins.Count > 0)
                     {
@@ -1097,7 +1100,7 @@ if (ipc != null)
                         foreach (Plugin p in loadedPlugins)
                         {
                             IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                            if (ipc != null)
                             {
                                 if (ipc.plugin.Enabled == true)
                                     plugins += ipc.plugin.Name + " " + ipc.plugin.Version + " : ";

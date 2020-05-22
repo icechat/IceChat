@@ -52,7 +52,7 @@ namespace IceChatPlugin
             MessageBox.Show(Name + " Loaded", Name + " " + Author);
         }
 
-        public AppDomain domain { get; set; }
+        public AppDomain Domain { get; set; }
         
         //if the plugin is enabled or disabled
         public bool Enabled { get; set; }

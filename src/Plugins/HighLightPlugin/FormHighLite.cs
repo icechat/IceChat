@@ -47,8 +47,8 @@ namespace IceChatPlugin
             InitializeComponent();
 
             colorPicker = new ColorButtonArray(panelColorPicker);
-            colorPicker.OnClick += new ColorButtonArray.ColorSelected(colorPicker_OnClick);
-            textCommand.KeyDown += new KeyEventHandler(textCommand_KeyDown);
+            colorPicker.OnClick += new ColorButtonArray.ColorSelected(ColorPicker_OnClick);
+            textCommand.KeyDown += new KeyEventHandler(TextCommand_KeyDown);
 
             this.highLiteItem = hli;
             this.listIndex = index;
@@ -80,7 +80,7 @@ namespace IceChatPlugin
 
         }
 
-        private void textCommand_KeyDown(object sender, KeyEventArgs e)
+        private void TextCommand_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Control)
             {
@@ -103,7 +103,7 @@ namespace IceChatPlugin
 
         }
 
-        private void buttonUpdate_Click(object sender, EventArgs e)
+        private void ButtonUpdate_Click(object sender, EventArgs e)
         {
             highLiteItem.Match = textHiLite.Text;
             highLiteItem.Command = textCommand.Text;
@@ -121,14 +121,14 @@ namespace IceChatPlugin
             this.Close();     
         }
 
-        private void colorPicker_OnClick(int colorSelected)
+        private void ColorPicker_OnClick(int colorSelected)
         {
             //change the color of the textbox
             textHiLite.ForeColor = IrcColor.colors[colorSelected];
             textHiLite.Tag = colorSelected;
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e) {
+        private void ButtonCancel_Click(object sender, EventArgs e) {
             this.Close();
         }
 

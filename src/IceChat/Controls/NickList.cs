@@ -577,7 +577,8 @@ namespace IceChat
                     return;
                 }
 
-                if (currentWindow != null && currentWindow.WindowStyle == IceTabPage.WindowType.Channel && e.Button == MouseButtons.Left)
+                //if (currentWindow != null && currentWindow.WindowStyle == IceTabPage.WindowType.Channel && e.Button == MouseButtons.Left)
+                if (currentWindow != null && currentWindow.WindowStyle == IceTabPage.WindowType.Channel && (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right))
                 {
                     //do the math
                     Graphics g = this.CreateGraphics();
@@ -596,8 +597,8 @@ namespace IceChat
                         else
                             totalSelected++;
 
-                        //if the CTRL-Key is down, we can do a multi-select
-                        if (controlKeyDown)
+                        //if the CTRL-Key is down, we can do a multi-select (only on Left Button)
+                        if (controlKeyDown && e.Button == MouseButtons.Left)
                         {
                             sortedNickNames[selectedIndex].selected = !selected;
                             currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = !selected;
@@ -1160,6 +1161,7 @@ namespace IceChat
         /// <param name="e"></param>
         private void OnMouseUp(object sender, MouseEventArgs e)
         {
+
             if (e.Button == MouseButtons.Right && selectedIndex != -1)
             {
                 //show the popup menu

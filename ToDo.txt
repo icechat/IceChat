@@ -10,7 +10,6 @@ Add color options for Toolbar Buttons
 Change settings/color windows to a treeview instead of tabs
 If a whois returns no nick ., send a whowas command
 Closing windows sometimes does not have the active window as truly active
-Add identifiers for $ram, $cpu and $gpu
 Add an option for Line Spacing (will need to wait for text window rewrite)
 allow /colortab command to also change the background color
 add option to auto pin new channels
@@ -41,7 +40,6 @@ Add news item on loadup, for showing IceChat news
 
 
 Pending/In Progress:
-Typing in the nicklist, does a search, bring you to those nicks. (typing in letter brings up first match)
 Remember window order when opening channels (in progress)(group by order in server tree)
 Create ice7 theme importer (in progress)
 IceChat 7 settings imported, check for / before popup menu commands (check this)
@@ -50,6 +48,8 @@ Add tooltip for topic (9.15)
 
 
 Completed:
+Add identifiers for $ram, $cpu and $gpu
+Typing in the nicklist, does a search, bring you to those nicks. (typing in letter brings up first match)
 Plugin Update System
 Add internal tracking of closing last channel, and add a /rejoin command to rejoin last closed channel
 Add an option to disable the Splash Screen, or with -nosplash command line

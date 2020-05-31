@@ -94,7 +94,7 @@ namespace IceChat
             foreach (Plugin p in FormMain.Instance.LoadedPlugins)
             {
                 IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         ipc.plugin.LoadEditorForm(this.tabControlEditor, this.menuStripMain);
@@ -116,29 +116,25 @@ if (ipc != null)
             {
                 if (e.KeyCode == Keys.K)
                 {
-                    //((TextBox)sender).SelectedText = ((char)3).ToString();
-                    ((TextBox)sender).SelectedText = @"\%C";
+                    ((TextBox)sender).SelectedText = @"\%C";    // 3
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                 }
                 if (e.KeyCode == Keys.B)
                 {
-                    //((TextBox)sender).SelectedText = ((char)2).ToString();
-                    ((TextBox)sender).SelectedText = @"\%B";
+                    ((TextBox)sender).SelectedText = @"\%B";    // 2
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                 }
                 if (e.KeyCode == Keys.R)
                 {
-                    //((TextBox)sender).SelectedText = ((char)2).ToString();
-                    ((TextBox)sender).SelectedText = @"\%R";
+                    ((TextBox)sender).SelectedText = @"\%R"; // \x16; (22)
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                 }
                 if (e.KeyCode == Keys.O)
                 {
-                    //((TextBox)sender).SelectedText = ((char)2).ToString();
-                    ((TextBox)sender).SelectedText = @"\%O";
+                    ((TextBox)sender).SelectedText = @"\%O";  //  "\x0F"; (15)
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                 }
@@ -151,7 +147,6 @@ if (ipc != null)
                 
                 if (e.KeyCode == Keys.I)
                 {
-                    //((TextBox)sender).SelectedText = ((char)206).ToString();     //29 1D for normal 29 //ce
                     ((TextBox)sender).SelectedText = @"\%I";     //29 1D for normal 29 //ce
                     e.Handled = true;
                     e.SuppressKeyPress = true;
@@ -180,7 +175,9 @@ if (ipc != null)
             {
                 XmlSerializer deserializer = new XmlSerializer(typeof(IceChatAliases));
                 TextReader textReader = new StreamReader(FormMain.Instance.AliasesFile);
+
                 aliasList = (IceChatAliases)deserializer.Deserialize(textReader);
+
                 textReader.Close();
                 textReader.Dispose();
             }
@@ -200,7 +197,7 @@ if (ipc != null)
             foreach (AliasItem alias in aliasList.listAliases)
             {
                 if (alias.Command.Length == 1)
-                    textAliases.AppendText(alias.AliasName + " " + alias.Command[0].Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)219).ToString()).Replace("&#x1D;", ((char)206).ToString()) + Environment.NewLine);
+                    textAliases.AppendText(alias.AliasName + " " + alias.Command[0].Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)31).ToString()).Replace("&#x1D;", ((char)29).ToString()).Replace("&#x16;", ((char)22).ToString()).Replace("&#x0F;", ((char)15).ToString()) + Environment.NewLine);
                 else
                 {
                     //multiline alias
@@ -222,7 +219,7 @@ if (ipc != null)
             
             foreach (string m in menu)
             {
-                textPopups.AppendText(m.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)219).ToString()).Replace("&#x1D;", ((char)206).ToString()) + Environment.NewLine);
+                textPopups.AppendText(m.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)31).ToString()).Replace("&#x1D;", ((char)29).ToString()).Replace("&#x16;", ((char)22).ToString()).Replace("&#x0F;", ((char)15).ToString()) + Environment.NewLine);
             }
 
             textPopups.SelectionStart = 0;
@@ -277,7 +274,7 @@ if (ipc != null)
         {
             try
             {
-                string[] popups = textPopups.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)219).ToString(), "&#x1F;").Replace(((char)206).ToString(), "&#x1D;").Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None);
+                string[] popups = textPopups.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)31).ToString(), "&#x1F;").Replace(((char)29).ToString(), "&#x1D;").Replace(((char)22).ToString(), "&#x16;").Replace(((char)15).ToString(), "&#x0F;").Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None);
 
                 if (currentPopup == "NickList")
                     nickListPopup = popups;
@@ -360,12 +357,14 @@ if (ipc != null)
             //save all the settings
             try
             {
+                textAliases.Text = textAliases.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)31).ToString(), "&#x1F;").Replace(((char)29).ToString(), "&#x1D;").Replace(((char)22).ToString(), "&#x16;").Replace(((char)15).ToString(), "&#x0F;");
+
                 //parse out all the aliases
-                textAliases.Text = textAliases.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)219).ToString(), "&#x1F;").Replace(((char)206).ToString(), "&#x1D;");
 
                 aliasList.listAliases.Clear();
 
                 string[] aliases = textAliases.Text.Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None);
+
                 bool isMultiLine = false;
                 AliasItem multiLineAlias = null;
                 string aliasCommands = "";
@@ -421,7 +420,7 @@ if (ipc != null)
                 foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
                 {
                     IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                    if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
                             ipc.plugin.SaveEditorForm();
@@ -444,11 +443,11 @@ if (ipc != null)
             switch (tabControlEditor.TabPages[tabControlEditor.SelectedIndex].Text)
             {
                 case "Aliases":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Aliases");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=Aliases");
                     break;
 
                 case "PopupMenus":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Popup_Menus");                    
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=Popup_Menus");                    
                     break;
 
             }

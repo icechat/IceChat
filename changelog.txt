@@ -1,3 +1,9 @@
+Build 9.49.05 May 31 2020
+* Fix special codes in the IceChat editor not properly saving
+* Right click in Nicklist de-selects all nicks and just selects that one
+* Added identifiers for $ram, $cpu and $gpu
+* Emoticon Picker/ Color Picker / Basic IRC Help buttons show on MultiLine Edit Box mode
+
 Build 9.49.02 May 22 2020
 * Fix arrow keys in the Nicklist
 * Fix background colors sometimes wrapping to the next line

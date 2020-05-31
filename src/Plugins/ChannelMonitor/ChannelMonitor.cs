@@ -92,7 +92,7 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Channel Monitor Plugin";
             m_Author = "Snerf";
-            m_Version = "1.51";
+            m_Version = "1.5.2";
         }
 
         public override void Dispose()
@@ -112,8 +112,10 @@ namespace IceChatPlugin
             if (CurrentVersion < 90020140221)
             {
                 //send back a message that we need to update!
-                PluginArgs a = new PluginArgs();
-                a.Command = "/echo Channel Monitor Plugin v1.3 requires IceChat 9 RC 8.22 or newer (" + CurrentVersion+")";
+                PluginArgs a = new PluginArgs
+                {
+                    Command = "/echo Channel Monitor Plugin v1.3 requires IceChat 9 RC 8.22 or newer (" + CurrentVersion + ")"
+                };
                 OnCommand(a);
                 this.Enabled = false;
                 return;
@@ -122,9 +124,11 @@ namespace IceChatPlugin
             settingsFile = CurrentFolder + System.IO.Path.DirectorySeparatorChar + "IceChatChannelMonitor.xml";
             LoadSettings();
 
-            panel = new Panel();
-            panel.Height = 150;
-            panel.Dock = DockStyle.Bottom;
+            panel = new Panel
+            {
+                Height = 150,
+                Dock = DockStyle.Bottom
+            };
 
             listMonitor = new ListView();
             columnTime = new ColumnHeader();
@@ -157,12 +161,14 @@ namespace IceChatPlugin
 
             if (CurrentVersion > 90220150213)
             {
-                listMonitor.DoubleClick += new EventHandler(listMonitor_DoubleClick);
+                listMonitor.DoubleClick += new EventHandler(ListMonitor_DoubleClick);
             }
 
-            m_EnableMonitor = new ToolStripMenuItem();
-            m_EnableMonitor.Text = "Toggle Monitor";
-            m_EnableMonitor.Checked = true;
+            m_EnableMonitor = new ToolStripMenuItem
+            {
+                Text = "Toggle Monitor",
+                Checked = true
+            };
             m_EnableMonitor.Click += new EventHandler(OnEnableMonitor_Click);
 
         }
@@ -186,15 +192,17 @@ namespace IceChatPlugin
             return menu;
         }
 
-        private void listMonitor_DoubleClick(object sender, EventArgs e)
+        private void ListMonitor_DoubleClick(object sender, EventArgs e)
         {
             //use the /switch #channel serverID to open that channel
             //will require icechat 9.03+
             if (listMonitor.SelectedItems.Count == 1)
             {
                 ListViewItem lvi = listMonitor.SelectedItems[0];
-                PluginArgs a = new PluginArgs();
-                a.Command = "/switch " + lvi.SubItems[1].Text + " " + lvi.SubItems[3].Text;
+                PluginArgs a = new PluginArgs
+                {
+                    Command = "/switch " + lvi.SubItems[1].Text + " " + lvi.SubItems[3].Text
+                };
                 OnCommand(a);
             }
         }
@@ -270,9 +278,11 @@ namespace IceChatPlugin
             }
             else
             {
-                MonitorItem c = new MonitorItem();
-                c.Channel = newChan.channel;
-                c.Enabled = mEnabled;
+                MonitorItem c = new MonitorItem
+                {
+                    Channel = newChan.channel,
+                    Enabled = mEnabled
+                };
 
                 monitorChannels.AddChannel(c);
             }
@@ -429,9 +439,11 @@ namespace IceChatPlugin
                 }
                 else
                 {
-                    MonitorItem c = new MonitorItem();
-                    c.Channel = args.Channel;
-                    c.Enabled = !disabled;
+                    MonitorItem c = new MonitorItem
+                    {
+                        Channel = args.Channel,
+                        Enabled = !disabled
+                    };
 
                     monitorChannels.AddChannel(c);
                 }

@@ -71,7 +71,7 @@
             this.buttonEmoticonPicker.Dock = System.Windows.Forms.DockStyle.Left;
             this.buttonEmoticonPicker.Location = new System.Drawing.Point(0, 0);
             this.buttonEmoticonPicker.Name = "buttonEmoticonPicker";
-            this.buttonEmoticonPicker.Size = new System.Drawing.Size(28, 94);
+            this.buttonEmoticonPicker.Size = new System.Drawing.Size(28, 28);
             this.buttonEmoticonPicker.TabIndex = 2;
             this.buttonEmoticonPicker.UseVisualStyleBackColor = true;
             this.buttonEmoticonPicker.Click += new System.EventHandler(this.ButtonEmoticonPicker_Click);
@@ -79,9 +79,9 @@
             // buttonColorPicker
             // 
             this.buttonColorPicker.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonColorPicker.Location = new System.Drawing.Point(28, 0);
+            this.buttonColorPicker.Location = new System.Drawing.Point(0, 28);
             this.buttonColorPicker.Name = "buttonColorPicker";
-            this.buttonColorPicker.Size = new System.Drawing.Size(28, 94);
+            this.buttonColorPicker.Size = new System.Drawing.Size(28, 28);
             this.buttonColorPicker.TabIndex = 3;
             this.buttonColorPicker.UseVisualStyleBackColor = true;
             this.buttonColorPicker.Click += new System.EventHandler(this.ButtonColorPicker_Click);
@@ -90,9 +90,9 @@
             // 
             this.buttonHelp.Dock = System.Windows.Forms.DockStyle.Left;
             this.buttonHelp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHelp.Location = new System.Drawing.Point(56, 0);
+            this.buttonHelp.Location = new System.Drawing.Point(0, 56);
             this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(28, 94);
+            this.buttonHelp.Size = new System.Drawing.Size(28, 28);
             this.buttonHelp.TabIndex = 5;
             this.buttonHelp.Text = "?";
             this.buttonHelp.UseVisualStyleBackColor = true;
@@ -321,9 +321,18 @@
             this.panelButtons.Controls.Add(this.textInput);
             this.panelButtons.Controls.Add(this.panelWideText);
             this.panelButtons.Controls.Add(this.panelSend);
-            this.panelButtons.Controls.Add(this.buttonHelp);
-            this.panelButtons.Controls.Add(this.buttonColorPicker);
-            this.panelButtons.Controls.Add(this.buttonEmoticonPicker);
+
+            this.panelAddButtons = new System.Windows.Forms.Panel();
+            this.panelAddButtons.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelAddButtons.Size = new System.Drawing.Size(100,10);
+            this.panelAddButtons.Location = new System.Drawing.Point(0, 0);
+
+            this.panelAddButtons.Controls.Add(this.buttonHelp);
+            this.panelAddButtons.Controls.Add(this.buttonColorPicker);
+            this.panelAddButtons.Controls.Add(this.buttonEmoticonPicker);
+
+            this.panelButtons.Controls.Add(panelAddButtons);
+            
 
             this.Controls.Add(panelButtons);
             this.Controls.Add(panelSearch);
@@ -366,6 +375,8 @@
 
         private System.Windows.Forms.Panel panelSearch;
         private System.Windows.Forms.Panel panelButtons;
+
+        private System.Windows.Forms.Panel panelAddButtons;
 
         private System.Windows.Forms.TextBox searchText;
         private IceInputBox textBoxWide;

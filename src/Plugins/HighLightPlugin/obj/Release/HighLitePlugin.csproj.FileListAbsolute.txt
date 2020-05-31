@@ -1,0 +1,8 @@
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\HighLightPlugin\bin\Release\HighLitePlugin.dll.config
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\HighLightPlugin\bin\Release\HighLitePlugin.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\HighLightPlugin\bin\Release\HighLitePlugin.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\HighLightPlugin\obj\Release\IceChatPlugin.FormHighLite.resources
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\HighLightPlugin\obj\Release\HighLitePlugin.csproj.GenerateResource.Cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\HighLightPlugin\obj\Release\HighLitePlugin.csproj.CoreCompileInputs.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\HighLightPlugin\obj\Release\HighLitePlugin.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\HighLightPlugin\obj\Release\HighLitePlugin.pdb

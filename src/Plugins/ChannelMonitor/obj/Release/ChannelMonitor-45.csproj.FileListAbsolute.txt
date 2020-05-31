@@ -1,0 +1,6 @@
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll.config
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\ChannelMonitor\bin\Release\ChannelMonitor.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\ChannelMonitor\obj\Release\ChannelMonitor-45.csproj.CoreCompileInputs.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\ChannelMonitor\obj\Release\ChannelMonitor.pdb

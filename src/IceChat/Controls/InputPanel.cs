@@ -135,22 +135,61 @@ namespace IceChat
                 this.panelWideText.Visible = value;
                 this.textInput.Visible = !value;
                 this.buttonHelp.Visible = !value;
-
+                
                 if (this._showEmoticonPicker == false)
+                {
                     buttonEmoticonPicker.Visible = false;
+                }
                 else
-                    this.buttonEmoticonPicker.Visible = !value;
+                {
+                    if (value == true)
+                    {
+                        buttonEmoticonPicker.Dock = DockStyle.None;
+                    }
+                    else
+                    {
+                        buttonEmoticonPicker.Dock = DockStyle.Left;
+                    }
+
+                    buttonEmoticonPicker.Visible = true;
+
+                }
 
                 if (this._showColorPicker == false)
+                {
                     buttonColorPicker.Visible = false;
+                }
                 else
-                    this.buttonColorPicker.Visible = !value;
+                {
+                    if (value == true)
+                    {
+                        buttonColorPicker.Dock = DockStyle.None;
+                    }
+                    else
+                    {
+                        buttonColorPicker.Dock = DockStyle.Left;
+                    }
+
+                    buttonColorPicker.Visible = true;
+                }
 
                 if (this._showBasicCommands == false)
+                {
                     buttonHelp.Visible = false;
+                }
                 else
-                    buttonHelp.Visible = !value;
+                {
+                    if (value == true)
+                    {
+                        buttonHelp.Dock = DockStyle.None;
+                    }
+                    else
+                    {
+                        buttonHelp.Dock = DockStyle.Left;
+                    }
 
+                    buttonHelp.Visible = true;
+                }
 
                 if (this._showSendButton == false)
                 {
@@ -164,14 +203,6 @@ namespace IceChat
                     buttonReset.Visible = value;
 
                 }
-
-                //if (value == false)
-                //{
-                //    buttonSend.Visible = this._showSendButton;
-                //}
-                //else
-                //    buttonSend.Visible = true;
-                //panelSend.Visible = buttonSend.Visible;
 
                 if (value)
                 {
@@ -192,25 +223,43 @@ namespace IceChat
                     FormMain.Instance.IceChatOptions.ShowMultilineEditbox = false;
                     FormMain.Instance.multilineEditboxToolStripMenuItem.Checked = false;
                 }
+
+                PanelButtonsSize();
+
             }
         }
 
         internal bool ShowEmoticonPicker
         {
             get { return this._showEmoticonPicker; }
-            set { this.buttonEmoticonPicker.Visible = value; this._showEmoticonPicker = value; }
+            set {
+                this.buttonEmoticonPicker.Visible = value;
+                this._showEmoticonPicker = value;
+
+                PanelButtonsSize();
+            }
         }
 
         internal bool ShowColorPicker
         {
             get { return this._showColorPicker; }
-            set { this.buttonColorPicker.Visible = value; this._showColorPicker = value; }
+            set {
+                this.buttonColorPicker.Visible = value;
+                this._showColorPicker = value;
+
+                PanelButtonsSize();
+            }
         }
 
         internal bool ShowBasicCommands
         {
             get { return this._showBasicCommands; }
-            set { this.buttonHelp.Visible = value; this._showBasicCommands = value; }
+            set {
+                this.buttonHelp.Visible = value;
+                this._showBasicCommands = value;
+
+                PanelButtonsSize();
+            }
         }
 
         internal bool ShowSendButton
@@ -231,6 +280,62 @@ namespace IceChat
                 textInput.Font = value;
                 textBoxWide.Font = value;
             }
+        }
+
+        internal void PanelButtonsSize()
+        {
+            int width = 0;
+        
+            if (this.Height < 40)
+            {
+                if (this._showColorPicker)
+                {
+                    width += 28;
+                }
+                if (this._showEmoticonPicker)
+                {
+                    width += 28;
+                }
+                if (this._showBasicCommands)
+                {
+                    width += 28;
+                }
+
+            } else
+            {
+                if (this._showColorPicker || this._showEmoticonPicker || this._showBasicCommands)
+                {
+                    width = 28;
+                }
+
+                buttonHelp.Height = 28;
+                buttonHelp.Left = 0;
+                buttonColorPicker.Height = 28;
+                buttonColorPicker.Left = 0;
+                buttonEmoticonPicker.Height = 28;
+                buttonEmoticonPicker.Left = 0;
+
+                int cpTop = 0;
+                int hTop = 0;
+
+                if (this._showEmoticonPicker == true)
+                {
+                    cpTop = 28;
+                    hTop = 28;
+                }
+
+                if (this._showColorPicker == true)
+                {
+                    hTop += 28;
+                }
+
+                buttonColorPicker.Top = cpTop;
+                buttonHelp.Top = hTop;
+
+            }
+
+            panelAddButtons.Width = width;
+            
         }
 
         internal void SetInputBoxColors()

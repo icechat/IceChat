@@ -422,31 +422,40 @@ namespace IceChat
 
         internal void SaveChannelSettings()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(ChannelSettings));
-            TextWriter textWriter = new StreamWriter(channelSettingsFile);
-            serializer.Serialize(textWriter, channelSettings);
-            textWriter.Close();
-            textWriter.Dispose();
+            // check if file is being used
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(ChannelSettings));
+                TextWriter textWriter = new StreamWriter(channelSettingsFile);
+                serializer.Serialize(textWriter, channelSettings);
+                textWriter.Close();
+                textWriter.Dispose();
+            } 
+            catch(Exception)
+            {
+                // ignore it
+            }
         }
 
         private void LoadAliases()
         {
+
             if (File.Exists(aliasesFile))
             {
-                XmlTextReader textReader = null;
                 XmlSerializer deserializer = new XmlSerializer(typeof(IceChatAliases));
+                TextReader textReader = null;
 
                 try
                 {
-                    textReader = new XmlTextReader(aliasesFile);
+                    textReader = new StreamReader(aliasesFile);
                     iceChatAliases = (IceChatAliases)deserializer.Deserialize(textReader);
+                    
                     textReader.Close();
                 }
                 catch (Exception)
                 {
                     if (textReader != null)
                         textReader.Close();
-
 
                     errorMessages.Add("There was a problem loading IceChatAliases.xml. Default aliases loaded");
                     iceChatAliases = new IceChatAliases();
@@ -471,6 +480,7 @@ namespace IceChat
 
         private void LoadPluginFiles()
         {
+
             if (File.Exists(pluginsFile))
             {
                 XmlTextReader textReader = null;

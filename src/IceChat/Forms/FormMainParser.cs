@@ -39,6 +39,7 @@ using System.Management;
 
 using IceChat.Properties;
 using IceChatPlugin;
+using System.Linq;
 
 namespace IceChat
 {
@@ -4311,6 +4312,46 @@ if (ipc != null)
                             data = ReplaceFirst(data, m.Value, os);
 
                             break;
+
+                        case "$cpu":
+
+                            var cpu =
+                                new ManagementObjectSearcher("select * from Win32_Processor")
+                                .Get()
+                                .Cast<ManagementObject>()
+                                .First();
+
+                            data = ReplaceFirst(data, m.Value, (string)cpu["Name"]);
+                            break;
+
+                        case "$ram":
+                            
+                            var osr =
+                                new ManagementObjectSearcher("select * from Win32_OperatingSystem")
+                                .Get()
+                                .Cast<ManagementObject>()
+                                .First();
+
+                            double res = Convert.ToDouble(osr["TotalVisibleMemorySize"]);
+                            double fres = Math.Round((res / (1024 * 1024)), 2);    // convert to GB
+                            var ram = fres.ToString() + "GB";
+
+                            data = ReplaceFirst(data, m.Value, ram);                            
+                            break;
+
+                        case "$gpu":
+                            
+                            var vid =
+                                new ManagementObjectSearcher("select * from Win32_VideoController")
+                                .Get()
+                                .Cast<ManagementObject>()
+                                .First();
+
+                            var gpu = (string)vid["Name"];
+
+                            data = ReplaceFirst(data, m.Value, gpu);
+                            break;
+
                         case "$time":
                             data = ReplaceFirst(data, m.Value, DateTime.Now.ToShortTimeString());
                             break;

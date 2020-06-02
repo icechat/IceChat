@@ -356,6 +356,12 @@ namespace IceChat
                     NoEmoticons = true
                 };
 
+                if (FormMain.Instance.IceChatOptions.ConsoleImage.Length > 0)
+                {
+                    w.BackGroundImage = FormMain.Instance.IceChatOptions.ConsoleImage;
+                }
+
+
                 AddConsole(t, w);
             });
         }

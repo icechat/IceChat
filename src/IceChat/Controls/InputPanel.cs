@@ -285,7 +285,9 @@ namespace IceChat
         internal void PanelButtonsSize()
         {
             int width = 0;
-        
+            int cpTop = 0;
+            int hTop = 0;
+
             if (this.Height < 40)
             {
                 if (this._showColorPicker)
@@ -301,7 +303,8 @@ namespace IceChat
                     width += 28;
                 }
 
-            } else
+            }
+            else
             {
                 if (this._showColorPicker || this._showEmoticonPicker || this._showBasicCommands)
                 {
@@ -315,8 +318,6 @@ namespace IceChat
                 buttonEmoticonPicker.Height = 28;
                 buttonEmoticonPicker.Left = 0;
 
-                int cpTop = 0;
-                int hTop = 0;
 
                 if (this._showEmoticonPicker == true)
                 {

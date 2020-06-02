@@ -40,6 +40,7 @@ Add news item on loadup, for showing IceChat news
 
 
 Pending/In Progress:
+Allow a nicklist popup for multiple nicks, using $nick1, $nick2, $nick3 - $nick9
 Remember window order when opening channels (in progress)(group by order in server tree)
 Create ice7 theme importer (in progress)
 IceChat 7 settings imported, check for / before popup menu commands (check this)

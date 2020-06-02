@@ -527,17 +527,45 @@ if (ipc != null)
                                         //check if the file is a URL
                                         if (file.Length > 0)
                                         {
-                                            if (File.Exists(picturesFolder + System.IO.Path.DirectorySeparatorChar + file))
-                                                mainChannelBar.GetTabPage("Console").CurrentConsoleWindow().BackGroundImage = picturesFolder + System.IO.Path.DirectorySeparatorChar + file;
+                                            if (file.ToLower() == "none" || file.ToLower() == "remove")
+                                            {
+
+                                                // skin all console windows
+                                                foreach (ConsoleTab c in mainChannelBar.GetTabPage("Console").ConsoleTab.TabPages)
+                                                {
+                                                    ((TextWindow)c.Controls[0]).BackGroundImage = "";
+                                                }
+
+                                                iceChatOptions.ConsoleImage = "";
+                                            }
+                                            else if (File.Exists(picturesFolder + System.IO.Path.DirectorySeparatorChar + file))
+                                            {
+                                                // skin all console windows
+                                                foreach (ConsoleTab c in mainChannelBar.GetTabPage("Console").ConsoleTab.TabPages)
+                                                {
+                                                    ((TextWindow)c.Controls[0]).BackGroundImage = picturesFolder + System.IO.Path.DirectorySeparatorChar + file;
+                                                }
+
+                                                iceChatOptions.ConsoleImage = picturesFolder + System.IO.Path.DirectorySeparatorChar + file;
+                                            }
                                             else
                                             {
                                                 //check if this is a full path to the file
                                                 if (File.Exists(file))
-                                                    mainChannelBar.GetTabPage("Console").CurrentConsoleWindow().BackGroundImage = file;
+                                                {
+                                                    foreach (ConsoleTab c in mainChannelBar.GetTabPage("Console").ConsoleTab.TabPages)
+                                                    {
+                                                        ((TextWindow)c.Controls[0]).BackGroundImage = file;
+                                                    }
+
+                                                    iceChatOptions.ConsoleImage = file;
+                                                }
                                                 else
+                                                {
                                                     mainChannelBar.GetTabPage("Console").CurrentConsoleWindow().BackGroundImage = "";
+                                                }
                                             }
-                                        }
+                                        }                                       
                                         break;
                                     case "channel":
                                         //get the channel name

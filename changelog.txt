@@ -1,3 +1,8 @@
+Build 9.49.06 June 1 2020
+* Allow to select multiple nick in Nicklist holding ctrl-key, and $nick1, $nick2, $nick3 - $nick9 can be used in Nicklist Popup
+* Removed the previous option that right clicking will deselect all nicks
+* /background console will now skin all console windows. /background console none will remove it
+
 Build 9.49.05 May 31 2020
 * Fix special codes in the IceChat editor not properly saving
 * Right click in Nicklist de-selects all nicks and just selects that one

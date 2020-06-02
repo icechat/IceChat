@@ -135,7 +135,7 @@ namespace IceChat
                 }
             }
 
-            internal string NickOnly
+            public string NickOnly
             {
                 get
                 {
@@ -598,25 +598,31 @@ namespace IceChat
                             totalSelected++;
 
                         //if the CTRL-Key is down, we can do a multi-select (only on Left Button)
-                        if (controlKeyDown && e.Button == MouseButtons.Left)
+                        
+                        
+                        if (controlKeyDown == true)
                         {
-                            sortedNickNames[selectedIndex].selected = !selected;
-                            currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = !selected;
+                            if (e.Button == MouseButtons.Left)
+                            {
+                                sortedNickNames[selectedIndex].selected = !selected;
+                                currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = !selected;
+                            }
                         }
                         else
                         {
                             if (totalSelected > 0)
                             {
                                 //deselect all the previous ones
-                                DeSelectAllNicks();                            
+                                DeSelectAllNicks();
                             }
-                            
+
                             totalSelected = 1;
 
                             sortedNickNames[selectedIndex].selected = true;
                             currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = true;
 
                         }
+                        
                     }
                     else
                     {
@@ -886,21 +892,7 @@ namespace IceChat
                 if (this.Parent.Parent.GetType() != typeof(FormFloat))
                 {
                     if (Application.RenderWithVisualStyles)
-                    {
-                        //System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.ThumbRight
-                        /*
-                        if (System.Windows.Forms.VisualStyles.VisualStyleRenderer.IsElementDefined(System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.ThumbRight.Normal))
-                        {
-                            System.Windows.Forms.VisualStyles.VisualStyleRenderer renderer = new System.Windows.Forms.VisualStyles.VisualStyleRenderer(System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.IEBarMenu.Normal);
-                            //which side are we docked on
-                            Rectangle rect = Rectangle.Empty;
-                            if (((IceDockPanel)this.Parent.Parent.Parent.Parent).Dock == DockStyle.Right)
-                                rect = new Rectangle(0, 0, 22, 22);
-                            else
-                                rect = new Rectangle(this.Width - 22, 0, 22, 22);
-                            renderer.DrawBackground(g, rect);
-                        }
-                        */ 
+                    {                       
                         if (System.Windows.Forms.VisualStyles.VisualStyleRenderer.IsElementDefined(System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.NormalGroupCollapse.Normal))
                         {
                             System.Windows.Forms.VisualStyles.VisualStyleRenderer renderer = new System.Windows.Forms.VisualStyles.VisualStyleRenderer(System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.NormalGroupCollapse.Normal);
@@ -1164,6 +1156,9 @@ namespace IceChat
 
             if (e.Button == MouseButtons.Right && selectedIndex != -1)
             {
+                // force control key off, showing popup menu
+                controlKeyDown = false;
+
                 //show the popup menu
                 foreach (PopupMenuItem p in _parent.IceChatPopupMenus.listPopups)
                 {
@@ -1184,12 +1179,14 @@ namespace IceChat
                         int subMenu = 0;
 
                         popupMenu.Items.Clear();
+
+                        //string nick = sortedNickNames[selectedIndex].ToString();
+                        string nick = sortedNickNames[selectedIndex].NickOnly;
                         
-                        string nick = sortedNickNames[selectedIndex].ToString();
                         //replace any of the modes
-                        for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
-                            if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
-                                nick = nick.Substring(1);
+                        //for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
+                        //    if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
+                        //        nick = nick.Substring(1);
 
                         Nick u = sortedNickNames[selectedIndex];
 
@@ -1246,24 +1243,26 @@ namespace IceChat
                                     //command = command.Replace("$1", nick);
 
                                     // are there multiple nicks selected?
-                                    if (totalSelected > 1)
+
+                                    // replace $nick1 - $nick9
+                                    int counter = 0;
+                                    for (int i = 0; i < sortedNickNames.Count; i++)
                                     {
-                                        int counter = 0;
-                                        for (int i = 0; i < sortedNickNames.Count; i++)
+                                        if (sortedNickNames[i].selected == true)
                                         {
-                                            if (sortedNickNames[i].selected == true)
-                                            {
-                                                counter++;
-                                                command = command.Replace("$" + counter.ToString(), sortedNickNames[i].nick);
-                                            }
+                                            counter++;
+                                            command = command.Replace("$nick" + counter.ToString(), sortedNickNames[i].NickOnly);
                                         }
                                     }
-                                    else
+                                    if (counter < 9)
                                     {
-                                        command = command.Replace("$1", nick);
+                                        for (int i = counter; i < 10; i++)
+                                        {
+                                            command = command.Replace("$nick" + i.ToString(), "");
+                                        }
                                     }
 
-
+                                    command = command.Replace("$1", nick);
                                     command = command.Replace("$nick", nick);
 
                                     if (u.host.Length > 0)

@@ -814,6 +814,10 @@ namespace IceChat
         public string ServerTreeImage
         { get; set; }
 
+        [XmlElement("ConsoleImage")]
+        public string ConsoleImage
+        { get; set; }
+
         [XmlElement("AwayCommand")]
         public string AwayCommand
         {

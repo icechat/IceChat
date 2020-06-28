@@ -355,12 +355,17 @@ namespace IceChat
                     IRCBackColor = _parent.IceChatColors.ConsoleBackColor,
                     NoEmoticons = true
                 };
-
-                if (FormMain.Instance.IceChatOptions.ConsoleImage.Length > 0)
+                try
                 {
-                    w.BackGroundImage = FormMain.Instance.IceChatOptions.ConsoleImage;
-                }
+                    if (FormMain.Instance.IceChatOptions.ConsoleImage.Length > 0)
+                    {                        
+                        w.BackGroundImage = FormMain.Instance.IceChatOptions.ConsoleImage;
+                    }
+                } catch(Exception)
+                {
 
+
+                }
 
                 AddConsole(t, w);
             });

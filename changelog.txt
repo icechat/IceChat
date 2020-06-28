@@ -1,3 +1,6 @@
+Build 9.49.07 June 25 2020
+* Fix /background command to also save settings
+
 Build 9.49.06 June 1 2020
 * Allow to select multiple nick in Nicklist holding ctrl-key, and $nick1, $nick2, $nick3 - $nick9 can be used in Nicklist Popup
 * Removed the previous option that right clicking will deselect all nicks

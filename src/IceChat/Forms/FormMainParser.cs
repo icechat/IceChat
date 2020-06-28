@@ -565,6 +565,10 @@ if (ipc != null)
                                                     mainChannelBar.GetTabPage("Console").CurrentConsoleWindow().BackGroundImage = "";
                                                 }
                                             }
+
+                                            // save the options
+                                            SaveOptions();
+
                                         }                                       
                                         break;
                                     case "channel":

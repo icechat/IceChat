@@ -40,15 +40,15 @@ Add news item on loadup, for showing IceChat news
 
 
 Pending/In Progress:
-Allow a nicklist popup for multiple nicks, using $nick1, $nick2, $nick3 - $nick9
 Remember window order when opening channels (in progress)(group by order in server tree)
 Create ice7 theme importer (in progress)
 IceChat 7 settings imported, check for / before popup menu commands (check this)
 Build a way to backup XML files for config files automatically (in progress, servers,options,popups done)
-Add tooltip for topic (9.15)
 
 
 Completed:
+Add tooltip for topic
+Allow a nicklist popup for multiple nicks, using $nick1, $nick2, $nick3 - $nick9
 Add identifiers for $ram, $cpu and $gpu
 Typing in the nicklist, does a search, bring you to those nicks. (typing in letter brings up first match)
 Plugin Update System

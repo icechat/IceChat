@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ namespace IceChat
         {
             InitializeComponent();
 
-            this.iceChatOptions = Options;
+          this.iceChatOptions = Options;
             this.iceChatFonts = Fonts;
             this.iceChatEmoticons = Emoticons;
             this.iceChatSounds = Sounds;
@@ -64,7 +64,7 @@ namespace IceChat
                 tabControlOptions.SelectedTab = tabFonts;
 
         }
-        
+
         public FormSettings(IceChatOptions Options, IceChatFontSetting Fonts, IceChatEmoticon Emoticons, IceChatSounds Sounds)
         {
             InitializeComponent();
@@ -80,11 +80,11 @@ namespace IceChat
             this.textNickComplete.KeyDown += new KeyEventHandler(OnKeyDown);
 
             pictureTSHelp.Image = StaticMethods.LoadResourceImage("help.png");
-            pictureTSHelp.Click += new EventHandler(pictureTSHelp_Click);
+            pictureTSHelp.Click += new EventHandler(PictureTSHelp_Click);
 
         }
 
-        private void pictureTSHelp_Click(object sender, EventArgs e)
+        private void PictureTSHelp_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.90).aspx");
         }
@@ -97,8 +97,8 @@ namespace IceChat
                 listBoxSounds.Items.Add(x.Description);
             }
 
-            this.listViewEmot.MouseDown += new MouseEventHandler(listViewEmot_MouseDown);
-            this.listViewEmot.MouseUp += new MouseEventHandler(listViewEmot_MouseUp);
+            this.listViewEmot.MouseDown += new MouseEventHandler(ListViewEmot_MouseDown);
+            this.listViewEmot.MouseUp += new MouseEventHandler(ListViewEmot_MouseUp);
             this.textNickComplete.KeyDown += new KeyEventHandler(OnKeyDown);
 
             //populate the font settings
@@ -298,7 +298,7 @@ namespace IceChat
             foreach (Plugin p in FormMain.Instance.LoadedPlugins)
             {
                 IceChatPlugin ipc = p as IceChatPlugin;
-                if (ipc != null)
+if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
                         ipc.plugin.LoadSettingsForm(this.tabControlOptions);
@@ -330,7 +330,7 @@ namespace IceChat
 
         }
 
-        private void listViewEmot_MouseUp(object sender, MouseEventArgs e)
+        private void ListViewEmot_MouseUp(object sender, MouseEventArgs e)
         {
             if (listMoveItem == null)
                 return;
@@ -348,7 +348,7 @@ namespace IceChat
             listViewEmot.Cursor = Cursors.Default;
         }
 
-        private void listViewEmot_MouseDown(object sender, MouseEventArgs e)
+        private void ListViewEmot_MouseDown(object sender, MouseEventArgs e)
         {
             foreach (ListViewItem eachItem in listViewEmot.SelectedItems)
             {
@@ -360,12 +360,12 @@ namespace IceChat
             listViewEmot.Cursor = Cursors.Default;
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
             //set all the options accordingly
 
@@ -478,10 +478,12 @@ namespace IceChat
             int i = 0;
             foreach (ListViewItem lvi in listViewEmot.Items)
             {
-                EmoticonItem ei = new EmoticonItem();
-                ei.EmoticonImage = lvi.SubItems[1].Text;
-                ei.Trigger = lvi.Text;
-                ei.ID = i++;
+                EmoticonItem ei = new EmoticonItem
+                {
+                    EmoticonImage = lvi.SubItems[1].Text,
+                    Trigger = lvi.Text,
+                    ID = i++
+                };
                 iceChatEmoticons.AddEmoticon(ei);
             }
 
@@ -554,27 +556,28 @@ namespace IceChat
                         ipc.plugin.SaveSettingsForm();
                 }
             }
-
             if (SaveOptions != null)
                 SaveOptions();
 
             this.Close();
         }
 
-        private void buttonConsoleFont_Click(object sender, EventArgs e)
+        private void ButtonConsoleFont_Click(object sender, EventArgs e)
         {
-            FontDialog fd = new FontDialog();
-            //load the current font
+            FontDialog fd = new FontDialog
+            {
+                //load the current font
 
-            fd.ShowEffects = false;
-            fd.ShowColor = false;
-            fd.FontMustExist = true;
-            fd.AllowVectorFonts = false;
-            fd.AllowVerticalFonts = false;
-            
-            //fd.FixedPitchOnly = true; monospace
+                ShowEffects = false,
+                ShowColor = false,
+                FontMustExist = true,
+                AllowVectorFonts = false,
+                AllowVerticalFonts = false,
 
-            fd.Font = new Font(textConsoleFont.Text,float.Parse( textConsoleFontSize.Text) , FontStyle.Regular);
+                //fd.FixedPitchOnly = true; monospace
+
+                Font = new Font(textConsoleFont.Text, float.Parse(textConsoleFontSize.Text), FontStyle.Regular)
+            };
             try
             {
                 if (fd.ShowDialog() != DialogResult.Cancel)
@@ -590,18 +593,19 @@ namespace IceChat
             }
         }
 
-        private void buttonChannelFont_Click(object sender, EventArgs e)
+        private void ButtonChannelFont_Click(object sender, EventArgs e)
         {
-            FontDialog fd = new FontDialog();
+            FontDialog fd = new FontDialog
+            {
+                ShowEffects = false,
+                ShowColor = false,
+                FontMustExist = true,
+                AllowVectorFonts = false,
+                AllowVerticalFonts = false,
 
-            fd.ShowEffects = false;
-            fd.ShowColor = false;
-            fd.FontMustExist = true;
-            fd.AllowVectorFonts = false;
-            fd.AllowVerticalFonts = false;
-            
-            //load the current font
-            fd.Font = new Font(textChannelFont.Text, float.Parse(textChannelFontSize.Text), textChannelFont.Font.Style);
+                //load the current font
+                Font = new Font(textChannelFont.Text, float.Parse(textChannelFontSize.Text), textChannelFont.Font.Style)
+            };
             try
             {
                 if (fd.ShowDialog() != DialogResult.Cancel)
@@ -618,18 +622,19 @@ namespace IceChat
             }
         }
 
-        private void buttonQueryFont_Click(object sender, EventArgs e)
+        private void ButtonQueryFont_Click(object sender, EventArgs e)
         {
-            FontDialog fd = new FontDialog();
+            FontDialog fd = new FontDialog
+            {
+                ShowEffects = false,
+                ShowColor = false,
+                FontMustExist = true,
+                AllowVectorFonts = false,
+                AllowVerticalFonts = false,
 
-            fd.ShowEffects = false;
-            fd.ShowColor = false;
-            fd.FontMustExist = true;
-            fd.AllowVectorFonts = false;
-            fd.AllowVerticalFonts = false;
-            
-            //load the current font
-            fd.Font = new Font(textQueryFont.Text, float.Parse(textQueryFontSize.Text), textQueryFont.Font.Style);
+                //load the current font
+                Font = new Font(textQueryFont.Text, float.Parse(textQueryFontSize.Text), textQueryFont.Font.Style)
+            };
             try
             {
                 if (fd.ShowDialog() != DialogResult.Cancel)
@@ -645,18 +650,19 @@ namespace IceChat
             }
         }
 
-        private void buttonNickListFont_Click(object sender, EventArgs e)
+        private void ButtonNickListFont_Click(object sender, EventArgs e)
         {
-            FontDialog fd = new FontDialog();
+            FontDialog fd = new FontDialog
+            {
+                ShowEffects = false,
+                ShowColor = false,
+                FontMustExist = true,
+                AllowVectorFonts = false,
+                AllowVerticalFonts = false,
 
-            fd.ShowEffects = false;
-            fd.ShowColor = false;
-            fd.FontMustExist = true;
-            fd.AllowVectorFonts = false;
-            fd.AllowVerticalFonts = false;
-            
-            //load the current font
-            fd.Font = new Font(textNickListFont.Text, float.Parse(textNickListFontSize.Text), textNickListFont.Font.Style);
+                //load the current font
+                Font = new Font(textNickListFont.Text, float.Parse(textNickListFontSize.Text), textNickListFont.Font.Style)
+            };
             try
             {
                 if (fd.ShowDialog() != DialogResult.Cancel)
@@ -672,18 +678,19 @@ namespace IceChat
             }
         }
 
-        private void buttonServerListFont_Click(object sender, EventArgs e)
+        private void ButtonServerListFont_Click(object sender, EventArgs e)
         {
-            FontDialog fd = new FontDialog();
+            FontDialog fd = new FontDialog
+            {
+                ShowEffects = false,
+                ShowColor = false,
+                FontMustExist = true,
+                AllowVectorFonts = false,
+                AllowVerticalFonts = false,
 
-            fd.ShowEffects = false;
-            fd.ShowColor = false;
-            fd.FontMustExist = true;
-            fd.AllowVectorFonts = false;
-            fd.AllowVerticalFonts = false;
-            
-            //load the current font            
-            fd.Font = new Font(textServerListFont.Text, float.Parse(textServerListFontSize.Text), textServerListFont.Font.Style);
+                //load the current font            
+                Font = new Font(textServerListFont.Text, float.Parse(textServerListFontSize.Text), textServerListFont.Font.Style)
+            };
             try
             {
                 if (fd.ShowDialog() != DialogResult.Cancel)
@@ -699,18 +706,19 @@ namespace IceChat
             }
         }
 
-        private void buttonInputFont_Click(object sender, EventArgs e)
+        private void ButtonInputFont_Click(object sender, EventArgs e)
         {
-            FontDialog fd = new FontDialog();
+            FontDialog fd = new FontDialog
+            {
+                ShowEffects = false,
+                ShowColor = false,
+                FontMustExist = true,
+                AllowVectorFonts = false,
+                AllowVerticalFonts = false,
 
-            fd.ShowEffects = false;
-            fd.ShowColor = false;
-            fd.FontMustExist = true;
-            fd.AllowVectorFonts = false;
-            fd.AllowVerticalFonts = false;
-            
-            //load the current font
-            fd.Font = new Font(textInputFont.Text, float.Parse(textInputFontSize.Text), textInputFont.Font.Style);
+                //load the current font
+                Font = new Font(textInputFont.Text, float.Parse(textInputFontSize.Text), textInputFont.Font.Style)
+            };
             try
             {
                 if (fd.ShowDialog() != DialogResult.Cancel)
@@ -726,18 +734,19 @@ namespace IceChat
             }
         }
 
-        private void buttonDockTab_Click(object sender, EventArgs e)
+        private void ButtonDockTab_Click(object sender, EventArgs e)
         {
-            FontDialog fd = new FontDialog();
+            FontDialog fd = new FontDialog
+            {
+                ShowEffects = false,
+                ShowColor = false,
+                FontMustExist = true,
+                AllowVectorFonts = false,
+                AllowVerticalFonts = false,
 
-            fd.ShowEffects = false;
-            fd.ShowColor = false;
-            fd.FontMustExist = true;
-            fd.AllowVectorFonts = false;
-            fd.AllowVerticalFonts = false;
-            
-            //load the current font
-            fd.Font = new Font(textDockTabFont.Text, float.Parse(textDockTabSize.Text), textDockTabFont.Font.Style);
+                //load the current font
+                Font = new Font(textDockTabFont.Text, float.Parse(textDockTabSize.Text), textDockTabFont.Font.Style)
+            };
             try
             {
                 if (fd.ShowDialog() != DialogResult.Cancel)
@@ -753,18 +762,19 @@ namespace IceChat
             }
         }
 
-        private void buttonMenuBar_Click(object sender, EventArgs e)
+        private void ButtonMenuBar_Click(object sender, EventArgs e)
         {
-            FontDialog fd = new FontDialog();
+            FontDialog fd = new FontDialog
+            {
+                ShowEffects = false,
+                ShowColor = false,
+                FontMustExist = true,
+                AllowVectorFonts = false,
+                AllowVerticalFonts = false,
 
-            fd.ShowEffects = false;
-            fd.ShowColor = false;
-            fd.FontMustExist = true;
-            fd.AllowVectorFonts = false;
-            fd.AllowVerticalFonts = false;
-
-            //load the current font
-            fd.Font = new Font(textMenuBarFont.Text, float.Parse(textMenuBarSize.Text), textMenuBarFont.Font.Style);
+                //load the current font
+                Font = new Font(textMenuBarFont.Text, float.Parse(textMenuBarSize.Text), textMenuBarFont.Font.Style)
+            };
             try
             {
                 if (fd.ShowDialog() != DialogResult.Cancel)
@@ -780,18 +790,19 @@ namespace IceChat
             }
         }
 
-        private void buttonChannelBar_Click(object sender, EventArgs e)
+        private void ButtonChannelBar_Click(object sender, EventArgs e)
         {
-            FontDialog fd = new FontDialog();
+            FontDialog fd = new FontDialog
+            {
+                ShowEffects = false,
+                ShowColor = false,
+                FontMustExist = true,
+                AllowVectorFonts = false,
+                AllowVerticalFonts = false,
 
-            fd.ShowEffects = false;
-            fd.ShowColor = false;
-            fd.FontMustExist = true;
-            fd.AllowVectorFonts = false;
-            fd.AllowVerticalFonts = false;
-            
-            //load the current font
-            fd.Font = new Font(textChannelBarFont.Text, float.Parse(textChannelBarSize.Text), textChannelBarFont.Font.Style);
+                //load the current font
+                Font = new Font(textChannelBarFont.Text, float.Parse(textChannelBarSize.Text), textChannelBarFont.Font.Style)
+            };
             try
             {
                 if (fd.ShowDialog() != DialogResult.Cancel)
@@ -807,16 +818,18 @@ namespace IceChat
             }
         }
 
-        private void buttonAddEmoticon_Click(object sender, EventArgs e)
+        private void ButtonAddEmoticon_Click(object sender, EventArgs e)
         {
             //add a new emoticon
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.AutoUpgradeEnabled = false;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                AutoUpgradeEnabled = false,
 
-            ofd.InitialDirectory = FormMain.Instance.EmoticonsFolder;            
-            ofd.Filter = "PNG Images (*.png)|*.png";
-            ofd.RestoreDirectory = true;
-            ofd.Title = "Choose a PNG file for the Emoticon Image";
+                InitialDirectory = FormMain.Instance.EmoticonsFolder,
+                Filter = "PNG Images (*.png)|*.png",
+                RestoreDirectory = true,
+                Title = "Choose a PNG file for the Emoticon Image"
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -829,20 +842,20 @@ namespace IceChat
             }
         }
 
-        private void buttonRemoveEmoticon_Click(object sender, EventArgs e)
+        private void ButtonRemoveEmoticon_Click(object sender, EventArgs e)
         {
             //check if one is selected and remove it
             foreach(ListViewItem eachItem in listViewEmot.SelectedItems)
                 listViewEmot.Items.Remove(eachItem);
         }
 
-        private void buttonEditTrigger_Click(object sender, EventArgs e)
+        private void ButtonEditTrigger_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listViewEmot.SelectedItems)
                 eachItem.BeginEdit();
         }
 
-        private void buttonBrowseEmoticon_Click(object sender, EventArgs e)
+        private void ButtonBrowseEmoticon_Click(object sender, EventArgs e)
         {
             try
             {
@@ -851,20 +864,22 @@ namespace IceChat
             catch { }            
         }
 
-        private void listBoxSounds_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxSounds_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxSounds.SelectedIndex >= 0)
             {
-                textSound.Text = iceChatSounds.getSound(listBoxSounds.SelectedIndex).File;
+                textSound.Text = iceChatSounds.GetSound(listBoxSounds.SelectedIndex).File;
             }
         }
 
-        private void buttonChooseSound_Click(object sender, EventArgs e)
+        private void ButtonChooseSound_Click(object sender, EventArgs e)
         {
             try
             {
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.AutoUpgradeEnabled = false;
+                OpenFileDialog ofd = new OpenFileDialog
+                {
+                    AutoUpgradeEnabled = false
+                };
 
                 if (textSound.Text.Length > 0)
                 {
@@ -884,7 +899,7 @@ namespace IceChat
             catch { }
         }
 
-        private void buttonTest_Click(object sender, EventArgs e)
+        private void ButtonTest_Click(object sender, EventArgs e)
         {
             if (textSound.Text.Length > 0)
             {
@@ -906,7 +921,7 @@ namespace IceChat
             }
         }
 
-        private void buttonStop_Click(object sender, EventArgs e)
+        private void ButtonStop_Click(object sender, EventArgs e)
         {
             try
             {
@@ -923,11 +938,11 @@ namespace IceChat
         }
 
 
-        private void textSound_TextChanged(object sender, EventArgs e)
+        private void TextSound_TextChanged(object sender, EventArgs e)
         {
             if (listBoxSounds.SelectedIndex >= 0)
             {
-                iceChatSounds.getSound(listBoxSounds.SelectedIndex).File = textSound.Text;
+                iceChatSounds.GetSound(listBoxSounds.SelectedIndex).File = textSound.Text;
             }
         }
         /// <summary>
@@ -935,7 +950,7 @@ namespace IceChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonBrowseLogs_Click(object sender, EventArgs e)
+        private void ButtonBrowseLogs_Click(object sender, EventArgs e)
         {
             try
             {
@@ -948,12 +963,14 @@ namespace IceChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonDCCReceiveFolder_Click(object sender, EventArgs e)
+        private void ButtonDCCReceiveFolder_Click(object sender, EventArgs e)
         {
             try
             {
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "Select DCC Receive Folder";
+                FolderBrowserDialog fbd = new FolderBrowserDialog
+                {
+                    Description = "Select DCC Receive Folder"
+                };
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
                     textDCCReceiveFolder.Text = fbd.SelectedPath;
@@ -966,12 +983,14 @@ namespace IceChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonDCCSendFolder_Click(object sender, EventArgs e)
+        private void ButtonDCCSendFolder_Click(object sender, EventArgs e)
         {
             try
             {
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "Select DCC Send Folder";                
+                FolderBrowserDialog fbd = new FolderBrowserDialog
+                {
+                    Description = "Select DCC Send Folder"
+                };
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
                     textDCCSendFolder.Text = fbd.SelectedPath;
@@ -980,7 +999,7 @@ namespace IceChat
             catch { }
         }
 
-        private void linkWhatisMyIP_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkWhatisMyIP_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
             {
@@ -989,12 +1008,12 @@ namespace IceChat
             catch { }
         }
 
-        private void trackTransparency_Scroll(object sender, EventArgs e)
+        private void TrackTransparency_Scroll(object sender, EventArgs e)
         {
             FormMain.Instance.Opacity = (double)trackTransparency.Value / 100;
         }
 
-        private void buttonResetEmoticons_Click(object sender, EventArgs e)
+        private void ButtonResetEmoticons_Click(object sender, EventArgs e)
         {
             //reset all the emoticons, re-write the XML file
             //FormMain.Instance.EmoticonsFile
@@ -1013,13 +1032,15 @@ namespace IceChat
 
         }
 
-        private void buttonChangeLogs_Click(object sender, EventArgs e)
+        private void ButtonChangeLogs_Click(object sender, EventArgs e)
         {
             try
             {
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "Select new logs folder";
-                
+                FolderBrowserDialog fbd = new FolderBrowserDialog
+                {
+                    Description = "Select new logs folder"
+                };
+
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
                     labelCurrentLogFolder.Text = fbd.SelectedPath;                    
@@ -1028,19 +1049,21 @@ namespace IceChat
             catch { }
         }
 
-        private void buttonTrayIcon_Click(object sender, EventArgs e)
+        private void ButtonTrayIcon_Click(object sender, EventArgs e)
         {
             try
             {
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.AutoUpgradeEnabled = false;
+                OpenFileDialog ofd = new OpenFileDialog
+                {
+                    AutoUpgradeEnabled = false,
 
-                ofd.CheckFileExists = true;
-                ofd.CheckPathExists = true;
-                ofd.AddExtension = true;
-                ofd.DefaultExt = "ico";
-                ofd.Multiselect = false;
-                ofd.Title = "Choose Icon File";
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    AddExtension = true,
+                    DefaultExt = "ico",
+                    Multiselect = false,
+                    Title = "Choose Icon File"
+                };
 
                 if (textSystemTrayIcon.Text.Length > 0)
                 {
@@ -1060,10 +1083,10 @@ namespace IceChat
 
         }
 
-        private void buttonHelp_Click(object sender, EventArgs e)
+        private void ButtonHelp_Click(object sender, EventArgs e)
         {
             // get the current tab, and go to Wiki
-            System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Settings#" + tabControlOptions.TabPages[tabControlOptions.SelectedIndex].Tag);
+            System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=Settings#" + tabControlOptions.TabPages[tabControlOptions.SelectedIndex].Tag);
 
         }
 

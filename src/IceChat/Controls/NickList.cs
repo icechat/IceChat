@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -135,7 +135,7 @@ namespace IceChat
                 }
             }
 
-            internal string NickOnly
+            public string NickOnly
             {
                 get
                 {
@@ -168,8 +168,8 @@ namespace IceChat
             this.DoubleClick += new EventHandler(OnDoubleClick);
             this.Resize += new EventHandler(OnResize);            
             this.FontChanged += new EventHandler(OnFontChanged);
-            this.panelButtons.Resize += new EventHandler(panelButtons_Resize);
-            this.panelButtons.VisibleChanged += new EventHandler(panelButtons_VisibleChanged);
+            this.panelButtons.Resize += new EventHandler(PanelButtons_Resize);
+            this.panelButtons.VisibleChanged += new EventHandler(PanelButtons_VisibleChanged);
             this.KeyDown += new KeyEventHandler(OnKeyDown);
             this.KeyUp += new KeyEventHandler(OnKeyUp);
             this.vScrollBar.Scroll += new ScrollEventHandler(OnScroll);
@@ -181,14 +181,18 @@ namespace IceChat
             SetStyle(ControlStyles.ResizeRedraw |  ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
             this.UpdateStyles();
 
-            toolTip = new ToolTip();
-            toolTip.AutoPopDelay = 3000;
-            toolTip.ForeColor = System.Drawing.SystemColors.InfoText;
-            toolTip.BackColor = System.Drawing.SystemColors.Info;
+            toolTip = new ToolTip
+            {
+                AutoPopDelay = 3000,
+                ForeColor = System.Drawing.SystemColors.InfoText,
+                BackColor = System.Drawing.SystemColors.Info
+            };
 
-            popupMenu = new ContextMenuStrip();
-            popupMenu.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-            popupMenu.Renderer = new EasyRenderer.EasyRender();
+            popupMenu = new ContextMenuStrip
+            {
+                RenderMode = ToolStripRenderMode.ManagerRenderMode,
+                Renderer = new EasyRenderer.EasyRender()
+            };
 
             this.MouseWheel += new MouseEventHandler(NickList_MouseWheel);
         }
@@ -198,7 +202,7 @@ namespace IceChat
             this.ScrollWindow(e.Delta > 0);            
         }
 
-        private void panelButtons_VisibleChanged(object sender, EventArgs e)
+        private void PanelButtons_VisibleChanged(object sender, EventArgs e)
         {
             if (this.panelButtons.Visible)
                 this.vScrollBar.Height = this.Height - this.headerHeight - this.panelButtons.Height;
@@ -231,14 +235,37 @@ namespace IceChat
             if (e.Control)
                 controlKeyDown = true;
 
-            if (e.KeyCode == Keys.Up)
+            if (e.KeyCode == Keys.Up && selectedIndex > 0)
             {
                 selectedIndex--;
+
+                if (totalSelected > 0 && controlKeyDown == false)
+                {
+                    //deselect all the previous ones
+                    DeSelectAllNicks();
+                    totalSelected = 1;
+                }
+
+                sortedNickNames[selectedIndex].selected = true;
+                currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = true;
+
                 Invalidate();
             }
-            else if (e.KeyCode == Keys.Down)
+            else if (e.KeyCode == Keys.Down && selectedIndex < sortedNickNames.Count)
             {
                 selectedIndex++;
+                
+                if (totalSelected > 0 && controlKeyDown == false)
+
+                {
+                    //deselect all the previous ones
+                    DeSelectAllNicks();
+                    totalSelected = 1;
+                }
+
+                sortedNickNames[selectedIndex].selected = true;
+                currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = true;
+
                 Invalidate();
             }
             else if (e.KeyCode == Keys.Apps)
@@ -258,95 +285,53 @@ namespace IceChat
 
                     bool currentKeyMatch = false;
 
-                    for (int x = 0; x < sortedNickNames.Count; x++)
+
+                    try
                     {
 
-                        string nick = sortedNickNames[x].nick;
-
-                        //replace any of the modes
-                        for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
-                            if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
-                                nick = nick.Substring(1);
-
-
-                        if (e.KeyCode.ToString().ToLower() == currentKeySelected)
-                        {
-                            // make it go to the next one
-                            currentKeyMatch = true;
-
-                        }
-
-
-                        if (nick.ToLower().StartsWith(e.KeyCode.ToString().ToLower()))
+                        for (int x = 0; x < sortedNickNames.Count; x++)
                         {
 
-                            if (currentKeyMatch == true)
+                            string nick = sortedNickNames[x].nick;
+
+                            //replace any of the modes
+                            for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
+                                if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
+                                    nick = nick.Substring(1);
+
+
+                            if (e.KeyCode.ToString().ToLower() == currentKeySelected)
                             {
-                                if (totalMatches == 0)
+                                // make it go to the next one
+                                currentKeyMatch = true;
+
+                            }
+
+
+                            if (nick.ToLower().StartsWith(e.KeyCode.ToString().ToLower()))
+                            {
+
+                                if (currentKeyMatch == true)
                                 {
-                                    firstMatch = x;
+                                    if (totalMatches == 0)
+                                    {
+                                        firstMatch = x;
+                                    }
+
+                                    totalMatches++;
+
+                                    if (x <= currentNickSelected)
+                                    {
+                                        continue;
+                                    }
+
                                 }
 
-                                totalMatches++;
-
-                                if (x <= currentNickSelected)
-                                {
-                                    continue;
-                                }
-
-                            }
-
-
-                            DeSelectAllNicks();
-
-                            // check if we are in the scroll view
-                            //System.Diagnostics.Debug.WriteLine(x + " => " + vScrollBar.Value + "  to " + (vScrollBar.Value + vScrollBar.LargeChange ));
-
-                            if (x >= vScrollBar.Value && x <= (vScrollBar.Value + vScrollBar.LargeChange))
-                            {
-                                // no need to change
-                            }
-                            else if (x > (vScrollBar.Maximum - vScrollBar.LargeChange))
-                            {
-                                this.topIndex = (vScrollBar.Maximum - vScrollBar.LargeChange);
-                            }
-                            else
-                            {
-                                this.topIndex = x;
-                            }
-
-                            this.vScrollBar.Value = this.topIndex;
-
-                            sortedNickNames[x].selected = true;
-                            currentWindow.GetNick(sortedNickNames[x].nick).Selected = true;
-
-                            totalSelected = 1;
-
-                            // System.Diagnostics.Debug.WriteLine(sortedNickNames[x].nick + ": SV=" +  vScrollBar.Value + ": LC=" + vScrollBar.LargeChange + ": TI=" + topIndex + ":scroll to:" + x + ":" + vScrollBar.Maximum + ":" + this.sortedNickNames.Count);
-
-                            Invalidate();
-
-
-                            currentKeySelected = e.KeyCode.ToString().ToLower();
-                            currentNickSelected = x;
-
-                            return;
-                        }
-
-                    }
-
-                    if (currentKeyMatch == true)
-                    {
-                        //System.Diagnostics.Debug.WriteLine("Done:" + totalMatches + ":" + firstMatch);
-                        if (totalMatches > 1)
-                        {
-                            if (firstMatch > -1)
-                            {
 
                                 DeSelectAllNicks();
 
-                                //System.Diagnostics.Debug.WriteLine("First- go to:");
-                                int x = firstMatch;
+                                // check if we are in the scroll view
+                                //System.Diagnostics.Debug.WriteLine(x + " => " + vScrollBar.Value + "  to " + (vScrollBar.Value + vScrollBar.LargeChange ));
 
                                 if (x >= vScrollBar.Value && x <= (vScrollBar.Value + vScrollBar.LargeChange))
                                 {
@@ -368,15 +353,67 @@ namespace IceChat
 
                                 totalSelected = 1;
 
+                                // System.Diagnostics.Debug.WriteLine(sortedNickNames[x].nick + ": SV=" +  vScrollBar.Value + ": LC=" + vScrollBar.LargeChange + ": TI=" + topIndex + ":scroll to:" + x + ":" + vScrollBar.Maximum + ":" + this.sortedNickNames.Count);
+
                                 Invalidate();
 
 
+                                currentKeySelected = e.KeyCode.ToString().ToLower();
                                 currentNickSelected = x;
+
+                                return;
+                            }
+
+                        }
+
+                        if (currentKeyMatch == true)
+                        {
+                            //System.Diagnostics.Debug.WriteLine("Done:" + totalMatches + ":" + firstMatch);
+                            if (totalMatches > 1)
+                            {
+                                if (firstMatch > -1)
+                                {
+
+                                    DeSelectAllNicks();
+
+                                    //System.Diagnostics.Debug.WriteLine("First- go to:");
+                                    int x = firstMatch;
+
+                                    if (x >= vScrollBar.Value && x <= (vScrollBar.Value + vScrollBar.LargeChange))
+                                    {
+                                        // no need to change
+                                    }
+                                    else if (x > (vScrollBar.Maximum - vScrollBar.LargeChange))
+                                    {
+                                        this.topIndex = (vScrollBar.Maximum - vScrollBar.LargeChange);
+                                    }
+                                    else
+                                    {
+                                        this.topIndex = x;
+                                    }
+
+                                    this.vScrollBar.Value = this.topIndex;
+
+                                    sortedNickNames[x].selected = true;
+                                    currentWindow.GetNick(sortedNickNames[x].nick).Selected = true;
+
+                                    totalSelected = 1;
+
+                                    Invalidate();
+
+
+                                    currentNickSelected = x;
+
+                                }
 
                             }
 
                         }
 
+                    }
+                    catch(Exception)
+                    {
+                        // catch the error
                     }
 
                 }
@@ -405,7 +442,7 @@ namespace IceChat
             // TODO: add code to load button texts from language class
         }
 
-        private void panelButtons_Resize(object sender, EventArgs e)
+        private void PanelButtons_Resize(object sender, EventArgs e)
         {
             buttonOp.Width = (this.panelButtons.Width / 4) - 4;
             buttonVoice.Width = buttonOp.Width;
@@ -540,7 +577,8 @@ namespace IceChat
                     return;
                 }
 
-                if (currentWindow != null && currentWindow.WindowStyle == IceTabPage.WindowType.Channel)
+                //if (currentWindow != null && currentWindow.WindowStyle == IceTabPage.WindowType.Channel && e.Button == MouseButtons.Left)
+                if (currentWindow != null && currentWindow.WindowStyle == IceTabPage.WindowType.Channel && (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right))
                 {
                     //do the math
                     Graphics g = this.CreateGraphics();
@@ -559,26 +597,32 @@ namespace IceChat
                         else
                             totalSelected++;
 
-                        //if the CTRL-Key is down, we can do a multi-select
-                        if (controlKeyDown)
+                        //if the CTRL-Key is down, we can do a multi-select (only on Left Button)
+                        
+                        
+                        if (controlKeyDown == true)
                         {
-                            sortedNickNames[selectedIndex].selected = !selected;
-                            currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = !selected;
+                            if (e.Button == MouseButtons.Left)
+                            {
+                                sortedNickNames[selectedIndex].selected = !selected;
+                                currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = !selected;
+                            }
                         }
                         else
                         {
                             if (totalSelected > 0)
                             {
                                 //deselect all the previous ones
-                                DeSelectAllNicks();                            
+                                DeSelectAllNicks();
                             }
-                            
+
                             totalSelected = 1;
 
                             sortedNickNames[selectedIndex].selected = true;
                             currentWindow.GetNick(sortedNickNames[selectedIndex].nick).Selected = true;
 
                         }
+                        
                     }
                     else
                     {
@@ -665,6 +709,16 @@ namespace IceChat
             if (((ToolStripMenuItem)sender).Tag == null) return;
 
             string command = ((ToolStripMenuItem)sender).Tag.ToString();
+            if (command.Length < 2)
+            {
+                return;
+            }
+
+            if (command.Substring(0, 2) != "//")
+                command = "/" + command;
+
+            System.Diagnostics.Debug.WriteLine("NickPopup:" + command + ":" + command.Length);
+
             if (command.Length > 0)
             {
                 _parent.ParseOutGoingCommand(currentWindow.Connection, command);
@@ -685,14 +739,16 @@ namespace IceChat
             {
                 foreach (User nick in currentWindow.Nicks.Values)
                 {
-                    Nick n = new Nick();
-                    n.nick = nick.ToString();
-                    n.selected = nick.Selected;
-                    n.nickColor = nick.nickColor;
-                    n.Level = nick.Level;
-                    
-                    n.Away = nick.Away;
-                    n.CustomColor = nick.CustomColor;
+                    Nick n = new Nick
+                    {
+                        nick = nick.ToString(),
+                        selected = nick.Selected,
+                        nickColor = nick.nickColor,
+                        Level = nick.Level,
+
+                        Away = nick.Away,
+                        CustomColor = nick.CustomColor
+                    };
 
                     if (currentWindow.Connection.ServerSetting.IAL.ContainsKey(nick.NickName))
                     {
@@ -735,6 +791,7 @@ namespace IceChat
         protected override void OnPaint(PaintEventArgs e)
         {
             //int howFar = 0;
+            
             int i = 0;
             try
             {
@@ -773,9 +830,11 @@ namespace IceChat
                 Brush l = new LinearGradientBrush(headerR, IrcColor.colors[_parent.IceChatColors.PanelHeaderBG1], IrcColor.colors[_parent.IceChatColors.PanelHeaderBG2], 300);
                 g.FillRectangle(l, headerR);
 
-                StringFormat sf = new StringFormat();
-                sf.Alignment = StringAlignment.Center;
-                
+                StringFormat sf = new StringFormat
+                {
+                    Alignment = StringAlignment.Center
+                };
+
                 Rectangle centered = headerR;
                 centered.Offset(11, (int)(headerR.Height - e.Graphics.MeasureString(headerCaption, headerFont).Height) / 2);
                 //centered.Width = this.Width - 22;
@@ -837,21 +896,7 @@ namespace IceChat
                 if (this.Parent.Parent.GetType() != typeof(FormFloat))
                 {
                     if (Application.RenderWithVisualStyles)
-                    {
-                        //System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.ThumbRight
-                        /*
-                        if (System.Windows.Forms.VisualStyles.VisualStyleRenderer.IsElementDefined(System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.ThumbRight.Normal))
-                        {
-                            System.Windows.Forms.VisualStyles.VisualStyleRenderer renderer = new System.Windows.Forms.VisualStyles.VisualStyleRenderer(System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.IEBarMenu.Normal);
-                            //which side are we docked on
-                            Rectangle rect = Rectangle.Empty;
-                            if (((IceDockPanel)this.Parent.Parent.Parent.Parent).Dock == DockStyle.Right)
-                                rect = new Rectangle(0, 0, 22, 22);
-                            else
-                                rect = new Rectangle(this.Width - 22, 0, 22, 22);
-                            renderer.DrawBackground(g, rect);
-                        }
-                        */ 
+                    {                       
                         if (System.Windows.Forms.VisualStyles.VisualStyleRenderer.IsElementDefined(System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.NormalGroupCollapse.Normal))
                         {
                             System.Windows.Forms.VisualStyles.VisualStyleRenderer renderer = new System.Windows.Forms.VisualStyles.VisualStyleRenderer(System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.NormalGroupCollapse.Normal);
@@ -880,9 +925,11 @@ namespace IceChat
 
                     int randColor = -1;
 
-                    PluginArgs args = new PluginArgs(currentWindow.Connection);
-                    args.Channel = currentWindow.TabCaption;
-                    
+                    PluginArgs args = new PluginArgs(currentWindow.Connection)
+                    {
+                        Channel = currentWindow.TabCaption
+                    };
+
                     if (sortedNickNames != null)
                     {
                         if (_parent.IceChatColors.RandomizeNickColors == true)
@@ -1092,12 +1139,14 @@ namespace IceChat
             }
             catch (Exception)
             {
+                System.Diagnostics.Debug.WriteLine("NickLIst OnPaint Error:");
+
                 /*
                 if (currentWindow != null)
                     _parent.WriteErrorFile(currentWindow.Connection, "NickList OnPaint:H=" + howFar + ":i=" + i + ":ti=" + topIndex + ":" + headerCaption + ":NickCount=" + currentWindow.Nicks.Values.Count + ":NC=" + sortedNickNames.Count, ee);
                 else
                     _parent.WriteErrorFile(null, "NickList OnPaint: null", ee);
-                */ 
+                */
             }
         }
 
@@ -1108,8 +1157,12 @@ namespace IceChat
         /// <param name="e"></param>
         private void OnMouseUp(object sender, MouseEventArgs e)
         {
+
             if (e.Button == MouseButtons.Right && selectedIndex != -1)
             {
+                // force control key off, showing popup menu
+                controlKeyDown = false;
+
                 //show the popup menu
                 foreach (PopupMenuItem p in _parent.IceChatPopupMenus.listPopups)
                 {
@@ -1130,12 +1183,14 @@ namespace IceChat
                         int subMenu = 0;
 
                         popupMenu.Items.Clear();
+
+                        //string nick = sortedNickNames[selectedIndex].ToString();
+                        string nick = sortedNickNames[selectedIndex].NickOnly;
                         
-                        string nick = sortedNickNames[selectedIndex].ToString();
                         //replace any of the modes
-                        for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
-                            if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
-                                nick = nick.Substring(1);
+                        //for (int i = 0; i < currentWindow.Connection.ServerSetting.StatusModes[1].Length; i++)
+                        //    if (nick.StartsWith(currentWindow.Connection.ServerSetting.StatusModes[1][i].ToString()))
+                        //        nick = nick.Substring(1);
 
                         Nick u = sortedNickNames[selectedIndex];
 
@@ -1174,18 +1229,43 @@ namespace IceChat
                                     caption = caption.Replace(" # ", " " + currentWindow.TabCaption + " ");
                                     command = command.Replace(" # ", " " + currentWindow.TabCaption + " ");
                                 }
+
                                 caption = caption.Replace("$nick", nick);
-                                command = command.Replace("$nick", nick);
+                                //command = command.Replace("$nick", nick);
 
                                 if (caption == "-")
                                     t = new ToolStripSeparator();
                                 else
                                 {
-                                    t = new ToolStripMenuItem(caption);
-                                    t.ForeColor = SystemColors.MenuText;
-                                    t.BackColor = SystemColors.Menu;
+                                    t = new ToolStripMenuItem(caption)
+                                    {
+                                        ForeColor = SystemColors.MenuText,
+                                        BackColor = SystemColors.Menu
+                                    };
 
                                     //parse out the command/$identifiers                            
+                                    //command = command.Replace("$1", nick);
+
+                                    // are there multiple nicks selected?
+
+                                    // replace $nick1 - $nick9
+                                    int counter = 0;
+                                    for (int i = 0; i < sortedNickNames.Count; i++)
+                                    {
+                                        if (sortedNickNames[i].selected == true)
+                                        {
+                                            counter++;
+                                            command = command.Replace("$nick" + counter.ToString(), sortedNickNames[i].NickOnly);
+                                        }
+                                    }
+                                    if (counter < 9)
+                                    {
+                                        for (int i = counter; i < 10; i++)
+                                        {
+                                            command = command.Replace("$nick" + i.ToString(), "");
+                                        }
+                                    }
+
                                     command = command.Replace("$1", nick);
                                     command = command.Replace("$nick", nick);
 
@@ -1195,7 +1275,9 @@ namespace IceChat
                                         command = command.Replace("$host", nick);
 
                                         t.Click += new EventHandler(OnPopupMenuClick);
+
                                     t.Tag = command;
+
                                 }
                                 if (menuDepth == 0)
                                     subMenu = popupMenu.Items.Add(t);
@@ -1581,7 +1663,7 @@ namespace IceChat
             }
         }
 
-        private void buttonOp_Click(object sender, EventArgs e)
+        private void ButtonOp_Click(object sender, EventArgs e)
         {
             if (currentWindow == null) return;
 
@@ -1653,7 +1735,7 @@ namespace IceChat
             _parent.FocusInputBox();
         }
 
-        private void buttonVoice_Click(object sender, EventArgs e)
+        private void ButtonVoice_Click(object sender, EventArgs e)
         {
             if (currentWindow == null) return;
 
@@ -1724,7 +1806,7 @@ namespace IceChat
             _parent.FocusInputBox();
         }
 
-        private void buttonQuery_Click(object sender, EventArgs e)
+        private void ButtonQuery_Click(object sender, EventArgs e)
         {
             if (currentWindow == null) return;
 
@@ -1758,7 +1840,7 @@ namespace IceChat
             _parent.FocusInputBox();
         }
 
-        private void buttonHop_Click(object sender, EventArgs e)
+        private void ButtonHop_Click(object sender, EventArgs e)
         {
             if (currentWindow == null) return;
 
@@ -1830,7 +1912,7 @@ namespace IceChat
             _parent.FocusInputBox();
         }
 
-        private void buttonInfo_Click(object sender, EventArgs e)
+        private void ButtonInfo_Click(object sender, EventArgs e)
         {
             if (currentWindow == null) return;
 
@@ -1862,7 +1944,7 @@ namespace IceChat
             _parent.FocusInputBox();
         }
 
-        private void buttonBan_Click(object sender, EventArgs e)
+        private void ButtonBan_Click(object sender, EventArgs e)
         {
             if (currentWindow == null) return;
 
@@ -1897,7 +1979,7 @@ namespace IceChat
             _parent.FocusInputBox();
         }
 
-        private void buttonKick_Click(object sender, EventArgs e)
+        private void ButtonKick_Click(object sender, EventArgs e)
         {
             if (currentWindow == null) return;
 
@@ -1929,7 +2011,7 @@ namespace IceChat
             _parent.FocusInputBox();
         }
 
-        private void buttonWhois_Click(object sender, EventArgs e)
+        private void ButtonWhois_Click(object sender, EventArgs e)
         {
             if (currentWindow == null) return;
 

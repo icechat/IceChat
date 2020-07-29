@@ -14,3 +14,12 @@ D:\Programming\IceChat2009\IceChat 9\IceChat 9.23\src\Plugins\SimpleScriptPlugin
 D:\Programming\IceChat2009\IceChat 9\IceChat 9.23\src\Plugins\SimpleScriptPlugin\obj\Debug\SimpleScriptPlugin.csproj.GenerateResource.Cache
 D:\Programming\IceChat2009\IceChat 9\IceChat 9.23\src\Plugins\SimpleScriptPlugin\obj\Debug\SimpleScriptPlugin.dll
 D:\Programming\IceChat2009\IceChat 9\IceChat 9.23\src\Plugins\SimpleScriptPlugin\obj\Debug\SimpleScriptPlugin.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\SimpleScriptPlugin\bin\Debug\SimpleScriptPlugin.dll.config
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\SimpleScriptPlugin\bin\Debug\SimpleScriptPlugin.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\SimpleScriptPlugin\bin\Debug\SimpleScriptPlugin.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\SimpleScriptPlugin\obj\Debug\SimpleScriptPlugin.csprojResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\SimpleScriptPlugin\obj\Debug\IceChatPlugin.FormScriptItem.resources
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\SimpleScriptPlugin\obj\Debug\SimpleScriptPlugin.csproj.GenerateResource.Cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\SimpleScriptPlugin\obj\Debug\SimpleScriptPlugin.csproj.CoreCompileInputs.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\SimpleScriptPlugin\obj\Debug\SimpleScriptPlugin.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\SimpleScriptPlugin\obj\Debug\SimpleScriptPlugin.pdb

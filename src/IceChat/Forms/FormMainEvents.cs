@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -174,12 +174,14 @@ namespace IceChat
             }
             if (loadedPlugins.Count > 0)
             {
-                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", connection.ServerSetting.CurrentNickName, "", msg);
-                args.Connection = connection;
+                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", connection.ServerSetting.CurrentNickName, "", msg)
+                {
+                    Connection = connection
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
-		            IceChatPlugin ipc = p as IceChatPlugin;
+                    IceChatPlugin ipc = p as IceChatPlugin;
                     if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
@@ -231,12 +233,14 @@ namespace IceChat
 
             if (loadedPlugins.Count > 0)
             {
-                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", connection.ServerSetting.CurrentNickName, "", msg);
-                args.Connection = connection;
+                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", connection.ServerSetting.CurrentNickName, "", msg)
+                {
+                    Connection = connection
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
-		            IceChatPlugin ipc = p as IceChatPlugin;
+                    IceChatPlugin ipc = p as IceChatPlugin;
                     if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
@@ -399,7 +403,7 @@ namespace IceChat
                     args.Command = autoCommand;
                     foreach (Plugin p in loadedPlugins)
                     {
-		                IceChatPlugin ipc = p as IceChatPlugin;
+                        IceChatPlugin ipc = p as IceChatPlugin;
                         if (ipc != null)
                         {
                             if (ipc.plugin.Enabled == true)
@@ -656,9 +660,11 @@ namespace IceChat
                 // run plugin
                 if (loadedPlugins.Count > 0)
                 {
-                    PluginArgs args = new PluginArgs(connection);
-                    args.Channel = channel;
-                    
+                    PluginArgs args = new PluginArgs(connection)
+                    {
+                        Channel = channel
+                    };
+
                     foreach (Plugin p in loadedPlugins)
                     {
                         IceChatPlugin ipc = p as IceChatPlugin;
@@ -762,7 +768,7 @@ namespace IceChat
                                 args.Extra = "online";
                                 foreach (Plugin p in loadedPlugins)
                                 {
-		                            IceChatPlugin ipc = p as IceChatPlugin;
+                                    IceChatPlugin ipc = p as IceChatPlugin;
                                     if (ipc != null)
                                     {
                                         if (ipc.plugin.Enabled == true)
@@ -796,7 +802,7 @@ namespace IceChat
                         {
                             foreach (Plugin p in loadedPlugins)
                             {
-		                        IceChatPlugin ipc = p as IceChatPlugin;
+                                IceChatPlugin ipc = p as IceChatPlugin;
                                 if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
@@ -867,8 +873,10 @@ namespace IceChat
 
                 if (loadedPlugins.Count > 0)
                 {
-                    PluginArgs args = new PluginArgs(t, channel, nick, host, message);
-                    args.Connection = connection;
+                    PluginArgs args = new PluginArgs(t, channel, nick, host, message)
+                    {
+                        Connection = connection
+                    };
 
                     foreach (Plugin p in loadedPlugins)
                     {
@@ -899,9 +907,11 @@ namespace IceChat
                     // run plugin
                     if (loadedPlugins.Count > 0)
                     {
-                        PluginArgs args = new PluginArgs(connection);
-                        args.Nick = string.Join(" ", nicks);
-                        args.Channel = channel;
+                        PluginArgs args = new PluginArgs(connection)
+                        {
+                            Nick = string.Join(" ", nicks),
+                            Channel = channel
+                        };
 
                         foreach (Plugin p in loadedPlugins)
                         {
@@ -911,7 +921,7 @@ namespace IceChat
                                 if (ipc.plugin.Enabled == true)
                                     ipc.plugin.ChannelNames(args);
                             }
-                       }
+                        }
                     }
 
 
@@ -933,30 +943,12 @@ namespace IceChat
                                 if (connection.ServerSetting.UserhostInName == true)
                                 {
                                     //parse out the host
-                                    //Snerf!IceChat9@ice-2FED1265.no.shawcable.net 
-                                    //~@madmn!IceChat9@2E7287C5.DDC53A68.59BCCD0.IP 
-                                    //check if there IS an actual host
-                                    //if (nickName.IndexOf("!") > -1)
-                                    //{
                                     string host = nickName.Substring(nickName.IndexOf("!") + 1);
                                     string nick = nickName.Substring(0, nickName.IndexOf("!"));
 
                                     OnChannelJoin(connection, channel, nick, host, "", false, "");
                                     OnIALUserData(connection, nick, host, channel);
 
-
-                                    //}
-                                    /*
-                                    else
-                                    {
-                                        //set this to false.. its not working (might be because we are on BNC)
-                                        //connection.ServerSetting.UsernameInHost = false;
-                                        System.Diagnostics.Debug.WriteLine("no host in name:" + nickName);
-
-                                        OnChannelJoin(connection, channel, nickName, "", "", false);
-                                        OnIALUserData(connection, nickName, "", channel);
-                                    }
-                                    */
                                 }
                                 else
                                 {
@@ -1006,9 +998,11 @@ namespace IceChat
 
             if (loadedPlugins.Count > 0)
             {
-                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", nick, "", msg);
-                args.Extra = ctcp;
-                args.Connection = connection;
+                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", nick, "", msg)
+                {
+                    Extra = ctcp,
+                    Connection = connection
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -1016,7 +1010,7 @@ namespace IceChat
                     if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
-                            args = ipc.plugin.CtcpReply(args); 
+                            args = ipc.plugin.CtcpReply(args);
                     }
                 }
                 CurrentWindowMessage(connection, args.Message, timeStamp, false);
@@ -1067,9 +1061,11 @@ namespace IceChat
             msg = msg.Replace("$nick", nick);
             msg = msg.Replace("$ctcp", ctcp);
 
-            PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", nick, "", msg);
-            args.Extra = ctcp;
-            args.Connection = connection;
+            PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", nick, "", msg)
+            {
+                Extra = ctcp,
+                Connection = connection
+            };
 
             foreach (Plugin p in loadedPlugins)
             {
@@ -1086,14 +1082,17 @@ namespace IceChat
                 return;
                         
             CurrentWindowMessage(connection, args.Message, timeStamp, false);
-            
+
+            String os = (string)Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion", "ProductName", string.Empty).ToString();
+
             switch (ctcp)
             {
                 case "VERSION":
-                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "VERSION " + ProgramID + " " + VersionID + " - Build " + BuildNumber + " : " + GetOperatingSystemName() + ((char)1).ToString());
+                    // get the operating system name
+                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "VERSION " + ProgramID + " " + VersionID + " - Build " + BuildNumber + " : " + os);
                     break;
                 case "ICECHAT":
-                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "VERSION " + ProgramID + " " + VersionID + " - Build " + BuildNumber + " : " + GetOperatingSystemName() + ((char)1).ToString());
+                    SendData(connection, "NOTICE " + nick + " :" + ((char)1).ToString() + "VERSION " + ProgramID + " " + VersionID + " - Build " + BuildNumber + " : " + os);
                     //see if we have any plugins
                     if (loadedPlugins.Count > 0)
                     {
@@ -1157,9 +1156,11 @@ namespace IceChat
             msg = msg.Replace("$nick", nick);
             msg = msg.Replace("$message", message);
 
-            PluginArgs args = new PluginArgs(CurrentWindow.TextWindow, "", nick, "", msg);
-            args.Extra = message;
-            args.Connection = connection;
+            PluginArgs args = new PluginArgs(CurrentWindow.TextWindow, "", nick, "", msg)
+            {
+                Extra = message,
+                Connection = connection
+            };
 
 
             foreach (Plugin p in loadedPlugins)
@@ -1168,7 +1169,7 @@ namespace IceChat
                 if (ipc != null)
                 {
                     if (ipc.plugin.Enabled == true)
-                            args = ipc.plugin.UserNotice(args);
+                        args = ipc.plugin.UserNotice(args);
                 }
             }
 
@@ -1242,9 +1243,11 @@ namespace IceChat
                 msg = msg.Replace("$server", connection.ServerSetting.ServerName);
             msg = msg.Replace("$message", message);
 
-            PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", "", connection.ServerSetting.RealServerName, msg);
-            args.Extra = message;
-            args.Connection = connection;
+            PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", "", connection.ServerSetting.RealServerName, msg)
+            {
+                Extra = message,
+                Connection = connection
+            };
 
             foreach (Plugin p in loadedPlugins)
             {
@@ -1302,9 +1305,11 @@ namespace IceChat
                 msg = msg.Replace("$server", connection.ServerSetting.ServerName);
             msg = msg.Replace("$message", message);
 
-            PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", "", connection.ServerSetting.RealServerName, msg);
-            args.Extra = message;
-            args.Connection = connection;
+            PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", "", connection.ServerSetting.RealServerName, msg)
+            {
+                Extra = message,
+                Connection = connection
+            };
 
             foreach (Plugin p in loadedPlugins)
             {
@@ -1418,9 +1423,11 @@ namespace IceChat
 
                     if (loadedPlugins.Count > 0)
                     {
-                        PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", "", connection.ServerSetting.RealServerName, error);
-                        args.Extra = msg;
-                        args.Connection = mainChannelBar.GetTabPage("Console").Connection;
+                        PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", "", connection.ServerSetting.RealServerName, error)
+                        {
+                            Extra = msg,
+                            Connection = mainChannelBar.GetTabPage("Console").Connection
+                        };
 
                         foreach (Plugin p in loadedPlugins)
                         {
@@ -1466,8 +1473,10 @@ namespace IceChat
 
             if (loadedPlugins.Count > 0)
             {
-                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", nick, "", msg);
-                args.Connection = connection;
+                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", nick, "", msg)
+                {
+                    Connection = connection
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -1523,9 +1532,11 @@ namespace IceChat
             msg = msg.Replace("$nick", nick).Replace("$host", host);
             msg = msg.Replace("$message", message);
 
-            PluginArgs args = new PluginArgs(null, "", nick, host, msg);
-            args.Extra = message;
-            args.Connection = connection;
+            PluginArgs args = new PluginArgs(null, "", nick, host, msg)
+            {
+                Extra = message,
+                Connection = connection
+            };
 
             if (!mainChannelBar.WindowExists(connection, nick, IceTabPage.WindowType.Query))
             {
@@ -1680,9 +1691,11 @@ namespace IceChat
             msg = msg.Replace("$nick", nick).Replace("$host", host);
             msg = msg.Replace("$message", message);
 
-            PluginArgs args = new PluginArgs(null, "", nick, host, msg);
-            args.Extra = message;
-            args.Connection = connection;
+            PluginArgs args = new PluginArgs(null, "", nick, host, msg)
+            {
+                Extra = message,
+                Connection = connection
+            };
 
             if (!mainChannelBar.WindowExists(connection, nick, IceTabPage.WindowType.Query))
             {
@@ -1893,9 +1906,11 @@ namespace IceChat
                     msg = msg.Replace("$color", string.Empty);
                 }
 
-                PluginArgs args = new PluginArgs(t.TextWindow, channel, nick, host, msg);
-                args.Extra = message;
-                args.Connection = connection;
+                PluginArgs args = new PluginArgs(t.TextWindow, channel, nick, host, msg)
+                {
+                    Extra = message,
+                    Connection = connection
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -2069,9 +2084,12 @@ namespace IceChat
 
                 msg = msg.Replace("$message", message);
 
-                PluginArgs args = new PluginArgs(t.TextWindow, channel, nick, host, msg);
-                args.Extra = message;
-                args.Connection = connection;
+                PluginArgs args = new PluginArgs(t.TextWindow, channel, nick, host, msg)
+                {
+                    Extra = message,
+                    Connection = connection
+                };
+                
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -2167,9 +2185,11 @@ namespace IceChat
             msg = msg.Replace("$host", host);
             msg = msg.Replace("$reason", reason);
 
-            args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", nick, host, msg);
-            args.Extra = reason;
-            args.Connection = connection;
+            args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", nick, host, msg)
+            {
+                Extra = reason,
+                Connection = connection
+            };
 
             try
             {
@@ -2273,9 +2293,11 @@ namespace IceChat
                             msg = msg.Replace("$account", "");
 
 
-                        PluginArgs args = new PluginArgs(t.TextWindow, channel, nick, host, msg);
-                        args.Extra = account;
-                        args.Connection = connection;
+                        PluginArgs args = new PluginArgs(t.TextWindow, channel, nick, host, msg)
+                        {
+                            Extra = account,
+                            Connection = connection
+                        };
 
                         foreach (Plugin p in loadedPlugins)
                         {
@@ -2337,10 +2359,12 @@ namespace IceChat
                 else
                     msg = msg.Replace("$reason", "");
 
-                PluginArgs args = new PluginArgs(t.TextWindow, channel, nick, host, msg);
-                args.Extra = reason;
-                args.Connection = connection;
-                
+                PluginArgs args = new PluginArgs(t.TextWindow, channel, nick, host, msg)
+                {
+                    Extra = reason,
+                    Connection = connection
+                };
+
                 foreach (Plugin p in loadedPlugins)
                 {
                     IceChatPlugin ipc = p as IceChatPlugin;
@@ -2398,10 +2422,12 @@ namespace IceChat
                 msg = msg.Replace("$channel", channel);
                 msg = msg.Replace("$reason", reason);
 
-                PluginArgs args = new PluginArgs(iceChatOptions.KickEventLocation == 0 ? t.TextWindow : mainChannelBar.GetTabPage("Console").TextWindow, channel, nick, "", msg);
-                args.Extra = reason;
-                args.Connection = connection;
-                
+                PluginArgs args = new PluginArgs(iceChatOptions.KickEventLocation == 0 ? t.TextWindow : mainChannelBar.GetTabPage("Console").TextWindow, channel, nick, "", msg)
+                {
+                    Extra = reason,
+                    Connection = connection
+                };
+
                 foreach (Plugin p in loadedPlugins)
                 {
                     IceChatPlugin ipc = p as IceChatPlugin;
@@ -2447,9 +2473,11 @@ namespace IceChat
                     connection.ServerSetting.ChannelJoins.Remove(channel.ToLower());
                 }
 
-                PluginArgs args = new PluginArgs(t.TextWindow, channel, connection.ServerSetting.CurrentNickName, host, "");
-                args.Connection = connection;
-                args.Extra = "self";
+                PluginArgs args = new PluginArgs(t.TextWindow, channel, connection.ServerSetting.CurrentNickName, host, "")
+                {
+                    Connection = connection,
+                    Extra = "self"
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -2467,8 +2495,10 @@ namespace IceChat
             {
                 if (loadedPlugins.Count > 0)
                 {
-                    PluginArgs args = new PluginArgs(t.TextWindow, channel, connection.ServerSetting.CurrentNickName, host, "");
-                    args.Connection = connection;
+                    PluginArgs args = new PluginArgs(t.TextWindow, channel, connection.ServerSetting.CurrentNickName, host, "")
+                    {
+                        Connection = connection
+                    };
 
                     foreach (Plugin p in loadedPlugins)
                     {
@@ -2527,9 +2557,11 @@ namespace IceChat
                 t.ClearNicks();
             }
 
-            PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, channel, connection.ServerSetting.CurrentNickName , "", msg);
-            args.Connection = connection;
-            args.Extra = "self";
+            PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, channel, connection.ServerSetting.CurrentNickName, "", msg)
+            {
+                Connection = connection,
+                Extra = "self"
+            };
 
             foreach (Plugin p in loadedPlugins)
             {
@@ -2603,10 +2635,12 @@ namespace IceChat
                 msg = msg.Replace("$channel", channel);
                 msg = msg.Replace("$reason", reason);
 
-                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, channel, nick, connection.ServerSetting.CurrentNickName, msg);
-                args.Extra = reason;
-                args.Connection = connection;
-                
+                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, channel, nick, connection.ServerSetting.CurrentNickName, msg)
+                {
+                    Extra = reason,
+                    Connection = connection
+                };
+
                 foreach (Plugin p in loadedPlugins)
                 {
                     IceChatPlugin ipc = p as IceChatPlugin;
@@ -2689,8 +2723,10 @@ namespace IceChat
 
                 if (loadedPlugins.Count > 0)
                 {
-                    PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", oldnick, newnick, cmsg);
-                    args.Connection = connection;
+                    PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", oldnick, newnick, cmsg)
+                    {
+                        Connection = connection
+                    };
 
                     foreach (Plugin p in loadedPlugins)
                     {
@@ -2850,11 +2886,13 @@ namespace IceChat
         {
             IceTabPage t = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
             if (t != null)
-            {                
-                
+            {
+
                 //have ability                 
-                PluginArgs ar = new PluginArgs();
-                ar.Message = topic;
+                PluginArgs ar = new PluginArgs
+                {
+                    Message = topic
+                };
                 foreach (Plugin p in loadedPlugins)
                 {
                     IceChatPlugin ipc = p as IceChatPlugin;
@@ -2874,8 +2912,10 @@ namespace IceChat
                     msg = msg.Replace("$channel", channel);
                     msg = msg.Replace("$topic", topic);
 
-                    PluginArgs args = new PluginArgs(t, channel, nick, host, msg);
-                    args.Connection = connection;
+                    PluginArgs args = new PluginArgs(t, channel, nick, host, msg)
+                    {
+                        Connection = connection
+                    };
 
                     foreach (Plugin p in loadedPlugins)
                     {
@@ -2906,8 +2946,10 @@ namespace IceChat
                     msgt = msgt.Replace("$channel", channel);
                     msgt = msgt.Replace("$topic", topic);
 
-                    PluginArgs args = new PluginArgs(t, channel, nick, host, msgt);
-                    args.Connection = connection;
+                    PluginArgs args = new PluginArgs(t, channel, nick, host, msgt)
+                    {
+                        Connection = connection
+                    };
 
                     foreach (Plugin p in loadedPlugins)
                     {
@@ -2988,9 +3030,11 @@ namespace IceChat
                 IceTabPage chan = GetWindow(connection, channel, IceTabPage.WindowType.Channel);
                 if (chan != null)
                 {
-                    PluginArgs args = new PluginArgs(chan, channel, modeSetter, modeSetterHost, msg);
-                    args.Extra = fullmode;
-                    args.Connection = connection;
+                    PluginArgs args = new PluginArgs(chan, channel, modeSetter, modeSetterHost, msg)
+                    {
+                        Extra = fullmode,
+                        Connection = connection
+                    };
 
                     foreach (Plugin p in loadedPlugins)
                     {
@@ -3176,8 +3220,10 @@ namespace IceChat
 
             if (loadedPlugins.Count > 0)
             {
-                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, channel, nick, host, msg);
-                args.Connection = connection;
+                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, channel, nick, host, msg)
+                {
+                    Connection = connection
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -3225,8 +3271,10 @@ namespace IceChat
                 msg = msg.Replace("$channel", channel);
                 msg = msg.Replace("$message", message);
 
-                PluginArgs args = new PluginArgs(t, channel, nick, host, msg);
-                args.Connection = connection;
+                PluginArgs args = new PluginArgs(t, channel, nick, host, msg)
+                {
+                    Connection = connection
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -3268,8 +3316,10 @@ namespace IceChat
             
             if (loadedPlugins.Count > 0)
             {
-                PluginArgs args = new PluginArgs(connection);
-                args.Message = data;
+                PluginArgs args = new PluginArgs(connection)
+                {
+                    Message = data
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -3288,8 +3338,10 @@ namespace IceChat
         {
             if (loadedPlugins.Count > 0)
             {
-                PluginArgs args = new PluginArgs(connection);
-                args.Message = data;
+                PluginArgs args = new PluginArgs(connection)
+                {
+                    Message = data
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -3326,8 +3378,10 @@ namespace IceChat
             if (loadedPlugins.Count > 0)
             {
 
-                PluginArgs args = new PluginArgs(connection);
-                args.Message = data;
+                PluginArgs args = new PluginArgs(connection)
+                {
+                    Message = data
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -3533,9 +3587,11 @@ namespace IceChat
                 string msg = GetMessageFormat("DCC Chat Request");
                 msg = msg.Replace("$nick", nick).Replace("$host", host);
                 msg = msg.Replace("$port", port).Replace("$ip", ip);
-                
-                PluginArgs args = new PluginArgs(t.TextWindow, "", nick, host, msg);
-                args.Connection = connection;
+
+                PluginArgs args = new PluginArgs(t.TextWindow, "", nick, host, msg)
+                {
+                    Connection = connection
+                };
 
                 foreach (Plugin p in loadedPlugins)
                 {
@@ -3596,14 +3652,16 @@ namespace IceChat
                         {
                             ((IceTabPageDCCFile)t).StartDCCFile(connection, nick, host, ip, port, file, fileSize);
 
-                            PluginArgs args = new PluginArgs(connection);
-                            args.Nick = nick;
-                            args.Host = host;
-                            args.fileName = file;
-                            args.filePos = 0;
-                            args.fileSize = fileSize;
-                            args.dccPort = port;
-                            args.dccIP = ip;
+                            PluginArgs args = new PluginArgs(connection)
+                            {
+                                Nick = nick,
+                                Host = host,
+                                fileName = file,
+                                filePos = 0,
+                                fileSize = fileSize,
+                                dccPort = port,
+                                dccIP = ip
+                            };
 
                             foreach (Plugin p in loadedPlugins)
                             {
@@ -3619,15 +3677,17 @@ namespace IceChat
                         else
                         {
                             ((IceTabPageDCCFile)t).ResumeDCCFile(connection, port, filePos);
-                            
-                            PluginArgs args = new PluginArgs(connection);
-                            args.Nick = nick;
-                            args.Host = host;
-                            args.fileName = file;
-                            args.filePos = filePos;
-                            args.fileSize = fileSize;
-                            args.dccPort = port;
-                            args.dccIP = ip;
+
+                            PluginArgs args = new PluginArgs(connection)
+                            {
+                                Nick = nick,
+                                Host = host,
+                                fileName = file,
+                                filePos = filePos,
+                                fileSize = fileSize,
+                                dccPort = port,
+                                dccIP = ip
+                            };
 
                             foreach (Plugin p in loadedPlugins)
                             {
@@ -3701,15 +3761,17 @@ namespace IceChat
                 {
                     ((IceTabPageDCCFile)t).StartDCCPassive(connection, nick, host, ip, file, fileSize, id);
 
-                    PluginArgs args = new PluginArgs(connection);
-                    args.Nick = nick;
-                    args.Host = host;
-                    args.fileName = file;
-                    args.filePos = 0;
-                    args.fileSize = fileSize;
-                    args.dccPort = port;
-                    args.dccIP = ip;
-                    
+                    PluginArgs args = new PluginArgs(connection)
+                    {
+                        Nick = nick,
+                        Host = host,
+                        fileName = file,
+                        filePos = 0,
+                        fileSize = fileSize,
+                        dccPort = port,
+                        dccIP = ip
+                    };
+
                     foreach (Plugin p in loadedPlugins)
                     {
                         IceChatPlugin ipc = p as IceChatPlugin;
@@ -3725,14 +3787,16 @@ namespace IceChat
                 {
                     ((IceTabPageDCCFile)t).ResumeDCCFile(connection, port, filePos);
 
-                    PluginArgs args = new PluginArgs(connection);
-                    args.Nick = nick;
-                    args.Host = host;
-                    args.fileName = file;
-                    args.filePos = filePos;
-                    args.fileSize = fileSize;
-                    args.dccPort = port;
-                    args.dccIP = ip;
+                    PluginArgs args = new PluginArgs(connection)
+                    {
+                        Nick = nick,
+                        Host = host,
+                        fileName = file,
+                        filePos = filePos,
+                        fileSize = fileSize,
+                        dccPort = port,
+                        dccIP = ip
+                    };
 
                     foreach (Plugin p in loadedPlugins)
                     {
@@ -3799,14 +3863,16 @@ namespace IceChat
                 {
                     ((IceTabPageDCCFile)t).StartDCCFile(connection, nick, host, ip, port, file, fileSize);
 
-                    PluginArgs args = new PluginArgs(connection);
-                    args.Nick = nick;
-                    args.Host = host;
-                    args.fileName = file;
-                    args.filePos = 0;
-                    args.fileSize = fileSize;
-                    args.dccPort = port;
-                    args.dccIP = ip;
+                    PluginArgs args = new PluginArgs(connection)
+                    {
+                        Nick = nick,
+                        Host = host,
+                        fileName = file,
+                        filePos = 0,
+                        fileSize = fileSize,
+                        dccPort = port,
+                        dccIP = ip
+                    };
 
                     foreach (Plugin p in loadedPlugins)
                     {
@@ -3823,14 +3889,16 @@ namespace IceChat
                 {
                     ((IceTabPageDCCFile)t).ResumeDCCFile(connection, port, filePos);
 
-                    PluginArgs args = new PluginArgs(connection);
-                    args.Nick = nick;
-                    args.Host = host;
-                    args.fileName = file;
-                    args.filePos = filePos;
-                    args.fileSize = fileSize;
-                    args.dccPort = port;
-                    args.dccIP = ip;
+                    PluginArgs args = new PluginArgs(connection)
+                    {
+                        Nick = nick,
+                        Host = host,
+                        fileName = file,
+                        filePos = filePos,
+                        fileSize = fileSize,
+                        dccPort = port,
+                        dccIP = ip
+                    };
 
                     foreach (Plugin p in loadedPlugins)
                     {

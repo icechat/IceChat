@@ -83,7 +83,7 @@
             this.buttonWhois.TabStop = false;
             this.buttonWhois.Text = "Whois";
             this.buttonWhois.UseVisualStyleBackColor = true;
-            this.buttonWhois.Click += new System.EventHandler(this.buttonWhois_Click);
+            this.buttonWhois.Click += new System.EventHandler(this.ButtonWhois_Click);
             // 
             // buttonKick
             // 
@@ -98,7 +98,7 @@
             this.buttonKick.TabStop = false;
             this.buttonKick.Text = "Kick";
             this.buttonKick.UseVisualStyleBackColor = true;
-            this.buttonKick.Click += new System.EventHandler(this.buttonKick_Click);
+            this.buttonKick.Click += new System.EventHandler(this.ButtonKick_Click);
             // 
             // buttonQuery
             // 
@@ -113,7 +113,7 @@
             this.buttonQuery.TabStop = false;
             this.buttonQuery.Text = "Query";
             this.buttonQuery.UseVisualStyleBackColor = true;
-            this.buttonQuery.Click += new System.EventHandler(this.buttonQuery_Click);
+            this.buttonQuery.Click += new System.EventHandler(this.ButtonQuery_Click);
             // 
             // buttonHop
             // 
@@ -128,7 +128,7 @@
             this.buttonHop.TabStop = false;
             this.buttonHop.Text = "H-Op";
             this.buttonHop.UseVisualStyleBackColor = true;
-            this.buttonHop.Click += new System.EventHandler(this.buttonHop_Click);
+            this.buttonHop.Click += new System.EventHandler(this.ButtonHop_Click);
             // 
             // buttonInfo
             // 
@@ -143,7 +143,7 @@
             this.buttonInfo.TabStop = false;
             this.buttonInfo.Text = "Info";
             this.buttonInfo.UseVisualStyleBackColor = true;
-            this.buttonInfo.Click += new System.EventHandler(this.buttonInfo_Click);
+            this.buttonInfo.Click += new System.EventHandler(this.ButtonInfo_Click);
             // 
             // buttonBan
             // 
@@ -158,7 +158,7 @@
             this.buttonBan.TabStop = false;
             this.buttonBan.Text = "Ban";
             this.buttonBan.UseVisualStyleBackColor = true;
-            this.buttonBan.Click += new System.EventHandler(this.buttonBan_Click);
+            this.buttonBan.Click += new System.EventHandler(this.ButtonBan_Click);
             // 
             // buttonVoice
             // 
@@ -173,7 +173,7 @@
             this.buttonVoice.TabStop = false;
             this.buttonVoice.Text = "Voice";
             this.buttonVoice.UseVisualStyleBackColor = true;
-            this.buttonVoice.Click += new System.EventHandler(this.buttonVoice_Click);
+            this.buttonVoice.Click += new System.EventHandler(this.ButtonVoice_Click);
             // 
             // buttonOp
             // 
@@ -189,7 +189,7 @@
             this.buttonOp.TabStop = false;
             this.buttonOp.Text = "Op";
             this.buttonOp.UseVisualStyleBackColor = false;
-            this.buttonOp.Click += new System.EventHandler(this.buttonOp_Click);
+            this.buttonOp.Click += new System.EventHandler(this.ButtonOp_Click);
             // 
             // vScrollBar
             // 

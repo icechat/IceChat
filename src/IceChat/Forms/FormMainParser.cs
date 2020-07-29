@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,8 +35,11 @@ using System.Xml;
 using System.IO;
 using System.Reflection;
 
+using System.Management;
+
 using IceChat.Properties;
 using IceChatPlugin;
+using System.Linq;
 
 namespace IceChat
 {
@@ -97,8 +100,10 @@ namespace IceChat
                 data = data.Replace(@"\%R", "\x0016");
                 data = data.Replace(@"\%O", "\x000F");
 
-                PluginArgs args = new PluginArgs(connection);
-                args.Command = data;
+                PluginArgs args = new PluginArgs(connection)
+                {
+                    Command = data
+                };
                 //pass the channel or query/chat if either is active window               
                 if (CurrentWindow.WindowStyle == IceTabPage.WindowType.Channel)
                 {
@@ -124,7 +129,7 @@ namespace IceChat
                 foreach (Plugin p in loadedPlugins)
                 {
                     IceChatPlugin ipc = p as IceChatPlugin;
-                    if (ipc != null)
+if (ipc != null)
                     {
                         if (((IceChatPlugin)ipc).plugin.Enabled == true)
                             args = ((IceChatPlugin)ipc).plugin.InputText(args);
@@ -215,7 +220,7 @@ namespace IceChat
                             UpdateInstallVersion();
                             break;
                         case "/totray":
-                            minimizeToTray();
+                            MinimizeToTray();
                             break;
                         case "/searchchannel":
                         case "/searchchannels":
@@ -342,9 +347,9 @@ namespace IceChat
                                         u.CustomColor = false;
                                     }
                                     else
-                                    {                                        
+                                    {
                                         // make sure 2nd value is an integer
-                                        int intColor = 0;
+                                        int intColor;
                                         if (Int32.TryParse(split[1], out intColor))
                                         {
                                             if (intColor < 72 && intColor > -1)
@@ -522,17 +527,49 @@ namespace IceChat
                                         //check if the file is a URL
                                         if (file.Length > 0)
                                         {
-                                            if (File.Exists(picturesFolder + System.IO.Path.DirectorySeparatorChar + file))
-                                                mainChannelBar.GetTabPage("Console").CurrentConsoleWindow().BackGroundImage = picturesFolder + System.IO.Path.DirectorySeparatorChar + file;
+                                            if (file.ToLower() == "none" || file.ToLower() == "remove")
+                                            {
+
+                                                // skin all console windows
+                                                foreach (ConsoleTab c in mainChannelBar.GetTabPage("Console").ConsoleTab.TabPages)
+                                                {
+                                                    ((TextWindow)c.Controls[0]).BackGroundImage = "";
+                                                }
+
+                                                iceChatOptions.ConsoleImage = "";
+                                            }
+                                            else if (File.Exists(picturesFolder + System.IO.Path.DirectorySeparatorChar + file))
+                                            {
+                                                // skin all console windows
+                                                foreach (ConsoleTab c in mainChannelBar.GetTabPage("Console").ConsoleTab.TabPages)
+                                                {
+                                                    ((TextWindow)c.Controls[0]).BackGroundImage = picturesFolder + System.IO.Path.DirectorySeparatorChar + file;
+                                                }
+
+                                                iceChatOptions.ConsoleImage = picturesFolder + System.IO.Path.DirectorySeparatorChar + file;
+                                            }
                                             else
                                             {
                                                 //check if this is a full path to the file
                                                 if (File.Exists(file))
-                                                    mainChannelBar.GetTabPage("Console").CurrentConsoleWindow().BackGroundImage = file;
+                                                {
+                                                    foreach (ConsoleTab c in mainChannelBar.GetTabPage("Console").ConsoleTab.TabPages)
+                                                    {
+                                                        ((TextWindow)c.Controls[0]).BackGroundImage = file;
+                                                    }
+
+                                                    iceChatOptions.ConsoleImage = file;
+                                                }
                                                 else
+                                                {
                                                     mainChannelBar.GetTabPage("Console").CurrentConsoleWindow().BackGroundImage = "";
+                                                }
                                             }
-                                        }
+
+                                            // save the options
+                                            SaveOptions();
+
+                                        }                                       
                                         break;
                                     case "channel":
                                         //get the channel name
@@ -624,11 +661,15 @@ namespace IceChat
                             {
                                 int result;
                                 if (Int32.TryParse(data, out result))
+                                {
                                     if (result >= 0 && result < 72)
+                                    {
                                         if (CurrentWindowStyle == IceTabPage.WindowType.Console)
                                             mainChannelBar.GetTabPage("Console").CurrentConsoleWindow().IRCBackColor = result;
                                         else if (CurrentWindowStyle == IceTabPage.WindowType.Channel || CurrentWindowStyle == IceTabPage.WindowType.Query || CurrentWindowStyle == IceTabPage.WindowType.Window)
                                             CurrentWindow.TextWindow.IRCBackColor = result;
+                                    }
+                                }
                             }
                             break;
                         case "/unloadplugin":
@@ -740,7 +781,7 @@ namespace IceChat
                         case "/loadplugin":
                             if (data.Length > 0)
                             {
-                                IPluginIceChat ipc = loadPlugin(pluginsFolder + System.IO.Path.DirectorySeparatorChar + data);
+                                IPluginIceChat ipc = LoadPlugin(pluginsFolder + System.IO.Path.DirectorySeparatorChar + data);
                                 if (ipc != null)
                                 {
                                     System.Threading.Thread initPlugin = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(InitializePlugin));
@@ -805,8 +846,31 @@ namespace IceChat
                         case "/beep":
                             System.Media.SystemSounds.Beep.Play();
                             break;
+                        case "/windowsize":
+                            CurrentWindowMessage(connection, "\x00034Current Window Size is: " + CurrentWindow.Width + ":" + CurrentWindow.Height, "", true);
+                            if (data.Length > 0)
+                            {
+                                // set a new size?
+                                // width height
+                                string[] values = data.Split(new char[] { ' ' }, 2);
+
+                                if (CurrentWindow.DockedForm == true && values.Length == 2)
+                                {
+                                
+                                    if (CurrentWindow.Parent.GetType() == typeof(FormWindow))
+                                    {
+                                        CurrentWindow.Parent.Width = Convert.ToInt32(values[0]);
+                                        CurrentWindow.Parent.Height = Convert.ToInt32(values[1]);
+
+                                        CurrentWindowMessage(connection, "\x00034New Window Size is: " + values[0] + ":" + values[1], "", true);
+
+                                    }
+
+                                }
+                            }
+                            break;
                         case "/size":
-                            CurrentWindowMessage(connection, "\x00034Window Size is: " + this.Width + ":" + this.Height, "", true);
+                            CurrentWindowMessage(connection, "\x00034Main Window Size is: " + this.Width + ":" + this.Height, "", true);
                             break;
                         case "/ame":    //me command for all channels
                             if (connection != null && data.Length > 0)
@@ -1183,8 +1247,10 @@ namespace IceChat
                                 }
 
                                 //add in the new buddy list item
-                                BuddyListItem b = new BuddyListItem();
-                                b.Nick = data;
+                                BuddyListItem b = new BuddyListItem
+                                {
+                                    Nick = data
+                                };
 
                                 BuddyListItem[] buddies = connection.ServerSetting.BuddyList;
                                 Array.Resize(ref buddies, buddies.Length + 1);
@@ -1369,9 +1435,10 @@ namespace IceChat
                                         tab.Detached = true;
                                         tab.DockedForm = true;
 
-                                        FormWindow fw = new FormWindow(tab);
-
-                                        fw.Text = tab.TabCaption;
+                                        FormWindow fw = new FormWindow(tab)
+                                        {
+                                            Text = tab.TabCaption
+                                        };
                                         if (tab.WindowStyle == IceTabPage.WindowType.Channel || tab.WindowStyle == IceTabPage.WindowType.Query)
                                             fw.Text += " {" + tab.Connection.ServerSetting.NetworkName + "}";
 
@@ -1608,10 +1675,8 @@ namespace IceChat
                             }
                             break;
                         case "/closequery":
-                            System.Diagnostics.Debug.WriteLine("/closequery");
                             if (connection != null)
                             {
-                                System.Diagnostics.Debug.WriteLine("valid connection");
                                 for (int i = mainChannelBar.TabPages.Count - 1; i >= 0; i--)
                                 {
                                     if (mainChannelBar.TabPages[i].WindowStyle == IceTabPage.WindowType.Query)
@@ -1651,7 +1716,7 @@ namespace IceChat
                                 if (ctcp.ToUpper() == "PING")
                                     SendData(connection, "PRIVMSG " + nick + " :" + ctcp.ToUpper() + " " + System.Environment.TickCount.ToString() + "");
                                 else
-                                    SendData(connection, "PRIVMSG " + nick + " " + ctcp.ToUpper() + "");
+                                    SendData(connection, "PRIVMSG " + nick + " :" + ctcp.ToUpper() + "");
                             }
                             break;
                         case "/dcc":
@@ -1726,11 +1791,13 @@ namespace IceChat
                                         else
                                         {
                                             //ask for a file name
-                                            OpenFileDialog dialog = new OpenFileDialog();
-                                            dialog.AutoUpgradeEnabled = false;
-                                            dialog.InitialDirectory = iceChatOptions.DCCSendFolder;
-                                            dialog.CheckFileExists = true;
-                                            dialog.CheckPathExists = true;
+                                            OpenFileDialog dialog = new OpenFileDialog
+                                            {
+                                                AutoUpgradeEnabled = false,
+                                                InitialDirectory = iceChatOptions.DCCSendFolder,
+                                                CheckFileExists = true,
+                                                CheckPathExists = true
+                                            };
                                             if (dialog.ShowDialog() == DialogResult.OK)
                                             {
                                                 //returns the full path
@@ -1815,7 +1882,7 @@ namespace IceChat
                                             foreach (Plugin p in loadedPlugins)
                                             {
                                                 IceChatPlugin ipc = p as IceChatPlugin;
-                                                if (ipc != null)
+if (ipc != null)
                                                 {
                                                     if (ipc.plugin.Enabled == true)
                                                         args = ipc.plugin.DNSResolve(args);
@@ -1899,11 +1966,12 @@ namespace IceChat
                                     if (CurrentWindow.ChannelList.Items.Count > 0)
                                     {
                                         //ask for a file name
-                                        SaveFileDialog sfd = new SaveFileDialog();
-
-                                        sfd.Filter = "TXT Files (*.txt)|*.txt";
-                                        sfd.FilterIndex = 2;
-                                        sfd.RestoreDirectory = true;
+                                        SaveFileDialog sfd = new SaveFileDialog
+                                        {
+                                            Filter = "TXT Files (*.txt)|*.txt",
+                                            FilterIndex = 2,
+                                            RestoreDirectory = true
+                                        };
                                         if (sfd.ShowDialog() == DialogResult.OK)
                                         {
                                             //this is the full filename
@@ -2080,15 +2148,16 @@ namespace IceChat
                                     if (t != null)
                                     {
                                         //bring up a font dialog
-                                        FontDialog fd = new FontDialog();
-                                        //load the current font
-                                        fd.Font = t.TextWindow.Font;
-
-                                        fd.ShowEffects = false;
-                                        fd.ShowColor = false;
-                                        fd.FontMustExist = true;
-                                        fd.AllowVectorFonts = false;
-                                        fd.AllowVerticalFonts = false;
+                                        FontDialog fd = new FontDialog
+                                        {
+                                            //load the current font
+                                            Font = t.TextWindow.Font,
+                                            ShowEffects = false,
+                                            ShowColor = false,
+                                            FontMustExist = true,
+                                            AllowVectorFonts = false,
+                                            AllowVerticalFonts = false
+                                        };
                                         try
                                         {
                                             if (fd.ShowDialog() != DialogResult.Cancel && fd.Font.Style == FontStyle.Regular)
@@ -2377,11 +2446,12 @@ namespace IceChat
                                                 else
                                                 {
 
-                                                    ignores[counter] = new IgnoreListItem();
-                                                    ignores[counter].IgnoreType = new IgnoreType();
-
-                                                    ignores[counter].Item = connection.ServerSetting.Ignores[i].Item;
-                                                    ignores[counter].Enabled = connection.ServerSetting.Ignores[i].Enabled;
+                                                    ignores[counter] = new IgnoreListItem
+                                                    {
+                                                        IgnoreType = new IgnoreType(),
+                                                        Item = connection.ServerSetting.Ignores[i].Item,
+                                                        Enabled = connection.ServerSetting.Ignores[i].Enabled
+                                                    };
 
                                                     ignores[counter].IgnoreType = connection.ServerSetting.Ignores[i].IgnoreType;
                                                     
@@ -2416,12 +2486,12 @@ namespace IceChat
                                             ignores = new IgnoreListItem[1];
                                         }
 
-                                        ignores[ignores.Length - 1] = new IgnoreListItem();
-
-                                        ignores[ignores.Length - 1].Item = ignoreNick;
-                                        ignores[ignores.Length - 1].Enabled = true;
-
-                                        ignores[ignores.Length - 1].IgnoreType = ignoreType;
+                                        ignores[ignores.Length - 1] = new IgnoreListItem
+                                        {
+                                            Item = ignoreNick,
+                                            Enabled = true,
+                                            IgnoreType = ignoreType
+                                        };
 
                                         connection.ServerSetting.Ignores = ignores;
                                         connection.ServerSetting.IgnoreListEnable = true;
@@ -3352,8 +3422,10 @@ namespace IceChat
                                 }
                                 else
                                 {
-                                    ServerSetting s = new ServerSetting();
-                                    s.NickName = "";
+                                    ServerSetting s = new ServerSetting
+                                    {
+                                        NickName = ""
+                                    };
                                     // get the server name
                                     // if there is a port name. extract it
 
@@ -3713,10 +3785,12 @@ namespace IceChat
                                             }
                                             else
                                             {
-                                                ChannelSetting cs1 = new ChannelSetting();
-                                                cs1.HideTopicBar = !CurrentWindow.ShowTopicBar;
-                                                cs1.ChannelName = CurrentWindow.TabCaption;
-                                                cs1.NetworkName = connection.ServerSetting.NetworkName;
+                                                ChannelSetting cs1 = new ChannelSetting
+                                                {
+                                                    HideTopicBar = !CurrentWindow.ShowTopicBar,
+                                                    ChannelName = CurrentWindow.TabCaption,
+                                                    NetworkName = connection.ServerSetting.NetworkName
+                                                };
                                                 ChannelSettings.AddChannel(cs1);
                                             }
 
@@ -3771,7 +3845,7 @@ namespace IceChat
                             }
                             break;
                         case "/update":
-                            checkForUpdate();
+                            CheckForUpdate();
                             break;
                         case "/userinfo":
                             if (connection != null && data.Length > 0)
@@ -4240,9 +4314,76 @@ namespace IceChat
 
                             }
                             break;
-                        case "$os":
-                            data = ReplaceFirst(data, m.Value, GetOperatingSystemName());
+
+                        case "$osversion":
+                            ManagementClass wmi = new ManagementClass("Win32_OperatingSystem");
+                            ManagementObject manobj = null;
+                            foreach (var o in wmi.GetInstances())
+                            {
+                                var mo = (ManagementObject)o;
+                                if (mo != null)
+                                {
+                                    manobj = mo;
+                                }
+                            }
+
+                            string osver = String.Empty;
+
+                            if (manobj != null)
+                            {
+                                osver = manobj["Version"] as string;
+                            }
+
+                            data = ReplaceFirst(data, m.Value, osver);
+
                             break;
+
+                        case "$os":
+                            String os = (string)Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion", "ProductName", string.Empty).ToString();
+
+                            data = ReplaceFirst(data, m.Value, os);
+
+                            break;
+
+                        case "$cpu":
+
+                            var cpu =
+                                new ManagementObjectSearcher("select * from Win32_Processor")
+                                .Get()
+                                .Cast<ManagementObject>()
+                                .First();
+
+                            data = ReplaceFirst(data, m.Value, (string)cpu["Name"]);
+                            break;
+
+                        case "$ram":
+                            
+                            var osr =
+                                new ManagementObjectSearcher("select * from Win32_OperatingSystem")
+                                .Get()
+                                .Cast<ManagementObject>()
+                                .First();
+
+                            double res = Convert.ToDouble(osr["TotalVisibleMemorySize"]);
+                            double fres = Math.Round((res / (1024 * 1024)), 2);    // convert to GB
+                            var ram = fres.ToString() + "GB";
+
+                            data = ReplaceFirst(data, m.Value, ram);                            
+                            break;
+
+                        case "$gpu":
+                            
+                            var vid =
+                                new ManagementObjectSearcher("select * from Win32_VideoController")
+                                .Get()
+                                .Cast<ManagementObject>()
+                                .First();
+
+                            var gpu = (string)vid["Name"];
+
+                            data = ReplaceFirst(data, m.Value, gpu);
+                            break;
+
                         case "$time":
                             data = ReplaceFirst(data, m.Value, DateTime.Now.ToShortTimeString());
                             break;
@@ -4327,11 +4468,20 @@ namespace IceChat
                             }
                             break;
                         case "$framework":
+                            // .NETFramework,Version=v4.5.2
+                            // System.Diagnostics.Debug.WriteLine( AppDomain.CurrentDomain.SetupInformation.TargetFrameworkName) ;
+
+                            string target = AppDomain.CurrentDomain.SetupInformation.TargetFrameworkName;
+
+                            data = ReplaceFirst(data, m.Value, target);
+
+                            /*
                             #if USE_NET_45
-                                data = ReplaceFirst(data, m.Value, System.Environment.Version.ToString()) + " +4.5";
+                                data = ReplaceFirst(data, m.Value, System.Environment.Version.ToString());
                             #else
                                 data = ReplaceFirst(data, m.Value, System.Environment.Version.ToString());
                             #endif
+                            */
                             break;
                         case "$totalplugins":
                             data = ReplaceFirst(data, m.Value, loadedPlugins.Count.ToString());
@@ -4522,10 +4672,12 @@ namespace IceChat
                         {
                             askExtra = false;
                             //ask the question
-                            InputBoxDialog i = new InputBoxDialog();
-                            i.PasswordChar = askSecure;
-                            i.FormCaption = "Enter Value";
-                            i.FormPrompt = extra.Substring(1, extra.Length - 2);
+                            InputBoxDialog i = new InputBoxDialog
+                            {
+                                PasswordChar = askSecure,
+                                FormCaption = "Enter Value",
+                                FormPrompt = extra.Substring(1, extra.Length - 2)
+                            };
 
                             i.ShowDialog();
                             if (i.InputResponse.Length > 0)
@@ -4552,9 +4704,11 @@ namespace IceChat
                                     {
                                         //ask the question
                                         extra = ask;
-                                        InputBoxDialog i = new InputBoxDialog();
-                                        i.FormCaption = "Enter Value";
-                                        i.FormPrompt = extra.Substring(1, extra.Length - 2);
+                                        InputBoxDialog i = new InputBoxDialog
+                                        {
+                                            FormCaption = "Enter Value",
+                                            FormPrompt = extra.Substring(1, extra.Length - 2)
+                                        };
 
                                         i.ShowDialog();
                                         if (i.InputResponse.Length > 0)
@@ -4583,10 +4737,12 @@ namespace IceChat
                                     {
                                         //ask the question
                                         extra = ask;
-                                        InputBoxDialog i = new InputBoxDialog();
-                                        i.PasswordChar = true;
-                                        i.FormCaption = "Enter Value";
-                                        i.FormPrompt = extra.Substring(1, extra.Length - 2);
+                                        InputBoxDialog i = new InputBoxDialog
+                                        {
+                                            PasswordChar = true,
+                                            FormCaption = "Enter Value",
+                                            FormPrompt = extra.Substring(1, extra.Length - 2)
+                                        };
 
                                         i.ShowDialog();
                                         if (i.InputResponse.Length > 0)
@@ -4672,7 +4828,6 @@ namespace IceChat
                                     {
                                         string lownum = input.Split(',')[0].Trim();
                                         string hinum = input.Split(',')[1].Trim();
-
                                         int lowNum, hiNum;
                                         if (Int32.TryParse(lownum, out lowNum) && Int32.TryParse(hinum, out hiNum))
                                         {

@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ namespace IceChat
 
             this.Paint += new PaintEventHandler(OnHeaderPaint);
             //this.DoubleClick += new EventHandler(OnDoubleClick);
-            this.panelButtons.Resize += new EventHandler(panelButtons_Resize);
+            this.panelButtons.Resize += new EventHandler(PanelButtons_Resize);
             this.Resize += new EventHandler(OnResize);
             this.MouseDown += new MouseEventHandler(OnMouseDown);
             
@@ -75,7 +75,7 @@ namespace IceChat
             buttonRemove.Text = iceChatLanguage.favChanbuttonRemove;
         }
 
-        private void panelButtons_Resize(object sender, EventArgs e)
+        private void PanelButtons_Resize(object sender, EventArgs e)
         {
             this.buttonAdd.Width = (panelButtons.Width / 2) - 4;
             this.buttonJoin.Width = buttonAdd.Width;
@@ -134,8 +134,10 @@ namespace IceChat
                     }
                 }
             }
-            StringFormat sf = new StringFormat();
-            sf.Alignment = StringAlignment.Center;
+            StringFormat sf = new StringFormat
+            {
+                Alignment = StringAlignment.Center
+            };
 
             Font headerFont = new Font("Verdana", 10);
 
@@ -203,8 +205,10 @@ namespace IceChat
         private void WriteSettings()
         {
             FileStream fs = new FileStream(_parent.FavoriteChannelsFile, FileMode.Create);
-            XmlTextWriter w = new XmlTextWriter(fs, System.Text.Encoding.UTF8);
-            w.Formatting = Formatting.Indented;
+            XmlTextWriter w = new XmlTextWriter(fs, System.Text.Encoding.UTF8)
+            {
+                Formatting = Formatting.Indented
+            };
 
             w.WriteStartDocument();
             w.WriteStartElement("FavoriteChannels");
@@ -230,7 +234,7 @@ namespace IceChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void listChannels_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void ListChannels_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             int s = listChannels.SelectedIndex;
 
@@ -246,12 +250,14 @@ namespace IceChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void ButtonAdd_Click(object sender, EventArgs e)
         {
             //ask for a new channel to add
-            InputBoxDialog i = new InputBoxDialog();
-            i.FormCaption = "Add Favorite Channel";
-            i.FormPrompt = "Enter a channel to add";
+            InputBoxDialog i = new InputBoxDialog
+            {
+                FormCaption = "Add Favorite Channel",
+                FormPrompt = "Enter a channel to add"
+            };
 
             i.ShowDialog();
             if (i.InputResponse.Length > 0)
@@ -266,7 +272,7 @@ namespace IceChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonJoin_Click(object sender, EventArgs e)
+        private void ButtonJoin_Click(object sender, EventArgs e)
         {
             //join the channel selected
             int s = listChannels.SelectedIndex;
@@ -286,16 +292,18 @@ namespace IceChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonEdit_Click(object sender, EventArgs e)
+        private void ButtonEdit_Click(object sender, EventArgs e)
         {
             int s = listChannels.SelectedIndex;
             
             if (s == -1) return;
 
-            InputBoxDialog i = new InputBoxDialog();
-            i.FormCaption = "Edit Favorite Channel";
-            i.FormPrompt = "Enter the new channel name";
-            i.DefaultValue = listChannels.Items[s].ToString();
+            InputBoxDialog i = new InputBoxDialog
+            {
+                FormCaption = "Edit Favorite Channel",
+                FormPrompt = "Enter the new channel name",
+                DefaultValue = listChannels.Items[s].ToString()
+            };
 
             i.ShowDialog();
             if (i.InputResponse.Length > 0)
@@ -309,7 +317,7 @@ namespace IceChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonRemove_Click(object sender, EventArgs e)
+        private void ButtonRemove_Click(object sender, EventArgs e)
         {
             int s = listChannels.SelectedIndex;
 

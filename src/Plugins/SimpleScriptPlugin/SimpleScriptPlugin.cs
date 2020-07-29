@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -65,7 +65,7 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Simple Script Plugin";
             m_Author = "Snerf";
-            m_Version = "1.4";
+            m_Version = "1.4.1";
         }
 
         public override void Dispose()
@@ -108,7 +108,7 @@ namespace IceChatPlugin
             buttonRemove.TabIndex = 4;
             buttonRemove.Text = "Remove";
             buttonRemove.UseVisualStyleBackColor = true;
-            buttonRemove.Click += new EventHandler(buttonRemove_Click);
+            buttonRemove.Click += new EventHandler(ButtonRemove_Click);
             // 
             // buttonEdit
             // 
@@ -119,7 +119,7 @@ namespace IceChatPlugin
             buttonEdit.TabIndex = 3;
             buttonEdit.Text = "Edit";
             buttonEdit.UseVisualStyleBackColor = true;
-            buttonEdit.Click += new EventHandler(buttonEdit_Click);
+            buttonEdit.Click += new EventHandler(ButtonEdit_Click);
             // 
             // buttonAdd
             // 
@@ -130,7 +130,7 @@ namespace IceChatPlugin
             buttonAdd.TabIndex = 2;
             buttonAdd.Text = "Add";
             buttonAdd.UseVisualStyleBackColor = true;
-            buttonAdd.Click += new EventHandler(buttonAdd_Click);
+            buttonAdd.Click += new EventHandler(ButtonAdd_Click);
             // listScripts
             // 
             listScripts.CheckBoxes = true;
@@ -182,12 +182,14 @@ namespace IceChatPlugin
 
             foreach (ListViewItem item in listScripts.Items)
             {
-                ScriptItem scr = new ScriptItem();
-                scr.ScriptEvent = item.Text;
-                scr.Command = item.SubItems[1].Text;
-                scr.TextMatch = item.SubItems[2].Text;
-                scr.ChannelMatch = item.SubItems[3].Text;
-                scr.Enabled = item.Checked;
+                ScriptItem scr = new ScriptItem
+                {
+                    ScriptEvent = item.Text,
+                    Command = item.SubItems[1].Text,
+                    TextMatch = item.SubItems[2].Text,
+                    ChannelMatch = item.SubItems[3].Text,
+                    Enabled = item.Checked
+                };
                 iceChatScripts.AddScriptItem(scr);
             }
 
@@ -229,17 +231,18 @@ namespace IceChatPlugin
             textWriter.Dispose();
         }
 
-        private void buttonEdit_Click(object sender, EventArgs e)
+        private void ButtonEdit_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem item in listScripts.SelectedItems)
             {
-                ScriptItem scr = new ScriptItem();
-
-                scr.ScriptEvent = item.Text;
-                scr.Command = item.SubItems[1].Text;
-                scr.TextMatch = item.SubItems[2].Text;
-                scr.ChannelMatch = item.SubItems[3].Text;
-                scr.Enabled = item.Checked;
+                ScriptItem scr = new ScriptItem
+                {
+                    ScriptEvent = item.Text,
+                    Command = item.SubItems[1].Text,
+                    TextMatch = item.SubItems[2].Text,
+                    ChannelMatch = item.SubItems[3].Text,
+                    Enabled = item.Checked
+                };
 
                 FormScriptItem fi = new FormScriptItem(scr, item.Index);
                 fi.SaveScriptItem += new FormScriptItem.SaveScriptItemDelegate(UpdateScriptItem);                
@@ -247,14 +250,14 @@ namespace IceChatPlugin
             }
         }
 
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void ButtonAdd_Click(object sender, EventArgs e)
         {
             FormScriptItem fsi = new FormScriptItem(new ScriptItem(), 0);
             fsi.SaveScriptItem += new FormScriptItem.SaveScriptItemDelegate(SaveNewScriptItem);
             fsi.ShowDialog(MainForm);
         }
 
-        private void buttonRemove_Click(object sender, EventArgs e)
+        private void ButtonRemove_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem item in listScripts.SelectedItems)
             {

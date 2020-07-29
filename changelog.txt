@@ -1,12 +1,43 @@
-Build 9.22a Sep 14 2019
+Build 9.50 July 29 2020
+* First 9.50 Release
+
+Build 9.49.07 June 25 2020
+* Fix /background command to also save settings
+
+Build 9.49.06 June 1 2020
+* Allow to select multiple nick in Nicklist holding ctrl-key, and $nick1, $nick2, $nick3 - $nick9 can be used in Nicklist Popup
+* Removed the previous option that right clicking will deselect all nicks
+* /background console will now skin all console windows. /background console none will remove it
+
+Build 9.49.05 May 31 2020
+* Fix special codes in the IceChat editor not properly saving
+* Right click in Nicklist de-selects all nicks and just selects that one
+* Added identifiers for $ram, $cpu and $gpu
+* Emoticon Picker/ Color Picker / Basic IRC Help buttons show on MultiLine Edit Box mode
+
+Build 9.49.02 May 22 2020
+* Fix arrow keys in the Nicklist
+* Fix background colors sometimes wrapping to the next line
+
+Build 9.49 April 10 2020
+* Built now with .NET 4.5.2 using VS Studio 2017
+* All Plugins converted to .NET 4.5.2
 * Background images are saved and will show again on restart
 * Fix parsing of channel modes and channel create time, remove preceding colon
 * Upgraded to 99 colors
 * Fix issue if custom log folder does not exist, reset to default
 * Fix DCC download bug on sender not receiving file was sent successfully
-* Update SimpleScript Plugin to v1.4 adding Input Text event
+* Fix CTCP issue with not sending a colon
 * Added ChannelNames and EndChannelNames to Plugin Events
-
+* Plugins can now reference other DLL's properly
+* Added No Color Mode (Disable Colors) to Server Settings, for all channels on server
+* $os now returns Windows Product Name
+* $osversion returns Windows Version number
+* If multiple nicks are selected in the nick list, in the popupmenu, $1, $2, $3, etc can be used in command to replace selected nicks
+* Right clicking an item in the nick list will not select/deselect
+* Update SimpleScript Plugin to v1.4 adding Input Text event
+* CTRL-F No longer opens Fonts Window
+* Passwords in Server Editor now show on hovering over textbox
 
 Build 9.22 June 1 2019
 * Fix $rand() where it was not working with the top value

@@ -62,7 +62,7 @@
             this.buttonRemove.Text = "Remove";
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Visible = false;
-            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            this.buttonRemove.Click += new System.EventHandler(this.ButtonRemove_Click);
             // 
             // buttonEdit
             // 
@@ -73,7 +73,7 @@
             this.buttonEdit.Text = "Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Visible = false;
-            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
+            this.buttonEdit.Click += new System.EventHandler(this.ButtonEdit_Click);
             // 
             // buttonMessage
             // 
@@ -83,7 +83,7 @@
             this.buttonMessage.TabIndex = 1;
             this.buttonMessage.Text = "Message";
             this.buttonMessage.UseVisualStyleBackColor = true;
-            this.buttonMessage.Click += new System.EventHandler(this.buttonMessage_Click);
+            this.buttonMessage.Click += new System.EventHandler(this.ButtonMessage_Click);
             // 
             // buttonAdd
             // 
@@ -95,7 +95,7 @@
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Visible = false;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // treeBuddies
             // 

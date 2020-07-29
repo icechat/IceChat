@@ -46,7 +46,7 @@
             this.buttonAccept.TabIndex = 0;
             this.buttonAccept.Text = "Accept";
             this.buttonAccept.UseVisualStyleBackColor = true;
-            this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
+            this.buttonAccept.Click += new System.EventHandler(this.ButtonAccept_Click);
             // 
             // buttonReject
             // 
@@ -57,7 +57,7 @@
             this.buttonReject.TabIndex = 1;
             this.buttonReject.Text = "Reject";
             this.buttonReject.UseVisualStyleBackColor = true;
-            this.buttonReject.Click += new System.EventHandler(this.buttonReject_Click);
+            this.buttonReject.Click += new System.EventHandler(this.ButtonReject_Click);
             // 
             // buttonIgnore
             // 
@@ -68,7 +68,7 @@
             this.buttonIgnore.TabIndex = 2;
             this.buttonIgnore.Text = "Ignore";
             this.buttonIgnore.UseVisualStyleBackColor = true;
-            this.buttonIgnore.Click += new System.EventHandler(this.buttonIgnore_Click);
+            this.buttonIgnore.Click += new System.EventHandler(this.ButtonIgnore_Click);
             // 
             // labelUser
             // 

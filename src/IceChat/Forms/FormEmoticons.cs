@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,7 +71,7 @@ namespace IceChat
             
             g.Dispose();
 
-            pictureEmoticons.MouseDown += new MouseEventHandler(pictureEmoticons_MouseDown);
+            pictureEmoticons.MouseDown += new MouseEventHandler(PictureEmoticons_MouseDown);
             ApplyLanguage();
         }
 
@@ -80,7 +80,7 @@ namespace IceChat
 
         }
 
-        private void pictureEmoticons_MouseDown(object sender, MouseEventArgs e)
+        private void PictureEmoticons_MouseDown(object sender, MouseEventArgs e)
         {
             //figure out the index
             int x = e.X / 21;

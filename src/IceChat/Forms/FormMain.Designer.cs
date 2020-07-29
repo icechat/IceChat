@@ -222,7 +222,7 @@ namespace IceChat
             this.minimizeToTrayToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
             this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.minimizeToTrayToolStripMenuItem.Text = "Minimize to Tray";
-            this.minimizeToTrayToolStripMenuItem.Click += new System.EventHandler(this.minimizeToTrayToolStripMenuItem_Click);
+            this.minimizeToTrayToolStripMenuItem.Click += new System.EventHandler(this.MinimizeToTrayToolStripMenuItem_Click);
             // 
             // debugWindowToolStripMenuItem
             // 
@@ -233,7 +233,7 @@ namespace IceChat
             this.debugWindowToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
             this.debugWindowToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.debugWindowToolStripMenuItem.Text = "Debug Window";
-            this.debugWindowToolStripMenuItem.Click += new System.EventHandler(this.debugWindowToolStripMenuItem_Click);
+            this.debugWindowToolStripMenuItem.Click += new System.EventHandler(this.DebugWindowToolStripMenuItem_Click);
             // 
             // alwaysOnTopToolStripMenuItem
             // 
@@ -243,7 +243,7 @@ namespace IceChat
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
             this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "Always on Top";
-            this.alwaysOnTopToolStripMenuItem.Click += new System.EventHandler(this.alwaysOnTopToolStripMenuItem_Click);
+            this.alwaysOnTopToolStripMenuItem.Click += new System.EventHandler(this.AlwaysOnTopToolStripMenuItem_Click);
             // 
             // fixWindowSizeToolStripMenuItem
             // 
@@ -252,7 +252,7 @@ namespace IceChat
             this.fixWindowSizeToolStripMenuItem.Name = "fixWindowSizeToolStripMenuItem";
             this.fixWindowSizeToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.fixWindowSizeToolStripMenuItem.Text = "Lock Window Size";
-            this.fixWindowSizeToolStripMenuItem.Click += new System.EventHandler(this.fixWindowSizeToolStripMenuItem_Click);
+            this.fixWindowSizeToolStripMenuItem.Click += new System.EventHandler(this.FixWindowSizeToolStripMenuItem_Click);
             //
             // setupDDEToolStripItem
             //
@@ -260,7 +260,7 @@ namespace IceChat
             this.setupDDEToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.setupDDEToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.setupDDEToolStripMenuItem.Text = "Setup irc:// links";
-            this.setupDDEToolStripMenuItem.Click += new EventHandler(setupDDEToolStripMenuItem_Click);
+            this.setupDDEToolStripMenuItem.Click += new EventHandler(SetupDDEToolStripMenuItem_Click);
             // 
             // importToolStripMenuItem
             // 
@@ -268,7 +268,7 @@ namespace IceChat
             this.importToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.importToolStripMenuItem.Text = "Import";
             this.importToolStripMenuItem.Visible = false;
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.ImportToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
             // 
@@ -276,7 +276,7 @@ namespace IceChat
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Visible = false;
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.ExportToolStripMenuItem_Click);
             // 
             // closeCurrentWindowToolStripMenuItem
             // 
@@ -286,7 +286,7 @@ namespace IceChat
             this.closeCurrentWindowToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
             this.closeCurrentWindowToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.closeCurrentWindowToolStripMenuItem.Text = "Close Current Window";
-            this.closeCurrentWindowToolStripMenuItem.Click += new System.EventHandler(this.closeCurrentWindowToolStripMenuItem_Click);
+            this.closeCurrentWindowToolStripMenuItem.Click += new System.EventHandler(this.CloseCurrentWindowToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -300,7 +300,7 @@ namespace IceChat
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -326,7 +326,7 @@ namespace IceChat
             this.iceChatSettingsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.iceChatSettingsToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.iceChatSettingsToolStripMenuItem.Text = "Program Settings...";
-            this.iceChatSettingsToolStripMenuItem.Click += new System.EventHandler(this.iceChatSettingsToolStripMenuItem_Click);
+            this.iceChatSettingsToolStripMenuItem.Click += new System.EventHandler(this.IceChatSettingsToolStripMenuItem_Click);
             // 
             // fontSettingsToolStripMenuItem
             // 
@@ -334,10 +334,9 @@ namespace IceChat
             this.fontSettingsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.fontSettingsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("fontSettingsToolStripMenuItem.Image")));
             this.fontSettingsToolStripMenuItem.Name = "fontSettingsToolStripMenuItem";
-            this.fontSettingsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
             this.fontSettingsToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.fontSettingsToolStripMenuItem.Text = "Font Settings...";
-            this.fontSettingsToolStripMenuItem.Click += new System.EventHandler(this.fontSettingsToolStripMenuItem_Click);
+            this.fontSettingsToolStripMenuItem.Click += new System.EventHandler(this.FontSettingsToolStripMenuItem_Click);
             // 
             // iceChatColorsToolStripMenuItem
             // 
@@ -348,7 +347,7 @@ namespace IceChat
             this.iceChatColorsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
             this.iceChatColorsToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.iceChatColorsToolStripMenuItem.Text = "Colors Settings...";
-            this.iceChatColorsToolStripMenuItem.Click += new System.EventHandler(this.iceChatColorsToolStripMenuItem_Click);
+            this.iceChatColorsToolStripMenuItem.Click += new System.EventHandler(this.IceChatColorsToolStripMenuItem_Click);
             // 
             // iceChatEditorToolStripMenuItem
             // 
@@ -359,7 +358,7 @@ namespace IceChat
             this.iceChatEditorToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.iceChatEditorToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.iceChatEditorToolStripMenuItem.Text = "IceChat Editor...";
-            this.iceChatEditorToolStripMenuItem.Click += new System.EventHandler(this.iceChatEditorToolStripMenuItem_Click);
+            this.iceChatEditorToolStripMenuItem.Click += new System.EventHandler(this.IceChatEditorToolStripMenuItem_Click);
             // 
             // muteAllSoundsToolStripMenuItem
             // 
@@ -368,7 +367,7 @@ namespace IceChat
             this.muteAllSoundsToolStripMenuItem.Name = "muteAllSoundsToolStripMenuItem";
             this.muteAllSoundsToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.muteAllSoundsToolStripMenuItem.Text = "Mute all Sounds";
-            this.muteAllSoundsToolStripMenuItem.Click += new System.EventHandler(this.muteAllSoundsToolStripMenuItem_Click);
+            this.muteAllSoundsToolStripMenuItem.Click += new System.EventHandler(this.MuteAllSoundsToolStripMenuItem_Click);
             // 
             // pluginsToolStripMenuItem
             // 
@@ -388,7 +387,7 @@ namespace IceChat
             this.loadAPluginToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.loadAPluginToolStripMenuItem.Text = "Load a Plugin...";
             this.loadAPluginToolStripMenuItem.ToolTipText = "Load a new Plugin";
-            this.loadAPluginToolStripMenuItem.Click += new System.EventHandler(this.loadAPluginToolStripMenuItem_Click);
+            this.loadAPluginToolStripMenuItem.Click += new System.EventHandler(this.LoadAPluginToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -428,7 +427,7 @@ namespace IceChat
             this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
             this.defaultToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.defaultToolStripMenuItem.Text = "Default";
-            this.defaultToolStripMenuItem.Click += new System.EventHandler(this.defaultToolStripMenuItem_Click);
+            this.defaultToolStripMenuItem.Click += new System.EventHandler(this.DefaultToolStripMenuItem_Click);
             // 
             // menuStylesToolStripMenuItem
             // 
@@ -475,7 +474,7 @@ namespace IceChat
             this.serverListToolStripMenuItem.Name = "serverListToolStripMenuItem";
             this.serverListToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.serverListToolStripMenuItem.Text = "Left Panel";
-            this.serverListToolStripMenuItem.Click += new System.EventHandler(this.serverListToolStripMenuItem_Click);
+            this.serverListToolStripMenuItem.Click += new System.EventHandler(this.ServerListToolStripMenuItem_Click);
             // 
             // nickListToolStripMenuItem
             // 
@@ -487,7 +486,7 @@ namespace IceChat
             this.nickListToolStripMenuItem.Name = "nickListToolStripMenuItem";
             this.nickListToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.nickListToolStripMenuItem.Text = "Right Panel";
-            this.nickListToolStripMenuItem.Click += new System.EventHandler(this.nickListToolStripMenuItem_Click);
+            this.nickListToolStripMenuItem.Click += new System.EventHandler(this.NickListToolStripMenuItem_Click);
             // 
             // statusBarToolStripMenuItem
             // 
@@ -499,7 +498,7 @@ namespace IceChat
             this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
             this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.statusBarToolStripMenuItem.Text = "Status Bar";
-            this.statusBarToolStripMenuItem.Click += new System.EventHandler(this.statusBarToolStripMenuItem_Click);
+            this.statusBarToolStripMenuItem.Click += new System.EventHandler(this.StatusBarToolStripMenuItem_Click);
             // 
             // toolBarToolStripMenuItem
             // 
@@ -511,7 +510,7 @@ namespace IceChat
             this.toolBarToolStripMenuItem.Name = "toolBarToolStripMenuItem";
             this.toolBarToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.toolBarToolStripMenuItem.Text = "Tool Bar";
-            this.toolBarToolStripMenuItem.Click += new System.EventHandler(this.toolBarToolStripMenuItem_Click);
+            this.toolBarToolStripMenuItem.Click += new System.EventHandler(this.ToolBarToolStripMenuItem_Click);
             // 
             // channelBarToolStripMenuItem
             // 
@@ -535,7 +534,7 @@ namespace IceChat
             this.viewChannelBarToolStripMenuItem.Name = "viewChannelBarToolStripMenuItem";
             this.viewChannelBarToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.viewChannelBarToolStripMenuItem.Text = "View Channel Bar";
-            this.viewChannelBarToolStripMenuItem.Click += new System.EventHandler(this.viewChannelBarToolStripMenuItem_Click);
+            this.viewChannelBarToolStripMenuItem.Click += new System.EventHandler(this.ViewChannelBarToolStripMenuItem_Click);
             // 
             // saveTabOrderToolStripMenuItem
             // 
@@ -544,7 +543,7 @@ namespace IceChat
             this.saveTabOrderToolStripMenuItem.Name = "saveTabOrderToolStripMenuItem";
             this.saveTabOrderToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.saveTabOrderToolStripMenuItem.Text = "Save Tab Order";
-            this.saveTabOrderToolStripMenuItem.Click += new System.EventHandler(this.saveTabOrderToolStripMenuItem_Click);
+            this.saveTabOrderToolStripMenuItem.Click += new System.EventHandler(this.SaveTabOrderToolStripMenuItem_Click);
             // 
             // restoreTabOrderToolStripMenuItem
             // 
@@ -553,7 +552,7 @@ namespace IceChat
             this.restoreTabOrderToolStripMenuItem.Name = "restoreTabOrderToolStripMenuItem";
             this.restoreTabOrderToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.restoreTabOrderToolStripMenuItem.Text = "Restore Tab Order";
-            this.restoreTabOrderToolStripMenuItem.Click += new System.EventHandler(this.restoreTabOrderToolStripMenuItem_Click);
+            this.restoreTabOrderToolStripMenuItem.Click += new System.EventHandler(this.RestoreTabOrderToolStripMenuItem_Click);
             // 
             // multilineEditboxToolStripMenuItem
             // 
@@ -562,7 +561,7 @@ namespace IceChat
             this.multilineEditboxToolStripMenuItem.Name = "multilineEditboxToolStripMenuItem";
             this.multilineEditboxToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.multilineEditboxToolStripMenuItem.Text = "Multiline Editbox";
-            this.multilineEditboxToolStripMenuItem.Click += new System.EventHandler(this.multilineEditboxToolStripMenuItem_Click);
+            this.multilineEditboxToolStripMenuItem.Click += new System.EventHandler(this.MultilineEditboxToolStripMenuItem_Click);
             // 
             // channelListToolStripMenuItem
             // 
@@ -571,7 +570,7 @@ namespace IceChat
             this.channelListToolStripMenuItem.Name = "channelListToolStripMenuItem";
             this.channelListToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.channelListToolStripMenuItem.Text = "Channel List";
-            this.channelListToolStripMenuItem.Click += new System.EventHandler(this.channelListToolStripMenuItem_Click);
+            this.channelListToolStripMenuItem.Click += new System.EventHandler(this.ChannelListToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -599,7 +598,7 @@ namespace IceChat
             this.nickListImageMenu.Name = "nickListImageMenu";
             this.nickListImageMenu.Size = new System.Drawing.Size(253, 22);
             this.nickListImageMenu.Text = "Background Image...";
-            this.nickListImageMenu.Click += new System.EventHandler(this.nickListImageMenu_Click);
+            this.nickListImageMenu.Click += new System.EventHandler(this.NickListImageMenu_Click);
             // 
             // nickListImageRemoveMenu
             // 
@@ -608,7 +607,7 @@ namespace IceChat
             this.nickListImageRemoveMenu.Name = "nickListImageRemoveMenu";
             this.nickListImageRemoveMenu.Size = new System.Drawing.Size(253, 22);
             this.nickListImageRemoveMenu.Text = "Remove Background Image";
-            this.nickListImageRemoveMenu.Click += new System.EventHandler(this.nickListImageRemoveMenu_Click);
+            this.nickListImageRemoveMenu.Click += new System.EventHandler(this.NickListImageRemoveMenu_Click);
             // 
             // showButtonsNickListToolStripMenuItem
             // 
@@ -617,7 +616,7 @@ namespace IceChat
             this.showButtonsNickListToolStripMenuItem.Name = "showButtonsNickListToolStripMenuItem";
             this.showButtonsNickListToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.showButtonsNickListToolStripMenuItem.Text = "Show Buttons";
-            this.showButtonsNickListToolStripMenuItem.Click += new System.EventHandler(this.showButtonsNickListToolStripMenuItem_Click);
+            this.showButtonsNickListToolStripMenuItem.Click += new System.EventHandler(this.ShowButtonsNickListToolStripMenuItem_Click);
             // 
             // selectServerTreeToolStripMenuItem
             // 
@@ -638,7 +637,7 @@ namespace IceChat
             this.serverTreeImageMenu.Name = "serverTreeImageMenu";
             this.serverTreeImageMenu.Size = new System.Drawing.Size(253, 22);
             this.serverTreeImageMenu.Text = "Background Image...";
-            this.serverTreeImageMenu.Click += new System.EventHandler(this.serverTreeImageMenu_Click);
+            this.serverTreeImageMenu.Click += new System.EventHandler(this.ServerTreeImageMenu_Click);
             // 
             // serverTreeImageRemoveMenu
             // 
@@ -647,7 +646,7 @@ namespace IceChat
             this.serverTreeImageRemoveMenu.Name = "serverTreeImageRemoveMenu";
             this.serverTreeImageRemoveMenu.Size = new System.Drawing.Size(253, 22);
             this.serverTreeImageRemoveMenu.Text = "Remove Background Image";
-            this.serverTreeImageRemoveMenu.Click += new System.EventHandler(this.serverTreeImageRemoveMenu_Click);
+            this.serverTreeImageRemoveMenu.Click += new System.EventHandler(this.ServerTreeImageRemoveMenu_Click);
             // 
             // showButtonsServerTreeToolStripMenuItem1
             // 
@@ -656,7 +655,7 @@ namespace IceChat
             this.showButtonsServerTreeToolStripMenuItem1.Name = "showButtonsServerTreeToolStripMenuItem1";
             this.showButtonsServerTreeToolStripMenuItem1.Size = new System.Drawing.Size(253, 22);
             this.showButtonsServerTreeToolStripMenuItem1.Text = "Show Buttons";
-            this.showButtonsServerTreeToolStripMenuItem1.Click += new System.EventHandler(this.showButtonsServerTreeToolStripMenuItem1_Click);
+            this.showButtonsServerTreeToolStripMenuItem1.Click += new System.EventHandler(this.ShowButtonsServerTreeToolStripMenuItem1_Click);
             /*
             // 
             // searchToolStripMenuItem
@@ -720,7 +719,7 @@ namespace IceChat
             this.iceChatHomePageToolStripMenuItem.Name = "iceChatHomePageToolStripMenuItem";
             this.iceChatHomePageToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.iceChatHomePageToolStripMenuItem.Text = "IceChat Home Page";
-            this.iceChatHomePageToolStripMenuItem.Click += new System.EventHandler(this.iceChatHomePageToolStripMenuItem_Click);
+            this.iceChatHomePageToolStripMenuItem.Click += new System.EventHandler(this.IceChatHomePageToolStripMenuItem_Click);
             // 
             // iceChatWikiToolStripMenuItem
             // 
@@ -735,7 +734,7 @@ namespace IceChat
             this.iceChatWikiToolStripMenuItem.Name = "iceChatWikiToolStripMenuItem";
             this.iceChatWikiToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.iceChatWikiToolStripMenuItem.Text = "IceChat Wiki";
-            this.iceChatWikiToolStripMenuItem.Click += new System.EventHandler(this.iceChatWikiToolStripMenuItem_Click);
+            this.iceChatWikiToolStripMenuItem.Click += new System.EventHandler(this.IceChatWikiToolStripMenuItem_Click);
             // 
             // commandsToolStripMenuItem
             // 
@@ -744,7 +743,7 @@ namespace IceChat
             this.commandsToolStripMenuItem.Name = "commandsToolStripMenuItem";
             this.commandsToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.commandsToolStripMenuItem.Text = "Commands";
-            this.commandsToolStripMenuItem.Click += new System.EventHandler(this.commandsToolStripMenuItem_Click);
+            this.commandsToolStripMenuItem.Click += new System.EventHandler(this.CommandsToolStripMenuItem_Click);
             // 
             // aliasesToolStripMenuItem
             // 
@@ -753,7 +752,7 @@ namespace IceChat
             this.aliasesToolStripMenuItem.Name = "aliasesToolStripMenuItem";
             this.aliasesToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.aliasesToolStripMenuItem.Text = "Aliases";
-            this.aliasesToolStripMenuItem.Click += new System.EventHandler(this.aliasesToolStripMenuItem_Click);
+            this.aliasesToolStripMenuItem.Click += new System.EventHandler(this.AliasesToolStripMenuItem_Click);
             // 
             // identifiersToolStripMenuItem
             // 
@@ -762,7 +761,7 @@ namespace IceChat
             this.identifiersToolStripMenuItem.Name = "identifiersToolStripMenuItem";
             this.identifiersToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.identifiersToolStripMenuItem.Text = "Identifiers";
-            this.identifiersToolStripMenuItem.Click += new System.EventHandler(this.identifiersToolStripMenuItem_Click);
+            this.identifiersToolStripMenuItem.Click += new System.EventHandler(this.IdentifiersToolStripMenuItem_Click);
             // 
             // portableToolStripMenuItem
             // 
@@ -771,7 +770,7 @@ namespace IceChat
             this.portableToolStripMenuItem.Name = "portableToolStripMenuItem";
             this.portableToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.portableToolStripMenuItem.Text = "IceChat 9 Portable";
-            this.portableToolStripMenuItem.Click += new System.EventHandler(this.portableToolStripMenuItem_Click);
+            this.portableToolStripMenuItem.Click += new System.EventHandler(this.PortableToolStripMenuItem_Click);
             // 
             // buildFromSourceToolStripMenuItem
             // 
@@ -780,7 +779,7 @@ namespace IceChat
             this.buildFromSourceToolStripMenuItem.Name = "buildFromSourceToolStripMenuItem";
             this.buildFromSourceToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.buildFromSourceToolStripMenuItem.Text = "Build from Source";
-            this.buildFromSourceToolStripMenuItem.Click += new System.EventHandler(this.buildFromSourceToolStripMenuItem_Click);
+            this.buildFromSourceToolStripMenuItem.Click += new System.EventHandler(this.BuildFromSourceToolStripMenuItem_Click);
             // 
             // forumsToolStripMenuItem
             // 
@@ -790,7 +789,7 @@ namespace IceChat
             this.forumsToolStripMenuItem.Name = "forumsToolStripMenuItem";
             this.forumsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.forumsToolStripMenuItem.Text = "IceChat Forums";
-            this.forumsToolStripMenuItem.Click += new System.EventHandler(this.forumsToolStripMenuItem_Click);
+            this.forumsToolStripMenuItem.Click += new System.EventHandler(this.ForumsToolStripMenuItem_Click);
             // 
             // gitHubPageToolStripMenuItem
             // 
@@ -801,7 +800,7 @@ namespace IceChat
             this.gitHubPageToolStripMenuItem.Name = "gitHubPageToolStripMenuItem";
             this.gitHubPageToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.gitHubPageToolStripMenuItem.Text = "IceChat on GitHub";
-            this.gitHubPageToolStripMenuItem.Click += new System.EventHandler(this.gitHubPageToolStripMenuItem_Click);
+            this.gitHubPageToolStripMenuItem.Click += new System.EventHandler(this.GitHubPageToolStripMenuItem_Click);
             // 
             // facebookFanPageToolStripMenuItem
             // 
@@ -811,7 +810,7 @@ namespace IceChat
             this.facebookFanPageToolStripMenuItem.Name = "facebookFanPageToolStripMenuItem";
             this.facebookFanPageToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.facebookFanPageToolStripMenuItem.Text = "Facebook Fan page";
-            this.facebookFanPageToolStripMenuItem.Click += new System.EventHandler(this.facebookFanPageToolStripMenuItem_Click);
+            this.facebookFanPageToolStripMenuItem.Click += new System.EventHandler(this.FacebookFanPageToolStripMenuItem_Click);
             // 
             // downloadPluginsToolStripMenuItem
             // 
@@ -821,7 +820,7 @@ namespace IceChat
             this.downloadPluginsToolStripMenuItem.Name = "downloadPluginsToolStripMenuItem";
             this.downloadPluginsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.downloadPluginsToolStripMenuItem.Text = "Download Plugins";
-            this.downloadPluginsToolStripMenuItem.Click += new System.EventHandler(this.downloadPluginsToolStripMenuItem_Click);
+            this.downloadPluginsToolStripMenuItem.Click += new System.EventHandler(this.DownloadPluginsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -838,7 +837,7 @@ namespace IceChat
             this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
             this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.checkForUpdateToolStripMenuItem.Text = "Check for Update";
-            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdateToolStripMenuItem_Click);
             // 
             // browseDataFolderToolStripMenuItem
             // 
@@ -847,7 +846,7 @@ namespace IceChat
             this.browseDataFolderToolStripMenuItem.Name = "browseDataFolderToolStripMenuItem";
             this.browseDataFolderToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.browseDataFolderToolStripMenuItem.Text = "Browse Data Folder";
-            this.browseDataFolderToolStripMenuItem.Click += new System.EventHandler(this.browseDataFolderToolStripMenuItem_Click);
+            this.browseDataFolderToolStripMenuItem.Click += new System.EventHandler(this.BrowseDataFolderToolStripMenuItem_Click);
             // 
             // browseLogsFolderToolStripMenuItem
             // 
@@ -856,7 +855,7 @@ namespace IceChat
             this.browseLogsFolderToolStripMenuItem.Name = "browseLogsFolderToolStripMenuItem";
             this.browseLogsFolderToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.browseLogsFolderToolStripMenuItem.Text = "Browse Logs Folder";
-            this.browseLogsFolderToolStripMenuItem.Click += new System.EventHandler(this.browseLogsFolderToolStripMenuItem_Click);
+            this.browseLogsFolderToolStripMenuItem.Click += new System.EventHandler(this.BrowseLogsFolderToolStripMenuItem_Click);
             // 
             // browsePluginsFolderToolStripMenuItem
             // 
@@ -865,7 +864,7 @@ namespace IceChat
             this.browsePluginsFolderToolStripMenuItem.Name = "browsePluginsFolderToolStripMenuItem";
             this.browsePluginsFolderToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.browsePluginsFolderToolStripMenuItem.Text = "Browse Plugins Folder";
-            this.browsePluginsFolderToolStripMenuItem.Click += new System.EventHandler(this.browsePluginsFolderToolStripMenuItem_Click);
+            this.browsePluginsFolderToolStripMenuItem.Click += new System.EventHandler(this.BrowsePluginsFolderToolStripMenuItem_Click);
             // 
             // iceChatChannelStripMenuItem
             // 
@@ -874,7 +873,7 @@ namespace IceChat
             this.iceChatChannelStripMenuItem.Name = "iceChatChannelStripMenuItem";
             this.iceChatChannelStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.iceChatChannelStripMenuItem.Text = "Developer Channel";
-            this.iceChatChannelStripMenuItem.Click += new System.EventHandler(this.iceChatChannelStripMenuItem_Click);
+            this.iceChatChannelStripMenuItem.Click += new System.EventHandler(this.IceChatChannelStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -883,7 +882,7 @@ namespace IceChat
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // windowsToolStripMenuItem
             // 
@@ -901,21 +900,21 @@ namespace IceChat
             this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
             this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.cascadeToolStripMenuItem.Text = "Cascade";
-            this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
+            this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.CascadeToolStripMenuItem_Click);
             // 
             // tileHorizontalToolStripMenuItem
             // 
             this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
             this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.tileHorizontalToolStripMenuItem.Text = "Tile Horizontal";
-            this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.tileHorizontalToolStripMenuItem_Click);
+            this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.TileHorizontalToolStripMenuItem_Click);
             // 
             // tileVerticalToolStripMenuItem
             // 
             this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
             this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.tileVerticalToolStripMenuItem.Text = "Tile Vertical";
-            this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.tileVerticalToolStripMenuItem_Click);
+            this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.TileVerticalToolStripMenuItem_Click);
             // 
             // closeWindow
             // 
@@ -927,7 +926,7 @@ namespace IceChat
             this.closeWindow.Size = new System.Drawing.Size(28, 20);
             this.closeWindow.Text = null;
             this.closeWindow.ToolTipText = "Close Current Window";
-            this.closeWindow.Click += new System.EventHandler(this.closeWindow_Click);
+            this.closeWindow.Click += new System.EventHandler(this.CloseWindow_Click);
             // 
             // resizeWindowToolStripMenuItem
             // 
@@ -936,7 +935,7 @@ namespace IceChat
             this.resizeWindowToolStripMenuItem.Name = "resizeWindowToolStripMenuItem";
             this.resizeWindowToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
             this.resizeWindowToolStripMenuItem.ToolTipText = "Resize Current Window";
-            this.resizeWindowToolStripMenuItem.Click += new System.EventHandler(this.resizeWindowToolStripMenuItem_Click);
+            this.resizeWindowToolStripMenuItem.Click += new System.EventHandler(this.ResizeWindowToolStripMenuItem_Click);
             // 
             // updateAvailableToolStripMenuItem1
             // 
@@ -948,7 +947,7 @@ namespace IceChat
             this.updateAvailableToolStripMenuItem1.Size = new System.Drawing.Size(130, 20);
             this.updateAvailableToolStripMenuItem1.Text = "Update Available";
             this.updateAvailableToolStripMenuItem1.Visible = false;
-            this.updateAvailableToolStripMenuItem1.Click += new EventHandler(updateAvailableToolStripMenuItem1_Click);
+            this.updateAvailableToolStripMenuItem1.Click += new EventHandler(UpdateAvailableToolStripMenuItem1_Click);
             // 
             // notifyIcon
             // 
@@ -975,7 +974,7 @@ namespace IceChat
             this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
             this.restoreToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.restoreToolStripMenuItem.Text = "Restore";
-            this.restoreToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click);
+            this.restoreToolStripMenuItem.Click += new System.EventHandler(this.RestoreToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem1
             // 
@@ -984,7 +983,7 @@ namespace IceChat
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
             this.exitToolStripMenuItem1.Size = new System.Drawing.Size(113, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
-            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
+            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitToolStripMenuItem1_Click);
             // 
             // toolStripMain
             // 
@@ -1010,7 +1009,7 @@ namespace IceChat
             this.toolStripMain.Size = new System.Drawing.Size(924, 39);
             this.toolStripMain.TabIndex = 17;
             this.toolStripMain.Text = "toolStripMain";
-            this.toolStripMain.VisibleChanged += new System.EventHandler(this.toolStripMain_VisibleChanged);
+            this.toolStripMain.VisibleChanged += new System.EventHandler(this.ToolStripMain_VisibleChanged);
             // 
             // contextMenuToolBar
             // 
@@ -1024,7 +1023,7 @@ namespace IceChat
             this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
             this.hideToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.hideToolStripMenuItem.Text = "Hide";
-            this.hideToolStripMenuItem.Click += new System.EventHandler(this.hideToolStripMenuItem_Click);
+            this.hideToolStripMenuItem.Click += new System.EventHandler(this.HideToolStripMenuItem_Click);
             // 
             // toolStripQuickConnect
             // 
@@ -1036,7 +1035,7 @@ namespace IceChat
             this.toolStripQuickConnect.Name = "toolStripQuickConnect";
             this.toolStripQuickConnect.Size = new System.Drawing.Size(133, 39);
             this.toolStripQuickConnect.Text = "Quick Connect";
-            this.toolStripQuickConnect.Click += new System.EventHandler(this.toolStripQuickConnect_Click);
+            this.toolStripQuickConnect.Click += new System.EventHandler(this.ToolStripQuickConnect_Click);
             // 
             // toolStripSettings
             // 
@@ -1047,7 +1046,7 @@ namespace IceChat
             this.toolStripSettings.Name = "toolStripSettings";
             this.toolStripSettings.Size = new System.Drawing.Size(95, 36);
             this.toolStripSettings.Text = "Settings";
-            this.toolStripSettings.Click += new System.EventHandler(this.toolStripSettings_Click);
+            this.toolStripSettings.Click += new System.EventHandler(this.ToolStripSettings_Click);
             // 
             // toolStripFonts
             // 
@@ -1058,7 +1057,7 @@ namespace IceChat
             this.toolStripFonts.Name = "toolStripFonts";
             this.toolStripFonts.Size = new System.Drawing.Size(78, 36);
             this.toolStripFonts.Text = "Fonts";
-            this.toolStripFonts.Click += new System.EventHandler(this.toolStripFonts_Click);
+            this.toolStripFonts.Click += new System.EventHandler(this.ToolStripFonts_Click);
             // 
             // toolStripColors
             // 
@@ -1069,7 +1068,7 @@ namespace IceChat
             this.toolStripColors.Name = "toolStripColors";
             this.toolStripColors.Size = new System.Drawing.Size(83, 36);
             this.toolStripColors.Text = "Colors";
-            this.toolStripColors.Click += new System.EventHandler(this.toolStripColors_Click);
+            this.toolStripColors.Click += new System.EventHandler(this.ToolStripColors_Click);
             // 
             // toolStripEditor
             // 
@@ -1080,7 +1079,7 @@ namespace IceChat
             this.toolStripEditor.Name = "toolStripEditor";
             this.toolStripEditor.Size = new System.Drawing.Size(80, 36);
             this.toolStripEditor.Text = "Editor";
-            this.toolStripEditor.Click += new System.EventHandler(this.toolStripEditor_Click);
+            this.toolStripEditor.Click += new System.EventHandler(this.ToolStripEditor_Click);
             // 
             // toolStripAway
             // 
@@ -1092,7 +1091,7 @@ namespace IceChat
             this.toolStripAway.Size = new System.Drawing.Size(102, 36);
             this.toolStripAway.Text = "Set Away";
             this.toolStripAway.ToolTipText = "Set Away";
-            this.toolStripAway.Click += new System.EventHandler(this.toolStripAway_Click);
+            this.toolStripAway.Click += new System.EventHandler(this.ToolStripAway_Click);
             // 
             // toolStripSystemTray
             // 
@@ -1103,7 +1102,7 @@ namespace IceChat
             this.toolStripSystemTray.Name = "toolStripSystemTray";
             this.toolStripSystemTray.Size = new System.Drawing.Size(120, 36);
             this.toolStripSystemTray.Text = "System Tray";
-            this.toolStripSystemTray.Click += new System.EventHandler(this.toolStripSystemTray_Click);
+            this.toolStripSystemTray.Click += new System.EventHandler(this.ToolStripSystemTray_Click);
             // 
             // toolStripUpdate
             // 
@@ -1115,7 +1114,7 @@ namespace IceChat
             this.toolStripUpdate.Name = "toolStripUpdate";
             this.toolStripUpdate.Size = new System.Drawing.Size(149, 36);
             this.toolStripUpdate.Text = "Update Available";
-            this.toolStripUpdate.Click += new System.EventHandler(this.toolStripUpdate_Click);
+            this.toolStripUpdate.Click += new System.EventHandler(this.ToolStripUpdate_Click);
             // 
             // toolStripStatus
             // 
@@ -1158,7 +1157,10 @@ namespace IceChat
             this.inputPanel.Location = new System.Drawing.Point(0, 525);
             this.inputPanel.Margin = new System.Windows.Forms.Padding(4);
             this.inputPanel.Name = "inputPanel";
-            this.inputPanel.Size = new System.Drawing.Size(924, 26);
+            //this.inputPanel.Size = new System.Drawing.Size(924, 26);
+
+            this.inputPanel.Size = new System.Drawing.Size(924, 126);
+
             this.inputPanel.TabIndex = 0;
             //
             // FormMain

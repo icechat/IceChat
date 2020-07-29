@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2011 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Nick Highlite Plugin";
             m_Author = "Snerf";
-            m_Version = "1.3";
+            m_Version = "1.2.1";
         }
 
         //declare the standard methods
@@ -185,7 +185,7 @@ namespace IceChatPlugin
             buttonRemove.TabIndex = 4;
             buttonRemove.Text = "Remove";
             buttonRemove.UseVisualStyleBackColor = true;
-            buttonRemove.Click += new EventHandler(buttonRemove_Click);
+            buttonRemove.Click += new EventHandler(ButtonRemove_Click);
             // 
             // buttonEdit
             // 
@@ -196,7 +196,7 @@ namespace IceChatPlugin
             buttonEdit.TabIndex = 3;
             buttonEdit.Text = "Edit";
             buttonEdit.UseVisualStyleBackColor = true;
-            buttonEdit.Click += new EventHandler(buttonEdit_Click);
+            buttonEdit.Click += new EventHandler(ButtonEdit_Click);
             // 
             // buttonAdd
             // 
@@ -207,7 +207,7 @@ namespace IceChatPlugin
             buttonAdd.TabIndex = 2;
             buttonAdd.Text = "Add";
             buttonAdd.UseVisualStyleBackColor = true;
-            buttonAdd.Click += new EventHandler(buttonAdd_Click);
+            buttonAdd.Click += new EventHandler(ButtonAdd_Click);
             // listHighLite
             // 
             listHighLite.CheckBoxes = true;
@@ -256,12 +256,14 @@ namespace IceChatPlugin
 
             foreach (ListViewItem item in listHighLite.Items)
             {
-                HighLiteItem hli = new HighLiteItem();
-                hli.Match = item.Text;
-                hli.Color = Convert.ToInt32(item.SubItems[1].Text);
-                hli.MatchHost = item.SubItems[2].Text;
+                HighLiteItem hli = new HighLiteItem
+                {
+                    Match = item.Text,
+                    Color = Convert.ToInt32(item.SubItems[1].Text),
+                    MatchHost = item.SubItems[2].Text,
 
-                hli.Enabled = item.Checked;
+                    Enabled = item.Checked
+                };
 
                 iceChatNickHighLites.AddHighLight(hli);
             }
@@ -305,15 +307,16 @@ namespace IceChatPlugin
             textWriter.Dispose();
         }
         
-        private void buttonEdit_Click(object sender, EventArgs e)
+        private void ButtonEdit_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem item in listHighLite.SelectedItems)
             {
-                HighLiteItem hli = new HighLiteItem();
-
-                hli.Match = item.Text;
-                hli.Color = Convert.ToInt32(item.SubItems[1].Text);
-                hli.MatchHost = item.SubItems[2].Text;
+                HighLiteItem hli = new HighLiteItem
+                {
+                    Match = item.Text,
+                    Color = Convert.ToInt32(item.SubItems[1].Text),
+                    MatchHost = item.SubItems[2].Text
+                };
 
                 FormHighLite fi = new FormHighLite(hli, item.Index);
                 fi.SaveHighLite += new FormHighLite.SaveHighLiteDelegate(UpdateHighLite);
@@ -321,7 +324,7 @@ namespace IceChatPlugin
             }
         }
 
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void ButtonAdd_Click(object sender, EventArgs e)
         {
             FormHighLite fi = new FormHighLite(new HighLiteItem(), 0);
             fi.SaveHighLite += new FormHighLite.SaveHighLiteDelegate(SaveNewHighLite);
@@ -329,7 +332,7 @@ namespace IceChatPlugin
 
         }
 
-        private void buttonRemove_Click(object sender, EventArgs e)
+        private void ButtonRemove_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem item in listHighLite.SelectedItems)
             {

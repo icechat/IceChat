@@ -89,13 +89,13 @@
             // buttonUpdate
             // 
             this.buttonUpdate.AutoSize = true;
-            this.buttonUpdate.Location = new System.Drawing.Point(171, 121);
+            this.buttonUpdate.Location = new System.Drawing.Point(172, 121);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(122, 26);
             this.buttonUpdate.TabIndex = 9;
-            this.buttonUpdate.Text = "Update";
+            this.buttonUpdate.Text = "OK";
             this.buttonUpdate.UseVisualStyleBackColor = true;
-            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+            this.buttonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);
             // 
             // checkCTCP
             // 
@@ -143,7 +143,7 @@
             this.Controls.Add(this.labelBuddyNick);
             this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormIgnoreItem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ignore Item";

@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -178,10 +178,12 @@ namespace IceChat
                                 }
                                 else
                                 {
-                                    ChannelSetting cs1 = new ChannelSetting();
-                                    cs1.ChannelName = "Console";
-                                    cs1.NetworkName = "";
-                                    cs1.WindowLocation = this.Location;
+                                    ChannelSetting cs1 = new ChannelSetting
+                                    {
+                                        ChannelName = "Console",
+                                        NetworkName = "",
+                                        WindowLocation = this.Location
+                                    };
                                     if (this.WindowState == FormWindowState.Normal)
                                         cs1.WindowSize = this.Size;
 
@@ -207,10 +209,12 @@ namespace IceChat
                             }
                             else
                             {
-                                ChannelSetting cs1 = new ChannelSetting();
-                                cs1.ChannelName = dockedControl.TabCaption;
-                                cs1.NetworkName = dockedControl.Connection.ServerSetting.NetworkName;
-                                cs1.WindowLocation = this.Location;
+                                ChannelSetting cs1 = new ChannelSetting
+                                {
+                                    ChannelName = dockedControl.TabCaption,
+                                    NetworkName = dockedControl.Connection.ServerSetting.NetworkName,
+                                    WindowLocation = this.Location
+                                };
                                 if (this.WindowState == FormWindowState.Normal)
                                     cs1.WindowSize = this.Size;
 
@@ -384,13 +388,13 @@ namespace IceChat
             set { selectTabActivate = value; }
         }
 
-        private void attachToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AttachToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //re-attach the tab
             FormMain.Instance.ParseOutGoingCommand(dockedControl.Connection, "/attach");
         }
 
-        private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AlwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (alwaysOnTopToolStripMenuItem.Checked)
             {
@@ -407,19 +411,19 @@ namespace IceChat
 
         }
 
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //close this window
             this.Close();
         }
 
-        private void nickListToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NickListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //show or hide the nick list
 
         }
 
-        private void hideToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HideToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menuStrip.Hide();
         }
@@ -451,15 +455,16 @@ namespace IceChat
         /// <returns></returns>
         private static Control CreateControlInstance()
         {
-            TrackBar t = new TrackBar();
-            t.AutoSize = false;
-
-            t.Minimum = 25;
-            t.Maximum = 100;
-            t.SmallChange = 1;
-            t.LargeChange = 5;
-            t.TickStyle = TickStyle.None;
-            t.Value = 100;
+            TrackBar t = new TrackBar
+            {
+                AutoSize = false,
+                Minimum = 25,
+                Maximum = 100,
+                SmallChange = 1,
+                LargeChange = 5,
+                TickStyle = TickStyle.None,
+                Value = 100
+            };
 
             // Add other initialization code here.
             return t;
@@ -478,7 +483,7 @@ namespace IceChat
         {
             base.OnSubscribeControlEvents(control);
             TrackBar trackBar = control as TrackBar;
-            trackBar.ValueChanged += new EventHandler(trackBar_ValueChanged);
+            trackBar.ValueChanged += new EventHandler(TrackBar_ValueChanged);
         }
         /// <summary>
         /// Detach from events.
@@ -488,7 +493,7 @@ namespace IceChat
         {
             base.OnUnsubscribeControlEvents(control);
             TrackBar trackBar = control as TrackBar;
-            trackBar.ValueChanged -= new EventHandler(trackBar_ValueChanged);
+            trackBar.ValueChanged -= new EventHandler(TrackBar_ValueChanged);
         }
         /// <summary>
         /// Routing for event
@@ -496,7 +501,7 @@ namespace IceChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void trackBar_ValueChanged(object sender, EventArgs e)
+        void TrackBar_ValueChanged(object sender, EventArgs e)
         {
             // when the trackbar value changes, fire an event.
             if (this.ValueChanged != null)

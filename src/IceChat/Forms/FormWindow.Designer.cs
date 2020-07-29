@@ -71,14 +71,14 @@
             this.attachToolStripMenuItem.Name = "attachToolStripMenuItem";
             this.attachToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.attachToolStripMenuItem.Text = "Attach";
-            this.attachToolStripMenuItem.Click += new System.EventHandler(this.attachToolStripMenuItem_Click);
+            this.attachToolStripMenuItem.Click += new System.EventHandler(this.AttachToolStripMenuItem_Click);
             // 
             // alwaysOnTopToolStripMenuItem
             // 
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
             this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "Always on top";
-            this.alwaysOnTopToolStripMenuItem.Click += new System.EventHandler(this.alwaysOnTopToolStripMenuItem_Click);
+            this.alwaysOnTopToolStripMenuItem.Click += new System.EventHandler(this.AlwaysOnTopToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -90,7 +90,7 @@
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -106,14 +106,14 @@
             this.nickListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nickListToolStripMenuItem.Text = "Nick list";
             this.nickListToolStripMenuItem.Visible = false;
-            this.nickListToolStripMenuItem.Click += new System.EventHandler(this.nickListToolStripMenuItem_Click);
+            this.nickListToolStripMenuItem.Click += new System.EventHandler(this.NickListToolStripMenuItem_Click);
             // 
             // hideToolStripMenuItem
             // 
             this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
             this.hideToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.hideToolStripMenuItem.Text = "Hide";
-            this.hideToolStripMenuItem.Click += new System.EventHandler(this.hideToolStripMenuItem_Click);
+            this.hideToolStripMenuItem.Click += new System.EventHandler(this.HideToolStripMenuItem_Click);
             // 
             // FormWindow
             // 

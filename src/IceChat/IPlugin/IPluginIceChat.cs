@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ namespace IceChatPlugin
             MessageBox.Show(Name + " Loaded", Name + " " + Author);
         }
 
-        public AppDomain domain { get; set; }
+        public AppDomain Domain { get; set; }
         
         //if the plugin is enabled or disabled
         public bool Enabled { get; set; }

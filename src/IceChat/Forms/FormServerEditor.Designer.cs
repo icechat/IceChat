@@ -56,6 +56,7 @@
             this.labelServerName = new System.Windows.Forms.Label();
             this.labelNickName = new System.Windows.Forms.Label();
             this.tabPageExtra = new System.Windows.Forms.TabPage();
+            this.checkNoColorMode = new System.Windows.Forms.CheckBox();
             this.checkDisableQueries = new System.Windows.Forms.CheckBox();
             this.checkDisableLogging = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -91,8 +92,8 @@
             this.checkAutoJoin = new System.Windows.Forms.CheckBox();
             this.buttonEditAutoJoin = new System.Windows.Forms.Button();
             this.listChannel = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonRemoveAutoJoin = new System.Windows.Forms.Button();
             this.buttonAddAutoJoin = new System.Windows.Forms.Button();
             this.textChannel = new System.Windows.Forms.TextBox();
@@ -105,14 +106,14 @@
             this.buttonClearIgnores = new System.Windows.Forms.Button();
             this.labelIgnoreNote = new System.Windows.Forms.Label();
             this.listIgnore = new System.Windows.Forms.ListView();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            this.columnC = new System.Windows.Forms.ColumnHeader();
-            this.columnP = new System.Windows.Forms.ColumnHeader();
-            this.columnN = new System.Windows.Forms.ColumnHeader();
-            this.columnT = new System.Windows.Forms.ColumnHeader();
-            this.columnI = new System.Windows.Forms.ColumnHeader();
-            this.columnD = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnN = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnT = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnI = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnD = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.checkIgnore = new System.Windows.Forms.CheckBox();
             this.textIgnore = new System.Windows.Forms.TextBox();
             this.labelNickHost = new System.Windows.Forms.Label();
@@ -121,7 +122,7 @@
             this.buttonAddIgnore = new System.Windows.Forms.Button();
             this.tabBuddyList = new System.Windows.Forms.TabPage();
             this.listBuddyList = new System.Windows.Forms.ListView();
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.checkBuddyList = new System.Windows.Forms.CheckBox();
             this.textBuddy = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -199,9 +200,9 @@
             // tabControlSettings
             // 
             this.tabControlSettings.AccessibleDescription = "";
-            this.tabControlSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlSettings.Controls.Add(this.tabPageMain);
             this.tabControlSettings.Controls.Add(this.tabPageExtra);
             this.tabControlSettings.Controls.Add(this.tabPageIRCV3);
@@ -496,6 +497,7 @@
             // tabPageExtra
             // 
             this.tabPageExtra.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageExtra.Controls.Add(this.checkNoColorMode);
             this.tabPageExtra.Controls.Add(this.checkDisableQueries);
             this.tabPageExtra.Controls.Add(this.checkDisableLogging);
             this.tabPageExtra.Controls.Add(this.label13);
@@ -520,6 +522,17 @@
             this.tabPageExtra.TabIndex = 3;
             this.tabPageExtra.Text = "Extra Settings";
             this.tabPageExtra.UseVisualStyleBackColor = true;
+            // 
+            // checkNoColorMode
+            // 
+            this.checkNoColorMode.AutoSize = true;
+            this.checkNoColorMode.Location = new System.Drawing.Point(312, 106);
+            this.checkNoColorMode.Margin = new System.Windows.Forms.Padding(2);
+            this.checkNoColorMode.Name = "checkNoColorMode";
+            this.checkNoColorMode.Size = new System.Drawing.Size(198, 20);
+            this.checkNoColorMode.TabIndex = 72;
+            this.checkNoColorMode.Text = "Disable Colors in Channels";
+            this.checkNoColorMode.UseVisualStyleBackColor = true;
             // 
             // checkDisableQueries
             // 
@@ -697,7 +710,7 @@
             this.tabPageIRCV3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageIRCV3.Size = new System.Drawing.Size(673, 248);
             this.tabPageIRCV3.TabIndex = 10;
-            this.tabPageIRCV3.Text = "IRCv3";
+            this.tabPageIRCV3.Text = "SASL / IRCv3";
             this.tabPageIRCV3.UseVisualStyleBackColor = true;
             // 
             // checkEchoMessage
@@ -834,7 +847,7 @@
             this.buttonMoveDown.TabIndex = 37;
             this.buttonMoveDown.Text = "Move Down";
             this.buttonMoveDown.UseVisualStyleBackColor = true;
-            this.buttonMoveDown.Click += new System.EventHandler(this.buttonMoveDown_Click);
+            this.buttonMoveDown.Click += new System.EventHandler(this.ButtonMoveDown_Click);
             // 
             // buttonMoveUp
             // 
@@ -845,7 +858,7 @@
             this.buttonMoveUp.TabIndex = 36;
             this.buttonMoveUp.Text = "Move Up";
             this.buttonMoveUp.UseVisualStyleBackColor = true;
-            this.buttonMoveUp.Click += new System.EventHandler(this.buttonMoveUp_Click);
+            this.buttonMoveUp.Click += new System.EventHandler(this.ButtonMoveUp_Click);
             // 
             // panel1
             // 
@@ -901,13 +914,13 @@
             this.buttonEditAutoJoin.TabIndex = 31;
             this.buttonEditAutoJoin.Text = "Edit";
             this.buttonEditAutoJoin.UseVisualStyleBackColor = true;
-            this.buttonEditAutoJoin.Click += new System.EventHandler(this.buttonEdit_Click);
+            this.buttonEditAutoJoin.Click += new System.EventHandler(this.ButtonEdit_Click);
             // 
             // listChannel
             // 
-            this.listChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listChannel.CheckBoxes = true;
             this.listChannel.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
@@ -922,7 +935,7 @@
             this.listChannel.TabIndex = 32;
             this.listChannel.UseCompatibleStateImageBehavior = false;
             this.listChannel.View = System.Windows.Forms.View.Details;
-            this.listChannel.DoubleClick += new System.EventHandler(this.listChannel_DoubleClick);
+            this.listChannel.DoubleClick += new System.EventHandler(this.ListChannel_DoubleClick);
             // 
             // columnHeader1
             // 
@@ -943,7 +956,7 @@
             this.buttonRemoveAutoJoin.TabIndex = 30;
             this.buttonRemoveAutoJoin.Text = "Remove";
             this.buttonRemoveAutoJoin.UseVisualStyleBackColor = true;
-            this.buttonRemoveAutoJoin.Click += new System.EventHandler(this.buttonRemove_Click);
+            this.buttonRemoveAutoJoin.Click += new System.EventHandler(this.ButtonRemove_Click);
             // 
             // buttonAddAutoJoin
             // 
@@ -954,7 +967,7 @@
             this.buttonAddAutoJoin.TabIndex = 29;
             this.buttonAddAutoJoin.Text = "Add";
             this.buttonAddAutoJoin.UseVisualStyleBackColor = true;
-            this.buttonAddAutoJoin.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.buttonAddAutoJoin.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // textChannel
             // 
@@ -963,7 +976,7 @@
             this.textChannel.Name = "textChannel";
             this.textChannel.Size = new System.Drawing.Size(301, 23);
             this.textChannel.TabIndex = 26;
-            this.textChannel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textChannel_KeyDown);
+            this.textChannel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextChannel_KeyDown);
             // 
             // labelChannel
             // 
@@ -1050,7 +1063,7 @@
             this.buttonClearIgnores.TabIndex = 43;
             this.buttonClearIgnores.Text = "Clear All";
             this.buttonClearIgnores.UseVisualStyleBackColor = true;
-            this.buttonClearIgnores.Click += new System.EventHandler(this.buttonClearIgnores_Click);
+            this.buttonClearIgnores.Click += new System.EventHandler(this.ButtonClearIgnores_Click);
             // 
             // labelIgnoreNote
             // 
@@ -1082,7 +1095,7 @@
             this.listIgnore.TabIndex = 41;
             this.listIgnore.UseCompatibleStateImageBehavior = false;
             this.listIgnore.View = System.Windows.Forms.View.Details;
-            this.listIgnore.DoubleClick += new System.EventHandler(this.listIgnore_DoubleClick);
+            this.listIgnore.DoubleClick += new System.EventHandler(this.ListIgnore_DoubleClick);
             // 
             // columnHeader3
             // 
@@ -1143,7 +1156,7 @@
             this.textIgnore.Name = "textIgnore";
             this.textIgnore.Size = new System.Drawing.Size(332, 23);
             this.textIgnore.TabIndex = 37;
-            this.textIgnore.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textIgnore_KeyDown);
+            this.textIgnore.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextIgnore_KeyDown);
             // 
             // labelNickHost
             // 
@@ -1164,7 +1177,7 @@
             this.buttonEditIgnore.TabIndex = 40;
             this.buttonEditIgnore.Text = "Edit";
             this.buttonEditIgnore.UseVisualStyleBackColor = true;
-            this.buttonEditIgnore.Click += new System.EventHandler(this.buttonEditIgnore_Click);
+            this.buttonEditIgnore.Click += new System.EventHandler(this.ButtonEditIgnore_Click);
             // 
             // buttonRemoveIgnore
             // 
@@ -1175,7 +1188,7 @@
             this.buttonRemoveIgnore.TabIndex = 39;
             this.buttonRemoveIgnore.Text = "Remove";
             this.buttonRemoveIgnore.UseVisualStyleBackColor = true;
-            this.buttonRemoveIgnore.Click += new System.EventHandler(this.buttonRemoveIgnore_Click);
+            this.buttonRemoveIgnore.Click += new System.EventHandler(this.ButtonRemoveIgnore_Click);
             // 
             // buttonAddIgnore
             // 
@@ -1186,7 +1199,7 @@
             this.buttonAddIgnore.TabIndex = 38;
             this.buttonAddIgnore.Text = "Add";
             this.buttonAddIgnore.UseVisualStyleBackColor = true;
-            this.buttonAddIgnore.Click += new System.EventHandler(this.buttonAddIgnore_Click);
+            this.buttonAddIgnore.Click += new System.EventHandler(this.ButtonAddIgnore_Click);
             // 
             // tabBuddyList
             // 
@@ -1219,7 +1232,7 @@
             this.listBuddyList.TabIndex = 47;
             this.listBuddyList.UseCompatibleStateImageBehavior = false;
             this.listBuddyList.View = System.Windows.Forms.View.Details;
-            this.listBuddyList.DoubleClick += new System.EventHandler(this.listBuddyList_DoubleClick);
+            this.listBuddyList.DoubleClick += new System.EventHandler(this.ListBuddyList_DoubleClick);
             // 
             // columnHeader4
             // 
@@ -1245,7 +1258,7 @@
             this.textBuddy.Name = "textBuddy";
             this.textBuddy.Size = new System.Drawing.Size(238, 23);
             this.textBuddy.TabIndex = 44;
-            this.textBuddy.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBuddy_KeyDown);
+            this.textBuddy.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBuddy_KeyDown);
             // 
             // label4
             // 
@@ -1266,7 +1279,7 @@
             this.buttonEditBuddy.TabIndex = 43;
             this.buttonEditBuddy.Text = "Edit";
             this.buttonEditBuddy.UseVisualStyleBackColor = true;
-            this.buttonEditBuddy.Click += new System.EventHandler(this.buttonEditBuddy_Click);
+            this.buttonEditBuddy.Click += new System.EventHandler(this.ButtonEditBuddy_Click);
             // 
             // buttonRemoveBuddy
             // 
@@ -1277,7 +1290,7 @@
             this.buttonRemoveBuddy.TabIndex = 42;
             this.buttonRemoveBuddy.Text = "Remove";
             this.buttonRemoveBuddy.UseVisualStyleBackColor = true;
-            this.buttonRemoveBuddy.Click += new System.EventHandler(this.buttonRemoveBuddy_Click);
+            this.buttonRemoveBuddy.Click += new System.EventHandler(this.ButtonRemoveBuddy_Click);
             // 
             // buttonAddBuddy
             // 
@@ -1288,7 +1301,7 @@
             this.buttonAddBuddy.TabIndex = 41;
             this.buttonAddBuddy.Text = "Add";
             this.buttonAddBuddy.UseVisualStyleBackColor = true;
-            this.buttonAddBuddy.Click += new System.EventHandler(this.buttonAddBuddy_Click);
+            this.buttonAddBuddy.Click += new System.EventHandler(this.ButtonAddBuddy_Click);
             // 
             // tabPageNotes
             // 
@@ -1401,7 +1414,7 @@
             this.radioSocks5.Location = new System.Drawing.Point(10, 156);
             this.radioSocks5.Margin = new System.Windows.Forms.Padding(2);
             this.radioSocks5.Name = "radioSocks5";
-            this.radioSocks5.Size = new System.Drawing.Size(252, 20);
+            this.radioSocks5.Size = new System.Drawing.Size(251, 20);
             this.radioSocks5.TabIndex = 51;
             this.radioSocks5.TabStop = true;
             this.radioSocks5.Text = "Socks v5 (commonly used by Tor)";
@@ -1795,7 +1808,6 @@
             // buttonDuplicateServer
             // 
             this.buttonDuplicateServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDuplicateServer.BackgroundImage = global::IceChat.Properties.Resources.duplicate;
             this.buttonDuplicateServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonDuplicateServer.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDuplicateServer.Location = new System.Drawing.Point(224, 302);
@@ -1805,12 +1817,11 @@
             this.buttonDuplicateServer.TabIndex = 55;
             this.buttonDuplicateServer.Text = "Duplicate";
             this.buttonDuplicateServer.UseVisualStyleBackColor = true;
-            this.buttonDuplicateServer.Click += new System.EventHandler(this.buttonDuplicateServer_Click);
+            this.buttonDuplicateServer.Click += new System.EventHandler(this.ButtonDuplicateServer_Click);
             // 
             // buttonRemoveServer
             // 
             this.buttonRemoveServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRemoveServer.BackgroundImage = global::IceChat.Properties.Resources.delete;
             this.buttonRemoveServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonRemoveServer.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRemoveServer.Location = new System.Drawing.Point(114, 302);
@@ -1820,44 +1831,41 @@
             this.buttonRemoveServer.TabIndex = 37;
             this.buttonRemoveServer.Text = "Remove";
             this.buttonRemoveServer.UseVisualStyleBackColor = true;
-            this.buttonRemoveServer.Click += new System.EventHandler(this.buttonRemoveServer_Click);
+            this.buttonRemoveServer.Click += new System.EventHandler(this.ButtonRemoveServer_Click);
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.BackgroundImage = global::IceChat.Properties.Resources.cancel;
             this.buttonCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonCancel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCancel.Location = new System.Drawing.Point(578, 302);
+            this.buttonCancel.Location = new System.Drawing.Point(469, 302);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 25);
             this.buttonCancel.TabIndex = 19;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.BackgroundImage = global::IceChat.Properties.Resources.floppy;
             this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSave.Location = new System.Drawing.Point(468, 302);
+            this.buttonSave.Location = new System.Drawing.Point(577, 302);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(100, 25);
             this.buttonSave.TabIndex = 17;
-            this.buttonSave.Text = "Save";
+            this.buttonSave.Text = "OK";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.BackgroundImage = global::IceChat.Properties.Resources.help;
             this.buttonHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonHelp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1868,7 +1876,7 @@
             this.buttonHelp.TabIndex = 56;
             this.buttonHelp.Text = "Help";
             this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            this.buttonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
             // FormServers
             // 
@@ -2074,5 +2082,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox checkUseSASL;
         private System.Windows.Forms.Button buttonHelp;
+        private System.Windows.Forms.CheckBox checkNoColorMode;
     }
 }

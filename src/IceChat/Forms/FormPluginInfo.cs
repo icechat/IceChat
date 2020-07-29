@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,18 +68,18 @@ namespace IceChat
 
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void buttonUnload_Click(object sender, EventArgs e)
+        private void ButtonUnload_Click(object sender, EventArgs e)
         {
             FormMain.Instance.UnloadPlugin(menuItem);
             this.Close();
         }
 
-        private void buttonEnable_Click(object sender, EventArgs e)
+        private void ButtonEnable_Click(object sender, EventArgs e)
         {
             if (this.plugin.Enabled)
                 this.buttonEnable.Text = "Enable";
@@ -101,10 +101,9 @@ namespace IceChat
             this.Close();
         }
 
-        private void buttonSettings_Click(object sender, EventArgs e)
+        private void ButtonSettings_Click(object sender, EventArgs e)
         {
             plugin.ShowSettingsForm();
         }
-
     }
 }

@@ -49,12 +49,21 @@
             this.panelWideText = new System.Windows.Forms.Panel();
             this.textBoxWide = new IceInputBox(this);
             this.panelSend = new System.Windows.Forms.Panel();
+
+            this.panelSearch = new System.Windows.Forms.Panel();
+            this.panelButtons = new System.Windows.Forms.Panel();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            this.searchText = new System.Windows.Forms.TextBox();
+
             this.buttonSend = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
             this.textInput = new IceInputBox(this);
             this.contextHelpMenu.SuspendLayout();
             this.panelWideText.SuspendLayout();
             this.panelSend.SuspendLayout();
+            this.panelButtons.SuspendLayout();
+            this.panelSearch.SuspendLayout();
+
             this.SuspendLayout();
             // 
             // buttonEmoticonPicker
@@ -62,32 +71,32 @@
             this.buttonEmoticonPicker.Dock = System.Windows.Forms.DockStyle.Left;
             this.buttonEmoticonPicker.Location = new System.Drawing.Point(0, 0);
             this.buttonEmoticonPicker.Name = "buttonEmoticonPicker";
-            this.buttonEmoticonPicker.Size = new System.Drawing.Size(28, 94);
+            this.buttonEmoticonPicker.Size = new System.Drawing.Size(28, 28);
             this.buttonEmoticonPicker.TabIndex = 2;
             this.buttonEmoticonPicker.UseVisualStyleBackColor = true;
-            this.buttonEmoticonPicker.Click += new System.EventHandler(this.buttonEmoticonPicker_Click);
+            this.buttonEmoticonPicker.Click += new System.EventHandler(this.ButtonEmoticonPicker_Click);
             // 
             // buttonColorPicker
             // 
             this.buttonColorPicker.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonColorPicker.Location = new System.Drawing.Point(28, 0);
+            this.buttonColorPicker.Location = new System.Drawing.Point(0, 28);
             this.buttonColorPicker.Name = "buttonColorPicker";
-            this.buttonColorPicker.Size = new System.Drawing.Size(28, 94);
+            this.buttonColorPicker.Size = new System.Drawing.Size(28, 28);
             this.buttonColorPicker.TabIndex = 3;
             this.buttonColorPicker.UseVisualStyleBackColor = true;
-            this.buttonColorPicker.Click += new System.EventHandler(this.buttonColorPicker_Click);
+            this.buttonColorPicker.Click += new System.EventHandler(this.ButtonColorPicker_Click);
             // 
             // buttonHelp
             // 
             this.buttonHelp.Dock = System.Windows.Forms.DockStyle.Left;
             this.buttonHelp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHelp.Location = new System.Drawing.Point(56, 0);
+            this.buttonHelp.Location = new System.Drawing.Point(0, 56);
             this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(28, 94);
+            this.buttonHelp.Size = new System.Drawing.Size(28, 28);
             this.buttonHelp.TabIndex = 5;
             this.buttonHelp.Text = "?";
             this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonHelp_MouseDown);
+            this.buttonHelp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonHelp_MouseDown);
             // 
             // contextHelpMenu
             // 
@@ -117,7 +126,7 @@
             this.toolStripMenuItem1.Size = new System.Drawing.Size(266, 22);
             this.toolStripMenuItem1.Tag = "/nick $?=\'Choose new Nick name\'";
             this.toolStripMenuItem1.Text = "Change Your Nick name";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem2
             // 
@@ -125,7 +134,7 @@
             this.toolStripMenuItem2.Size = new System.Drawing.Size(266, 22);
             this.toolStripMenuItem2.Tag = "/msg $?=\'Insert Nick name\' message";
             this.toolStripMenuItem2.Text = "Send a private message to some one";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem4
             // 
@@ -133,7 +142,7 @@
             this.toolStripMenuItem4.Size = new System.Drawing.Size(266, 22);
             this.toolStripMenuItem4.Tag = "/whois $?=\'Insert Nick name\'";
             this.toolStripMenuItem4.Text = "Perform a whois";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem5
             // 
@@ -141,7 +150,7 @@
             this.toolStripMenuItem5.Size = new System.Drawing.Size(266, 22);
             this.toolStripMenuItem5.Tag = "/ping $?=\'Insert Nick name\'";
             this.toolStripMenuItem5.Text = "Ping some one";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // menuChannel
             // 
@@ -159,7 +168,7 @@
             this.toolStripMenuItem6.Size = new System.Drawing.Size(158, 22);
             this.toolStripMenuItem6.Tag = "/join $?=\'Insert Channel name\'";
             this.toolStripMenuItem6.Text = "Join a channel";
-            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem6.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem7
             // 
@@ -167,7 +176,7 @@
             this.toolStripMenuItem7.Size = new System.Drawing.Size(158, 22);
             this.toolStripMenuItem7.Tag = "/part";
             this.toolStripMenuItem7.Text = "Leave a channel";
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem7.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem8
             // 
@@ -175,7 +184,7 @@
             this.toolStripMenuItem8.Size = new System.Drawing.Size(158, 22);
             this.toolStripMenuItem8.Tag = "/me action";
             this.toolStripMenuItem8.Text = "Send an action";
-            this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem8.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // menuServer
             // 
@@ -192,7 +201,7 @@
             this.toolStripMenuItem9.Size = new System.Drawing.Size(176, 22);
             this.toolStripMenuItem9.Tag = "/server $?=\'Insert Server name\'";
             this.toolStripMenuItem9.Text = "Connect to a server";
-            this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem9.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem10
             // 
@@ -200,7 +209,7 @@
             this.toolStripMenuItem10.Size = new System.Drawing.Size(176, 22);
             this.toolStripMenuItem10.Tag = "/quit";
             this.toolStripMenuItem10.Text = "Quit a server";
-            this.toolStripMenuItem10.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem10.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // toolStripMenuItem3
             // 
@@ -208,7 +217,7 @@
             this.toolStripMenuItem3.Size = new System.Drawing.Size(193, 22);
             this.toolStripMenuItem3.Tag = "/help";
             this.toolStripMenuItem3.Text = "Get More Help";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripHelpMenuOnClick);
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.ToolStripHelpMenuOnClick);
             // 
             // panelWideText
             // 
@@ -251,7 +260,7 @@
             this.buttonSend.TabIndex = 3;
             this.buttonSend.Text = "Send";
             this.buttonSend.UseVisualStyleBackColor = true;
-            this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
+            this.buttonSend.Click += new System.EventHandler(this.ButtonSend_Click);
             // 
             // buttonReset
             // 
@@ -263,7 +272,7 @@
             this.buttonReset.TabIndex = 8;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = true;
-            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            this.buttonReset.Click += new System.EventHandler(this.ButtonReset_Click);
             // 
             // textInput
             // 
@@ -280,20 +289,63 @@
             // 
             // InputPanel
             // 
+            // searchPanel
+            // buttonsPanel
+            this.panelSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSearch.Height = 20;
+            this.panelSearch.BackColor = System.Drawing.Color.White;
+            this.panelSearch.Visible = false;
+
+            this.searchText.Text = "Search Text Here";
+            this.searchText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchText.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.searchText.Margin = new System.Windows.Forms.Padding(0);            
+
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonSearch.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Size = new System.Drawing.Size(72, 71);
+            this.buttonSearch.Visible = false;
+
+            this.panelSearch.Controls.Add(searchText);
+           // this.panelSearch.Controls.Add(buttonSearch);
+
+            this.panelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelButtons.Size = new System.Drawing.Size(631, 94);
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.textInput);
-            this.Controls.Add(this.panelWideText);
-            this.Controls.Add(this.panelSend);
-            this.Controls.Add(this.buttonHelp);
-            this.Controls.Add(this.buttonColorPicker);
-            this.Controls.Add(this.buttonEmoticonPicker);
+
+            this.panelButtons.Controls.Add(this.textInput);
+            this.panelButtons.Controls.Add(this.panelWideText);
+            this.panelButtons.Controls.Add(this.panelSend);
+
+            this.panelAddButtons = new System.Windows.Forms.Panel();
+            this.panelAddButtons.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelAddButtons.Size = new System.Drawing.Size(100,10);
+            this.panelAddButtons.Location = new System.Drawing.Point(0, 0);
+
+            this.panelAddButtons.Controls.Add(this.buttonHelp);
+            this.panelAddButtons.Controls.Add(this.buttonColorPicker);
+            this.panelAddButtons.Controls.Add(this.buttonEmoticonPicker);
+
+            this.panelButtons.Controls.Add(panelAddButtons);
+            
+
+            this.Controls.Add(panelButtons);
+            this.Controls.Add(panelSearch);
+
             this.Name = "InputPanel";
-            this.Size = new System.Drawing.Size(631, 94);
+
             this.contextHelpMenu.ResumeLayout(false);
             this.panelWideText.ResumeLayout(false);
             this.panelWideText.PerformLayout();
             this.panelSend.ResumeLayout(false);
+            this.panelButtons.ResumeLayout(false);
+            this.panelSearch.ResumeLayout(false);
+
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,9 +372,19 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
         private System.Windows.Forms.Panel panelWideText;
+
+        private System.Windows.Forms.Panel panelSearch;
+        private System.Windows.Forms.Panel panelButtons;
+
+        private System.Windows.Forms.Panel panelAddButtons;
+
+        private System.Windows.Forms.TextBox searchText;
         private IceInputBox textBoxWide;
+
         private System.Windows.Forms.Panel panelSend;
+
         private System.Windows.Forms.Button buttonSend;
         private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }

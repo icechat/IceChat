@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -212,9 +212,11 @@ namespace IceChat
                 // have the ability for the plugin processor to intercept this
                 string data = Clipboard.GetText(TextDataFormat.UnicodeText);
 
-                PluginArgs args = new PluginArgs(FormMain.Instance.InputPanel.CurrentConnection);
-                args.Extra = this.Text;
-                args.Message = data;    // add the clipboard data to the clipboard
+                PluginArgs args = new PluginArgs(FormMain.Instance.InputPanel.CurrentConnection)
+                {
+                    Extra = this.Text,
+                    Message = data    // add the clipboard data to the clipboard
+                };
 
                 foreach (Plugin p in FormMain.Instance.LoadedPlugins)
                 {
@@ -222,7 +224,7 @@ namespace IceChat
                     if (ipc != null)
                     {
                         if (ipc.plugin.Enabled == true)
-                            args = ipc.plugin.HotKey(args, new KeyEventArgs(Keys.Control | Keys.V) );
+                            args = ipc.plugin.HotKey(args, new KeyEventArgs(Keys.Control | Keys.V));
 
                     }
                 }
@@ -322,9 +324,11 @@ namespace IceChat
                         {
                             if (u.NickName.Substring(0, _partialNick.Length).ToLower() == _partialNick.ToLower())
                             {
-                                NickList.Nick n = new NickList.Nick();
-                                n.nick = u.NickName;
-                                n.Level = u.Level;
+                                NickList.Nick n = new NickList.Nick
+                                {
+                                    nick = u.NickName,
+                                    Level = u.Level
+                                };
                                 _nickCompleteNames.Add(n);
                             }
                         }
@@ -470,7 +474,8 @@ namespace IceChat
                     }
                     else if (e.KeyCode == Keys.F)
                     {
-                        FormMain.Instance.fontSettingsToolStripMenuItem.PerformClick();
+                        // search for text
+                        System.Diagnostics.Debug.WriteLine("Search for Text:CTRL-F");
                         e.Handled = true;
                     }
                     else if (e.KeyCode == Keys.G)
@@ -569,7 +574,7 @@ namespace IceChat
                             {
                                 if (parent.CurrentHistoryItem == parent.Buffer.Count - 1 && base.Text.Trim().Length > 0)
                                 {
-                                    addToBuffer(base.Text);
+                                    AddToBuffer(base.Text);
                                     parent.CurrentHistoryItem--;
                                 }
 
@@ -588,7 +593,7 @@ namespace IceChat
                             if (parent.CurrentHistoryItem >= parent.Buffer.Count - 1)
                             {
                                 if (base.Text.Trim().Length > 0)
-                                    addToBuffer(base.Text);
+                                    AddToBuffer(base.Text);
 
                                 parent.CurrentHistoryItem = parent.Buffer.Count - 1;
                                 base.Text = "";
@@ -659,7 +664,7 @@ namespace IceChat
                         {
                             if (parent.CurrentHistoryItem == parent.Buffer.Count - 1 && base.Text.Trim().Length > 0)
                             {
-                                addToBuffer(base.Text);
+                                AddToBuffer(base.Text);
                                 parent.CurrentHistoryItem--;
                             }
 
@@ -677,7 +682,7 @@ namespace IceChat
                         if (parent.CurrentHistoryItem >= parent.Buffer.Count - 1)
                         {
                             if (base.Text.Trim().Length > 0)
-                                addToBuffer(base.Text);
+                                AddToBuffer(base.Text);
 
                             parent.CurrentHistoryItem = parent.Buffer.Count - 1;
                             base.Text = "";
@@ -737,6 +742,8 @@ namespace IceChat
                 if (e.KeyCode == Keys.F3 && e.Modifiers != Keys.Control && e.Modifiers != Keys.Alt)
                 {
                     // searching!
+                    System.Diagnostics.Debug.WriteLine("Search for Text:F3");
+
                     e.Handled = true;
                 }
 
@@ -817,7 +824,7 @@ namespace IceChat
                     }
 
                     //add the text to the _buffer
-                    addToBuffer(command);
+                    AddToBuffer(command);
 
                     //fire event for server command
                     if (OnCommand != null)
@@ -844,7 +851,7 @@ namespace IceChat
             }
         }
 
-        internal void addToBuffer(string data)
+        internal void AddToBuffer(string data)
         {
             //add text to back _buffer
             if (data.Length == 0) return;

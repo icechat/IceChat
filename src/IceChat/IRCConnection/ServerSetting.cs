@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -96,9 +96,11 @@ namespace IceChat
                 }
                 else
                 {
-                    Variable item = new Variable();
-                    item.name = name;
-                    item.value = value;
+                    Variable item = new Variable
+                    {
+                        name = name,
+                        value = value
+                    };
 
                     //is this really necessary ?
                     int result;
@@ -106,7 +108,7 @@ namespace IceChat
                         item.type = typeof(int);
                     else
                         item.type = typeof(string);
-                    
+
                     _variables.Add(item);
                 }
             }
@@ -348,7 +350,6 @@ namespace IceChat
 
     }
 
-
     public class ServerSetting
     {
         //set the default values (only for specific settings)
@@ -372,7 +373,7 @@ namespace IceChat
 
         private string _fullName = "The Chat Cool People Use";
         private string _quitMessage = "$randquit";
-        private string _identName = "IceChat9";
+        private string _identName = "IceChat95";
 
         private Variables _variables = new Variables();
         private Dictionary<string, string> _channelJoins = new Dictionary<string,string>();
@@ -617,6 +618,10 @@ namespace IceChat
 
         [XmlElement("DisableQueries")]
         public bool DisableQueries
+        { get; set; }
+
+        [XmlElement("NoColorMode")]
+        public bool NoColorMode
         { get; set; }
 
 

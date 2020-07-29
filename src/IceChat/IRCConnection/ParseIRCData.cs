@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -154,7 +154,10 @@ namespace IceChat
                 string msg;                
                 string tempValue;
                 bool check;
-                string serverTimeValue = "";                
+                string serverTimeValue = "";
+
+                //System.Diagnostics.Debug.WriteLine(data);
+
 
                 if (RawServerIncomingDataOverRide != null)
                     data = RawServerIncomingDataOverRide(this, data);
@@ -770,6 +773,10 @@ namespace IceChat
                         case "329":     //channel creation time
                             channel = ircData[3];
                             DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+
+                            //System.Diagnostics.Debug.WriteLine("329-time=" + ircData[4]);
+                            //System.Diagnostics.Debug.WriteLine(data);
+
                             date = date.AddSeconds(Convert.ToDouble(RemoveColon(ircData[4])));
                             msg = "Channel Created on: " + date.ToShortTimeString() + " " + date.ToShortDateString();
                             GenericChannelMessage(this, channel, msg, serverTimeValue);
@@ -790,7 +797,12 @@ namespace IceChat
                             channel = ircData[3];
                             nick = ircData[4];
                             DateTime date2 = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                            date2 = date2.AddSeconds(Convert.ToDouble(ircData[5]));
+                            // is ircdata[5] the time?
+                            // 1580099515
+                            //System.Diagnostics.Debug.WriteLine("333-time=" + ircData[5]);
+                            //System.Diagnostics.Debug.WriteLine(data);
+
+                            date2 = date2.AddSeconds(Convert.ToDouble( RemoveColon(ircData[5])));
 
                             check = ChannelInfoWindowExists(this, channel);
                             if (check)
@@ -806,6 +818,15 @@ namespace IceChat
                             break;
                         case "343":
                             ServerMessage(this, JoinString(ircData, 3, false), serverTimeValue);
+                            break;
+                        case "344": // whois data
+                            nick = ircData[3];
+                            check = UserInfoWindowExists(this, nick);
+                            if (check)
+                                return;
+                            msg = JoinString(ircData, 5, true);
+                            WhoisData(this, ircData[3], msg, serverTimeValue);
+
                             break;
                         case "348": //channel exception list
                             channel = ircData[3];
@@ -1001,8 +1022,7 @@ namespace IceChat
                                 commandQueue.Clear();
                                 motd = 19
                                     ;
-                                if (ServerFullyConnected != null)
-                                    ServerFullyConnected(this);
+                                ServerFullyConnected(this);
                                 motd = 20;
                             }
                             catch(Exception exx)
@@ -1071,11 +1091,11 @@ namespace IceChat
                                                 if (CheckIgnoreList(nick, host, IgnoreListType.DCC) == true) return;                                                 
                                                 
                                                 msg = msg.Substring(8).Trim();
-                                                System.Diagnostics.Debug.WriteLine("PRIVMSG:" + msg);
+                                                //System.Diagnostics.Debug.WriteLine("PRIVMSG:" + msg);
 
                                                 string[] dccData = msg.Split(' ');
                                                 //sometimes the filenames can be include in quotes
-                                                System.Diagnostics.Debug.WriteLine("length:" + dccData.Length);
+                                                //System.Diagnostics.Debug.WriteLine("length:" + dccData.Length);
                                                 //PRIVMSG Snerf :DCC SEND serial.txt 1614209982 20052 71
 
                                                 if (dccData.Length > 4)
@@ -1104,7 +1124,7 @@ namespace IceChat
                                                             string[] words = msg.Split('"');
                                                             if (words.Length == 3)
                                                                 file = words[1];
-                                                            System.Diagnostics.Debug.WriteLine(words.Length);
+                                                            //System.Diagnostics.Debug.WriteLine(words.Length);
                                                             foreach (string w in words)
                                                             {
                                                                 System.Diagnostics.Debug.WriteLine(w);

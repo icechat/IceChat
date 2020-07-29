@@ -1,0 +1,7 @@
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\Blank Plugin\bin\Release\DefaultPlugin.dll.config
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\Blank Plugin\bin\Release\DefaultPlugin.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\Blank Plugin\bin\Release\DefaultPlugin.pdb
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\Blank Plugin\obj\Release\DefaultPlugin.csprojResolveAssemblyReference.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\Blank Plugin\obj\Release\DefaultPlugin.csproj.CoreCompileInputs.cache
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\Blank Plugin\obj\Release\DefaultPlugin.dll
+D:\Programming\IceChat2009\IceChat 9\IceChat 9.50\src\Plugins\Blank Plugin\obj\Release\DefaultPlugin.pdb

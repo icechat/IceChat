@@ -111,9 +111,9 @@
             // 
             // listChannels
             // 
-            this.listChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listChannels.FormattingEnabled = true;
             this.listChannels.ItemHeight = 16;
             this.listChannels.Location = new System.Drawing.Point(12, 268);
@@ -125,21 +125,20 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.AutoSize = true;
-            this.buttonClose.BackgroundImage = global::IceChat.Properties.Resources.cancel;
             this.buttonClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonClose.Location = new System.Drawing.Point(321, 538);
             this.buttonClose.Margin = new System.Windows.Forms.Padding(4);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(100, 26);
             this.buttonClose.TabIndex = 10;
-            this.buttonClose.Text = "Close";
+            this.buttonClose.Text = "OK";
             this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // textNick
             // 
-            this.textNick.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textNick.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textNick.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textNick.Location = new System.Drawing.Point(144, 6);
             this.textNick.Name = "textNick";
@@ -149,8 +148,8 @@
             // 
             // textHost
             // 
-            this.textHost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textHost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textHost.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textHost.Location = new System.Drawing.Point(144, 35);
             this.textHost.Name = "textHost";
@@ -160,8 +159,8 @@
             // 
             // textFullName
             // 
-            this.textFullName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textFullName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textFullName.Location = new System.Drawing.Point(144, 93);
             this.textFullName.Name = "textFullName";
             this.textFullName.ReadOnly = true;
@@ -170,8 +169,8 @@
             // 
             // textIdleTime
             // 
-            this.textIdleTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textIdleTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textIdleTime.Location = new System.Drawing.Point(144, 122);
             this.textIdleTime.Name = "textIdleTime";
             this.textIdleTime.ReadOnly = true;
@@ -180,8 +179,8 @@
             // 
             // textLogonTime
             // 
-            this.textLogonTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textLogonTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textLogonTime.Location = new System.Drawing.Point(144, 180);
             this.textLogonTime.Name = "textLogonTime";
             this.textLogonTime.ReadOnly = true;
@@ -199,8 +198,8 @@
             // 
             // textAwayStatus
             // 
-            this.textAwayStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textAwayStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textAwayStatus.Location = new System.Drawing.Point(144, 209);
             this.textAwayStatus.Name = "textAwayStatus";
             this.textAwayStatus.ReadOnly = true;
@@ -218,8 +217,8 @@
             // 
             // textServer
             // 
-            this.textServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textServer.Location = new System.Drawing.Point(144, 151);
             this.textServer.Name = "textServer";
             this.textServer.ReadOnly = true;
@@ -237,8 +236,8 @@
             // 
             // textCtcpReply
             // 
-            this.textCtcpReply.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textCtcpReply.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textCtcpReply.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textCtcpReply.Location = new System.Drawing.Point(144, 508);
             this.textCtcpReply.Name = "textCtcpReply";
@@ -256,7 +255,7 @@
             this.buttonPing.TabIndex = 23;
             this.buttonPing.Text = "Ping";
             this.buttonPing.UseVisualStyleBackColor = true;
-            this.buttonPing.Click += new System.EventHandler(this.buttonPing_Click);
+            this.buttonPing.Click += new System.EventHandler(this.ButtonPing_Click);
             // 
             // buttonVersion
             // 
@@ -268,12 +267,12 @@
             this.buttonVersion.TabIndex = 24;
             this.buttonVersion.Text = "Version";
             this.buttonVersion.UseVisualStyleBackColor = true;
-            this.buttonVersion.Click += new System.EventHandler(this.buttonVersion_Click);
+            this.buttonVersion.Click += new System.EventHandler(this.ButtonVersion_Click);
             // 
             // textLoggedIn
             // 
-            this.textLoggedIn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textLoggedIn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textLoggedIn.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textLoggedIn.Location = new System.Drawing.Point(144, 64);
             this.textLoggedIn.Name = "textLoggedIn";
@@ -301,14 +300,14 @@
             // 
             // textSendMessage
             // 
-            this.textSendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textSendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textSendMessage.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textSendMessage.Location = new System.Drawing.Point(144, 469);
             this.textSendMessage.Name = "textSendMessage";
             this.textSendMessage.Size = new System.Drawing.Size(275, 22);
             this.textSendMessage.TabIndex = 28;
-            this.textSendMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSendMessage_KeyPress);
+            this.textSendMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextSendMessage_KeyPress);
             // 
             // FormUserInfo
             // 

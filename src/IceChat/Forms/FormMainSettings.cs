@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,8 +44,10 @@ namespace IceChat
     {
         private void LoadDefaultMessageSettings()
         {
-            IceChatMessageFormat oldMessage = new IceChatMessageFormat();
-            oldMessage.MessageSettings = new ServerMessageFormatItem[49];
+            IceChatMessageFormat oldMessage = new IceChatMessageFormat
+            {
+                MessageSettings = new ServerMessageFormatItem[49]
+            };
 
             if (iceChatMessages.MessageSettings != null)
                 iceChatMessages.MessageSettings.CopyTo(oldMessage.MessageSettings, 0);
@@ -264,8 +266,10 @@ namespace IceChat
 
         private void LoadDefaultFontSettings()
         {
-            IceChatFontSetting oldFonts = new IceChatFontSetting();
-            oldFonts.FontSettings = new FontSettingItem[9];
+            IceChatFontSetting oldFonts = new IceChatFontSetting
+            {
+                FontSettings = new FontSettingItem[9]
+            };
 
             if (iceChatFonts.FontSettings != null)
             {
@@ -329,18 +333,22 @@ namespace IceChat
 
         private ServerMessageFormatItem NewMessageFormat(string messageName, string message)
         {
-            ServerMessageFormatItem m = new ServerMessageFormatItem();
-            m.MessageName = messageName;
-            m.FormattedMessage = message;
+            ServerMessageFormatItem m = new ServerMessageFormatItem
+            {
+                MessageName = messageName,
+                FormattedMessage = message
+            };
             return m;
         }
 
         private FontSettingItem NewFontSetting(string windowType, string fontName, int fontSize)
         {
-            FontSettingItem f = new FontSettingItem();
-            f.WindowType = windowType;
-            f.FontName = fontName;
-            f.FontSize = fontSize;
+            FontSettingItem f = new FontSettingItem
+            {
+                WindowType = windowType,
+                FontName = fontName,
+                FontSize = fontSize
+            };
             return f;
         }
 
@@ -414,31 +422,40 @@ namespace IceChat
 
         internal void SaveChannelSettings()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(ChannelSettings));
-            TextWriter textWriter = new StreamWriter(channelSettingsFile);
-            serializer.Serialize(textWriter, channelSettings);
-            textWriter.Close();
-            textWriter.Dispose();
+            // check if file is being used
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(ChannelSettings));
+                TextWriter textWriter = new StreamWriter(channelSettingsFile);
+                serializer.Serialize(textWriter, channelSettings);
+                textWriter.Close();
+                textWriter.Dispose();
+            } 
+            catch(Exception)
+            {
+                // ignore it
+            }
         }
 
         private void LoadAliases()
         {
+
             if (File.Exists(aliasesFile))
             {
-                XmlTextReader textReader = null;
                 XmlSerializer deserializer = new XmlSerializer(typeof(IceChatAliases));
+                TextReader textReader = null;
 
                 try
                 {
-                    textReader = new XmlTextReader(aliasesFile);
+                    textReader = new StreamReader(aliasesFile);
                     iceChatAliases = (IceChatAliases)deserializer.Deserialize(textReader);
+                    
                     textReader.Close();
                 }
                 catch (Exception)
                 {
                     if (textReader != null)
                         textReader.Close();
-
 
                     errorMessages.Add("There was a problem loading IceChatAliases.xml. Default aliases loaded");
                     iceChatAliases = new IceChatAliases();
@@ -463,6 +480,7 @@ namespace IceChat
 
         private void LoadPluginFiles()
         {
+
             if (File.Exists(pluginsFile))
             {
                 XmlTextReader textReader = null;

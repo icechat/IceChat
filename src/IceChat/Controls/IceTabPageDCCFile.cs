@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,120 +49,151 @@ namespace IceChat
 
         private void InitializeComponent()
         {
-            this.dccFileList = new FlickerFreeListView();
+            this.dccFileList = new FlickerFreeListView
+            {
+                Dock = DockStyle.Fill,
+                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                View = View.Details,
+                ShowItemToolTips = true,
+                MultiSelect = false,
+                FullRowSelect = true,
+                HideSelection = false
+            };
+
             this.dccFileList.SuspendLayout();
             this.SuspendLayout();
-            
-            Panel dccPanel = new Panel();
-            dccPanel.BackColor = Color.LightGray;
-            dccPanel.Size = new Size(this.Width, 45);
-            dccPanel.Dock = DockStyle.Bottom;
 
-            Button dccCancel = new Button();
-            dccCancel.Name = "dccCancel";
-            dccCancel.Click += new EventHandler(dccCancel_Click);
-            dccCancel.Location = new Point(5, 5);
-            dccCancel.Size = new Size(100, 35);
-            dccCancel.Text = "Cancel";
-            dccCancel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dccCancel.UseVisualStyleBackColor = true;
+            Panel dccPanel = new Panel
+            {
+                BackColor = Color.LightGray,
+                Size = new Size(this.Width, 45),
+                Dock = DockStyle.Bottom
+            };
+
+            Button dccCancel = new Button
+            {
+                Name = "dccCancel",
+                Location = new Point(5, 5),
+                Size = new Size(100, 35),
+                Text = "Cancel",
+                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                UseVisualStyleBackColor = true
+            };
+            dccCancel.Click += new EventHandler(DccCancel_Click);
             dccPanel.Controls.Add(dccCancel);
 
-            Button dccOpen = new Button();
-            dccOpen.Name = "dccOpen";
-            dccOpen.Click += new EventHandler(dccOpen_Click);
-            dccOpen.Location = new Point(110, 5);
-            dccOpen.Size = new Size(100, 35);
-            dccOpen.Text = "Open Folder";
-            dccOpen.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dccOpen.UseVisualStyleBackColor = true;
+            Button dccOpen = new Button
+            {
+                Name = "dccOpen",
+                Location = new Point(110, 5),
+                Size = new Size(100, 35),
+                Text = "Open Folder",
+                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                UseVisualStyleBackColor = true
+            };
+            dccOpen.Click += new EventHandler(DccOpen_Click);
             dccPanel.Controls.Add(dccOpen);
 
-            Button dccRemove = new Button();
-            dccRemove.Name = "dccRemove";
-            dccRemove.Click += new EventHandler(dccRemove_Click);
-            dccRemove.Location = new Point(220, 5);
-            dccRemove.Size = new Size(100, 35);
-            dccRemove.Text = "Remove";
-            dccRemove.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dccRemove.UseVisualStyleBackColor = true;
+            Button dccRemove = new Button
+            {
+                Name = "dccRemove",
+                Location = new Point(220, 5),
+                Size = new Size(100, 35),
+                Text = "Remove",
+                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                UseVisualStyleBackColor = true
+            };
+            dccRemove.Click += new EventHandler(DccRemove_Click);
             dccPanel.Controls.Add(dccRemove);
 
-            Button dccResend = new Button();
-            dccResend.Name = "dccResend";
-            dccResend.Click += new EventHandler(dccResend_Click);
-            dccResend.Location = new Point(330, 5);
-            dccResend.Size = new Size(100, 35);
-            dccResend.Text = "Resend";
-            dccResend.Visible = false;
-            dccResend.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dccResend.UseVisualStyleBackColor = true;
+            Button dccResend = new Button
+            {
+                Name = "dccResend",
+                Location = new Point(330, 5),
+                Size = new Size(100, 35),
+                Text = "Resend",
+                Visible = false,
+                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                UseVisualStyleBackColor = true
+            };
+            dccResend.Click += new EventHandler(DccResend_Click);
             dccPanel.Controls.Add(dccResend);
 
 
-            this.dccFileList.Dock = DockStyle.Fill;
-            this.dccFileList.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dccFileList.View = View.Details;
-            this.dccFileList.ShowItemToolTips = true;
-            this.dccFileList.MultiSelect = false;
-            this.dccFileList.FullRowSelect = true;
-            this.dccFileList.HideSelection = false;
-            this.dccFileList.DoubleClick += new EventHandler(dccFileList_DoubleClick);
+            this.dccFileList.DoubleClick += new EventHandler(DccFileList_DoubleClick);
 
-            ColumnHeader fn = new ColumnHeader();
-            fn.Text = "File Name";
-            fn.Width = 200;
+            ColumnHeader fn = new ColumnHeader
+            {
+                Text = "File Name",
+                Width = 200
+            };
             fn.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             this.dccFileList.Columns.Add(fn);
 
-            ColumnHeader n = new ColumnHeader();
-            n.Text = "Nick";
-            n.Width = 80;
+            ColumnHeader n = new ColumnHeader
+            {
+                Text = "Nick",
+                Width = 80
+            };
             this.dccFileList.Columns.Add(n);
 
-            ColumnHeader fs = new ColumnHeader();
-            fs.Text = "File Size";
-            fs.Width = 200;
+            ColumnHeader fs = new ColumnHeader
+            {
+                Text = "File Size",
+                Width = 200
+            };
             this.dccFileList.Columns.Add(fs);
 
-            ColumnHeader sp = new ColumnHeader();
-            sp.Text = "Speed";
-            sp.Width = 100;
+            ColumnHeader sp = new ColumnHeader
+            {
+                Text = "Speed",
+                Width = 100
+            };
             this.dccFileList.Columns.Add(sp);
 
-            ColumnHeader el = new ColumnHeader();
-            el.Text = "Elapsed";
-            el.Width = 100;
+            ColumnHeader el = new ColumnHeader
+            {
+                Text = "Elapsed",
+                Width = 100
+            };
             this.dccFileList.Columns.Add(el);
 
-            ColumnHeader s = new ColumnHeader();
-            s.Text = "Status";
-            s.Width = 100;
+            ColumnHeader s = new ColumnHeader
+            {
+                Text = "Status",
+                Width = 100
+            };
             s.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             this.dccFileList.Columns.Add(s);
 
 
             //store the dcc file style (upload/download)
-            ColumnHeader st = new ColumnHeader();
-            st.Text = "Style";
-            st.Width = 0;
+            ColumnHeader st = new ColumnHeader
+            {
+                Text = "Style",
+                Width = 0
+            };
             st.AutoResize(ColumnHeaderAutoResizeStyle.None);
             this.dccFileList.Columns.Add(st);
             this.dccFileList.Columns[6].Width = 0;
 
             //store the server id of the connection
-            ColumnHeader sid = new ColumnHeader();
-            sid.Text = "ServerID";
-            sid.Width = 0;
+            ColumnHeader sid = new ColumnHeader
+            {
+                Text = "ServerID",
+                Width = 0
+            };
             sid.AutoResize(ColumnHeaderAutoResizeStyle.None);
             this.dccFileList.Columns.Add(sid);
             this.dccFileList.Columns[7].Width = 0;
 
 
             //store the path/folder for the dcc file
-            ColumnHeader pa = new ColumnHeader();
-            pa.Text = "Path";
-            pa.Width = 0;
+            ColumnHeader pa = new ColumnHeader
+            {
+                Text = "Path",
+                Width = 0
+            };
             pa.AutoResize(ColumnHeaderAutoResizeStyle.None);
             this.dccFileList.Columns.Add(pa);
             this.dccFileList.Columns[8].Width = 0;
@@ -174,7 +205,7 @@ namespace IceChat
         }
 
 
-        private void dccResend_Click(object sender, EventArgs e)
+        private void DccResend_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
         }
@@ -261,7 +292,7 @@ namespace IceChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dccFileList_DoubleClick(object sender, EventArgs e)
+        private void DccFileList_DoubleClick(object sender, EventArgs e)
         {
             foreach (ListViewItem lvi in dccFileList.Items)
             {
@@ -283,7 +314,7 @@ namespace IceChat
         /// <summary>
         /// Remove a cancelled or completed item from the Dcc File List
         /// </summary>
-        private void dccRemove_Click(object sender, EventArgs e)
+        private void DccRemove_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem lvi in dccFileList.Items)
             {
@@ -334,7 +365,7 @@ namespace IceChat
         /// <summary>
         /// Open the folder for the File Selected
         /// </summary>
-        private void dccOpen_Click(object sender, EventArgs e)
+        private void DccOpen_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem lvi in dccFileList.Items)
             {
@@ -358,7 +389,7 @@ namespace IceChat
         /// <summary>
         /// Cancel the File Transfer for the File Selected
         /// </summary>
-        private void dccCancel_Click(object sender, EventArgs e)
+        private void DccCancel_Click(object sender, EventArgs e)
         {
             //find which item is being asked to be canceled
             foreach (ListViewItem lvi in dccFileList.Items)
@@ -426,8 +457,10 @@ namespace IceChat
                     
                     UpdateDCCFileStatus(dccFiles[i], "W-RESUME");
 
-                    dccFiles[i].Thread = new Thread(new ParameterizedThreadStart(ResumeDCC));
-                    dccFiles[i].Thread.Name = "DCCFileThreadResume";
+                    dccFiles[i].Thread = new Thread(new ParameterizedThreadStart(ResumeDCC))
+                    {
+                        Name = "DCCFileThreadResume"
+                    };
                     dccFiles[i].Thread.Start(dccFiles[i]);
                     
                     break;
@@ -440,17 +473,18 @@ namespace IceChat
         {
             //open a new dcc listening port, and send back to the client
             System.Diagnostics.Debug.WriteLine("start passive dcc - open listener:" + id);
-            DccFileStruct dcc = new DccFileStruct();
-            dcc.FileName = file;
-            dcc.FileSize = fileSize;
-            dcc.StartFileSize = 0;
-            dcc.Nick = nick;
-            dcc.Host = host;
-            dcc.Connection = connection;
-            dcc.Ip = ip;
-            dcc.passiveID = id;
-
-            dcc.Style = "Passive";
+            DccFileStruct dcc = new DccFileStruct
+            {
+                FileName = file,
+                FileSize = fileSize,
+                StartFileSize = 0,
+                Nick = nick,
+                Host = host,
+                Connection = connection,
+                Ip = ip,
+                passiveID = id,
+                Style = "Passive"
+            };
 
             //pick a random incoming port
             Random port = new Random();
@@ -533,8 +567,10 @@ namespace IceChat
                 dcc.Path = dccPath;
 
                 dcc.PassiveSocket = new TcpListener(new IPEndPoint(IPAddress.Any, Convert.ToInt32(p)));
-                dcc.PassiveThread = new Thread(new ParameterizedThreadStart(StartPassiveSocket));
-                dcc.PassiveThread.Name = "DCCPassiveThread";
+                dcc.PassiveThread = new Thread(new ParameterizedThreadStart(StartPassiveSocket))
+                {
+                    Name = "DCCPassiveThread"
+                };
                 dcc.PassiveThread.Start(dcc);
             }
             catch (Exception ex)
@@ -545,7 +581,7 @@ namespace IceChat
             }
         }
 
-        private void timeoutTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void TimeoutTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             //dcc send has timed out
             foreach (DccFileStruct dcc in dccFiles)
@@ -594,8 +630,10 @@ namespace IceChat
             int p = port.Next(FormMain.Instance.IceChatOptions.DCCPortLower, FormMain.Instance.IceChatOptions.DCCPortUpper);
 
             //DccFileStruct dcc = new DccFileStruct();
-            DccFileStruct dcc = new DccFileStruct();
-            dcc.FileStream = new FileStream(file, FileMode.Open);
+            DccFileStruct dcc = new DccFileStruct
+            {
+                FileStream = new FileStream(file, FileMode.Open)
+            };
 
             FileInfo f = new FileInfo(file);
             dcc.FileSize = (uint)f.Length;
@@ -615,16 +653,20 @@ namespace IceChat
             dcc.SendFileName = fname;
 
             dcc.ListenerSocket = new TcpListener(new IPEndPoint(IPAddress.Any, Convert.ToInt32(p)));
-            dcc.ListenerThread = new Thread(new ParameterizedThreadStart(ListenForConnection));
-            dcc.ListenerThread.Name = "DCCListenerThread";
+            dcc.ListenerThread = new Thread(new ParameterizedThreadStart(ListenForConnection))
+            {
+                Name = "DCCListenerThread"
+            };
             dcc.ListenerThread.Start(dcc);
-                
+
 
             //dcc.Connection.SendData("PRIVMSG " + dcc.Nick + " :DCC SEND " + fname + " " + localIP + " " + p.ToString() + " " + dcc.FileSize.ToString() + "");
-             
-            dcc.timeoutTimer = new System.Timers.Timer();
-            dcc.timeoutTimer.Interval = 1000 * FormMain.Instance.IceChatOptions.DCCChatTimeOut;
-            dcc.timeoutTimer.Elapsed += new System.Timers.ElapsedEventHandler(timeoutTimer_Elapsed);
+
+            dcc.timeoutTimer = new System.Timers.Timer
+            {
+                Interval = 1000 * FormMain.Instance.IceChatOptions.DCCChatTimeOut
+            };
+            dcc.timeoutTimer.Elapsed += new System.Timers.ElapsedEventHandler(TimeoutTimer_Elapsed);
             dcc.timeoutTimer.Start();
             
             AddDCCFile(dcc);
@@ -648,8 +690,10 @@ namespace IceChat
                     //System.Diagnostics.Debug.WriteLine("dcc file connected:" + dcc.Socket.Client.RemoteEndPoint.ToString());
                     dcc.Ip = dcc.Socket.Client.RemoteEndPoint.ToString();
                     dcc.ListenerSocket.Stop();
-                    dcc.Thread = new Thread(new ParameterizedThreadStart(GetDCCData));
-                    dcc.Thread.Name = "DCCListenThread";
+                    dcc.Thread = new Thread(new ParameterizedThreadStart(GetDCCData))
+                    {
+                        Name = "DCCListenThread"
+                    };
                     dcc.Thread.Start(dcc);
 
                     //dcc.keepListening = false;
@@ -667,20 +711,22 @@ namespace IceChat
 
         internal void StartDCCFile(IRCConnection connection, string nick, string host, string ip, string port, string file, uint fileSize)
         {
-            DccFileStruct dcc = new DccFileStruct();
-            dcc.FileName = file;
-            dcc.FileSize = fileSize;
-            dcc.StartFileSize = 0;
-            dcc.Socket = new TcpClient();
-            dcc.Nick = nick;
-            dcc.Host = host;
-            dcc.Style = "Download";
-            dcc.Connection = connection;
-            dcc.Port = port;
-            dcc.Ip = ip;
+            DccFileStruct dcc = new DccFileStruct
+            {
+                FileName = file,
+                FileSize = fileSize,
+                StartFileSize = 0,
+                Socket = new TcpClient(),
+                Nick = nick,
+                Host = host,
+                Style = "Download",
+                Connection = connection,
+                Port = port,
+                Ip = ip,
 
-            //create a random number for a tag
-            dcc.ListingTag = RandomListingTag();
+                //create a random number for a tag
+                ListingTag = RandomListingTag()
+            };
 
             try
             {
@@ -852,8 +898,10 @@ namespace IceChat
                 AddDCCFile(dcc);
                 UpdateDCCFileStatus(dcc, "Waiting");
 
-                dcc.Thread = new Thread(new ParameterizedThreadStart(ConnectDCC));
-                dcc.Thread.Name = "StartDCCFileThread";
+                dcc.Thread = new Thread(new ParameterizedThreadStart(ConnectDCC))
+                {
+                    Name = "StartDCCFileThread"
+                };
                 dcc.Thread.Start(dcc);
                 
                 /*
@@ -1134,8 +1182,10 @@ namespace IceChat
                 dcc.PassiveSocket.Stop();
 
                 System.Diagnostics.Debug.WriteLine("dcc passive socket connected with " + dcc.Nick);
-                dcc.Thread = new Thread(new ParameterizedThreadStart(GetDCCData));
-                dcc.Thread.Name = "DCCPassiveThread";
+                dcc.Thread = new Thread(new ParameterizedThreadStart(GetDCCData))
+                {
+                    Name = "DCCPassiveThread"
+                };
                 dcc.Thread.Start(dcc);
                 
                 keepListeningPassive = false;
@@ -1448,17 +1498,19 @@ namespace IceChat
                         if (dcc.TotalBytesRead == dcc.FileSize || dcc.Finished)
                         {
                             lvi.SubItems[5].Text = "Completed";
-                            
+
                             //the dcc file download is completed
-                            PluginArgs args = new PluginArgs(dcc.Connection);
-                            args.fileName = dcc.FileName;
-                            args.fileSize = dcc.FileSize;
-                            args.dccPort = dcc.Ip;
+                            PluginArgs args = new PluginArgs(dcc.Connection)
+                            {
+                                fileName = dcc.FileName,
+                                fileSize = dcc.FileSize,
+                                dccPort = dcc.Ip
+                            };
 
                             foreach (Plugin p in FormMain.Instance.LoadedPlugins)
                             {
                                 IceChatPlugin ipc = p as IceChatPlugin;
-                                if (ipc != null)
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                         ipc.plugin.DCCFileComplete(args);
@@ -1473,15 +1525,17 @@ namespace IceChat
                                 lvi.SubItems[5].Text = "ERROR";
 
                             //the dcc file download has errored
-                            PluginArgs args = new PluginArgs(dcc.Connection);
-                            args.fileName = dcc.FileName;
-                            args.fileSize = dcc.FileSize;
-                            args.dccPort = dcc.Ip;
+                            PluginArgs args = new PluginArgs(dcc.Connection)
+                            {
+                                fileName = dcc.FileName,
+                                fileSize = dcc.FileSize,
+                                dccPort = dcc.Ip
+                            };
 
                             foreach (Plugin p in  FormMain.Instance.LoadedPlugins)
                             {
                                 IceChatPlugin ipc = p as IceChatPlugin;
-                                if (ipc != null)
+if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                         ipc.plugin.DCCFileError(args);

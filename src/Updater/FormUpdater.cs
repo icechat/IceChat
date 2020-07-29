@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2015 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@ using System.Xml;
 using System.Diagnostics;
 using System.Reflection;
 using Microsoft.Win32;
+using System.Net;
 
 
 namespace IceChatUpdater
@@ -47,7 +48,9 @@ namespace IceChatUpdater
         private Stack<Uri> localFiles = new Stack<Uri>();
         private Stack<Uri> moveFiles = new Stack<Uri>();
 
-        private bool useNet45 = false;
+        //private bool useNet45 = false; 
+
+        private string versionFolder = "";
 
         public FormUpdater(string[] args)
         {
@@ -58,8 +61,8 @@ namespace IceChatUpdater
             if (args.Length > 0)
             {
 
-                if (args.Length == 2)
-                    useNet45 = true;
+                //if (args.Length == 2)
+                //    useNet45 = true;
 
                 foreach (string arg in args)
                     currentFolder = arg;
@@ -89,14 +92,11 @@ namespace IceChatUpdater
             //get the current version of IceChat 2009 in the Same Folder
 
             // are we checking for .net 45 or not
-            string update9XML = "update9.xml";
+            string update9XML = "update9-45.xml";
 
-            if (useNet45 == true)
-            {
-                update9XML = "update9-45.xml";
-                label1.Text = "Files to Update: using .NET 4.5";
-            }
-
+            //update9XML = "update9-45.xml";
+            label1.Text = "Files to Update: using .NET 4.5";
+            
             System.Diagnostics.FileVersionInfo fv;
             double currentVersion;
             try
@@ -117,13 +117,24 @@ namespace IceChatUpdater
             if (File.Exists(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + update9XML))
                 File.Delete(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + update9XML);
 
-            System.Net.WebClient webClient = new System.Net.WebClient();
-            webClient.DownloadFile("http://www.icechat.net/" + update9XML, Application.StartupPath + System.IO.Path.DirectorySeparatorChar + update9XML);
+
             System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument();
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            
+            System.Net.WebClient webClient = new System.Net.WebClient();
+            webClient.DownloadFile("https://www.icechat.net/" + update9XML, Application.StartupPath + System.IO.Path.DirectorySeparatorChar + update9XML);
+
+
             xmlDoc.Load(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + update9XML);
             
             System.Xml.XmlNodeList version = xmlDoc.GetElementsByTagName("version");
             System.Xml.XmlNodeList versiontext = xmlDoc.GetElementsByTagName("versiontext");
+            System.Xml.XmlNodeList folder = xmlDoc.GetElementsByTagName("folder");
+
+            System.Diagnostics.Debug.WriteLine("v:" + folder[0].InnerText);
+            versionFolder = folder[0].InnerText;
 
             labelLatest.Text = "Latest Version: " + versiontext[0].InnerText;
 
@@ -132,10 +143,12 @@ namespace IceChatUpdater
                 XmlNodeList files = xmlDoc.GetElementsByTagName("file");
                 foreach (XmlNode node in files)
                 {
-                    DownloadItem dl = new DownloadItem();
-                    dl.FileName = node.InnerText;
-                    dl.ShortName = Path.GetFileName(node.InnerText);
-                    dl.FileType = "core";
+                    DownloadItem dl = new DownloadItem
+                    {
+                        FileName = node.InnerText,
+                        ShortName = Path.GetFileName(node.InnerText),
+                        FileType = "core"
+                    };
                     listFiles.Items.Add(dl);                 
                 }
 
@@ -174,10 +187,13 @@ namespace IceChatUpdater
                             {
                                 System.Diagnostics.Debug.WriteLine("Upgrade needed for " + fvi.InternalName);
 
-                                DownloadItem dl = new DownloadItem();
-                                dl.FileName = plg["pluginfile"].InnerText;
-                                dl.ShortName = Path.GetFileName(plg["pluginfile"].InnerText);
-                                dl.FileType = "plugin";
+
+                                DownloadItem dl = new DownloadItem
+                                {
+                                    FileName = plg["pluginfile"].InnerText,
+                                    ShortName = Path.GetFileName(plg["pluginfile"].InnerText) + " (v"+ plg["pluginversion"].InnerText +")",
+                                    FileType = "plugin"
+                                };
                                 listFiles.Items.Add(dl);
 
                                 buttonDownload.Visible = true;
@@ -192,7 +208,7 @@ namespace IceChatUpdater
 
         }
 
-        private void buttonDownload_Click(object sender, EventArgs e)
+        private void ButtonDownload_Click(object sender, EventArgs e)
         {
             //download the files in the File List box
             //check to make sure icechat 9 is not running
@@ -226,8 +242,8 @@ namespace IceChatUpdater
             this.buttonDownload.Enabled = false;
             //System.Collections.ArrayList localFiles = new System.Collections.ArrayList();
             
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(webClient_DownloadFileCompleted);            
-            webClient.DownloadProgressChanged += new System.Net.DownloadProgressChangedEventHandler(webClient_DownloadProgressChanged);
+            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(WebClient_DownloadFileCompleted);            
+            webClient.DownloadProgressChanged += new System.Net.DownloadProgressChangedEventHandler(WebClient_DownloadProgressChanged);
             
             foreach (DownloadItem item in listFiles.Items)
             {
@@ -261,14 +277,14 @@ namespace IceChatUpdater
            
         }
 
-        private void webClient_DownloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
+        private void WebClient_DownloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
         {
             //System.Diagnostics.Debug.WriteLine(e.ProgressPercentage + ":" + e.BytesReceived + ":" + e.TotalBytesToReceive);
             this.progressBar.Value = e.ProgressPercentage;
             labelSize.Text = e.BytesReceived + "/" + e.TotalBytesToReceive + " (" + e.ProgressPercentage + "%)";            
         }
 
-        private void webClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        private void WebClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("download done:" + e.UserState + ":" + currentFile);
 
@@ -298,7 +314,7 @@ namespace IceChatUpdater
                 {
                     //check where to place the file
 
-                    if (f.ToString().Contains("www.icechat.net/beta/"))
+                    if (f.ToString().Contains("www.icechat.net/downloads/icechat-2009/45/" + versionFolder))
                     {
                         System.Diagnostics.Debug.WriteLine("Update core:" + f.ToString());
                         try

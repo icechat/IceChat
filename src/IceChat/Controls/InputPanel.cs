@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,12 +62,27 @@ namespace IceChat
             this.buttonEmoticonPicker.Image = StaticMethods.LoadResourceImage("Smile.png");
             this.buttonColorPicker.Image = StaticMethods.LoadResourceImage("color.png");
 
-            textInput.OnCommand += new IceInputBox.SendCommand(textInput_OnCommand);
-            textBoxWide.OnCommand += new IceInputBox.SendCommand(textBoxWide_OnCommand);
+           
+
+            // searchText.KeyDown += SearchText_KeyDown;
+            // buttonSearch.Click += SearchButton_Click;
+            
+            textInput.OnCommand += new IceInputBox.SendCommand(TextInput_OnCommand);
+            textBoxWide.OnCommand += new IceInputBox.SendCommand(TextBoxWide_OnCommand);
 
             textInput.OnHotKey += Input_OnHotKey;
             textBoxWide.OnHotKey += Input_OnHotKey; 
 
+        }
+
+        private void SearchText_KeyDown(object sender, KeyEventArgs e)
+        {
+            // throw new NotImplementedException();
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         internal int CurrentHistoryItem
@@ -120,22 +135,61 @@ namespace IceChat
                 this.panelWideText.Visible = value;
                 this.textInput.Visible = !value;
                 this.buttonHelp.Visible = !value;
-
+                
                 if (this._showEmoticonPicker == false)
+                {
                     buttonEmoticonPicker.Visible = false;
+                }
                 else
-                    this.buttonEmoticonPicker.Visible = !value;
+                {
+                    if (value == true)
+                    {
+                        buttonEmoticonPicker.Dock = DockStyle.None;
+                    }
+                    else
+                    {
+                        buttonEmoticonPicker.Dock = DockStyle.Left;
+                    }
+
+                    buttonEmoticonPicker.Visible = true;
+
+                }
 
                 if (this._showColorPicker == false)
+                {
                     buttonColorPicker.Visible = false;
+                }
                 else
-                    this.buttonColorPicker.Visible = !value;
+                {
+                    if (value == true)
+                    {
+                        buttonColorPicker.Dock = DockStyle.None;
+                    }
+                    else
+                    {
+                        buttonColorPicker.Dock = DockStyle.Left;
+                    }
+
+                    buttonColorPicker.Visible = true;
+                }
 
                 if (this._showBasicCommands == false)
+                {
                     buttonHelp.Visible = false;
+                }
                 else
-                    buttonHelp.Visible = !value;
+                {
+                    if (value == true)
+                    {
+                        buttonHelp.Dock = DockStyle.None;
+                    }
+                    else
+                    {
+                        buttonHelp.Dock = DockStyle.Left;
+                    }
 
+                    buttonHelp.Visible = true;
+                }
 
                 if (this._showSendButton == false)
                 {
@@ -149,14 +203,6 @@ namespace IceChat
                     buttonReset.Visible = value;
 
                 }
-
-                //if (value == false)
-                //{
-                //    buttonSend.Visible = this._showSendButton;
-                //}
-                //else
-                //    buttonSend.Visible = true;
-                //panelSend.Visible = buttonSend.Visible;
 
                 if (value)
                 {
@@ -177,25 +223,43 @@ namespace IceChat
                     FormMain.Instance.IceChatOptions.ShowMultilineEditbox = false;
                     FormMain.Instance.multilineEditboxToolStripMenuItem.Checked = false;
                 }
+
+                PanelButtonsSize();
+
             }
         }
 
         internal bool ShowEmoticonPicker
         {
             get { return this._showEmoticonPicker; }
-            set { this.buttonEmoticonPicker.Visible = value; this._showEmoticonPicker = value; }
+            set {
+                this.buttonEmoticonPicker.Visible = value;
+                this._showEmoticonPicker = value;
+
+                PanelButtonsSize();
+            }
         }
 
         internal bool ShowColorPicker
         {
             get { return this._showColorPicker; }
-            set { this.buttonColorPicker.Visible = value; this._showColorPicker = value; }
+            set {
+                this.buttonColorPicker.Visible = value;
+                this._showColorPicker = value;
+
+                PanelButtonsSize();
+            }
         }
 
         internal bool ShowBasicCommands
         {
             get { return this._showBasicCommands; }
-            set { this.buttonHelp.Visible = value; this._showBasicCommands = value; }
+            set {
+                this.buttonHelp.Visible = value;
+                this._showBasicCommands = value;
+
+                PanelButtonsSize();
+            }
         }
 
         internal bool ShowSendButton
@@ -218,10 +282,70 @@ namespace IceChat
             }
         }
 
+        internal void PanelButtonsSize()
+        {
+            int width = 0;
+            int cpTop = 0;
+            int hTop = 0;
+
+            if (this.Height < 40)
+            {
+                if (this._showColorPicker)
+                {
+                    width += 28;
+                }
+                if (this._showEmoticonPicker)
+                {
+                    width += 28;
+                }
+                if (this._showBasicCommands)
+                {
+                    width += 28;
+                }
+
+            }
+            else
+            {
+                if (this._showColorPicker || this._showEmoticonPicker || this._showBasicCommands)
+                {
+                    width = 28;
+                }
+
+                buttonHelp.Height = 28;
+                buttonHelp.Left = 0;
+                buttonColorPicker.Height = 28;
+                buttonColorPicker.Left = 0;
+                buttonEmoticonPicker.Height = 28;
+                buttonEmoticonPicker.Left = 0;
+
+
+                if (this._showEmoticonPicker == true)
+                {
+                    cpTop = 28;
+                    hTop = 28;
+                }
+
+                if (this._showColorPicker == true)
+                {
+                    hTop += 28;
+                }
+
+                buttonColorPicker.Top = cpTop;
+                buttonHelp.Top = hTop;
+
+            }
+
+            panelAddButtons.Width = width;
+            
+        }
+
         internal void SetInputBoxColors()
         {
             this.textInput.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxBackColor];
             this.textInput.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxForeColor];
+
+            //this.searchText.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxBackColor];
+            //this.searchText.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxForeColor];
 
             this.textBoxWide.BackColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxBackColor];
             this.textBoxWide.ForeColor = IrcColor.colors[FormMain.Instance.IceChatColors.InputboxForeColor];
@@ -249,7 +373,7 @@ namespace IceChat
                 OnHotKey(sender, e);
         } 
 
-        private void textBoxWide_OnCommand(object sender, string data)
+        private void TextBoxWide_OnCommand(object sender, string data)
         {
             if (OnCommand != null)
             {
@@ -264,7 +388,7 @@ namespace IceChat
             }
         }
 
-        private void textInput_OnCommand(object sender, string data)
+        private void TextInput_OnCommand(object sender, string data)
         {
             if (OnCommand != null)
             {
@@ -290,7 +414,7 @@ namespace IceChat
 
                         for (int index = 0; index < lines[0].Length; index += 350)
                         {
-                            textInput.addToBuffer(lines[0].Substring(index, Math.Min(350, lines[0].Length - index)));
+                            textInput.AddToBuffer(lines[0].Substring(index, Math.Min(350, lines[0].Length - index)));
 
                             // send this command with a bit of a delay.. or you excess flood!
                             OnCommand(this, lines[0].Substring(index, Math.Min(350, lines[0].Length - index)));
@@ -299,7 +423,7 @@ namespace IceChat
                     }
                     else
                     {
-                        textInput.addToBuffer(lines[0]);
+                        textInput.AddToBuffer(lines[0]);
                         OnCommand(this, lines[0]);
                     }
                 }
@@ -333,7 +457,7 @@ namespace IceChat
                                 {
                                     System.Diagnostics.Debug.WriteLine("more lines:" + line.Length);
                                 
-                                    textInput.addToBuffer(line);
+                                    textInput.AddToBuffer(line);
                                     OnCommand(this, line);                                
                                 
                                 }
@@ -345,7 +469,7 @@ namespace IceChat
 
                                     for (int index = 0; index < line.Length; index += 350)
                                     {
-                                        textInput.addToBuffer(line.Substring(index, Math.Min(350, line.Length - index)));
+                                        textInput.AddToBuffer(line.Substring(index, Math.Min(350, line.Length - index)));
 
                                         // send this command with a bit of a delay.. or you excess flood!
                                         OnCommand(this, line.Substring(index, Math.Min(350, line.Length - index)));
@@ -407,7 +531,7 @@ namespace IceChat
                         System.Diagnostics.Debug.WriteLine("SendButtonClick:" + line.Length);
                         if (line.Length < 350)
                         {
-                            textBoxWide.addToBuffer(line);
+                            textBoxWide.AddToBuffer(line);
 
                             OnCommand(this, line);
                         }
@@ -418,7 +542,7 @@ namespace IceChat
                             //split it up
                             for (int index = 0; index < line.Length; index += 350)
                             {                                
-                                textBoxWide.addToBuffer(line.Substring(index, Math.Min(350, line.Length - index)));
+                                textBoxWide.AddToBuffer(line.Substring(index, Math.Min(350, line.Length - index)));
                                                                 
                                 // send this command with a bit of a delay.. or you excess flood!
                                 OnCommand(this, line.Substring(index, Math.Min(350, line.Length - index)));
@@ -440,53 +564,57 @@ namespace IceChat
             }
         }
         
-        private void buttonSend_Click(object sender, EventArgs e)
+        private void ButtonSend_Click(object sender, EventArgs e)
         {
             SendButtonClick();
         }
 
-        private void buttonEmoticonPicker_Click(object sender, EventArgs e)
+        private void ButtonEmoticonPicker_Click(object sender, EventArgs e)
         {
             //show the emoticon picker form
-            FormEmoticons fe = new FormEmoticons();
-            fe.Top = (FormMain.Instance.Top + FormMain.Instance.Height) - 220;
-            fe.Left = FormMain.Instance.Left + 10;
+            FormEmoticons fe = new FormEmoticons
+            {
+                Top = (FormMain.Instance.Top + FormMain.Instance.Height) - 220,
+                Left = FormMain.Instance.Left + 10
+            };
             fe.ShowDialog(this);
 
             FormMain.Instance.FocusInputBox();
         }
 
-        private void buttonColorPicker_Click(object sender, EventArgs e)
+        private void ButtonColorPicker_Click(object sender, EventArgs e)
         {
-            FormColorPicker fc = new FormColorPicker();
-            fc.Top = (FormMain.Instance.Top + FormMain.Instance.Height) - 280;
-            fc.Left = FormMain.Instance.Left + 10;
+            FormColorPicker fc = new FormColorPicker
+            {
+                Top = (FormMain.Instance.Top + FormMain.Instance.Height) - 280,
+                Left = FormMain.Instance.Left + 10
+            };
             fc.ShowDialog(this);
 
             FormMain.Instance.FocusInputBox();
         }
 
-        private void buttonNext_Click(object sender, EventArgs e)
+        private void ButtonNext_Click(object sender, EventArgs e)
         {
             //find next search
         }
 
-        private void buttonPrevious_Click(object sender, EventArgs e)
+        private void ButtonPrevious_Click(object sender, EventArgs e)
         {
             //find previous search
         }
 
-        private void buttonHelp_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void ButtonHelp_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             contextHelpMenu.Show(buttonHelp, e.Location);
         }
 
-        private void toolStripHelpMenuOnClick(object sender, System.EventArgs e)
+        private void ToolStripHelpMenuOnClick(object sender, System.EventArgs e)
         {
             OnCommand(this, "//addtext " + ((System.Windows.Forms.ToolStripMenuItem)sender).Tag.ToString());
         }
 
-        private void buttonReset_Click(object sender, EventArgs e)
+        private void ButtonReset_Click(object sender, EventArgs e)
         {
             //go back to a normal panel
             ShowWideTextPanel = false;

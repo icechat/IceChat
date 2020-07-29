@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ namespace IceChat
             this.Load += new EventHandler(FormEditor_Load);
             popupTypeToolStripMenuItem.Visible = false;
 
-            tabControlEditor.SelectedIndexChanged += new EventHandler(tabControlEditor_SelectedIndexChanged);
+            tabControlEditor.SelectedIndexChanged += new EventHandler(TabControlEditor_SelectedIndexChanged);
             textAliases.KeyDown += new KeyEventHandler(OnKeyDown);
             textPopups.KeyDown += new KeyEventHandler(OnKeyDown);
 
@@ -116,29 +116,25 @@ namespace IceChat
             {
                 if (e.KeyCode == Keys.K)
                 {
-                    //((TextBox)sender).SelectedText = ((char)3).ToString();
-                    ((TextBox)sender).SelectedText = @"\%C";
+                    ((TextBox)sender).SelectedText = @"\%C";    // 3
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                 }
                 if (e.KeyCode == Keys.B)
                 {
-                    //((TextBox)sender).SelectedText = ((char)2).ToString();
-                    ((TextBox)sender).SelectedText = @"\%B";
+                    ((TextBox)sender).SelectedText = @"\%B";    // 2
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                 }
                 if (e.KeyCode == Keys.R)
                 {
-                    //((TextBox)sender).SelectedText = ((char)2).ToString();
-                    ((TextBox)sender).SelectedText = @"\%R";
+                    ((TextBox)sender).SelectedText = @"\%R"; // \x16; (22)
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                 }
                 if (e.KeyCode == Keys.O)
                 {
-                    //((TextBox)sender).SelectedText = ((char)2).ToString();
-                    ((TextBox)sender).SelectedText = @"\%O";
+                    ((TextBox)sender).SelectedText = @"\%O";  //  "\x0F"; (15)
                     e.Handled = true;
                     e.SuppressKeyPress = true;
                 }
@@ -151,7 +147,6 @@ namespace IceChat
                 
                 if (e.KeyCode == Keys.I)
                 {
-                    //((TextBox)sender).SelectedText = ((char)206).ToString();     //29 1D for normal 29 //ce
                     ((TextBox)sender).SelectedText = @"\%I";     //29 1D for normal 29 //ce
                     e.Handled = true;
                     e.SuppressKeyPress = true;
@@ -163,7 +158,7 @@ namespace IceChat
         }
 
 
-        private void tabControlEditor_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabControlEditor_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControlEditor.SelectedTab.Text != "PopupMenus")
             {
@@ -180,7 +175,9 @@ namespace IceChat
             {
                 XmlSerializer deserializer = new XmlSerializer(typeof(IceChatAliases));
                 TextReader textReader = new StreamReader(FormMain.Instance.AliasesFile);
+
                 aliasList = (IceChatAliases)deserializer.Deserialize(textReader);
+
                 textReader.Close();
                 textReader.Dispose();
             }
@@ -200,7 +197,7 @@ namespace IceChat
             foreach (AliasItem alias in aliasList.listAliases)
             {
                 if (alias.Command.Length == 1)
-                    textAliases.AppendText(alias.AliasName + " " + alias.Command[0].Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)219).ToString()).Replace("&#x1D;", ((char)206).ToString()) + Environment.NewLine);
+                    textAliases.AppendText(alias.AliasName + " " + alias.Command[0].Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)31).ToString()).Replace("&#x1D;", ((char)29).ToString()).Replace("&#x16;", ((char)22).ToString()).Replace("&#x0F;", ((char)15).ToString()) + Environment.NewLine);
                 else
                 {
                     //multiline alias
@@ -222,7 +219,7 @@ namespace IceChat
             
             foreach (string m in menu)
             {
-                textPopups.AppendText(m.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)219).ToString()).Replace("&#x1D;", ((char)206).ToString()) + Environment.NewLine);
+                textPopups.AppendText(m.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)31).ToString()).Replace("&#x1D;", ((char)29).ToString()).Replace("&#x16;", ((char)22).ToString()).Replace("&#x0F;", ((char)15).ToString()) + Environment.NewLine);
             }
 
             textPopups.SelectionStart = 0;
@@ -258,17 +255,17 @@ namespace IceChat
             return null;
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
             this.saveToolStripMenuItem.PerformClick();
         }
 
-        private void closeToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void CloseToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -277,7 +274,7 @@ namespace IceChat
         {
             try
             {
-                string[] popups = textPopups.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)219).ToString(), "&#x1F;").Replace(((char)206).ToString(), "&#x1D;").Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None);
+                string[] popups = textPopups.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)31).ToString(), "&#x1F;").Replace(((char)29).ToString(), "&#x1D;").Replace(((char)22).ToString(), "&#x16;").Replace(((char)15).ToString(), "&#x0F;").Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None);
 
                 if (currentPopup == "NickList")
                     nickListPopup = popups;
@@ -289,9 +286,11 @@ namespace IceChat
                     queryPopup = popups;
 
 
-                PopupMenuItem p = new PopupMenuItem();
-                p.PopupType = currentPopup;
-                p.Menu = popups;
+                PopupMenuItem p = new PopupMenuItem
+                {
+                    PopupType = currentPopup,
+                    Menu = popups
+                };
                 popupList.ReplacePopup(p.PopupType, p);
 
                 FormMain.Instance.IceChatPopupMenus = popupList;
@@ -304,7 +303,7 @@ namespace IceChat
             }
 
         }
-        private void nickListToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NickListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //save the current popup
             if (currentPopup == "NickList") return;
@@ -317,7 +316,7 @@ namespace IceChat
             LoadPopups(nickListPopup);
         }
 
-        private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ConsoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (currentPopup == "Console") return;
 
@@ -329,7 +328,7 @@ namespace IceChat
             LoadPopups(consolePopup);
         }
 
-        private void channelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ChannelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (currentPopup == "Channel") return;
 
@@ -341,7 +340,7 @@ namespace IceChat
             LoadPopups(channelPopup);
         }
 
-        private void queryToolStripMenuItem_Click(object sender, EventArgs e)
+        private void QueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (currentPopup == "Query") return;
 
@@ -353,17 +352,19 @@ namespace IceChat
             LoadPopups(queryPopup);
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //save all the settings
             try
             {
+                textAliases.Text = textAliases.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)31).ToString(), "&#x1F;").Replace(((char)29).ToString(), "&#x1D;").Replace(((char)22).ToString(), "&#x16;").Replace(((char)15).ToString(), "&#x0F;");
+
                 //parse out all the aliases
-                textAliases.Text = textAliases.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)219).ToString(), "&#x1F;").Replace(((char)206).ToString(), "&#x1D;");
 
                 aliasList.listAliases.Clear();
 
                 string[] aliases = textAliases.Text.Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None);
+
                 bool isMultiLine = false;
                 AliasItem multiLineAlias = null;
                 string aliasCommands = "";
@@ -377,8 +378,10 @@ namespace IceChat
                         {
                             //start of a multilined alias
                             isMultiLine = true;
-                            multiLineAlias = new AliasItem();
-                            multiLineAlias.AliasName = alias.Substring(0, alias.IndexOf(' '));
+                            multiLineAlias = new AliasItem
+                            {
+                                AliasName = alias.Substring(0, alias.IndexOf(' '))
+                            };
                             aliasCommands = "";
                         }
                         else if (alias == "}")
@@ -392,9 +395,11 @@ namespace IceChat
                         else if (!isMultiLine)
                         {
                             //just a normal alias
-                            AliasItem a = new AliasItem();
-                            a.AliasName = alias.Substring(0, alias.IndexOf(' '));
-                            a.Command = new String[] { alias.Substring(alias.IndexOf(' ') + 1) };
+                            AliasItem a = new AliasItem
+                            {
+                                AliasName = alias.Substring(0, alias.IndexOf(' ')),
+                                Command = new String[] { alias.Substring(alias.IndexOf(' ') + 1) }
+                            };
                             aliasList.AddAlias(a);
                             a = null;
                         }
@@ -432,17 +437,17 @@ namespace IceChat
             }
         }
 
-        private void buttonHelp_Click(object sender, EventArgs e)
+        private void ButtonHelp_Click(object sender, EventArgs e)
         {
             // alias or popups
             switch (tabControlEditor.TabPages[tabControlEditor.SelectedIndex].Text)
             {
                 case "Aliases":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Aliases");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=Aliases");
                     break;
 
                 case "PopupMenus":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=Popup_Menus");                    
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=Popup_Menus");                    
                     break;
 
             }

@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2011 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Google Plugin";
             m_Author = "Snerf";
-            m_Version = "1.5";
+            m_Version = "1.5.1";
         }
 
         //declare the standard methods
@@ -82,14 +82,16 @@ namespace IceChatPlugin
                 string url = "http://www.google.ca/search?q=" + search;
 
 
-                ParseArgs pa = new ParseArgs();
-                pa.args = args;
-                pa.url = url;
-                pa.self = false;
+                ParseArgs pa = new ParseArgs
+                {
+                    args = args,
+                    url = url,
+                    self = false
+                };
 
                 //ParseGoogleResults(args, url, false);
                 BackgroundWorker bgw = new BackgroundWorker();
-                bgw.DoWork += new DoWorkEventHandler(bgw_DoWork);
+                bgw.DoWork += new DoWorkEventHandler(Bgw_DoWork);
                 bgw.RunWorkerAsync(pa);    
 
             }
@@ -107,15 +109,17 @@ namespace IceChatPlugin
                 
                 args.Command = "/say " + args.Command;
                 OnCommand(args);
-               
-                
-                ParseArgs pa = new ParseArgs();
-                pa.args = args;
-                pa.url = url;
-                pa.self = true;
-                
+
+
+                ParseArgs pa = new ParseArgs
+                {
+                    args = args,
+                    url = url,
+                    self = true
+                };
+
                 BackgroundWorker bgw = new BackgroundWorker();
-                bgw.DoWork += new DoWorkEventHandler(bgw_DoWork);
+                bgw.DoWork += new DoWorkEventHandler(Bgw_DoWork);
                 bgw.RunWorkerAsync(pa);    
                 
                 //ParseGoogleResults(args, url, true);
@@ -126,7 +130,7 @@ namespace IceChatPlugin
             return base.InputText(args);
         }
 
-        private void bgw_DoWork(object sender, DoWorkEventArgs e)
+        private void Bgw_DoWork(object sender, DoWorkEventArgs e)
         {
             
             ParseArgs pa = (ParseArgs) e.Argument;

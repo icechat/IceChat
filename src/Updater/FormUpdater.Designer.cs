@@ -51,7 +51,7 @@
             this.labelCurrent.Location = new System.Drawing.Point(13, 9);
             this.labelCurrent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCurrent.Name = "labelCurrent";
-            this.labelCurrent.Size = new System.Drawing.Size(116, 16);
+            this.labelCurrent.Size = new System.Drawing.Size(115, 16);
             this.labelCurrent.TabIndex = 0;
             this.labelCurrent.Text = "Current Version:";
             // 
@@ -61,7 +61,7 @@
             this.labelLatest.Location = new System.Drawing.Point(13, 37);
             this.labelLatest.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLatest.Name = "labelLatest";
-            this.labelLatest.Size = new System.Drawing.Size(109, 16);
+            this.labelLatest.Size = new System.Drawing.Size(108, 16);
             this.labelLatest.TabIndex = 1;
             this.labelLatest.Text = "Latest Version:";
             // 
@@ -101,7 +101,7 @@
             this.buttonDownload.Text = "Download Updates";
             this.buttonDownload.UseVisualStyleBackColor = true;
             this.buttonDownload.Visible = false;
-            this.buttonDownload.Click += new System.EventHandler(this.buttonDownload_Click);
+            this.buttonDownload.Click += new System.EventHandler(this.ButtonDownload_Click);
             // 
             // labelUpdate
             // 
@@ -120,7 +120,7 @@
             this.labelNoUpdate.ForeColor = System.Drawing.Color.Red;
             this.labelNoUpdate.Location = new System.Drawing.Point(364, 9);
             this.labelNoUpdate.Name = "labelNoUpdate";
-            this.labelNoUpdate.Size = new System.Drawing.Size(217, 16);
+            this.labelNoUpdate.Size = new System.Drawing.Size(215, 16);
             this.labelNoUpdate.TabIndex = 7;
             this.labelNoUpdate.Text = "Your are running Latest Version";
             this.labelNoUpdate.Visible = false;
@@ -206,7 +206,7 @@
             this.MinimizeBox = false;
             this.Name = "FormUpdater";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "IceChat 9 Updater v2.02";
+            this.Text = "IceChat 9 Updater v2.2";
             this.ResumeLayout(false);
             this.PerformLayout();
 

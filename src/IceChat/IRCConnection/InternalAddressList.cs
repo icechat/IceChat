@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,9 +44,11 @@ namespace IceChat
         {
             _nick = nick;
             _host = host;
-            
-            _channels = new List<String>();
-            _channels.Add(channel);
+
+            _channels = new List<String>
+            {
+                channel
+            };
         }
 
         public InternalAddressList(string nick, string host, string channel, string account)
@@ -55,8 +57,10 @@ namespace IceChat
             _host = host;
             _account = account;
 
-            _channels = new List<String>();
-            _channels.Add(channel);
+            _channels = new List<String>
+            {
+                channel
+            };
         }
 
         public InternalAddressList(string nick, bool away, string awayMessage)

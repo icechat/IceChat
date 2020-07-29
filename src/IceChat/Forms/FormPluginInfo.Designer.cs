@@ -68,7 +68,7 @@
             this.label3.Location = new System.Drawing.Point(1, 71);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 16);
+            this.label3.Size = new System.Drawing.Size(61, 16);
             this.label3.TabIndex = 2;
             this.label3.Text = "Version:";
             // 
@@ -79,9 +79,9 @@
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(75, 25);
             this.buttonClose.TabIndex = 6;
-            this.buttonClose.Text = "Close";
+            this.buttonClose.Text = "OK";
             this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // buttonUnload
             // 
@@ -92,7 +92,7 @@
             this.buttonUnload.TabIndex = 7;
             this.buttonUnload.Text = "Unload";
             this.buttonUnload.UseVisualStyleBackColor = true;
-            this.buttonUnload.Click += new System.EventHandler(this.buttonUnload_Click);
+            this.buttonUnload.Click += new System.EventHandler(this.ButtonUnload_Click);
             // 
             // labelName
             // 
@@ -127,7 +127,7 @@
             this.buttonEnable.TabIndex = 11;
             this.buttonEnable.Text = "Disable";
             this.buttonEnable.UseVisualStyleBackColor = true;
-            this.buttonEnable.Click += new System.EventHandler(this.buttonEnable_Click);
+            this.buttonEnable.Click += new System.EventHandler(this.ButtonEnable_Click);
             // 
             // buttonSettings
             // 
@@ -138,7 +138,7 @@
             this.buttonSettings.TabIndex = 12;
             this.buttonSettings.Text = "Settings";
             this.buttonSettings.UseVisualStyleBackColor = true;
-            this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
+            this.buttonSettings.Click += new System.EventHandler(this.ButtonSettings_Click);
             // 
             // label4
             // 

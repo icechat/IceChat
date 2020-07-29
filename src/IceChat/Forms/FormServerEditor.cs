@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2019 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,11 +83,9 @@ namespace IceChat
             this.checkExtendedJoin.Checked = false;
             this.checkRejoinChannel.Checked = true;
             this.checkModeI.Checked = true;
+            this.checkNoColorMode.Checked = false;
 
-            this.textDisplayName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
-            this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
-            this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
-            this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
+            this.SetDefaultHandlers();
 
             ApplyLanguage();
         }
@@ -100,7 +98,7 @@ namespace IceChat
             
         }
 
-        private void text_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void Text_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Control)
             {
@@ -117,6 +115,43 @@ namespace IceChat
                     e.Handled = true;
                 }
             }
+        }
+
+        private void SetDefaultHandlers()
+        {
+
+            this.textDisplayName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
+            this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
+            this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
+            this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
+
+
+            this.textServerPassword.MouseEnter += Password_MouseEnter;
+            this.textServerPassword.MouseLeave += Password_MouseLeave;
+            this.textServerPassword.GotFocus += Password_MouseEnter;
+            this.textServerPassword.LostFocus += Password_MouseLeave;
+
+            this.textNickservPassword.MouseEnter += Password_MouseEnter;
+            this.textNickservPassword.MouseLeave += Password_MouseLeave;
+            this.textNickservPassword.GotFocus += Password_MouseEnter;
+            this.textNickservPassword.LostFocus += Password_MouseLeave;
+
+            this.textSASLPass.MouseEnter += Password_MouseEnter;
+            this.textSASLPass.MouseLeave += Password_MouseLeave;
+            this.textSASLPass.GotFocus += Password_MouseEnter;
+            this.textSASLPass.LostFocus += Password_MouseLeave;
+
+            this.textBNCPass.MouseEnter += Password_MouseEnter;
+            this.textBNCPass.MouseLeave += Password_MouseLeave;
+            this.textBNCPass.GotFocus += Password_MouseEnter;
+            this.textBNCPass.LostFocus += Password_MouseLeave;
+
+            this.textProxyPass.MouseEnter += Password_MouseEnter;
+            this.textProxyPass.MouseLeave += Password_MouseLeave;
+            this.textProxyPass.GotFocus += Password_MouseEnter;
+            this.textProxyPass.LostFocus += Password_MouseLeave;
+
+
         }
 
         public FormServers(ServerSetting s)
@@ -142,10 +177,8 @@ namespace IceChat
             
             LoadDefaultServerSettings();
 
-            this.textDisplayName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
-            this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
-            this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
-            this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_KeyDown);
+            this.SetDefaultHandlers();
+
 
             //if (s.conn
             foreach (IRCConnection c in FormMain.Instance.ServerTree.ServerConnections.Values)
@@ -166,8 +199,21 @@ namespace IceChat
             }
 
             ApplyLanguage();
-        }       
-        
+        }
+
+        private void Password_MouseLeave(object sender, EventArgs e)
+        {
+            if (((TextBox)sender).Focused == false)
+            {
+                ((TextBox)sender).PasswordChar = '*';
+            }
+        }
+
+        private void Password_MouseEnter(object sender, EventArgs e)
+        {
+            ((TextBox)sender).PasswordChar = '\0'; ;
+        }
+
         private void ApplyLanguage()
         {
 
@@ -231,6 +277,8 @@ namespace IceChat
             this.checkDisableLogging.Checked = serverSetting.DisableLogging;
             this.checkDisableQueries.Checked = serverSetting.DisableQueries;
 
+            this.checkNoColorMode.Checked = serverSetting.NoColorMode;
+
             this.checkModeI.Checked = serverSetting.SetModeI;
             this.checkMOTD.Checked = serverSetting.ShowMOTD;
             this.checkPingPong.Checked = serverSetting.ShowPingPong;
@@ -275,8 +323,10 @@ namespace IceChat
                             }
                             else
                             {
-                                ListViewItem lvi = new ListViewItem(chan);
-                                lvi.Checked = true;
+                                ListViewItem lvi = new ListViewItem(chan)
+                                {
+                                    Checked = true
+                                };
                                 listChannel.Items.Add(lvi);
                             }
                         }
@@ -310,9 +360,11 @@ namespace IceChat
             {
                 foreach (IgnoreListItem ignore in serverSetting.Ignores)
                 {
-                    ListViewItem lvi = new ListViewItem(ignore.Item);
-                    lvi.Checked = ignore.Enabled;
-                    
+                    ListViewItem lvi = new ListViewItem(ignore.Item)
+                    {
+                        Checked = ignore.Enabled
+                    };
+
                     lvi.SubItems.Add(ignore.IgnoreType.ToString() );
 
                     if (ignore.IgnoreType.All == true || ignore.IgnoreType.Channel == true)
@@ -359,8 +411,10 @@ namespace IceChat
                     {
                         if (!buddy.Nick.StartsWith(";"))
                         {
-                            ListViewItem lvi = new ListViewItem(buddy.Nick);
-                            lvi.Checked = true;
+                            ListViewItem lvi = new ListViewItem(buddy.Nick)
+                            {
+                                Checked = true
+                            };
                             listBuddyList.Items.Add(lvi);
                         }
                         else
@@ -449,6 +503,8 @@ namespace IceChat
             serverSetting.BuddyListEnable = checkBuddyList.Checked;
             serverSetting.DisableLogging = checkDisableLogging.Checked;
             serverSetting.DisableQueries = checkDisableQueries.Checked;
+            
+            serverSetting.NoColorMode = checkNoColorMode.Checked;
 
             serverSetting.AutoJoinChannels = new string[listChannel.Items.Count];
             for (int i = 0; i < listChannel.Items.Count; i++)
@@ -473,12 +529,13 @@ namespace IceChat
             serverSetting.Ignores = new IgnoreListItem[listIgnore.Items.Count];
             for (int i = 0; i < listIgnore.Items.Count; i++)
             {
-                serverSetting.Ignores[i] = new IgnoreListItem();
-                serverSetting.Ignores[i].IgnoreType = new IgnoreType();
+                serverSetting.Ignores[i] = new IgnoreListItem
+                {
+                    IgnoreType = new IgnoreType(),
+                    Item = listIgnore.Items[i].Text,
+                    Enabled = listIgnore.Items[i].Checked
+                };
 
-                serverSetting.Ignores[i].Item = listIgnore.Items[i].Text;
-                serverSetting.Ignores[i].Enabled = listIgnore.Items[i].Checked;
-                
                 // Resave the Ignore Types                
                 serverSetting.Ignores[i].IgnoreType.SetIgnore( Convert.ToInt32 ( listIgnore.Items[i].SubItems[1].Text ) );
 
@@ -545,7 +602,7 @@ namespace IceChat
             serverSetting.UseSSL = checkUseSSL.Checked;
             serverSetting.SSLAcceptInvalidCertificate = checkInvalidCertificate.Checked;
             serverSetting.Encoding = comboEncoding.Text;
-            
+
             int result;
             if (Int32.TryParse(textPingTimer.Text, out result))
             {
@@ -599,13 +656,15 @@ namespace IceChat
                     NewServer(serverSetting);
             }
             else
+            {
                 if (SaveServer != null)
                     SaveServer(serverSetting, false);
+            }
 
             return true;
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
             //save the default server settings
             SaveDefaultServerSettings();
@@ -615,12 +674,12 @@ namespace IceChat
                 this.Close();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void ButtonAdd_Click(object sender, EventArgs e)
         {
             if (textChannel.Text.Length > 0)
             {
@@ -654,13 +713,13 @@ namespace IceChat
             }
         }
 
-        private void buttonRemove_Click(object sender, EventArgs e)
+        private void ButtonRemove_Click(object sender, EventArgs e)
         {
             foreach(ListViewItem eachItem in listChannel.SelectedItems)
                 listChannel.Items.Remove(eachItem);
         }
 
-        private void textChannel_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void TextChannel_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
@@ -668,7 +727,7 @@ namespace IceChat
             }
         }
         
-        private void textIgnore_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void TextIgnore_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {                
@@ -679,7 +738,7 @@ namespace IceChat
             }        
         }
 
-        private void textBuddy_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void TextBuddy_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
@@ -691,7 +750,7 @@ namespace IceChat
         }
 
 
-        private void buttonEdit_Click(object sender, EventArgs e)
+        private void ButtonEdit_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listChannel.SelectedItems)
             {
@@ -705,7 +764,7 @@ namespace IceChat
             textChannel.Focus();
         }
 
-        private void buttonRemoveServer_Click(object sender, EventArgs e)
+        private void ButtonRemoveServer_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to Remove this Server from the Server Tree?","Remove Server", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
             {
@@ -717,7 +776,7 @@ namespace IceChat
             }
         }
 
-        private void buttonDuplicateServer_Click(object sender, EventArgs e)
+        private void ButtonDuplicateServer_Click(object sender, EventArgs e)
         {
             //duplicate the server
             
@@ -736,65 +795,66 @@ namespace IceChat
                 }
 
                 //make a copy of the server settings
-                ServerSetting dupe = new ServerSetting();
-                
-                dupe.AccountNotify = serverSetting.AccountNotify;
-                dupe.AltNickName = serverSetting.AltNickName;
-                dupe.AutoJoinChannels = serverSetting.AutoJoinChannels;
-                dupe.AutoJoinDelay = serverSetting.AutoJoinDelay;
-                dupe.AutoJoinDelayBetween = serverSetting.AutoJoinDelayBetween;
-                dupe.AutoJoinEnable = serverSetting.AutoJoinEnable;
-                dupe.AutoPerform = serverSetting.AutoPerform;
-                dupe.AutoPerformEnable = serverSetting.AutoPerformEnable;
-                dupe.AutoStart = serverSetting.AutoStart;
-                dupe.Away = serverSetting.Away;
-                dupe.AwayNickName = serverSetting.AwayNickName;
-                dupe.AwayNotify = serverSetting.AwayNotify;
-                dupe.AwayStart = serverSetting.AwayStart;
-                dupe.BNCIP = serverSetting.BNCIP;
-                dupe.BNCPass = serverSetting.BNCPass;
-                dupe.BNCPort = serverSetting.BNCPort;
-                dupe.BNCUser = serverSetting.BNCUser;
-                dupe.BuddyList = serverSetting.BuddyList;
-                dupe.BuddyListEnable = serverSetting.BuddyListEnable;
-                dupe.DisableAwayMessages = serverSetting.DisableAwayMessages;
-                dupe.DisableCTCP = serverSetting.DisableCTCP;
-                dupe.DisableSounds = serverSetting.DisableSounds;
-                dupe.DisplayName = serverSetting.DisplayName;
-                dupe.Encoding = serverSetting.Encoding;
-                dupe.ExtendedJoin = serverSetting.ExtendedJoin;
-                dupe.FullName = serverSetting.FullName;
-                dupe.IdentName = serverSetting.IdentName;
-                //dupe.IgnoreList = serverSetting.IgnoreList;
-                dupe.Ignores = serverSetting.Ignores;
-                dupe.IgnoreListEnable = serverSetting.IgnoreListEnable;
-                dupe.IgnoreListUpdated = serverSetting.IgnoreListUpdated;
-                dupe.IRCV3 = serverSetting.IRCV3;
-                dupe.NickName = serverSetting.NickName;
-                dupe.NickservPassword = serverSetting.NickservPassword;
-                dupe.Password = serverSetting.Password;
-                dupe.PingTimerMinutes = serverSetting.PingTimerMinutes;
-                dupe.ProxyIP = serverSetting.ProxyIP;
-                dupe.ProxyPass = serverSetting.ProxyPass;
-                dupe.ProxyPort = serverSetting.ProxyPort;
-                dupe.ProxyType = serverSetting.ProxyType;
-                dupe.ProxyUser = serverSetting.ProxyUser;
-                dupe.QuitMessage = serverSetting.QuitMessage;
-                dupe.RejoinChannels = serverSetting.RejoinChannels;
-                dupe.SASLPass = serverSetting.SASLPass;
-                dupe.SASLUser = serverSetting.SASLUser;
-                dupe.ServerName = serverSetting.ServerName;
-                dupe.ServerNotes = serverSetting.ServerNotes;
-                dupe.ServerPort = serverSetting.ServerPort;
-                dupe.SetModeI = serverSetting.SetModeI;
-                dupe.ShowMOTD = serverSetting.ShowMOTD;
-                dupe.ShowPingPong = serverSetting.ShowPingPong;
-                dupe.SSLAcceptInvalidCertificate = serverSetting.SSLAcceptInvalidCertificate;
-                dupe.UseBNC = serverSetting.UseBNC;
-                dupe.UseIPv6 = serverSetting.UseIPv6;
-                dupe.UseProxy = serverSetting.UseProxy;
-                dupe.UseSASL = serverSetting.UseSASL;
-                dupe.UseSSL = serverSetting.UseSSL;
+                ServerSetting dupe = new ServerSetting
+                {
+                    AccountNotify = serverSetting.AccountNotify,
+                    AltNickName = serverSetting.AltNickName,
+                    AutoJoinChannels = serverSetting.AutoJoinChannels,
+                    AutoJoinDelay = serverSetting.AutoJoinDelay,
+                    AutoJoinDelayBetween = serverSetting.AutoJoinDelayBetween,
+                    AutoJoinEnable = serverSetting.AutoJoinEnable,
+                    AutoPerform = serverSetting.AutoPerform,
+                    AutoPerformEnable = serverSetting.AutoPerformEnable,
+                    AutoStart = serverSetting.AutoStart,
+                    Away = serverSetting.Away,
+                    AwayNickName = serverSetting.AwayNickName,
+                    AwayNotify = serverSetting.AwayNotify,
+                    AwayStart = serverSetting.AwayStart,
+                    BNCIP = serverSetting.BNCIP,
+                    BNCPass = serverSetting.BNCPass,
+                    BNCPort = serverSetting.BNCPort,
+                    BNCUser = serverSetting.BNCUser,
+                    BuddyList = serverSetting.BuddyList,
+                    BuddyListEnable = serverSetting.BuddyListEnable,
+                    DisableAwayMessages = serverSetting.DisableAwayMessages,
+                    DisableCTCP = serverSetting.DisableCTCP,
+                    DisableSounds = serverSetting.DisableSounds,
+                    DisplayName = serverSetting.DisplayName,
+                    Encoding = serverSetting.Encoding,
+                    ExtendedJoin = serverSetting.ExtendedJoin,
+                    FullName = serverSetting.FullName,
+                    IdentName = serverSetting.IdentName,
+                    //dupe.IgnoreList = serverSetting.IgnoreList;
+                    Ignores = serverSetting.Ignores,
+                    IgnoreListEnable = serverSetting.IgnoreListEnable,
+                    IgnoreListUpdated = serverSetting.IgnoreListUpdated,
+                    IRCV3 = serverSetting.IRCV3,
+                    NickName = serverSetting.NickName,
+                    NickservPassword = serverSetting.NickservPassword,
+                    Password = serverSetting.Password,
+                    PingTimerMinutes = serverSetting.PingTimerMinutes,
+                    ProxyIP = serverSetting.ProxyIP,
+                    ProxyPass = serverSetting.ProxyPass,
+                    ProxyPort = serverSetting.ProxyPort,
+                    ProxyType = serverSetting.ProxyType,
+                    ProxyUser = serverSetting.ProxyUser,
+                    QuitMessage = serverSetting.QuitMessage,
+                    RejoinChannels = serverSetting.RejoinChannels,
+                    SASLPass = serverSetting.SASLPass,
+                    SASLUser = serverSetting.SASLUser,
+                    ServerName = serverSetting.ServerName,
+                    ServerNotes = serverSetting.ServerNotes,
+                    ServerPort = serverSetting.ServerPort,
+                    SetModeI = serverSetting.SetModeI,
+                    ShowMOTD = serverSetting.ShowMOTD,
+                    ShowPingPong = serverSetting.ShowPingPong,
+                    SSLAcceptInvalidCertificate = serverSetting.SSLAcceptInvalidCertificate,
+                    UseBNC = serverSetting.UseBNC,
+                    UseIPv6 = serverSetting.UseIPv6,
+                    UseProxy = serverSetting.UseProxy,
+                    UseSASL = serverSetting.UseSASL,
+                    UseSSL = serverSetting.UseSSL
+                };
 
                 if (NewServer != null)
                     NewServer(dupe);
@@ -804,14 +864,16 @@ namespace IceChat
             }
         }
 
-        private void buttonAddIgnore_Click(object sender, EventArgs e)
+        private void ButtonAddIgnore_Click(object sender, EventArgs e)
         {
             if (textIgnore.Text.Length > 0)
             {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = textIgnore.Text;
-                lvi.Checked = true;
-                
+                ListViewItem lvi = new ListViewItem
+                {
+                    Text = textIgnore.Text,
+                    Checked = true
+                };
+
                 lvi.SubItems.Add("0");  // add default Ignore All
                 
                 lvi.SubItems.Add("x");
@@ -832,14 +894,14 @@ namespace IceChat
             }
         }
 
-        private void buttonRemoveIgnore_Click(object sender, EventArgs e)
+        private void ButtonRemoveIgnore_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listIgnore.SelectedItems)
                 listIgnore.Items.Remove(eachItem);
 
         }
 
-        private void buttonEditIgnore_Click(object sender, EventArgs e)
+        private void ButtonEditIgnore_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listIgnore.SelectedItems)
             {
@@ -870,12 +932,14 @@ namespace IceChat
             }
         }
 
-        private void buttonAddBuddy_Click(object sender, EventArgs e)
+        private void ButtonAddBuddy_Click(object sender, EventArgs e)
         {
             if (textBuddy.Text.Length > 0)
             {
-                ListViewItem lvi = new ListViewItem(textBuddy.Text);
-                lvi.Checked = true;
+                ListViewItem lvi = new ListViewItem(textBuddy.Text)
+                {
+                    Checked = true
+                };
                 listBuddyList.Items.Add(lvi);
                 textBuddy.Text = "";
                 textBuddy.Focus();
@@ -887,14 +951,14 @@ namespace IceChat
 
         }
 
-        private void buttonRemoveBuddy_Click(object sender, EventArgs e)
+        private void ButtonRemoveBuddy_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listBuddyList.SelectedItems)
                 listBuddyList.Items.Remove(eachItem);
 
         }
 
-        private void buttonEditBuddy_Click(object sender, EventArgs e)
+        private void ButtonEditBuddy_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listBuddyList.SelectedItems)
             {
@@ -903,12 +967,12 @@ namespace IceChat
             }
         }
 
-        private void listChannel_DoubleClick(object sender, System.EventArgs e)
+        private void ListChannel_DoubleClick(object sender, System.EventArgs e)
         {
             buttonEditAutoJoin.PerformClick();
         }
 
-        private void listBuddyList_DoubleClick(object sender, System.EventArgs e)
+        private void ListBuddyList_DoubleClick(object sender, System.EventArgs e)
         {
             foreach (ListViewItem eachItem in listBuddyList.SelectedItems)
             {
@@ -917,7 +981,7 @@ namespace IceChat
             }
         }
 
-        private void listIgnore_DoubleClick(object sender, System.EventArgs e)
+        private void ListIgnore_DoubleClick(object sender, System.EventArgs e)
         {
             buttonEditIgnore.PerformClick();
         }
@@ -1031,7 +1095,7 @@ namespace IceChat
             }
         }
 
-        private void buttonMoveUp_Click(object sender, EventArgs e)
+        private void ButtonMoveUp_Click(object sender, EventArgs e)
         {
             //move item up the list, if not at the top
             if (listChannel.SelectedItems.Count == 1 && listChannel.Items.Count > 1)
@@ -1048,7 +1112,7 @@ namespace IceChat
 
         }
 
-        private void buttonMoveDown_Click(object sender, EventArgs e)
+        private void ButtonMoveDown_Click(object sender, EventArgs e)
         {
             //move the item down the list, if not at bottom
             if (listChannel.SelectedItems.Count == 1 && listChannel.Items.Count > 1)
@@ -1064,23 +1128,23 @@ namespace IceChat
             listChannel.Focus();
         }
 
-        private void buttonClearIgnores_Click(object sender, EventArgs e)
+        private void ButtonClearIgnores_Click(object sender, EventArgs e)
         {
             listIgnore.Items.Clear();
         }
 
-        private void buttonHelp_Click(object sender, EventArgs e)
+        private void ButtonHelp_Click(object sender, EventArgs e)
         {
             // go to help
             switch (tabControlSettings.TabPages[tabControlSettings.SelectedIndex].Text)
             {
                 case "Main Settings":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=New_Server");
                     break;
 
                 case "Extra Settings":
                 case "IRCv3":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Extra_Settings_tab");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=New_Server#Extra_Settings_tab");
                     break;
 
                 case "AutoJoin":
@@ -1088,31 +1152,31 @@ namespace IceChat
                     break;
 
                 case "AutoPerform":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#AutoPerform_tab");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=New_Server#AutoPerform_tab");
                     break;
 
                 case "Ignore List":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Ignore_List_tab");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=New_Server#Ignore_List_tab");
                     break;
 
                 case "Buddy List":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Buddy_List_tab");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=New_Server#Buddy_List_tab");
                     break;
 
                 case "Notes":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Notes_tab");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=New_Server#Notes_tab");
                     break;
 
                 case "Proxy Settings":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Proxy_Settings_tab");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=New_Server#Proxy_Settings_tab");
                     break;
 
                 case "BNC Settings":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#BNC_Settings_tab");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=New_Server#BNC_Settings_tab");
                     break;
 
                 case "Default Server Settings":
-                    System.Diagnostics.Process.Start("http://wiki.icechat.net/index.php?title=New_Server#Default_Server_Settings");
+                    System.Diagnostics.Process.Start("https://wiki.icechat.net/index.php?title=New_Server#Default_Server_Settings");
                     break;
             
             }

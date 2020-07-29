@@ -710,7 +710,7 @@
             this.tabPageIRCV3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageIRCV3.Size = new System.Drawing.Size(673, 248);
             this.tabPageIRCV3.TabIndex = 10;
-            this.tabPageIRCV3.Text = "IRCv3";
+            this.tabPageIRCV3.Text = "SASL / IRCv3";
             this.tabPageIRCV3.UseVisualStyleBackColor = true;
             // 
             // checkEchoMessage

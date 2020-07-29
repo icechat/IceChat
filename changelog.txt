@@ -1,3 +1,5 @@
+Build 9.50 - July 29 2020
+
 Build 9.49.07 June 25 2020
 * Fix /background command to also save settings
 

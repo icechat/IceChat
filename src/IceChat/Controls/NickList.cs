@@ -709,11 +709,15 @@ namespace IceChat
             if (((ToolStripMenuItem)sender).Tag == null) return;
 
             string command = ((ToolStripMenuItem)sender).Tag.ToString();
+            if (command.Length < 2)
+            {
+                return;
+            }
 
             if (command.Substring(0, 2) != "//")
                 command = "/" + command;
 
-            System.Diagnostics.Debug.WriteLine("NickPopup:" + command);
+            System.Diagnostics.Debug.WriteLine("NickPopup:" + command + ":" + command.Length);
 
             if (command.Length > 0)
             {

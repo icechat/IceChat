@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,7 +67,11 @@ namespace IceChat
 
         private int whichAddressCurrent = 1;
         private int totalAddressinDNS = 0;
-        
+
+        // for the STS Policy
+        public bool enableStsPolicy = false;
+        public string stsServerPort = null;
+
         //private const int bytesperlong = 4; // 32 / 8
         //private const int bitsperbyte = 8;
 
@@ -294,8 +298,16 @@ namespace IceChat
             {
                 serverSetting.WhichAddressInList++;
 
-                ServerReconnect(this);
+                if (enableStsPolicy == true)
+                {
+                    serverSetting.ServerPort = stsServerPort;
+                    serverSetting.UseSSL = true;                    
+
+                    // save these settings?
+                }
                 
+                ServerReconnect(this);
+
                 this.ConnectSocket();
             }
         }
@@ -316,7 +328,6 @@ namespace IceChat
                 System.Diagnostics.Debug.WriteLine(se.Message);
             }
         }
-
 
         #region Public Properties and Methods
 
@@ -556,50 +567,21 @@ namespace IceChat
             {
                 try
                 {
-                  
-                    //sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback, this.LocalCertificateSelectionCallback);
-                    sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
 
+                    //sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback, this.LocalCertificateSelectionCallback);
+                    howfar = 2;
+                    sslStream = new SslStream(socketStream, true, this.RemoteCertificateValidationCallback);
                     SslProtocols enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
 
-                    /*
-                    //if USE_NET_45
-                     enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
-                    //else
-                        enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
-                    //endif
-                    */
-
-                    howfar = 5;
-                    // ask in irc.gnome.org #mono
-                    // using sslStream.AuthenticateAsClient, I get an error: Ssl error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAIL ERROR:   at /build/mono/src/mono-5.0.0/external/boringssl/ssl/handshake_client.c:1132
-                    
-                    // Ssl error:1000007d:SSL routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAIL ERROR:   at /build/mono/src/mono-5.0.0/external/boringssl/ssl/handshake_client.c:1132
-                    // allow for a private key ?? Having problems her with Mono
-                    // 
-                    /*
-                    if (System.IO.File.Exists("cert.pem"))
-                    {
-                        X509Certificate cert = new X509Certificate("cert.pem");
-                        X509Certificate2Collection certs = new X509Certificate2Collection();
-                        certs.Add(cert);
-                        ServerMessage(this, "*** Using cert.pem", "");
-                        sslStream.AuthenticateAsClient(serverSetting.ServerName, certs, enabledSslProtocols, false);
-                    }
-                    else
-                    {
-                        //sslStream.AuthenticateAsClient(serverSetting.ServerName, null, SslProtocols.Default, false); 
-                        sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, true);
-                    }
-                    
-                    howfar = 6;
-                    */
-
+                    howfar = 3;
                     sslStream.AuthenticateAsClient(serverSetting.ServerName, null, enabledSslProtocols, false);
 
+                    howfar = 4;
                     // this seems to error in Mono if Accept Invalid Certs is enabled
                     // CERTIFICATE_VERIFY_FAILED
                     ServerMessage(this, "*** You are connected to this server with " + sslStream.SslProtocol.ToString().ToUpper() + "-" + sslStream.CipherAlgorithm.ToString().ToUpper() + sslStream.CipherStrength + "-" + sslStream.HashAlgorithm.ToString().ToUpper() + "-" + sslStream.HashStrength + "bits", "");
+
+                    howfar = 5;
                 }
                 catch (System.Security.Authentication.AuthenticationException ae)
                 {
@@ -620,7 +602,7 @@ namespace IceChat
                 }
                 catch (Exception e)
                 {
-                    ServerError(this, "SSL Exception Error :" + e.Message.ToString(), false);
+                    ServerError(this, "SSL Exception Error:" + e.Message.ToString(), false);
 
                     disconnectError = true;
                     ForceDisconnect();
@@ -1860,7 +1842,6 @@ namespace IceChat
         }
 
         #endregion
-
 
         #region Timer Events
 

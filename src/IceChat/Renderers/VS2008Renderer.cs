@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
  * more details
  *
 \******************************************************************************/
+
 // http://www.vbforums.com/showthread.php?t=614972
 
 // http://www.vbforums.com/showthread.php?p=3685172  -- other multiple one

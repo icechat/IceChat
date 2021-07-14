@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -528,10 +528,14 @@ namespace IceChat
                                     {
                                         OutGoingCommand(this, "/echo " + nick + " resolved to " + address.ToString());
                                         UserHostReply(this, msg);
+
                                         if (nick == serverSetting.CurrentNickName)
                                         {
                                             serverSetting.LocalIP = address;
                                         }
+                                        // update the internaladdresslist
+                                        ((InternalAddressList)serverSetting.IAL[nick]).Address = address.ToString();
+
                                     }
                                 }
                                 catch
@@ -588,6 +592,7 @@ namespace IceChat
                             break;
                         case "223":     //whois charset is UTF-8
                         case "264":     //whois using encrypted connection
+                        case "276":     //whois has client
                         case "307":     //whois information nick ips
                         case "310":     //whois is available for help
                         case "313":     //whois information is an IRC operator
@@ -1133,7 +1138,7 @@ namespace IceChat
                                                         else
                                                             file = dccData[dccData.Length - 5];
 
-                                                        //start up a listening socket on a specific port and send back to ip
+                                                        //start uAPp a listening socket on a specific port and send back to ip
                                                         //http://trout.snt.utwente.nl/ubbthreads/ubbthreads.php?ubb=showflat&Number=139329&site_id=1#import
 
                                                         System.Diagnostics.Debug.WriteLine("PASSIVE DCC " + id + ":" + fileSize + ":" + port + ":" + ip + ":" + file);
@@ -1717,7 +1722,6 @@ namespace IceChat
                             break;
                         case "904": //SASL authentication failed - ERR_SASLFAIL 
                         case "905": //SASL ERR_SASLTOOLONG
-                            //::sendak.freenode.net 904 Snerfus :SASL authentication failed
                             ServerMessage(this, JoinString(ircData, 3, true), serverTimeValue);
                             SendData("CAP END");
                             break;
@@ -1727,8 +1731,6 @@ namespace IceChat
                             break;
                         
                         case "730": //monitor response for ONLINE
-                            // :rajaniemi.freenode.net 730 Snerf9 :Bubi!~Bubi@p5DE95D59.dip0.t-ipconnect.de,Snerf!IceCha t9@unaffiliated/Snerf
-                            //[02:26.05] ->2 :rajaniemi.freenode.net 731 Snerf9 :madmn,IceCold101                            
                             MonitorListData(this, JoinString(ircData, 3, true), true, serverTimeValue);
                             break;
                         case "731": //monitor response for OFFLINE
@@ -2081,9 +2083,7 @@ namespace IceChat
 
             if (tempValue.IndexOf("znc.in/server-time-iso") > -1)
             {
-                //:@time=2014-03-18T01:55:08.596Z :dickson.freenode.net 
                 sendREQ += "znc.in/server-time-iso ";
-                //serverSetting.UseServerTime = true;
             }
             else if (tempValue.IndexOf("server-time") > -1)
             {                
@@ -2099,7 +2099,27 @@ namespace IceChat
                 // sendREQ += "tls ";
             }
 
-
+            // https://ircv3.net/specs/extensions/sts
+            if (tempValue.IndexOf("sts") > -1)
+            {
+                // sts=port=6697,duration=86400
+                // get the port number
+                string[] p = tempValue.Split(new string[] { "port=" }, StringSplitOptions.RemoveEmptyEntries);
+                if (p.Length == 2)
+                {
+                    string[] p2 = p[1].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (p2.Length == 2)
+                    {
+                        int port;
+                        if (p2[0] != serverSetting.ServerPort && Int32.TryParse(p2[0], out port) )
+                        {
+                            attemptReconnect = true;
+                            stsServerPort = port.ToString();
+                            enableStsPolicy = true;
+                        }
+                    }
+                }
+            }
             
 
             return sendREQ;

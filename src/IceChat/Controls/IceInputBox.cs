@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -413,6 +413,23 @@ namespace IceChat
 
                 if (e.Modifiers == Keys.Alt || e.Modifiers == Keys.Control)
                 {
+                    // 0 - 9 - 0 selects console
+                    if (e.KeyValue >= 48 && e.KeyValue <= 57 && e.Modifiers == Keys.Alt)
+                    {
+                        e.Handled = true;
+                        // move to a specific window
+                        int nextIndex = e.KeyValue - 48;
+                        if (nextIndex > FormMain.Instance.ChannelBar.TabCount - 1)
+                        {
+                            // out of bounds, do nothing!
+                            return;
+                        }
+
+                        FormMain.Instance.ChannelBar.SelectTab(FormMain.Instance.ChannelBar.TabPages[nextIndex]);
+                        FormMain.Instance.ServerTree.SelectTab(FormMain.Instance.ChannelBar.TabPages[nextIndex], false);
+
+                    }
+
                     if (e.KeyValue >= 112 && e.KeyValue <= 120)
                     {
                         if (OnHotKey != null)

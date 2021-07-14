@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,7 +46,6 @@ namespace IceChat
             this._parent = parent;
 
             this.Paint += new PaintEventHandler(OnHeaderPaint);
-            //this.DoubleClick += new EventHandler(OnDoubleClick);
             this.panelButtons.Resize += new EventHandler(PanelButtons_Resize);
             this.Resize += new EventHandler(OnResize);
             this.MouseDown += new MouseEventHandler(OnMouseDown);

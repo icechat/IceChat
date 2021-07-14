@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1293,8 +1293,8 @@ namespace IceChat
             this.pictureStatusFore.BackColor = IrcColor.colors[iceChatColors.StatusbarForeColor];
             this.pictureStatusFore.Tag = iceChatColors.StatusbarForeColor;
 
-            this.pictureHyperlink.BackColor = IrcColor.colors[iceChatColors.HyperlinkColor];
-            this.pictureHyperlink.Tag = iceChatColors.HyperlinkColor;
+//            this.pictureHyperlink.BackColor = IrcColor.colors[iceChatColors.HyperlinkColor];
+//            this.pictureHyperlink.Tag = iceChatColors.HyperlinkColor;
 
             this.checkRandomNickColors.Checked = iceChatColors.RandomizeNickColors;
         }
@@ -1348,7 +1348,8 @@ namespace IceChat
             iceChatColors.ToolbarBackColor = (int)pictureToolBar.Tag;
             iceChatColors.ChannelListForeColor = (int)pictureChannelListFore.Tag;
             iceChatColors.InputboxForeColor = (int)pictureInputBoxFore.Tag;
-            iceChatColors.HyperlinkColor = (int)pictureHyperlink.Tag;
+
+           // iceChatColors.HyperlinkColor = (int)pictureHyperlink.Tag;
 
             iceChatColors.StatusbarBackColor = (int)pictureStatusBar.Tag;
             iceChatColors.StatusbarForeColor = (int)pictureStatusFore.Tag;

@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -556,31 +556,34 @@ namespace IceChat
                 {
                     b.Nick = listBuddyList.Items[i].Text;
                 }
-                
+
                 //check if was sent on old list
-                foreach (BuddyListItem bo in oldList)
+                if (oldList != null)
                 {
-                    if (bo != null)
+                    foreach (BuddyListItem bo in oldList)
                     {
-                        if (bo.IsOnSent)    //was sent, so was used
+                        if (bo != null)
                         {
-                            //now check for match
-                            if (bo.Nick == b.Nick)
+                            if (bo.IsOnSent)    //was sent, so was used
                             {
-                                b.IsOnSent = true;
-                                b.IsOnReceived = bo.IsOnReceived;
-                                b.Connected = bo.Connected;
+                                //now check for match
+                                if (bo.Nick == b.Nick)
+                                {
+                                    b.IsOnSent = true;
+                                    b.IsOnReceived = bo.IsOnReceived;
+                                    b.Connected = bo.Connected;
 
-                                System.Diagnostics.Debug.WriteLine("matched:" + bo.Nick);
-                            }
-                            else if (b.Nick.StartsWith(";") && bo.Nick == b.Nick.Substring(1))
-                            {
-                                //nick is now disabled
-                                b.Connected = bo.Connected;
-                                b.IsOnReceived = bo.IsOnReceived;
-                                b.IsOnSent = false;
+                                    System.Diagnostics.Debug.WriteLine("matched:" + bo.Nick);
+                                }
+                                else if (b.Nick.StartsWith(";") && bo.Nick == b.Nick.Substring(1))
+                                {
+                                    //nick is now disabled
+                                    b.Connected = bo.Connected;
+                                    b.IsOnReceived = bo.IsOnReceived;
+                                    b.IsOnSent = false;
 
-                                System.Diagnostics.Debug.WriteLine("matched DIS:" + bo.Nick);
+                                    System.Diagnostics.Debug.WriteLine("matched DIS:" + bo.Nick);
+                                }
                             }
                         }
                     }

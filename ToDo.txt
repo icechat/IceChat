@@ -1,52 +1,53 @@
 ﻿To Do List for IceChat 9
 
-Add a second delay between sending split messages
-Add a textbox for the transparency setting , to allow manual setting
-Add Estimated time remaining to DCC Download
-Add Sounds for DCC Events (download started/ended)
+OPTION: Add a second delay between sending split messages
+OPTION: Add a textbox for the transparency setting, to allow manual setting
+OPTION: Add Estimated time remaining to DCC Download
+OPTION: Add Sounds for DCC Events (download started/ended)
+OPTION: Add a Theme setting which uses all Windows Theme settings for colors
+OPTION: Add color options for Toolbar Buttons
+OPTION: Change settings/color windows to a treeview instead of tabs
+OPTION: Allow /colortab command to also change the background color
+OPTION: Auto pin new channels
+OPTION: Add splitter for topic to change height
+OPTION: Add 5 second delay for AutoPerform option
+OPTION: Add to Nick HiLite plugin, allow different colors for different User Modes (!&@+)
+OPTION: Add to Highlite Color Plugin to change background color
+OPTION: Allow keyboard short cut for Nicklist Popups 
+OPTION: Make channel reload logs limit the size of the back buffer (max lines)
+OPTION: Open query tabs last
+OPTION: Add a /tab command to toggle seeing which tab in a sidebar??
+OPTION: Add ability to change font with a control code in text window
+OPTION: Ability to add custom marker lines
+OPTION: Allow multiple logging types, not just 1
+OPTION: Option for Floating window always on top
+OPTION: Redo search option (F3)
+OPTION: Import an Emoticon Folder, to add Emoticons (recreate XML file)
+OPTION: Add possibility to set option values with /set command
+OPTION: When autojoining channels, it opens them , but not set as active
+OPTION: Automatically allow accept with DCC from people in buddy list
+OPTION: Allow plugins to change the colors/appearance of IceChat, w/o needing an external Theme file
+OPTION: Add background color for html logging
+OPTION: Line Spacing (will need to wait for text window rewrite)
+
+BUG: Because of single click links, cant copy the url from the beginning
+BUG: Closing windows sometimes does not have the active window as truly active
+BUG: Adding Emoticon(s) requires a restart
+BUG: DCC Receive Passive, locks file if no connection, need to release
+
+If a whois returns no nick, send a whowas command
 Make Appx versions of IceChat 9
-Add a Theme setting which uses all Windows Theme settings for colors
-Add color options for Toolbar Buttons
-Change settings/color windows to a treeview instead of tabs
-If a whois returns no nick ., send a whowas command
-Closing windows sometimes does not have the active window as truly active
-Add an option for Line Spacing (will need to wait for text window rewrite)
-allow /colortab command to also change the background color
-add option to auto pin new channels
-Add splitter for topic to change height
-Add 5 second delay for AutoPerform option
-Add to Nick HiLite plugin, allow different colors for different User Modes (!&@+)
-Add to Highlite Color Plugin to change background color
-Allow keyboard short cut for Nicklist Popups 
-Make channel reload logs limit the size of the back buffer (max lines)
-add option to open query tabs last
-because of single click links, cant copy the url from the beginning
-add a /tab command to toggle seeing which tab in a sidebar??
-Add ability to change font with a control code in text window
-DCC Receive Passive, locks file if no connection, need to release
-Ability to add custom marker lines
-Allow multiple logging types, not just 1
-Add option for floating window always on top
-Redo search option (F3)
-Import an Emoticon Folder, to add Emoticons (recreate XML file)
-Adding Emoticon(s) requires a restart
-Add possibility to set option values with /set command
-Add option when autojoining channels, it opens them , but not set as active
-Add option to automatically allow accept with DCC from people in buddy list
-Allow plugins to change the colors/appearance of IceChat, w/o needing an external Theme file
-Add background color for html logging
-Add news item on loadup, for showing IceChat news
 
 
 
 Pending/In Progress:
+
 Remember window order when opening channels (in progress)(group by order in server tree)
-Create ice7 theme importer (in progress)
-IceChat 7 settings imported, check for / before popup menu commands (check this)
 Build a way to backup XML files for config files automatically (in progress, servers,options,popups done)
 
 
 Completed:
+
 Add tooltip for topic
 Allow a nicklist popup for multiple nicks, using $nick1, $nick2, $nick3 - $nick9
 Add identifiers for $ram, $cpu and $gpu
@@ -79,3 +80,6 @@ Add Server Wide No Color Mode
 
 Not Going to Implement:
 
+Create ice7 theme importer
+IceChat 7 settings imported, check for / before popup menu commands 
+Add news item on loadup, for showing IceChat news

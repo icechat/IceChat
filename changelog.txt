@@ -1,3 +1,15 @@
+Build 9.51 July 14 2021
+* Alt 0-9 keys select nth window (Alt-0 is Console)
+* Removed Hyperlink color option, URL's will use normal text color, still will be underlined
+* Change a few default tab colors from white to gray
+* Add IRCv3 Strict transport security (STS) Policy 
+* Add Raw 276 for Whois data
+* Fix bug with channel mode nicks can start with a :
+* Remove #icechat on Freenode as Support Channel, revert to #icechat on QuakeNet
+* Added export button to Channel List window to export channel list as text file
+* Fix Buddlylist error on initial install/run
+
+
 Build 9.50 July 29 2020
 * First 9.50 Release
 

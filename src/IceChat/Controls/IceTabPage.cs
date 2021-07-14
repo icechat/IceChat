@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1857,12 +1857,21 @@ if (ipc != null)
             }
             else
             {
-                channelTopic = topic;
-                textTopic.ClearTextWindow();
-                string msgt = _parent.GetMessageFormat("Channel Topic Text");
-                msgt = msgt.Replace("$channel", this.TabCaption);
-                msgt = msgt.Replace("$topic", topic);
-                textTopic.AppendText(msgt, "");
+
+                try
+                {
+
+                    channelTopic = topic;
+                    textTopic.ClearTextWindow();
+                    string msgt = _parent.GetMessageFormat("Channel Topic Text");
+                    msgt = msgt.Replace("$channel", this.TabCaption);
+                    msgt = msgt.Replace("$topic", topic);
+                    textTopic.AppendText(msgt, "");
+                }
+                catch(Exception)
+                {
+                    // try and catch index out of range error on SELFCHANNELJOIN
+                }
             }   
         }
 
@@ -2204,31 +2213,49 @@ if (ipc != null)
                 Text = "Search Channels:",
                 Dock = DockStyle.Left,
                 AutoSize = true,
-                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
+                Margin = new Padding(8),
+                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                //Size = new System.Drawing.Size(140, 23)
             };
 
-            searchText = new TextBox
-            {
-                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
-                Dock = DockStyle.Fill,
-                BorderStyle = BorderStyle.Fixed3D
-            };
-            searchText.KeyDown += new KeyEventHandler(SearchText_KeyDown);
 
             Button searchButton = new Button
             {
                 Text = "Search",
                 Dock = DockStyle.Right,
-                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
+                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                Size = new System.Drawing.Size(72, 23)
             };
-            searchButton.Size = new System.Drawing.Size(72, 23);
-
             searchButton.Click += new EventHandler(OnSearchButtonClick);
-            
+
+
+            Button exportButton = new Button
+            {
+                Text = "Export",
+                Dock = DockStyle.Right,
+                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                Size = new System.Drawing.Size(72, 23)
+            };
+            exportButton.Click += ExportButton_Click;
+
+
+            searchText = new TextBox
+            {
+                Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                Dock = DockStyle.Fill,                
+                //BorderStyle = BorderStyle.Fixed3D,
+                BorderStyle = BorderStyle.None,
+                Height = searchButton.Height,
+                Multiline = false
+            };
+            searchText.KeyDown += new KeyEventHandler(SearchText_KeyDown);
+
+
             searchPanel.Controls.Add(searchText);
             searchPanel.Controls.Add(searchLabel);
             searchPanel.Controls.Add(searchButton);
-            
+            searchPanel.Controls.Add(exportButton);
+
             searchPanel.Dock =  DockStyle.Bottom;
             this.channelList.Dock = DockStyle.Fill;
 
@@ -2236,6 +2263,43 @@ if (ipc != null)
             this.Controls.Add(searchPanel);
             this.channelList.ResumeLayout(false);
             this.ResumeLayout(false);
+
+        }
+
+        private void ExportButton_Click(object sender, EventArgs e)
+        {
+            // export the channel list
+            if (listItems == null)
+            {
+                listItems = new List<ListViewItem>();
+                ListViewItem[] items = new ListViewItem[channelList.Items.Count];
+                channelList.Items.CopyTo(items, 0);
+                listItems.AddRange(items);
+            }
+            
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = "TXT Files (*.txt)|*.txt",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                //this is the full filename
+                StreamWriter writer = new StreamWriter(sfd.OpenFile());
+
+                foreach (ListViewItem item in listItems)
+                {
+                    writer.WriteLine(item.Text + " : " + item.SubItems[1].Text + " : " + item.SubItems[2].Text);
+                }
+
+                writer.Flush();
+                writer.Close();
+                writer.Dispose();
+
+                MessageBox.Show("Channel List Exported");
+            }
 
         }
 

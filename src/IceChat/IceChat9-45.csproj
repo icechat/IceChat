@@ -463,7 +463,6 @@
     <EmbeddedResource Include="Icons\channel.png" />
     <EmbeddedResource Include="Icons\facebook.png" />
     <EmbeddedResource Include="Icons\Smile.png" />
-    <None Include="app-45.config" />
     <EmbeddedResource Include="Icons\codeplex.ico" />
     <EmbeddedResource Include="Icons\smf.ico" />
     <EmbeddedResource Include="Icons\previous.svg.png" />
@@ -506,7 +505,7 @@
     <EmbeddedResource Include="Icons\refresh-icon.png" />
     <EmbeddedResource Include="Icons\query.png" />
     <EmbeddedResource Include="Icons\mute.png" />
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="Icons\restore.png" />
     <None Include="Icons\maximize.png" />
     <EmbeddedResource Include="Icons\connect-icon-auto.png" />

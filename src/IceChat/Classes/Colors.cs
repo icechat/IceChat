@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ namespace IceChat
         private int _tabBarServerQuit = 9;
         private int _tabBarServerMessage = 13;
         private int _tabBarOtherMessage = 6;
-        private int _tabBarDefault = 0;
+        private int _tabBarDefault = 1;
 
         private int _tabBarNewAction = 4;
         private int _tabBarServerNotice = 13;
@@ -60,7 +60,7 @@ namespace IceChat
         private int _tabBarCurrentBG1 = 29;
         private int _tabBarCurrentBG2 = 0;
         private int _tabBarOtherBG1 = 14;
-        private int _tabBarOtherBG2 = 0;
+        private int _tabBarOtherBG2 = 15;
         private int _tabBarHoverBG1 = 0;
         private int _tabBarHoverBG2 = 7;
         private int _tabbarBack = 20;
@@ -85,7 +85,7 @@ namespace IceChat
         private int _statusbarBack = 20;
         private int _statusbarFore = 1;
         private int _unreadTextMarker = 4;
-        private int _hyperLinkColor = 4;
+        //private int _hyperLinkColor = 4;
         private int _textSelectFore = 0;
         private int _textSelectBack = 2;
 
@@ -286,9 +286,11 @@ namespace IceChat
         public int UnreadTextMarkerColor
         { get { return this._unreadTextMarker; } set { this._unreadTextMarker = value; } }
 
+        /*    
         [XmlElement("HyperlinkColor")]
         public int HyperlinkColor
         { get { return this._hyperLinkColor; } set { this._hyperLinkColor = value; } }
+        */
 
         [XmlElement("TextSelectForeColor")]
         public int TextSelectForeColor

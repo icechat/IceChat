@@ -1343,7 +1343,7 @@
             // 
             this.labelSidePanelForeButtons.AutoSize = true;
             this.labelSidePanelForeButtons.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelSidePanelForeButtons.Location = new System.Drawing.Point(257, 295);
+            this.labelSidePanelForeButtons.Location = new System.Drawing.Point(257, 270);
             this.labelSidePanelForeButtons.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSidePanelForeButtons.Name = "labelSidePanelForeButtons";
             this.labelSidePanelForeButtons.Size = new System.Drawing.Size(132, 16);
@@ -1365,12 +1365,13 @@
             // 
             this.labelHyperlink.AutoSize = true;
             this.labelHyperlink.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelHyperlink.Location = new System.Drawing.Point(257, 270);
+            this.labelHyperlink.Location = new System.Drawing.Point(257, 295);
             this.labelHyperlink.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelHyperlink.Name = "labelHyperlink";
             this.labelHyperlink.Size = new System.Drawing.Size(67, 16);
             this.labelHyperlink.TabIndex = 114;
             this.labelHyperlink.Text = "Hyperlink";
+            this.labelHyperlink.Visible = false;
             // 
             // labelUnreadTextMarkerColor
             // 
@@ -1586,7 +1587,7 @@
             // pictureSidePanelForeButtons
             // 
             this.pictureSidePanelForeButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureSidePanelForeButtons.Location = new System.Drawing.Point(466, 295);
+            this.pictureSidePanelForeButtons.Location = new System.Drawing.Point(466, 270);
             this.pictureSidePanelForeButtons.Margin = new System.Windows.Forms.Padding(2);
             this.pictureSidePanelForeButtons.Name = "pictureSidePanelForeButtons";
             this.pictureSidePanelForeButtons.Size = new System.Drawing.Size(16, 16);
@@ -1608,13 +1609,14 @@
             // pictureHyperlink
             // 
             this.pictureHyperlink.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureHyperlink.Location = new System.Drawing.Point(466, 270);
+            this.pictureHyperlink.Location = new System.Drawing.Point(466, 295);
             this.pictureHyperlink.Margin = new System.Windows.Forms.Padding(2);
             this.pictureHyperlink.Name = "pictureHyperlink";
             this.pictureHyperlink.Size = new System.Drawing.Size(16, 16);
             this.pictureHyperlink.TabIndex = 115;
             this.pictureHyperlink.TabStop = false;
             this.pictureHyperlink.Tag = "Unread Text Marker";
+            this.pictureHyperlink.Visible = false;
             // 
             // pictureUnreadTextMarkerColor
             // 

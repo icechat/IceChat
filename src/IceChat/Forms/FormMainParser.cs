@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1882,7 +1882,7 @@ if (ipc != null)
                                             foreach (Plugin p in loadedPlugins)
                                             {
                                                 IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                                                if (ipc != null)
                                                 {
                                                     if (ipc.plugin.Enabled == true)
                                                         args = ipc.plugin.DNSResolve(args);
@@ -2512,36 +2512,45 @@ if (ipc != null)
                                     data = connection.ServerSetting.ChannelTypes[0] + data;
                                 }
                                 error = 1;
-                                if (data.IndexOf(' ') > -1)
+
+                                try
                                 {
-                                    string[] c = data.Split(new char[] { ' ' }, 2);
-                                    error = 2;
-                                    if (connection.ServerSetting.ChannelJoins.ContainsKey(c[0].ToLower()))
+                                    if (data.IndexOf(' ') > -1)
                                     {
-                                        error = 3;
-                                        connection.ServerSetting.ChannelJoins[c[0].ToLower()] = c[1];
+                                        string[] c = data.Split(new char[] { ' ' }, 2);
+                                        error = 2;
+                                        if (connection.ServerSetting.ChannelJoins.ContainsKey(c[0].ToLower()))
+                                        {
+                                            error = 3;
+                                            connection.ServerSetting.ChannelJoins[c[0].ToLower()] = c[1];
+                                        }
+                                        else
+                                        {
+                                            error = 4;
+                                            connection.ServerSetting.ChannelJoins.Add(c[0].ToLower(), c[1]);
+                                        }
+                                        error = 5;
                                     }
                                     else
                                     {
-                                        error = 4;
-                                        connection.ServerSetting.ChannelJoins.Add(c[0].ToLower(), c[1]);
+                                        error = 6;
+                                        if (!connection.ServerSetting.ChannelJoins.ContainsKey(data.ToLower()))
+                                        {
+                                            error = 7;
+                                            connection.ServerSetting.ChannelJoins.Add(data.ToLower(), "");
+                                        }
+                                        else
+                                        {
+                                            error = 8;
+                                            connection.ServerSetting.ChannelJoins[data.ToLower()] = "";
+                                        }
+                                        error = 9;
                                     }
-                                    error = 5;
                                 }
-                                else
+                                catch (Exception)
                                 {
-                                    error = 6;
-                                    if (!connection.ServerSetting.ChannelJoins.ContainsKey(data.ToLower()))
-                                    {
-                                        error = 7;
-                                        connection.ServerSetting.ChannelJoins.Add(data.ToLower(), "");
-                                    }
-                                    else
-                                    {
-                                        error = 8;
-                                        connection.ServerSetting.ChannelJoins[data.ToLower()] = "";
-                                    }
-                                    error = 9;
+                                    //sometimes .add Throws an index out of range error - maybe we need to use LOCKS
+
                                 }
                                 error = 10;
                                 SendData(connection, "JOIN " + data);
@@ -3878,6 +3887,74 @@ if (ipc != null)
                             if (connection != null && data.Length > 0)
                                 SendData(connection, "WHOIS " + data);
                             break;
+
+                        case "/ipwhois":
+                            if (data.Length > 0)
+                            {
+                                // http://ip-api.com/php/{query}
+                                // data can be an IP or a nick
+                                System.Net.IPAddress address;
+                                System.Diagnostics.Debug.WriteLine("test IP:" + data);
+
+                                if (System.Net.IPAddress.TryParse(data, out address))
+                                {
+                                    System.Net.WebClient web = new System.Net.WebClient();
+                                    // /ipwhois 103.78.25.98  /ipwhois 78.126.126.141  /ipwhois 50.92.32.106
+                                    string url = "http://ip-api.com/line/" + data + "?fields=status,country,countryCode,region,regionName,city,zip,isp,org,query";
+                                    string html = web.DownloadString(url);
+                                    if (html.Length > 0)
+                                    {
+                                        System.Diagnostics.Debug.WriteLine(html);
+                                        // split the string
+                                        string[] lines = html.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                                        System.Diagnostics.Debug.WriteLine(lines.Length + ":" + lines[0]);
+                                        if (lines.Length == 11)
+                                        {
+                                            if (lines[0] == "success")
+                                            {
+                                                System.Diagnostics.Debug.WriteLine("Add message");
+                                                CurrentWindowMessage(connection, "IP=" + lines[9] + " : Country=" + lines[1] + " : Country Code=" + lines[2], "", true);
+                                                CurrentWindowMessage(connection, "Region=" + lines[4] + " : City=" + lines[5] + " : ISP=" + lines[7], "", true);
+                                                
+                                            }
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        System.Diagnostics.Debug.WriteLine("ip address error:");
+                                        CurrentWindowMessage(connection, "Invalid IP Address", "", true);
+                                    }
+                                }
+                                else
+                                {
+                                    //System.Diagnostics.Debug.WriteLine("get ip for:" + data);
+                                    // see if this is a nickname?
+
+                                    SendData(connection, "USERHOST " + data);
+                                    // wait a few seconds?
+
+                                    // pause 3 seconds - to wait for DNS (USERHOST) message
+                                    var t = System.Threading.Tasks.Task.Run(async delegate
+                                    {
+                                        await System.Threading.Tasks.Task.Delay(3000);
+
+                                        // make sure it exists
+                                        if (connection.ServerSetting.IAL.ContainsKey(data))
+                                        {
+                                            string ip = ((InternalAddressList)connection.ServerSetting.IAL[data]).Address;
+                                            if (ip.Length > 0)
+                                            {
+                                                //System.Diagnostics.Debug.WriteLine("try:" + ip);
+                                                ParseOutGoingCommand(connection, "/ipwhois " + ip);
+                                            }
+                                        }                                                                                
+                                    });
+                                }
+                            }
+
+                            break;
+
                         case "/aline":  //for adding lines to @windows
                             if (data.Length > 0 && data.IndexOf(" ") > -1)
                             {

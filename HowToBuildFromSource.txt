@@ -1,4 +1,4 @@
-http://wiki.icechat.net/index.php?title=Build_from_source_code
+https://wiki.icechat.net/index.php?title=Build_from_source_code
 
 IceChat 9.5 is coded using Visual Studio 2017 with .NET 4.5.2. 
 

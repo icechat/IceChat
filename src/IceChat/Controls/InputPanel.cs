@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -396,7 +396,7 @@ namespace IceChat
                 if (lines.Length == 1)
                 {
                     
-                    System.Diagnostics.Debug.WriteLine("OnCommand 1 line:" + lines[0].Length);
+                    // System.Diagnostics.Debug.WriteLine("OnCommand 1 line:" + lines[0].Length);
                     
                     //just 1 line, add to end of text box
                     if (lines[0].Length > 350)

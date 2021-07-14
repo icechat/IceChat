@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@ namespace IceChat
         private string _nick;
         private string _host;
         private bool _away;
+        private string _address;
         private string _awayMessage;
         private string _account;
 
@@ -82,6 +83,12 @@ namespace IceChat
         {
             get { return _host; }
             set { _host = value; }
+        }
+
+        public string Address
+        {
+            get { return _address; }
+            set { _address = value; }
         }
 
         public string Account

@@ -10,6 +10,8 @@ It is [RFC 1459](https://tools.ietf.org/html/rfc1459.html) Compliant.
 
 The primary website for IceChat is <https://www.icechat.net> and has a wiki page set up at <https://wiki.icechat.net>
 
+The main help channel is on #icechat at irc.quakenet.org
+
 IceChat 9.5 uses .NET Framework v4.5.2 by default.
 
 ## Building from Source Code

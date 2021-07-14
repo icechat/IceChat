@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ namespace IceChat
 {
     public partial class FormFirstRun : Form
     {
-        private string[] Default_Servers = new string[] { "irc.quakenet.org", "irc.freenode.net" };
+        private string[] Default_Servers = new string[] { "irc.quakenet.org", "irc.libera.chat", "irc.ircnet.com", "irc.undernet.org", "irc.rizon.net", "irc.efnet.org" };
         private string[] Default_Aliases = new string[] { "/op /mode # +o $1", "/deop /mode # -o $1", "/voice /mode # +v $1", "/devoice /mode # -v $1", "/b /ban # $1", "/j /join $1 $2-", "/n /names $1", "/w /whois $1 $1", "/k /kick # $1 $2-", "/q /query $1", "/v /version $1", "/about //say Operating System  [$os Build No. $osbuild]  - Uptime [$uptime]  - $icechat" };
 
         private string[] Nicklist_Popup = new string[] { "Information", ".Display User Info:/userinfo $nick", ".Whois user:/whois $nick $nick", ".DNS User:/dns $nick", "Commands", ".Query user:/query $nick", "Op Commands", ".Voice user:/mode # +v $nick", ".DeVoice user:/mode # -v $nick", ".Op user:/mode # +o $nick", ".Deop user:/mode # -o $nick", ".Kick:/kick # $nick", ".Ban:/ban # $mask($host,2)", "CTCP", ".Ping:/ping $nick", ".Version:/version $nick", "DCC", ".Send:/dcc send $nick", ".Chat:/dcc chat $nick", "Slaps", ".Brick:/me slaps $nick with a big red brick", ".Trout:/me slaps $nick with a &#x3;4r&#x3;8a&#x3;9i&#x3;11n&#x3;13b&#x3;17o&#x3;26w trout" };

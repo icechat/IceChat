@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -106,10 +106,20 @@ namespace IceChat
             if (IceChatOptions.ReconnectServer && connection.AttemptReconnect)
             {
                 if (connection.ServerSetting.UseBNC)
+                {
                     OnServerMessage(connection, "Waiting " + connection.ServerSetting.ReconnectTime + " seconds to re-connect to " + connection.ServerSetting.BNCIP + " on port " + connection.ServerSetting.BNCPort + " (BNC Connection)", "");
+                }
                 else
-                    OnServerMessage(connection, "Waiting " + connection.ServerSetting.ReconnectTime + " seconds to re-connect to " + connection.ServerSetting.ServerName + " on port " + connection.ServerSetting.ServerPort, "");
-                
+                {
+                    if (connection.enableStsPolicy == true)
+                    {
+                        OnServerMessage(connection, "Waiting " + connection.ServerSetting.ReconnectTime + " seconds to re-connect securely to " + connection.ServerSetting.ServerName + " on port " + connection.stsServerPort, "");
+                    }
+                    else
+                    {
+                        OnServerMessage(connection, "Waiting " + connection.ServerSetting.ReconnectTime + " seconds to re-connect to " + connection.ServerSetting.ServerName + " on port " + connection.ServerSetting.ServerPort, "");
+                    }
+                }
                 try
                 {
                     if (connection.ReconnectTimer != null)
@@ -813,8 +823,11 @@ namespace IceChat
                     }
                 }
             }
-            
+
             //System.Diagnostics.Debug.WriteLine("Clear Buddy List Status");
+
+            //System.Diagnostics.Debug.WriteLine("Check Buddies:" + connection.buddiesIsOnSent + ":" + connection.ServerSetting.BuddyList.Length);
+
 
             if (connection.buddiesIsOnSent == connection.ServerSetting.BuddyList.Length)
             {
@@ -1050,7 +1063,7 @@ namespace IceChat
                         connection.ServerSetting.AutoJoinChannels[i] = chan;
                     i++;
                 }
-
+                
                 serverTree.SaveServers(serverTree.ServersCollection);
 
                 return;
@@ -2518,8 +2531,6 @@ namespace IceChat
 
                 string msg = GetMessageFormat("Self Channel Join");
 
-                System.Diagnostics.Debug.WriteLine(msg);
-                System.Diagnostics.Debug.WriteLine(host);
                 msg = msg.Replace("$nick", connection.ServerSetting.CurrentNickName).Replace("$channel", t.TabCaption);
                 msg = msg.Replace("$host", host);
 
@@ -3017,7 +3028,13 @@ namespace IceChat
                 {
                     mode = fullmode.Substring(0, fullmode.IndexOf(' '));
                     parameter = fullmode.Substring(fullmode.IndexOf(' ') + 1);
+
+                    // bug fix, nicks can start with a :
+                    if (parameter.StartsWith(":"))
+                        parameter = parameter.Substring(1);
+
                 }
+
 
                 string msg = GetMessageFormat("Channel Mode");
                 

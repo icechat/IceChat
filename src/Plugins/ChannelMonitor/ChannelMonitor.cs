@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2020 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -92,7 +92,7 @@ namespace IceChatPlugin
             //set your default values here
             m_Name = "Channel Monitor Plugin";
             m_Author = "Snerf";
-            m_Version = "1.5.2";
+            m_Version = "1.5.5";
         }
 
         public override void Dispose()
@@ -159,6 +159,9 @@ namespace IceChatPlugin
             listMonitor.Dock = DockStyle.Fill;
             panel.Controls.Add(listMonitor);
 
+            listMonitor.BackColor = System.Drawing.ColorTranslator.FromHtml( monitorChannels.MonitorBackColor );
+            listMonitor.ForeColor = System.Drawing.ColorTranslator.FromHtml( monitorChannels.MonitorForeColor );
+
             if (CurrentVersion > 90220150213)
             {
                 listMonitor.DoubleClick += new EventHandler(ListMonitor_DoubleClick);
@@ -178,7 +181,7 @@ namespace IceChatPlugin
             if (menu == m_EnableMonitor)
             {
                 // check if this needs to be checked or not
-                cMonitor newChan = new cMonitor(ServerTreeCurrentConnection, ServerTreeCurrentTab);
+                cMonitor newChan = new cMonitor(ServerTreeCurrentConnection, StripColorCodes(ServerTreeCurrentTab));
                 if (monitoredChannels.IndexOf(newChan) > -1)
                 {
                     menu.Checked = true;
@@ -217,7 +220,7 @@ namespace IceChatPlugin
                     //get all the open channels
                     foreach (string chan in c.OpenChannels)
                     {
-                        cMonitor newChan = new cMonitor(c, chan);
+                        cMonitor newChan = new cMonitor(c, StripColorCodes(chan));
                         if (monitoredChannels.IndexOf(newChan) == -1)
                         {
                             monitoredChannels.Add(newChan);
@@ -245,7 +248,7 @@ namespace IceChatPlugin
         private void OnEnableMonitor_Click(object sender, EventArgs e)
         {
             //get the current selected item for the popup menu
-            cMonitor newChan = new cMonitor(ServerTreeCurrentConnection, ServerTreeCurrentTab);
+            cMonitor newChan = new cMonitor(ServerTreeCurrentConnection, StripColorCodes(ServerTreeCurrentTab));
             bool mEnabled = false;
             if (((ToolStripMenuItem)sender).CheckState == CheckState.Checked)
             {
@@ -303,16 +306,17 @@ namespace IceChatPlugin
             {
                 DateTime now = DateTime.Now;
                 ListViewItem lvi = new ListViewItem(now.ToString());
-                
+
                 lvi.SubItems.Add(Channel);
                 lvi.SubItems.Add(Message);
                 lvi.SubItems.Add(serverID.ToString());
 
-                if (highlight)
-                    lvi.ForeColor = System.Drawing.Color.Red;
+                if (highlight == true)
+                { 
+                    lvi.ForeColor = System.Drawing.ColorTranslator.FromHtml(monitorChannels.MonitorHighliteColor);
+                }
                 
                 listMonitor.Items.Add(lvi);
-
 
 
                 //scroll the listview to the bottom
@@ -323,13 +327,28 @@ namespace IceChatPlugin
 
         private void LoadSettings()
         {
+            TextReader textReader = null;
+
             if (File.Exists(settingsFile))
             {
-                XmlSerializer deserializer = new XmlSerializer(typeof(IceChatChannelMonitor));
-                TextReader textReader = new StreamReader(settingsFile);
-                monitorChannels = (IceChatChannelMonitor)deserializer.Deserialize(textReader);
-                textReader.Close();
-                textReader.Dispose();
+                try
+                {
+                    XmlSerializer deserializer = new XmlSerializer(typeof(IceChatChannelMonitor));
+                    textReader = new StreamReader(settingsFile);
+                    monitorChannels = (IceChatChannelMonitor)deserializer.Deserialize(textReader);
+                    textReader.Close();
+                    textReader.Dispose();
+                }
+                catch (Exception)
+                {
+                    if (textReader != null)
+                    {
+                        textReader.Close();
+                        textReader.Dispose();
+                    }
+                    monitorChannels = new IceChatChannelMonitor();
+                    SaveSettings();
+                }
             }
             else
             {
@@ -360,15 +379,18 @@ namespace IceChatPlugin
             string ParseReverseChar = @"\x16";      //code 22
             string ParseItalicChar = @"\x1D";      //code 29
 
+            string ParseCancelChar = @"\x0F";    //code 15 - 
+
+
             line = line.Replace("&#x3;", colorChar.ToString());
+            line = line.Replace("&#x0F;", "");
 
             StringBuilder sLine = new StringBuilder();
             sLine.Append(line);
 
-            Regex ParseIRCCodes = new Regex(ParseBackColor + "|" + ParseForeColor + "|" + ParseColorChar + "|" + ParseBoldChar + "|" + ParseUnderlineChar + "|" + ParseReverseChar + "|" + ParseItalicChar);
+            Regex ParseIRCCodes = new Regex(ParseBackColor + "|" + ParseForeColor + "|" + ParseColorChar + "|" + ParseBoldChar + "|" + ParseUnderlineChar + "|" + ParseReverseChar + "|" + ParseItalicChar + "|" + ParseCancelChar);
 
             Match m = ParseIRCCodes.Match(sLine.ToString());
-
             while (m.Success)
             {
                 sLine.Remove(m.Index, m.Length);
@@ -383,7 +405,7 @@ namespace IceChatPlugin
         public override PluginArgs ChannelMessage(PluginArgs args)
         {
             //check if monitoring is enabled for this channel
-            cMonitor newChan = new cMonitor(args.Connection, args.Channel);
+            cMonitor newChan = new cMonitor(args.Connection, StripColorCodes(args.Channel));
             if (monitoredChannels.IndexOf(newChan) > -1)
             {
                 //check if nick is said
@@ -398,7 +420,7 @@ namespace IceChatPlugin
 
         public override PluginArgs ChannelAction(PluginArgs args)
         {
-            cMonitor newChan = new cMonitor(args.Connection, args.Channel);
+            cMonitor newChan = new cMonitor(args.Connection, StripColorCodes(args.Channel));
             if (monitoredChannels.IndexOf(newChan) > -1)
             {
                 string message = StripColorCodes(args.Message);
@@ -427,7 +449,7 @@ namespace IceChatPlugin
                 
                 if (disabled == false)
                 {
-                    cMonitor newChan = new cMonitor(args.Connection, args.Channel);
+                    cMonitor newChan = new cMonitor(args.Connection, StripColorCodes(args.Channel));
                     monitoredChannels.Add(newChan);
 
                     AddMonitorMessage(args.Channel, "Started Monitoring channel:" + monitoredChannels.Count, false, args.Connection.ServerSetting.ID);
@@ -459,7 +481,7 @@ namespace IceChatPlugin
             if (args.Nick == args.Connection.ServerSetting.NickName)
             {
                 //remove the channel from the list
-                cMonitor newChan = new cMonitor(args.Connection, args.Channel);
+                cMonitor newChan = new cMonitor(args.Connection, StripColorCodes(args.Channel));
                 if (monitoredChannels.IndexOf(newChan) > -1)
                 {
                     monitoredChannels.Remove(newChan);
@@ -484,9 +506,27 @@ namespace IceChatPlugin
     
     public class IceChatChannelMonitor
     {
+
+        private string _monitorBack = "#FFFFFF";
+        private string _monitorFore = "#000000";
+        private string _monitorHigh = "#FF0000";
+
         [XmlArray("Channels")]
         [XmlArrayItem("Item", typeof(MonitorItem))]
         public ArrayList listChannels;
+
+        [XmlElement("MonitorBackColor")]
+        public string MonitorBackColor
+        { get { return _monitorBack; } set { _monitorBack = value; } }
+
+        [XmlElement("MonitorForeColor")]
+        public string MonitorForeColor
+        { get { return _monitorFore; } set { _monitorFore = value; } }
+
+        [XmlElement("MonitorHighliteColor")]
+        public string MonitorHighliteColor
+        { get { return _monitorHigh; } set { _monitorHigh = value; } }
+
 
         public IceChatChannelMonitor()
         {

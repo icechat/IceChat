@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -203,64 +203,75 @@ namespace IceChat
 
         private void OnServerDisconnect(IRCConnection connection)
         {
-            string msg = GetMessageFormat("Server Disconnect");
-            
-            msg = msg.Replace("$serverip", connection.ServerSetting.ServerIP);
-            msg = msg.Replace("$port", connection.ServerSetting.ServerPort);
-            
-            if (connection.ServerSetting.RealServerName.Length > 0)
-                msg = msg.Replace("$server",connection.ServerSetting.RealServerName);
-            else
-                msg = msg.Replace("$server", connection.ServerSetting.ServerName);
 
-
-            foreach (IceTabPage t in mainChannelBar.TabPages)
+            try
             {
-                if (t.WindowStyle == IceTabPage.WindowType.Channel || t.WindowStyle == IceTabPage.WindowType.Query)
+
+                string msg = GetMessageFormat("Server Disconnect");
+
+                msg = msg.Replace("$serverip", connection.ServerSetting.ServerIP);
+                msg = msg.Replace("$port", connection.ServerSetting.ServerPort);
+
+                if (connection.ServerSetting.RealServerName.Length > 0)
+                    msg = msg.Replace("$server", connection.ServerSetting.RealServerName);
+                else
+                    msg = msg.Replace("$server", connection.ServerSetting.ServerName);
+
+
+                foreach (IceTabPage t in mainChannelBar.TabPages)
                 {
-                    if (t.Connection == connection)
+                    if (t.WindowStyle == IceTabPage.WindowType.Channel || t.WindowStyle == IceTabPage.WindowType.Query)
                     {
-                        t.ClearNicks();
-                        t.IsFullyJoined = false;
-                        t.GotNamesList = false;
-                        t.GotWhoList = false;
-                        t.ChannelModesHash.Clear();
-                        t.ChannelModes = "";
+                        if (t.Connection == connection)
+                        {
+                            t.ClearNicks();
+                            t.IsFullyJoined = false;
+                            t.GotNamesList = false;
+                            t.GotWhoList = false;
+                            t.ChannelModesHash.Clear();
+                            t.ChannelModes = "";
 
-                        t.TextWindow.AppendText(msg, "");
-                        t.LastMessageType = ServerMessageType.ServerMessage;
+                            t.TextWindow.AppendText(msg, "");
+                            t.LastMessageType = ServerMessageType.ServerMessage;
 
-                        if (CurrentWindow == t)
-                            nickList.Header = t.TabCaption + ":0";
+                            if (CurrentWindow == t)
+                                nickList.Header = t.TabCaption + ":0";
+                        }
                     }
                 }
-            }
 
-            OnServerMessage(connection, msg, "");
-            
-            if (!connection.ServerSetting.DisableSounds)
-                PlaySoundFile("dropped");
+                OnServerMessage(connection, msg, "");
 
-            if (loadedPlugins.Count > 0)
-            {
-                PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", connection.ServerSetting.CurrentNickName, "", msg)
+                if (!connection.ServerSetting.DisableSounds)
+                    PlaySoundFile("dropped");
+
+                if (loadedPlugins.Count > 0)
                 {
-                    Connection = connection
-                };
-
-                foreach (Plugin p in loadedPlugins)
-                {
-                    IceChatPlugin ipc = p as IceChatPlugin;
-                    if (ipc != null)
+                    PluginArgs args = new PluginArgs(mainChannelBar.GetTabPage("Console").TextWindow, "", connection.ServerSetting.CurrentNickName, "", msg)
                     {
-                        if (ipc.plugin.Enabled == true)
-                            ipc.plugin.ServerDisconnect(args);
+                        Connection = connection
+                    };
+
+                    foreach (Plugin p in loadedPlugins)
+                    {
+                        IceChatPlugin ipc = p as IceChatPlugin;
+                        if (ipc != null)
+                        {
+                            if (ipc.plugin.Enabled == true)
+                                ipc.plugin.ServerDisconnect(args);
+                        }
                     }
                 }
-            }
 
-            if (iceChatOptions.SystemTrayServerMessage == true && iceChatOptions.SystemTrayServerMessage)
-                ShowTrayNotification("You have disconnected from " + connection.ServerSetting.ServerName);
+                if (iceChatOptions.SystemTrayServerMessage == true && iceChatOptions.SystemTrayServerMessage)
+                    ShowTrayNotification("You have disconnected from " + connection.ServerSetting.ServerName);
+
+            }
+            catch (Exception ex)
+            {
+
+                WriteErrorFile(connection, "OnServerDisconnect:" + connection.ServerSetting.ServerName, ex);
+            }
 
         }
 

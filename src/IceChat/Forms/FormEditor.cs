@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,6 +112,44 @@ namespace IceChat
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
+
+            TextBox txt = sender as TextBox;
+            if (e.Modifiers == Keys.Control)
+            {
+                if (e.KeyCode == Keys.K)
+                {
+                    txt.SelectedText = ((char)3).ToString();
+                    e.Handled = true;
+                }
+                if (e.KeyCode == Keys.B)
+                {
+                    txt.SelectedText = ((char)2).ToString();
+                    e.Handled = true;
+                }
+                if (e.KeyCode == Keys.R)
+                {
+                    txt.SelectedText = ((char)22).ToString();
+                    e.Handled = true;
+                }
+                if (e.KeyCode == Keys.O)
+                {
+                    txt.SelectedText = ((char)15).ToString();
+                    e.Handled = true;
+                }
+                if (e.KeyCode == Keys.U)
+                {
+                    txt.SelectedText = ((char)31).ToString();
+                    e.Handled = true;
+                }
+                if (e.KeyCode == Keys.I)
+                {
+                    txt.SelectedText = ((char)29).ToString();
+                    e.Handled = true;
+                }
+
+            }
+
+            /*
             if (e.Modifiers == Keys.Control)
             {
                 if (e.KeyCode == Keys.K)
@@ -155,6 +193,7 @@ namespace IceChat
                 //219 - DB
                 //206 - CE
             }
+            */
         }
 
 
@@ -187,6 +226,22 @@ namespace IceChat
             }
         }
 
+        private string ReplaceCharsXml(string text)
+        {
+
+            text = text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)31).ToString(), "&#x1F;").Replace(((char)29).ToString(), "&#x1D;").Replace(((char)22).ToString(), "&#x16;").Replace(((char)15).ToString(), "&#x0F;");
+
+            return text;
+        }
+
+        private string ReplaceXmlChars(string text)
+        {
+
+            text = text.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)31).ToString()).Replace("&#x1D;", ((char)29).ToString()).Replace("&#x16;", ((char)22).ToString()).Replace("&#x0F;", ((char)15).ToString());
+
+            return text;
+        }
+
         private void LoadAliases()
         {
             textAliases.Clear();
@@ -197,14 +252,16 @@ namespace IceChat
             foreach (AliasItem alias in aliasList.listAliases)
             {
                 if (alias.Command.Length == 1)
-                    textAliases.AppendText(alias.AliasName + " " + alias.Command[0].Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)31).ToString()).Replace("&#x1D;", ((char)29).ToString()).Replace("&#x16;", ((char)22).ToString()).Replace("&#x0F;", ((char)15).ToString()) + Environment.NewLine);
+                {
+                    textAliases.AppendText(alias.AliasName + " " + ReplaceXmlChars(alias.Command[0]) + Environment.NewLine);
+                }
                 else
                 {
                     //multiline alias
                     textAliases.AppendText(alias.AliasName + " {" + Environment.NewLine);
                     foreach (string command in alias.Command)
                     {
-                        textAliases.AppendText(command + Environment.NewLine);
+                        textAliases.AppendText(ReplaceXmlChars(command) + Environment.NewLine);
                     }
                     textAliases.AppendText("}" + Environment.NewLine);
                 }
@@ -219,7 +276,7 @@ namespace IceChat
             
             foreach (string m in menu)
             {
-                textPopups.AppendText(m.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()).Replace("&#x1F;", ((char)31).ToString()).Replace("&#x1D;", ((char)29).ToString()).Replace("&#x16;", ((char)22).ToString()).Replace("&#x0F;", ((char)15).ToString()) + Environment.NewLine);
+                textPopups.AppendText( ReplaceXmlChars(m) + Environment.NewLine);
             }
 
             textPopups.SelectionStart = 0;
@@ -274,7 +331,8 @@ namespace IceChat
         {
             try
             {
-                string[] popups = textPopups.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)31).ToString(), "&#x1F;").Replace(((char)29).ToString(), "&#x1D;").Replace(((char)22).ToString(), "&#x16;").Replace(((char)15).ToString(), "&#x0F;").Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None);
+
+                string[] popups = ReplaceCharsXml(textPopups.Text).Trim().Split(new String[] { Environment.NewLine }, StringSplitOptions.None); ;
 
                 if (currentPopup == "NickList")
                     nickListPopup = popups;
@@ -291,6 +349,7 @@ namespace IceChat
                     PopupType = currentPopup,
                     Menu = popups
                 };
+
                 popupList.ReplacePopup(p.PopupType, p);
 
                 FormMain.Instance.IceChatPopupMenus = popupList;
@@ -357,7 +416,8 @@ namespace IceChat
             //save all the settings
             try
             {
-                textAliases.Text = textAliases.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;").Replace(((char)31).ToString(), "&#x1F;").Replace(((char)29).ToString(), "&#x1D;").Replace(((char)22).ToString(), "&#x16;").Replace(((char)15).ToString(), "&#x0F;");
+
+                textAliases.Text = ReplaceCharsXml(textAliases.Text);
 
                 //parse out all the aliases
 

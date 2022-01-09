@@ -32,6 +32,7 @@
             this.labelAbout = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // labelAbout
@@ -71,6 +72,21 @@
             this.labelVersion.TabIndex = 2;
             this.labelVersion.Text = "Version:";
             // 
+            // linkLabel2
+            // 
+            this.linkLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel2.Location = new System.Drawing.Point(240, 412);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.linkLabel2.Size = new System.Drawing.Size(247, 16);
+            this.linkLabel2.TabIndex = 3;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "https://github.com/icechat/IceChat";
+            this.linkLabel2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
@@ -78,6 +94,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(516, 451);
+            this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.labelAbout);
@@ -100,6 +117,6 @@
         private System.Windows.Forms.Label labelAbout;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label labelVersion;
-
+        private System.Windows.Forms.LinkLabel linkLabel2;
     }
 }

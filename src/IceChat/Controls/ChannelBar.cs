@@ -1,7 +1,7 @@
 ﻿/***********************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1052,7 +1052,7 @@ namespace IceChat
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
                                 IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                                if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {

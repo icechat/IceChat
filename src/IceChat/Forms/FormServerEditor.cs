@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -100,17 +100,16 @@ namespace IceChat
 
         private void Text_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
+            TextBox txt = sender as TextBox;
             if (e.Modifiers == Keys.Control)
             {
                 if (e.KeyCode == Keys.K)
                 {
-                    TextBox txt = sender as TextBox;
                     txt.SelectedText = ((char)3).ToString();
                     e.Handled = true;
                 }
                 if (e.KeyCode == Keys.B)
                 {
-                    TextBox txt = sender as TextBox;
                     txt.SelectedText = ((char)2).ToString();
                     e.Handled = true;
                 }
@@ -124,7 +123,7 @@ namespace IceChat
             this.textQuitMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
             this.textFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
             this.textAutoPerform.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Text_KeyDown);
-
+            
 
             this.textServerPassword.MouseEnter += Password_MouseEnter;
             this.textServerPassword.MouseLeave += Password_MouseLeave;
@@ -442,8 +441,7 @@ namespace IceChat
             textBNCUser.Text = serverSetting.BNCUser;
             textBNCPass.Text = serverSetting.BNCPass;
             
-            this.textNotes.Text = serverSetting.ServerNotes;
-
+            this.textNotes.Text = serverSetting.ServerNotes.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
         }
 
         /// <summary>
@@ -573,7 +571,7 @@ namespace IceChat
                                     b.IsOnReceived = bo.IsOnReceived;
                                     b.Connected = bo.Connected;
 
-                                    System.Diagnostics.Debug.WriteLine("matched:" + bo.Nick);
+                                    //System.Diagnostics.Debug.WriteLine("matched:" + bo.Nick);
                                 }
                                 else if (b.Nick.StartsWith(";") && bo.Nick == b.Nick.Substring(1))
                                 {
@@ -582,7 +580,7 @@ namespace IceChat
                                     b.IsOnReceived = bo.IsOnReceived;
                                     b.IsOnSent = false;
 
-                                    System.Diagnostics.Debug.WriteLine("matched DIS:" + bo.Nick);
+                                    //System.Diagnostics.Debug.WriteLine("matched DIS:" + bo.Nick);
                                 }
                             }
                         }
@@ -650,7 +648,7 @@ namespace IceChat
             serverSetting.BNCUser = textBNCUser.Text.Trim();
             serverSetting.BNCPass = textBNCPass.Text.Trim();
 
-            serverSetting.ServerNotes = textNotes.Text;
+            serverSetting.ServerNotes = textNotes.Text.Replace(((char)3).ToString(), "&#x3;").Replace(((char)2).ToString(), "&#x2;");
 
             if (newServer == true)
             {
@@ -1186,7 +1184,5 @@ namespace IceChat
 
 
         }
-
-
     }
 }

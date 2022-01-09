@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -356,29 +356,36 @@ namespace IceChat
                 return;
 
             //only disconnect/connect if an actual server is selected, not just any window
-            object findNode = FindNodeValue(selectedNodeIndex);
-            if (findNode != null)
+            try
             {
-                if (findNode.GetType() == typeof(ServerSetting))
+                object findNode = FindNodeValue(selectedNodeIndex);
+                if (findNode != null)
                 {
-                    IRCConnection c = (IRCConnection)serverConnections[selectedServerID];
-                    if (c != null)
+                    if (findNode.GetType() == typeof(ServerSetting))
                     {
-                        if (c.IsConnected)
+                        IRCConnection c = (IRCConnection)serverConnections[selectedServerID];
+                        if (c != null)
                         {
-                            _parent.ParseOutGoingCommand(c, "//quit " + c.ServerSetting.QuitMessage);
+                            if (c.IsConnected)
+                            {
+                                _parent.ParseOutGoingCommand(c, "//quit " + c.ServerSetting.QuitMessage);
+                            }
+                            else
+                            {
+                                //switch to Console
+                                _parent.ChannelBar.SelectedIndex = 0;
+                                c.ConnectSocket();
+                            }
+                            return;
                         }
-                        else
-                        {
-                            //switch to Console
-                            _parent.ChannelBar.SelectedIndex = 0;
-                            c.ConnectSocket();
-                        }
-                        return;
+                        if (NewServerConnection != null)
+                            NewServerConnection(GetServerSetting(selectedServerID));
                     }
-                    if (NewServerConnection != null)
-                        NewServerConnection(GetServerSetting(selectedServerID));
                 }
+            }
+            catch(Exception)
+            {
+                // do nada!
             }
         }
 
@@ -422,78 +429,85 @@ namespace IceChat
             int nodeNumber = Convert.ToInt32((e.Location.Y - headerHeight) / _lineSize) + 1 + topIndex;
 
             g.Dispose();
-            
-            //check if we have clicked the + or - to collapse or not collapse the tree
-            if (e.Button == MouseButtons.Left && serverNodes.Count > 0 && e.X < 16)
+
+            try
             {
-                object findNode = FindNodeValue(nodeNumber);
-                if (findNode != null)
+
+                //check if we have clicked the + or - to collapse or not collapse the tree
+                if (e.Button == MouseButtons.Left && serverNodes.Count > 0 && e.X < 16)
                 {
-                    if (findNode.GetType() == typeof(ServerSetting))
+                    object findNode = FindNodeValue(nodeNumber);
+                    if (findNode != null)
                     {
-                        int t = ((ServerSetting)findNode).TreeCollapse;
-                        if (t == 0)
+                        if (findNode.GetType() == typeof(ServerSetting))
+                        {
+                            int t = ((ServerSetting)findNode).TreeCollapse;
+                            if (t == 0)
+                                return;
+                            else if (t == 1)
+                                ((ServerSetting)findNode).TreeCollapse = 2;
+                            else
+                                ((ServerSetting)findNode).TreeCollapse = 1;
+
+                            this.Invalidate();
                             return;
-                        else if (t == 1)
-                            ((ServerSetting)findNode).TreeCollapse = 2;
-                        else
-                            ((ServerSetting)findNode).TreeCollapse = 1;
-
-                        this.Invalidate();
-                        return;
+                        }
                     }
                 }
-            }
 
-            SelectNodeByIndex(nodeNumber, true);
+                SelectNodeByIndex(nodeNumber, true);
 
-            if (e.Button == MouseButtons.Left && serverNodes.Count > 1)
-            {
-                object findNode = FindNodeValue(nodeNumber);
-                if (findNode != null)
+                if (e.Button == MouseButtons.Left && serverNodes.Count > 1)
                 {
-                    if (findNode.GetType() == typeof(ServerSetting))
+                    object findNode = FindNodeValue(nodeNumber);
+                    if (findNode != null)
                     {
-                        selectedDragID = (ServerSetting)findNode;
+                        if (findNode.GetType() == typeof(ServerSetting))
+                        {
+                            selectedDragID = (ServerSetting)findNode;
+                        }
                     }
                 }
-            }
 
-            if (e.Button == MouseButtons.Middle)
-            {
-                object findNode = FindNodeValue(nodeNumber);
-                if (findNode != null)
+                if (e.Button == MouseButtons.Middle)
                 {
-                    if (findNode.GetType() == typeof(IceTabPage))
+                    object findNode = FindNodeValue(nodeNumber);
+                    if (findNode != null)
                     {
-                        if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Channel || ((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Query || ((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.DCCChat)
+                        if (findNode.GetType() == typeof(IceTabPage))
                         {
-                            //part the channel/close the query window
-                            _parent.ParseOutGoingCommand(((IceTabPage)findNode).Connection, "/part " + ((IceTabPage)findNode).TabCaption);
+                            if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Channel || ((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Query || ((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.DCCChat)
+                            {
+                                //part the channel/close the query window
+                                _parent.ParseOutGoingCommand(((IceTabPage)findNode).Connection, "/part " + ((IceTabPage)findNode).TabCaption);
+                            }
+                            else if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Window)
+                            {
+                                //just close the window
+                                _parent.ParseOutGoingCommand(null, "/close " + ((IceTabPage)findNode).TabCaption);
+                            }
+                            else if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Debug)
+                            {
+                                _parent.ParseOutGoingCommand(null, "/close debug");
+                            }
+                            else if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.ChannelList)
+                            {
+                                System.Diagnostics.Debug.WriteLine("found channel list");
+                                _parent.ParseOutGoingCommand(((IceTabPage)findNode).Connection, "/close Channels");
+                            }
                         }
-                        else if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Window)                            
+                        else if (findNode.GetType() == typeof(IceTabPageDCCFile))
                         {
-                            //just close the window
-                            _parent.ParseOutGoingCommand(null, "/close " + ((IceTabPage)findNode).TabCaption);
-                        }
-                        else if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Debug)
-                        {
-                            _parent.ParseOutGoingCommand(null, "/close debug");
-                        }
-                        else if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.ChannelList)
-                        {
-                            System.Diagnostics.Debug.WriteLine("found channel list");
-                            _parent.ParseOutGoingCommand(((IceTabPage)findNode).Connection, "/close Channels");
-                        }
-                    }
-                    else if (findNode.GetType() == typeof(IceTabPageDCCFile))
-                    {
-                        //close dcc file/send window
+                            //close dcc file/send window
 
+                        }
                     }
                 }
+            } 
+            catch(Exception)
+            {
+                // do nada!
             }
-
         }
 
         private void OnMouseMove(object sender, MouseEventArgs e)
@@ -503,98 +517,107 @@ namespace IceChat
 
             Graphics g = this.CreateGraphics();
 
-            int _lineSize = Convert.ToInt32(this.Font.GetHeight(g));
-            //find the server number, add 1 to it to make it a non-zero value
-            int nodeNumber = Convert.ToInt32((e.Location.Y - headerHeight) / _lineSize) + 1 + topIndex;
-            
-            //dont bother moving anything if we have 1 or less servers
-            if (e.Button == MouseButtons.Left && serverNodes.Count > 1)
+            try
             {
-                //try dragging a node
+
+                int _lineSize = Convert.ToInt32(this.Font.GetHeight(g));
+                //find the server number, add 1 to it to make it a non-zero value
+                int nodeNumber = Convert.ToInt32((e.Location.Y - headerHeight) / _lineSize) + 1 + topIndex;
+
+                //dont bother moving anything if we have 1 or less servers
+                if (e.Button == MouseButtons.Left && serverNodes.Count > 1)
+                {
+                    //try dragging a node
+                    if (nodeNumber <= serverNodes.Count)
+                    {
+                        object findNode = FindNodeValue(nodeNumber);
+                        if (findNode != null)
+                        {
+                            if (findNode.GetType() == typeof(ServerSetting) && selectedDragID != null)
+                            {
+                                //can only drag a server node
+                                ServerSetting index1 = (ServerSetting)findNode;
+                                if (index1 == selectedDragID) return;
+
+                                serversCollection.listServers.Remove(selectedDragID);
+                                serversCollection.listServers.Insert(index1.ID - 1, selectedDragID);
+
+                                //rename all the servers ID's in the list
+                                int count = 1;
+                                foreach (ServerSetting s in serversCollection.listServers)
+                                {
+                                    s.ID = count;
+                                    count++;
+                                }
+
+                                //re-select the proper node (NOT QUITE RIGHT)                            
+                                selectedNodeIndex = nodeNumber;
+
+                                this.Invalidate();
+
+                            }
+                        }
+                    }
+
+                    return;
+                }
+
+
                 if (nodeNumber <= serverNodes.Count)
                 {
                     object findNode = FindNodeValue(nodeNumber);
                     if (findNode != null)
                     {
-                        if (findNode.GetType() == typeof(ServerSetting) && selectedDragID != null)
+                        if (findNode.GetType() == typeof(ServerSetting))
                         {
-                            //can only drag a server node
-                            ServerSetting index1 = (ServerSetting)findNode;
-                            if (index1 == selectedDragID) return;
-
-                            serversCollection.listServers.Remove(selectedDragID);
-                            serversCollection.listServers.Insert(index1.ID - 1, selectedDragID);
-
-                            //rename all the servers ID's in the list
-                            int count = 1;
-                            foreach (ServerSetting s in serversCollection.listServers)
+                            if (toolTipNode != nodeNumber)
                             {
-                                s.ID = count;
-                                count++;
+                                string t = "";
+                                if (((ServerSetting)findNode).RealServerName.Length > 0)
+                                    t = ((ServerSetting)findNode).RealServerName + ":" + ((ServerSetting)findNode).ServerPort;
+                                else
+                                    t = ((ServerSetting)findNode).ServerName + ":" + ((ServerSetting)findNode).ServerPort;
+
+                                toolTip.ToolTipTitle = t;
+                                toolTip.SetToolTip(this, ((ServerSetting)findNode).NickName);
+
+                                toolTipNode = nodeNumber;
                             }
+                        }
+                        else if (findNode.GetType() == typeof(IceTabPage))
+                        {
+                            //this is a window, switch to this channel/query
+                            if (toolTipNode != nodeNumber)
+                            {
+                                if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Channel)
+                                {
+                                    toolTip.ToolTipTitle = ((IceTabPage)findNode).TabCaption;
+                                    toolTip.SetToolTip(this, "{" + ((IceTabPage)findNode).Nicks.Count + "} " + "[" + ((IceTabPage)findNode).ChannelModes + "]");
+                                }
+                                else
+                                {
+                                    toolTip.ToolTipTitle = "User Information";
+                                    toolTip.SetToolTip(this, ((IceTabPage)findNode).TabCaption);
+                                }
+                                toolTipNode = nodeNumber;
+                            }
+                        }
+                        else if (findNode.GetType() == typeof(IceTabPageDCCFile))
+                        {
 
-                            //re-select the proper node (NOT QUITE RIGHT)                            
-                            selectedNodeIndex = nodeNumber;
-
-                            this.Invalidate();
 
                         }
                     }
                 }
-
-                return;
-            }
-
-
-            if (nodeNumber <= serverNodes.Count)
-            {
-                object findNode = FindNodeValue(nodeNumber);
-                if (findNode != null)
+                else
                 {
-                    if (findNode.GetType() == typeof(ServerSetting))
-                    {
-                        if (toolTipNode != nodeNumber)
-                        {
-                            string t = "";
-                            if (((ServerSetting)findNode).RealServerName.Length > 0 )
-                                t = ((ServerSetting)findNode).RealServerName + ":" + ((ServerSetting)findNode).ServerPort;
-                            else
-                                t = ((ServerSetting)findNode).ServerName + ":" + ((ServerSetting)findNode).ServerPort;
-
-                            toolTip.ToolTipTitle = t; 
-                            toolTip.SetToolTip(this, ((ServerSetting)findNode).NickName);
-                            
-                            toolTipNode = nodeNumber;
-                        }
-                    }
-                    else if (findNode.GetType() == typeof(IceTabPage))
-                    {
-                        //this is a window, switch to this channel/query
-                        if (toolTipNode != nodeNumber)
-                        {
-                            if (((IceTabPage)findNode).WindowStyle == IceTabPage.WindowType.Channel)
-                            {
-                                toolTip.ToolTipTitle = ((IceTabPage)findNode).TabCaption;
-                                toolTip.SetToolTip(this, "{" + ((IceTabPage)findNode).Nicks.Count + "} " + "[" + ((IceTabPage)findNode).ChannelModes + "]");
-                            }
-                            else
-                            {
-                                toolTip.ToolTipTitle = "User Information";
-                                toolTip.SetToolTip(this, ((IceTabPage)findNode).TabCaption);
-                            }
-                            toolTipNode = nodeNumber;
-                        }
-                    }
-                    else if (findNode.GetType() == typeof(IceTabPageDCCFile))
-                    {
-
-
-                    }
+                    toolTip.RemoveAll();
                 }
             }
-            else
+
+            catch(Exception)
             {
-                toolTip.RemoveAll();
+                // do nada!
             }
 
             g.Dispose();
@@ -788,7 +811,7 @@ namespace IceChat
                         foreach (Plugin p in _parent.LoadedPlugins)
                         {
                             IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                            if (ipc != null)
                             {
                                 if (ipc.plugin.Enabled == true)
                                 {
@@ -975,7 +998,7 @@ if (ipc != null)
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
                                 IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                                if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {
@@ -1022,7 +1045,7 @@ if (ipc != null)
                             foreach (Plugin p in _parent.LoadedPlugins)
                             {
                                 IceChatPlugin ipc = p as IceChatPlugin;
-if (ipc != null)
+                                if (ipc != null)
                                 {
                                     if (ipc.plugin.Enabled == true)
                                     {
@@ -1248,18 +1271,25 @@ if (ipc != null)
         {
             if (((ToolStripMenuItem)sender).Tag == null) return;
 
-            if (selectedNodeIndex == 0 || selectedServerID == 0) return;
-
-            string command = ((ToolStripMenuItem)sender).Tag.ToString();
-            if (command.Length == 0) return;
-
-            IRCConnection c = (IRCConnection)serverConnections[selectedServerID];
-            if (c != null)
+            try
             {
-                _parent.ParseOutGoingCommand(c, command);
-                return;
-            }
 
+                if (selectedNodeIndex == 0 || selectedServerID == 0) return;
+
+                string command = ((ToolStripMenuItem)sender).Tag.ToString();
+                if (command.Length == 0) return;
+
+                IRCConnection c = (IRCConnection)serverConnections[selectedServerID];
+                if (c != null)
+                {
+                    _parent.ParseOutGoingCommand(c, command);
+                    return;
+                }
+            }
+            catch(Exception)
+            {
+                // do nada!
+            }
         }
 
         private void PanelTop_Paint(object sender, PaintEventArgs e)

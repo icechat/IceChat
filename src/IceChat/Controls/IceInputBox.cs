@@ -1,7 +1,7 @@
 /******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -441,32 +441,32 @@ namespace IceChat
                 {
                     if (e.KeyCode == Keys.K)
                     {
-                        base.SelectedText = "\x03";
+                        base.SelectedText = "\x03";         // color
                         e.Handled = true;
                     }
                     else if (e.KeyCode == Keys.B)
                     {
-                        base.SelectedText = "\x02";     // bold
+                        base.SelectedText = "\x02";         // bold
                         e.Handled = true;
                     }
                     else if (e.KeyCode == Keys.U)
                     {
-                        base.SelectedText = "\x1F";   // underline
+                        base.SelectedText = "\x1F";         // underline
                         e.Handled = true;
                     }
                     else if (e.KeyCode == Keys.R)
                     {
-                        base.SelectedText = "\x0016";
+                        base.SelectedText = "\x0016";       // reverse
                         e.Handled = true;
                     }
                     else if (e.KeyCode == Keys.I)
                     {
-                        base.SelectedText = "\x001D";
+                        base.SelectedText = "\x001D";       // italic
                         e.Handled = true;
                     }
                     else if (e.KeyCode == Keys.O)
                     {
-                        base.SelectedText = "\x0F";      // cancel 
+                        base.SelectedText = "\x0F";         // cancel 
                         e.Handled = true;
                     }
                     else if (e.KeyCode == Keys.D)

@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,10 +64,18 @@ namespace IceChat
         {
             try
             {
-                System.Diagnostics.Process.Start("https://www.icechat.net/");
+                System.Diagnostics.Process.Start("https://www.icechat.net");
             }
             catch {}
         }
 
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("https://github.com/icechat/IceChat");
+            }
+            catch { }
+        }
     }
 }

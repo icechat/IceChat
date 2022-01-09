@@ -30,10 +30,6 @@
         {
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
-            this.labelServerPassword = new System.Windows.Forms.Label();
-            this.textServerPassword = new System.Windows.Forms.TextBox();
-            this.textNickservPassword = new System.Windows.Forms.TextBox();
-            this.labelNickservPassword = new System.Windows.Forms.Label();
             this.checkUseSSL = new System.Windows.Forms.CheckBox();
             this.checkInvalidCertificate = new System.Windows.Forms.CheckBox();
             this.checkUseIPv6 = new System.Windows.Forms.CheckBox();
@@ -161,8 +157,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textDefaultIdent = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.checkServerReconnect = new System.Windows.Forms.CheckBox();
-            this.checkIdentServer = new System.Windows.Forms.CheckBox();
             this.textDefaultNick = new System.Windows.Forms.TextBox();
             this.labelDefaultNickName = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -182,6 +176,12 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
+            this.labelServerPassword = new System.Windows.Forms.Label();
+            this.textServerPassword = new System.Windows.Forms.TextBox();
+            this.textNickservPassword = new System.Windows.Forms.TextBox();
+            this.labelNickservPassword = new System.Windows.Forms.Label();
+            this.checkServerReconnect = new System.Windows.Forms.CheckBox();
+            this.checkIdentServer = new System.Windows.Forms.CheckBox();
             this.tabControlSettings.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.tabPageExtra.SuspendLayout();
@@ -225,10 +225,6 @@
             // tabPageMain
             // 
             this.tabPageMain.BackColor = System.Drawing.Color.Transparent;
-            this.tabPageMain.Controls.Add(this.labelServerPassword);
-            this.tabPageMain.Controls.Add(this.textServerPassword);
-            this.tabPageMain.Controls.Add(this.textNickservPassword);
-            this.tabPageMain.Controls.Add(this.labelNickservPassword);
             this.tabPageMain.Controls.Add(this.checkUseSSL);
             this.tabPageMain.Controls.Add(this.checkInvalidCertificate);
             this.tabPageMain.Controls.Add(this.checkUseIPv6);
@@ -259,48 +255,10 @@
             this.tabPageMain.Text = "Main Settings";
             this.tabPageMain.UseVisualStyleBackColor = true;
             // 
-            // labelServerPassword
-            // 
-            this.labelServerPassword.AutoSize = true;
-            this.labelServerPassword.Location = new System.Drawing.Point(9, 170);
-            this.labelServerPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelServerPassword.Name = "labelServerPassword";
-            this.labelServerPassword.Size = new System.Drawing.Size(118, 16);
-            this.labelServerPassword.TabIndex = 59;
-            this.labelServerPassword.Text = "Server password";
-            // 
-            // textServerPassword
-            // 
-            this.textServerPassword.Location = new System.Drawing.Point(165, 165);
-            this.textServerPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textServerPassword.Name = "textServerPassword";
-            this.textServerPassword.PasswordChar = '*';
-            this.textServerPassword.Size = new System.Drawing.Size(171, 23);
-            this.textServerPassword.TabIndex = 57;
-            // 
-            // textNickservPassword
-            // 
-            this.textNickservPassword.Location = new System.Drawing.Point(165, 190);
-            this.textNickservPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textNickservPassword.Name = "textNickservPassword";
-            this.textNickservPassword.PasswordChar = '*';
-            this.textNickservPassword.Size = new System.Drawing.Size(171, 23);
-            this.textNickservPassword.TabIndex = 58;
-            // 
-            // labelNickservPassword
-            // 
-            this.labelNickservPassword.AutoSize = true;
-            this.labelNickservPassword.Location = new System.Drawing.Point(9, 195);
-            this.labelNickservPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelNickservPassword.Name = "labelNickservPassword";
-            this.labelNickservPassword.Size = new System.Drawing.Size(130, 16);
-            this.labelNickservPassword.TabIndex = 60;
-            this.labelNickservPassword.Text = "Nickserv password";
-            // 
             // checkUseSSL
             // 
             this.checkUseSSL.AutoSize = true;
-            this.checkUseSSL.Location = new System.Drawing.Point(400, 132);
+            this.checkUseSSL.Location = new System.Drawing.Point(400, 134);
             this.checkUseSSL.Margin = new System.Windows.Forms.Padding(2);
             this.checkUseSSL.Name = "checkUseSSL";
             this.checkUseSSL.Size = new System.Drawing.Size(176, 20);
@@ -322,7 +280,7 @@
             // checkUseIPv6
             // 
             this.checkUseIPv6.AutoSize = true;
-            this.checkUseIPv6.Location = new System.Drawing.Point(400, 107);
+            this.checkUseIPv6.Location = new System.Drawing.Point(400, 110);
             this.checkUseIPv6.Margin = new System.Windows.Forms.Padding(2);
             this.checkUseIPv6.Name = "checkUseIPv6";
             this.checkUseIPv6.Size = new System.Drawing.Size(149, 20);
@@ -335,7 +293,7 @@
             this.textAwayNick.Location = new System.Drawing.Point(502, 80);
             this.textAwayNick.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textAwayNick.Name = "textAwayNick";
-            this.textAwayNick.Size = new System.Drawing.Size(121, 23);
+            this.textAwayNick.Size = new System.Drawing.Size(120, 23);
             this.textAwayNick.TabIndex = 50;
             // 
             // labelAwayNickName
@@ -353,7 +311,7 @@
             this.textAltNickName.Location = new System.Drawing.Point(502, 55);
             this.textAltNickName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textAltNickName.Name = "textAltNickName";
-            this.textAltNickName.Size = new System.Drawing.Size(121, 23);
+            this.textAltNickName.Size = new System.Drawing.Size(120, 23);
             this.textAltNickName.TabIndex = 48;
             // 
             // labelAltNickName
@@ -425,7 +383,7 @@
             this.textIdentName.Location = new System.Drawing.Point(116, 80);
             this.textIdentName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textIdentName.Name = "textIdentName";
-            this.textIdentName.Size = new System.Drawing.Size(121, 23);
+            this.textIdentName.Size = new System.Drawing.Size(120, 23);
             this.textIdentName.TabIndex = 4;
             // 
             // labelIdentName
@@ -443,7 +401,7 @@
             this.textServerPort.Location = new System.Drawing.Point(502, 5);
             this.textServerPort.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textServerPort.Name = "textServerPort";
-            this.textServerPort.Size = new System.Drawing.Size(51, 23);
+            this.textServerPort.Size = new System.Drawing.Size(50, 23);
             this.textServerPort.TabIndex = 1;
             // 
             // textServername
@@ -459,7 +417,7 @@
             this.textNickName.Location = new System.Drawing.Point(116, 55);
             this.textNickName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textNickName.Name = "textNickName";
-            this.textNickName.Size = new System.Drawing.Size(121, 23);
+            this.textNickName.Size = new System.Drawing.Size(120, 23);
             this.textNickName.TabIndex = 3;
             // 
             // labelServerPort
@@ -497,6 +455,10 @@
             // tabPageExtra
             // 
             this.tabPageExtra.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageExtra.Controls.Add(this.textNickservPassword);
+            this.tabPageExtra.Controls.Add(this.labelNickservPassword);
+            this.tabPageExtra.Controls.Add(this.labelServerPassword);
+            this.tabPageExtra.Controls.Add(this.textServerPassword);
             this.tabPageExtra.Controls.Add(this.checkNoColorMode);
             this.tabPageExtra.Controls.Add(this.checkDisableQueries);
             this.tabPageExtra.Controls.Add(this.checkDisableLogging);
@@ -559,7 +521,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 209);
+            this.label13.Location = new System.Drawing.Point(9, 160);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(190, 16);
@@ -568,7 +530,7 @@
             // 
             // textReconnectTime
             // 
-            this.textReconnectTime.Location = new System.Drawing.Point(223, 205);
+            this.textReconnectTime.Location = new System.Drawing.Point(223, 155);
             this.textReconnectTime.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textReconnectTime.Name = "textReconnectTime";
             this.textReconnectTime.Size = new System.Drawing.Size(37, 23);
@@ -588,7 +550,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 181);
+            this.label11.Location = new System.Drawing.Point(9, 135);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(144, 16);
@@ -597,7 +559,7 @@
             // 
             // textPingTimer
             // 
-            this.textPingTimer.Location = new System.Drawing.Point(223, 177);
+            this.textPingTimer.Location = new System.Drawing.Point(223, 130);
             this.textPingTimer.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textPingTimer.Name = "textPingTimer";
             this.textPingTimer.Size = new System.Drawing.Size(37, 23);
@@ -606,7 +568,7 @@
             // checkAutoStart
             // 
             this.checkAutoStart.AutoSize = true;
-            this.checkAutoStart.Location = new System.Drawing.Point(12, 154);
+            this.checkAutoStart.Location = new System.Drawing.Point(12, 106);
             this.checkAutoStart.Margin = new System.Windows.Forms.Padding(2);
             this.checkAutoStart.Name = "checkAutoStart";
             this.checkAutoStart.Size = new System.Drawing.Size(156, 20);
@@ -628,7 +590,7 @@
             // labelEncoding
             // 
             this.labelEncoding.AutoSize = true;
-            this.labelEncoding.Location = new System.Drawing.Point(309, 209);
+            this.labelEncoding.Location = new System.Drawing.Point(443, 185);
             this.labelEncoding.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelEncoding.Name = "labelEncoding";
             this.labelEncoding.Size = new System.Drawing.Size(67, 16);
@@ -639,7 +601,7 @@
             // 
             this.comboEncoding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboEncoding.FormattingEnabled = true;
-            this.comboEncoding.Location = new System.Drawing.Point(397, 206);
+            this.comboEncoding.Location = new System.Drawing.Point(525, 177);
             this.comboEncoding.Margin = new System.Windows.Forms.Padding(2);
             this.comboEncoding.Name = "comboEncoding";
             this.comboEncoding.Size = new System.Drawing.Size(131, 24);
@@ -783,7 +745,7 @@
             this.textSASLUser.Location = new System.Drawing.Point(165, 32);
             this.textSASLUser.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textSASLUser.Name = "textSASLUser";
-            this.textSASLUser.Size = new System.Drawing.Size(115, 23);
+            this.textSASLUser.Size = new System.Drawing.Size(220, 23);
             this.textSASLUser.TabIndex = 72;
             // 
             // textSASLPass
@@ -792,7 +754,7 @@
             this.textSASLPass.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textSASLPass.Name = "textSASLPass";
             this.textSASLPass.PasswordChar = '*';
-            this.textSASLPass.Size = new System.Drawing.Size(115, 23);
+            this.textSASLPass.Size = new System.Drawing.Size(220, 23);
             this.textSASLPass.TabIndex = 73;
             // 
             // label10
@@ -927,6 +889,7 @@
             this.columnHeader2});
             this.listChannel.FullRowSelect = true;
             this.listChannel.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listChannel.HideSelection = false;
             this.listChannel.Location = new System.Drawing.Point(5, 31);
             this.listChannel.Margin = new System.Windows.Forms.Padding(2);
             this.listChannel.MultiSelect = false;
@@ -1088,6 +1051,7 @@
             this.columnD});
             this.listIgnore.FullRowSelect = true;
             this.listIgnore.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listIgnore.HideSelection = false;
             this.listIgnore.Location = new System.Drawing.Point(5, 31);
             this.listIgnore.Margin = new System.Windows.Forms.Padding(2);
             this.listIgnore.Name = "listIgnore";
@@ -1225,6 +1189,7 @@
             this.listBuddyList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader4});
             this.listBuddyList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listBuddyList.HideSelection = false;
             this.listBuddyList.Location = new System.Drawing.Point(5, 31);
             this.listBuddyList.Margin = new System.Windows.Forms.Padding(2);
             this.listBuddyList.Name = "listBuddyList";
@@ -1349,17 +1314,17 @@
             // 
             // textProxyPass
             // 
-            this.textProxyPass.Location = new System.Drawing.Point(141, 121);
+            this.textProxyPass.Location = new System.Drawing.Point(141, 105);
             this.textProxyPass.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textProxyPass.Name = "textProxyPass";
             this.textProxyPass.PasswordChar = '*';
-            this.textProxyPass.Size = new System.Drawing.Size(255, 23);
+            this.textProxyPass.Size = new System.Drawing.Size(220, 23);
             this.textProxyPass.TabIndex = 56;
             // 
             // labelProxyPass
             // 
             this.labelProxyPass.AutoSize = true;
-            this.labelProxyPass.Location = new System.Drawing.Point(10, 124);
+            this.labelProxyPass.Location = new System.Drawing.Point(10, 110);
             this.labelProxyPass.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProxyPass.Name = "labelProxyPass";
             this.labelProxyPass.Size = new System.Drawing.Size(111, 16);
@@ -1368,16 +1333,16 @@
             // 
             // textProxyUser
             // 
-            this.textProxyUser.Location = new System.Drawing.Point(141, 96);
+            this.textProxyUser.Location = new System.Drawing.Point(141, 80);
             this.textProxyUser.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textProxyUser.Name = "textProxyUser";
-            this.textProxyUser.Size = new System.Drawing.Size(255, 23);
+            this.textProxyUser.Size = new System.Drawing.Size(220, 23);
             this.textProxyUser.TabIndex = 54;
             // 
             // labelProxyUser
             // 
             this.labelProxyUser.AutoSize = true;
-            this.labelProxyUser.Location = new System.Drawing.Point(10, 99);
+            this.labelProxyUser.Location = new System.Drawing.Point(10, 85);
             this.labelProxyUser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProxyUser.Name = "labelProxyUser";
             this.labelProxyUser.Size = new System.Drawing.Size(77, 16);
@@ -1387,7 +1352,7 @@
             // radioSocksHTTP
             // 
             this.radioSocksHTTP.AutoSize = true;
-            this.radioSocksHTTP.Location = new System.Drawing.Point(10, 198);
+            this.radioSocksHTTP.Location = new System.Drawing.Point(12, 177);
             this.radioSocksHTTP.Margin = new System.Windows.Forms.Padding(2);
             this.radioSocksHTTP.Name = "radioSocksHTTP";
             this.radioSocksHTTP.Size = new System.Drawing.Size(61, 20);
@@ -1399,7 +1364,7 @@
             // radioSocks4
             // 
             this.radioSocks4.AutoSize = true;
-            this.radioSocks4.Location = new System.Drawing.Point(10, 177);
+            this.radioSocks4.Location = new System.Drawing.Point(12, 156);
             this.radioSocks4.Margin = new System.Windows.Forms.Padding(2);
             this.radioSocks4.Name = "radioSocks4";
             this.radioSocks4.Size = new System.Drawing.Size(86, 20);
@@ -1411,7 +1376,7 @@
             // radioSocks5
             // 
             this.radioSocks5.AutoSize = true;
-            this.radioSocks5.Location = new System.Drawing.Point(10, 156);
+            this.radioSocks5.Location = new System.Drawing.Point(12, 135);
             this.radioSocks5.Margin = new System.Windows.Forms.Padding(2);
             this.radioSocks5.Name = "radioSocks5";
             this.radioSocks5.Size = new System.Drawing.Size(251, 20);
@@ -1422,7 +1387,7 @@
             // 
             // textProxyPort
             // 
-            this.textProxyPort.Location = new System.Drawing.Point(141, 60);
+            this.textProxyPort.Location = new System.Drawing.Point(141, 55);
             this.textProxyPort.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textProxyPort.Name = "textProxyPort";
             this.textProxyPort.Size = new System.Drawing.Size(51, 23);
@@ -1431,7 +1396,7 @@
             // labelProxyPort
             // 
             this.labelProxyPort.AutoSize = true;
-            this.labelProxyPort.Location = new System.Drawing.Point(10, 62);
+            this.labelProxyPort.Location = new System.Drawing.Point(10, 60);
             this.labelProxyPort.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProxyPort.Name = "labelProxyPort";
             this.labelProxyPort.Size = new System.Drawing.Size(76, 16);
@@ -1440,16 +1405,16 @@
             // 
             // textProxyIP
             // 
-            this.textProxyIP.Location = new System.Drawing.Point(141, 34);
+            this.textProxyIP.Location = new System.Drawing.Point(141, 30);
             this.textProxyIP.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textProxyIP.Name = "textProxyIP";
-            this.textProxyIP.Size = new System.Drawing.Size(255, 23);
+            this.textProxyIP.Size = new System.Drawing.Size(220, 23);
             this.textProxyIP.TabIndex = 47;
             // 
             // labelProxyIP
             // 
             this.labelProxyIP.AutoSize = true;
-            this.labelProxyIP.Location = new System.Drawing.Point(10, 36);
+            this.labelProxyIP.Location = new System.Drawing.Point(10, 35);
             this.labelProxyIP.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProxyIP.Name = "labelProxyIP";
             this.labelProxyIP.Size = new System.Drawing.Size(108, 16);
@@ -1489,17 +1454,17 @@
             // 
             // textBNCPass
             // 
-            this.textBNCPass.Location = new System.Drawing.Point(141, 121);
+            this.textBNCPass.Location = new System.Drawing.Point(141, 105);
             this.textBNCPass.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBNCPass.Name = "textBNCPass";
             this.textBNCPass.PasswordChar = '*';
-            this.textBNCPass.Size = new System.Drawing.Size(256, 23);
+            this.textBNCPass.Size = new System.Drawing.Size(220, 23);
             this.textBNCPass.TabIndex = 64;
             // 
             // labelBNCPass
             // 
             this.labelBNCPass.AutoSize = true;
-            this.labelBNCPass.Location = new System.Drawing.Point(10, 123);
+            this.labelBNCPass.Location = new System.Drawing.Point(10, 110);
             this.labelBNCPass.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBNCPass.Name = "labelBNCPass";
             this.labelBNCPass.Size = new System.Drawing.Size(101, 16);
@@ -1508,16 +1473,16 @@
             // 
             // textBNCUser
             // 
-            this.textBNCUser.Location = new System.Drawing.Point(141, 96);
+            this.textBNCUser.Location = new System.Drawing.Point(141, 80);
             this.textBNCUser.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBNCUser.Name = "textBNCUser";
-            this.textBNCUser.Size = new System.Drawing.Size(256, 23);
+            this.textBNCUser.Size = new System.Drawing.Size(220, 23);
             this.textBNCUser.TabIndex = 62;
             // 
             // labelBNCUser
             // 
             this.labelBNCUser.AutoSize = true;
-            this.labelBNCUser.Location = new System.Drawing.Point(10, 99);
+            this.labelBNCUser.Location = new System.Drawing.Point(10, 85);
             this.labelBNCUser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBNCUser.Name = "labelBNCUser";
             this.labelBNCUser.Size = new System.Drawing.Size(67, 16);
@@ -1526,16 +1491,16 @@
             // 
             // textBNCPort
             // 
-            this.textBNCPort.Location = new System.Drawing.Point(141, 60);
+            this.textBNCPort.Location = new System.Drawing.Point(141, 55);
             this.textBNCPort.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBNCPort.Name = "textBNCPort";
-            this.textBNCPort.Size = new System.Drawing.Size(51, 23);
+            this.textBNCPort.Size = new System.Drawing.Size(50, 23);
             this.textBNCPort.TabIndex = 60;
             // 
             // labelBNCPort
             // 
             this.labelBNCPort.AutoSize = true;
-            this.labelBNCPort.Location = new System.Drawing.Point(10, 62);
+            this.labelBNCPort.Location = new System.Drawing.Point(10, 60);
             this.labelBNCPort.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBNCPort.Name = "labelBNCPort";
             this.labelBNCPort.Size = new System.Drawing.Size(66, 16);
@@ -1544,16 +1509,16 @@
             // 
             // textBNCIP
             // 
-            this.textBNCIP.Location = new System.Drawing.Point(141, 34);
+            this.textBNCIP.Location = new System.Drawing.Point(141, 31);
             this.textBNCIP.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBNCIP.Name = "textBNCIP";
-            this.textBNCIP.Size = new System.Drawing.Size(256, 23);
+            this.textBNCIP.Size = new System.Drawing.Size(220, 23);
             this.textBNCIP.TabIndex = 58;
             // 
             // labelBNCIP
             // 
             this.labelBNCIP.AutoSize = true;
-            this.labelBNCIP.Location = new System.Drawing.Point(10, 36);
+            this.labelBNCIP.Location = new System.Drawing.Point(10, 35);
             this.labelBNCIP.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBNCIP.Name = "labelBNCIP";
             this.labelBNCIP.Size = new System.Drawing.Size(80, 16);
@@ -1573,14 +1538,14 @@
             // 
             // tabPageDefault
             // 
+            this.tabPageDefault.Controls.Add(this.checkServerReconnect);
+            this.tabPageDefault.Controls.Add(this.checkIdentServer);
             this.tabPageDefault.Controls.Add(this.textDefaultQuitMessage);
             this.tabPageDefault.Controls.Add(this.label3);
             this.tabPageDefault.Controls.Add(this.textDefaultFullName);
             this.tabPageDefault.Controls.Add(this.label2);
             this.tabPageDefault.Controls.Add(this.textDefaultIdent);
             this.tabPageDefault.Controls.Add(this.label1);
-            this.tabPageDefault.Controls.Add(this.checkServerReconnect);
-            this.tabPageDefault.Controls.Add(this.checkIdentServer);
             this.tabPageDefault.Controls.Add(this.textDefaultNick);
             this.tabPageDefault.Controls.Add(this.labelDefaultNickName);
             this.tabPageDefault.Location = new System.Drawing.Point(4, 46);
@@ -1594,17 +1559,17 @@
             // 
             // textDefaultQuitMessage
             // 
-            this.textDefaultQuitMessage.Location = new System.Drawing.Point(117, 86);
+            this.textDefaultQuitMessage.Location = new System.Drawing.Point(117, 80);
             this.textDefaultQuitMessage.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textDefaultQuitMessage.Name = "textDefaultQuitMessage";
-            this.textDefaultQuitMessage.Size = new System.Drawing.Size(183, 23);
+            this.textDefaultQuitMessage.Size = new System.Drawing.Size(220, 23);
             this.textDefaultQuitMessage.TabIndex = 53;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(8, 88);
+            this.label3.Location = new System.Drawing.Point(8, 85);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 16);
@@ -1613,17 +1578,17 @@
             // 
             // textDefaultFullName
             // 
-            this.textDefaultFullName.Location = new System.Drawing.Point(117, 59);
+            this.textDefaultFullName.Location = new System.Drawing.Point(117, 55);
             this.textDefaultFullName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textDefaultFullName.Name = "textDefaultFullName";
-            this.textDefaultFullName.Size = new System.Drawing.Size(183, 23);
+            this.textDefaultFullName.Size = new System.Drawing.Size(220, 23);
             this.textDefaultFullName.TabIndex = 51;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(8, 62);
+            this.label2.Location = new System.Drawing.Point(8, 60);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 16);
@@ -1632,10 +1597,10 @@
             // 
             // textDefaultIdent
             // 
-            this.textDefaultIdent.Location = new System.Drawing.Point(117, 32);
+            this.textDefaultIdent.Location = new System.Drawing.Point(117, 30);
             this.textDefaultIdent.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textDefaultIdent.Name = "textDefaultIdent";
-            this.textDefaultIdent.Size = new System.Drawing.Size(121, 23);
+            this.textDefaultIdent.Size = new System.Drawing.Size(120, 23);
             this.textDefaultIdent.TabIndex = 49;
             // 
             // label1
@@ -1649,41 +1614,19 @@
             this.label1.TabIndex = 50;
             this.label1.Text = "Ident name";
             // 
-            // checkServerReconnect
-            // 
-            this.checkServerReconnect.AutoSize = true;
-            this.checkServerReconnect.Location = new System.Drawing.Point(10, 144);
-            this.checkServerReconnect.Margin = new System.Windows.Forms.Padding(2);
-            this.checkServerReconnect.Name = "checkServerReconnect";
-            this.checkServerReconnect.Size = new System.Drawing.Size(207, 20);
-            this.checkServerReconnect.TabIndex = 48;
-            this.checkServerReconnect.Text = "Reconnect servers on error";
-            this.checkServerReconnect.UseVisualStyleBackColor = true;
-            // 
-            // checkIdentServer
-            // 
-            this.checkIdentServer.AutoSize = true;
-            this.checkIdentServer.Location = new System.Drawing.Point(10, 121);
-            this.checkIdentServer.Margin = new System.Windows.Forms.Padding(2);
-            this.checkIdentServer.Name = "checkIdentServer";
-            this.checkIdentServer.Size = new System.Drawing.Size(108, 20);
-            this.checkIdentServer.TabIndex = 47;
-            this.checkIdentServer.Text = "Ident server";
-            this.checkIdentServer.UseVisualStyleBackColor = true;
-            // 
             // textDefaultNick
             // 
-            this.textDefaultNick.Location = new System.Drawing.Point(117, 6);
+            this.textDefaultNick.Location = new System.Drawing.Point(117, 5);
             this.textDefaultNick.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textDefaultNick.Name = "textDefaultNick";
-            this.textDefaultNick.Size = new System.Drawing.Size(121, 23);
+            this.textDefaultNick.Size = new System.Drawing.Size(120, 23);
             this.textDefaultNick.TabIndex = 45;
             // 
             // labelDefaultNickName
             // 
             this.labelDefaultNickName.AutoSize = true;
             this.labelDefaultNickName.ForeColor = System.Drawing.Color.Black;
-            this.labelDefaultNickName.Location = new System.Drawing.Point(10, 9);
+            this.labelDefaultNickName.Location = new System.Drawing.Point(10, 10);
             this.labelDefaultNickName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelDefaultNickName.Name = "labelDefaultNickName";
             this.labelDefaultNickName.Size = new System.Drawing.Size(35, 16);
@@ -1878,6 +1821,66 @@
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
+            // labelServerPassword
+            // 
+            this.labelServerPassword.AutoSize = true;
+            this.labelServerPassword.Location = new System.Drawing.Point(9, 185);
+            this.labelServerPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelServerPassword.Name = "labelServerPassword";
+            this.labelServerPassword.Size = new System.Drawing.Size(118, 16);
+            this.labelServerPassword.TabIndex = 74;
+            this.labelServerPassword.Text = "Server password";
+            // 
+            // textServerPassword
+            // 
+            this.textServerPassword.Location = new System.Drawing.Point(223, 180);
+            this.textServerPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.textServerPassword.Name = "textServerPassword";
+            this.textServerPassword.PasswordChar = '*';
+            this.textServerPassword.Size = new System.Drawing.Size(200, 23);
+            this.textServerPassword.TabIndex = 73;
+            // 
+            // textNickservPassword
+            // 
+            this.textNickservPassword.Location = new System.Drawing.Point(223, 205);
+            this.textNickservPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.textNickservPassword.Name = "textNickservPassword";
+            this.textNickservPassword.PasswordChar = '*';
+            this.textNickservPassword.Size = new System.Drawing.Size(200, 23);
+            this.textNickservPassword.TabIndex = 75;
+            // 
+            // labelNickservPassword
+            // 
+            this.labelNickservPassword.AutoSize = true;
+            this.labelNickservPassword.Location = new System.Drawing.Point(9, 210);
+            this.labelNickservPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelNickservPassword.Name = "labelNickservPassword";
+            this.labelNickservPassword.Size = new System.Drawing.Size(130, 16);
+            this.labelNickservPassword.TabIndex = 76;
+            this.labelNickservPassword.Text = "Nickserv password";
+            // 
+            // checkServerReconnect
+            // 
+            this.checkServerReconnect.AutoSize = true;
+            this.checkServerReconnect.Location = new System.Drawing.Point(13, 141);
+            this.checkServerReconnect.Margin = new System.Windows.Forms.Padding(2);
+            this.checkServerReconnect.Name = "checkServerReconnect";
+            this.checkServerReconnect.Size = new System.Drawing.Size(207, 20);
+            this.checkServerReconnect.TabIndex = 80;
+            this.checkServerReconnect.Text = "Reconnect servers on error";
+            this.checkServerReconnect.UseVisualStyleBackColor = true;
+            // 
+            // checkIdentServer
+            // 
+            this.checkIdentServer.AutoSize = true;
+            this.checkIdentServer.Location = new System.Drawing.Point(13, 117);
+            this.checkIdentServer.Margin = new System.Windows.Forms.Padding(2);
+            this.checkIdentServer.Name = "checkIdentServer";
+            this.checkIdentServer.Size = new System.Drawing.Size(108, 20);
+            this.checkIdentServer.TabIndex = 79;
+            this.checkIdentServer.Text = "Ident server";
+            this.checkIdentServer.UseVisualStyleBackColor = true;
+            // 
             // FormServers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1984,8 +1987,6 @@
         private System.Windows.Forms.Label labelIgnoreNote;
         private System.Windows.Forms.CheckBox checkAutoStart;
         private System.Windows.Forms.TabPage tabPageDefault;
-        private System.Windows.Forms.CheckBox checkServerReconnect;
-        private System.Windows.Forms.CheckBox checkIdentServer;
         private System.Windows.Forms.TextBox textDefaultNick;
         private System.Windows.Forms.Label labelDefaultNickName;
         private System.Windows.Forms.TextBox textDefaultIdent;
@@ -2055,10 +2056,6 @@
         private System.Windows.Forms.TextBox textReconnectTime;
         private System.Windows.Forms.Button buttonMoveDown;
         private System.Windows.Forms.Button buttonMoveUp;
-        private System.Windows.Forms.Label labelServerPassword;
-        private System.Windows.Forms.TextBox textServerPassword;
-        private System.Windows.Forms.TextBox textNickservPassword;
-        private System.Windows.Forms.Label labelNickservPassword;
         private System.Windows.Forms.CheckBox checkDisableLogging;
         private System.Windows.Forms.CheckBox checkDisableQueries;
         private System.Windows.Forms.Button buttonClearIgnores;
@@ -2083,5 +2080,11 @@
         private System.Windows.Forms.CheckBox checkUseSASL;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.CheckBox checkNoColorMode;
+        private System.Windows.Forms.Label labelServerPassword;
+        private System.Windows.Forms.TextBox textServerPassword;
+        private System.Windows.Forms.TextBox textNickservPassword;
+        private System.Windows.Forms.Label labelNickservPassword;
+        private System.Windows.Forms.CheckBox checkServerReconnect;
+        private System.Windows.Forms.CheckBox checkIdentServer;
     }
 }

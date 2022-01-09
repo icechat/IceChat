@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -4711,7 +4711,7 @@ if (ipc != null)
                 data = ParseIdentifierValue(data, dataPassed);
 
                 //$+ is a joiner identifier, great for joining 2 words together
-                data = data.Replace(" $+ ", string.Empty);
+                // data = data.Replace(" $+ ", string.Empty);
 
                 //parse out the current channel #
                 if (CurrentWindowStyle == IceTabPage.WindowType.Channel)
@@ -4900,6 +4900,10 @@ if (ipc != null)
                                 if (word.StartsWith("$rand(") && word.IndexOf(')') > word.IndexOf('('))
                                 {
                                     string input = ReturnBracketValue(word);
+
+                                    System.Diagnostics.Debug.WriteLine(input);
+
+
                                     //look for a comma (,)
                                     if (input.Split(',').Length == 2)
                                     {
@@ -5389,8 +5393,11 @@ if (ipc != null)
             {
                 WriteErrorFile(connection, "ParseIdentifiers" + data, e);
             }
-            //return String.Join(" ", changedData);
-            return JoinString(changedData);
+
+
+            // $+ is a joiner identifier, great for joining 2 words together
+
+            return JoinString(changedData).Replace(" $+ ", string.Empty); ;
         }
     }
 }

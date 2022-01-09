@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2021 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,7 +91,8 @@ namespace IceChat
             "First shalt thou take out the Holy Pin. Then, shalt thou count to three. No more. No less.",
             "East bound and down, loaded up and truckin'",
             "Call me a relic, call me what you will. Say I'm old fashioned, say I'm over the hill.",
-            "Excess flood. Did someone see an ark float by?"
+            "Excess flood. Did someone see an ark float by?",
+            "The Stars on '45 keep on turning in your mind"
         };
 
     }

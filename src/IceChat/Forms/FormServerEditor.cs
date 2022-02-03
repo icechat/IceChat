@@ -255,193 +255,202 @@ namespace IceChat
         /// </summary>
         private void LoadSettings()
         {
-            this.textNickName.Text = serverSetting.NickName;
-            this.textAltNickName.Text = serverSetting.AltNickName;
-            this.textAwayNick.Text = serverSetting.AwayNickName;
-            this.textServername.Text = serverSetting.ServerName;
-            this.textServerPort.Text = serverSetting.ServerPort;
-            
-            this.textDisplayName.Text = serverSetting.DisplayName.Replace("&#x3;",((char)3).ToString()).Replace("&#x2;",((char)2).ToString());
-            this.textFullName.Text = serverSetting.FullName.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
-            this.textQuitMessage.Text = serverSetting.QuitMessage.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
-            
-            this.textIdentName.Text = serverSetting.IdentName;
-            
-            this.checkAutoJoin.Checked = serverSetting.AutoJoinEnable;
-            this.checkAutoJoinDelay.Checked = serverSetting.AutoJoinDelay;
-            this.checkAutoJoinDelayBetween.Checked = serverSetting.AutoJoinDelayBetween;
-            this.checkAutoPerform.Checked = serverSetting.AutoPerformEnable;
-            this.checkIgnore.Checked = serverSetting.IgnoreListEnable;
-            this.checkBuddyList.Checked = serverSetting.BuddyListEnable;
-            this.checkDisableLogging.Checked = serverSetting.DisableLogging;
-            this.checkDisableQueries.Checked = serverSetting.DisableQueries;
-
-            this.checkNoColorMode.Checked = serverSetting.NoColorMode;
-
-            this.checkModeI.Checked = serverSetting.SetModeI;
-            this.checkMOTD.Checked = serverSetting.ShowMOTD;
-            this.checkPingPong.Checked = serverSetting.ShowPingPong;
-            this.checkRejoinChannel.Checked = serverSetting.RejoinChannels;
-            this.checkDisableCTCP.Checked = serverSetting.DisableCTCP;
-            this.checkDisableAwayMessages.Checked = serverSetting.DisableAwayMessages;
-            this.comboEncoding.Text = serverSetting.Encoding;
-            this.textServerPassword.Text = serverSetting.Password;
-            this.textNickservPassword.Text = serverSetting.NickservPassword;
-            this.checkAutoStart.Checked = serverSetting.AutoStart;
-            this.checkUseSSL.Checked = serverSetting.UseSSL;
-            this.checkUseIPv6.Checked = serverSetting.UseIPv6;
-            this.checkInvalidCertificate.Checked = serverSetting.SSLAcceptInvalidCertificate;
-            this.textPingTimer.Text = serverSetting.PingTimerMinutes.ToString();
-            this.textReconnectTime.Text = serverSetting.ReconnectTime.ToString();
-
-            this.checkUseSASL.Checked = serverSetting.UseSASL;
-            this.textSASLUser.Text = serverSetting.SASLUser;
-            this.textSASLPass.Text = serverSetting.SASLPass;
-            this.checkExtendedJoin.Checked = serverSetting.ExtendedJoin;
-            this.checkAccountNotify.Checked = serverSetting.AccountNotify;
-            this.checkAwayNotify.Checked = serverSetting.AwayNotify;
-            this.checkChgHost.Checked = serverSetting.ChangeHost;
-            this.checkEchoMessage.Checked = serverSetting.EchoMessage;
-            
-            if (serverSetting.AutoJoinChannels != null)
+            try
             {
-                foreach (string chan in serverSetting.AutoJoinChannels)
+
+                this.textNickName.Text = serverSetting.NickName;
+                this.textAltNickName.Text = serverSetting.AltNickName;
+                this.textAwayNick.Text = serverSetting.AwayNickName;
+                this.textServername.Text = serverSetting.ServerName;
+                this.textServerPort.Text = serverSetting.ServerPort;
+
+                this.textDisplayName.Text = serverSetting.DisplayName.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
+                this.textFullName.Text = serverSetting.FullName.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
+                this.textQuitMessage.Text = serverSetting.QuitMessage.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
+
+                this.textIdentName.Text = serverSetting.IdentName;
+
+                this.checkAutoJoin.Checked = serverSetting.AutoJoinEnable;
+                this.checkAutoJoinDelay.Checked = serverSetting.AutoJoinDelay;
+                this.checkAutoJoinDelayBetween.Checked = serverSetting.AutoJoinDelayBetween;
+                this.checkAutoPerform.Checked = serverSetting.AutoPerformEnable;
+                this.checkIgnore.Checked = serverSetting.IgnoreListEnable;
+                this.checkBuddyList.Checked = serverSetting.BuddyListEnable;
+                this.checkDisableLogging.Checked = serverSetting.DisableLogging;
+                this.checkDisableQueries.Checked = serverSetting.DisableQueries;
+
+                this.checkNoColorMode.Checked = serverSetting.NoColorMode;
+
+                this.checkModeI.Checked = serverSetting.SetModeI;
+                this.checkMOTD.Checked = serverSetting.ShowMOTD;
+                this.checkPingPong.Checked = serverSetting.ShowPingPong;
+                this.checkRejoinChannel.Checked = serverSetting.RejoinChannels;
+                this.checkDisableCTCP.Checked = serverSetting.DisableCTCP;
+                this.checkDisableAwayMessages.Checked = serverSetting.DisableAwayMessages;
+                this.comboEncoding.Text = serverSetting.Encoding;
+                this.textServerPassword.Text = serverSetting.Password;
+                this.textNickservPassword.Text = serverSetting.NickservPassword;
+                this.checkAutoStart.Checked = serverSetting.AutoStart;
+                this.checkUseSSL.Checked = serverSetting.UseSSL;
+                this.checkUseIPv6.Checked = serverSetting.UseIPv6;
+                this.checkInvalidCertificate.Checked = serverSetting.SSLAcceptInvalidCertificate;
+                this.textPingTimer.Text = serverSetting.PingTimerMinutes.ToString();
+                this.textReconnectTime.Text = serverSetting.ReconnectTime.ToString();
+
+                this.checkUseSASL.Checked = serverSetting.UseSASL;
+                this.textSASLUser.Text = serverSetting.SASLUser;
+                this.textSASLPass.Text = serverSetting.SASLPass;
+                this.checkExtendedJoin.Checked = serverSetting.ExtendedJoin;
+                this.checkAccountNotify.Checked = serverSetting.AccountNotify;
+                this.checkAwayNotify.Checked = serverSetting.AwayNotify;
+                this.checkChgHost.Checked = serverSetting.ChangeHost;
+                this.checkEchoMessage.Checked = serverSetting.EchoMessage;
+
+                if (serverSetting.AutoJoinChannels != null)
                 {
-                    if (chan != null)
+                    foreach (string chan in serverSetting.AutoJoinChannels)
                     {
-                        if (!chan.StartsWith(";"))
+                        if (chan != null)
                         {
-                            if (chan.IndexOf(' ') > -1)
+                            if (!chan.StartsWith(";"))
                             {
-                                string channel = chan.Substring(0, chan.IndexOf(' '));
-                                string key = chan.Substring(chan.IndexOf(' ') + 1);
-                                ListViewItem lvi = new ListViewItem(channel);
-                                lvi.SubItems.Add(key);
-                                lvi.Checked = true;
-                                listChannel.Items.Add(lvi);
+                                if (chan.IndexOf(' ') > -1)
+                                {
+                                    string channel = chan.Substring(0, chan.IndexOf(' '));
+                                    string key = chan.Substring(chan.IndexOf(' ') + 1);
+                                    ListViewItem lvi = new ListViewItem(channel);
+                                    lvi.SubItems.Add(key);
+                                    lvi.Checked = true;
+                                    listChannel.Items.Add(lvi);
+                                }
+                                else
+                                {
+                                    ListViewItem lvi = new ListViewItem(chan)
+                                    {
+                                        Checked = true
+                                    };
+                                    listChannel.Items.Add(lvi);
+                                }
                             }
                             else
                             {
-                                ListViewItem lvi = new ListViewItem(chan)
+                                if (chan.IndexOf(' ') > -1)
+                                {
+                                    string channel = chan.Substring(1, chan.IndexOf(' '));
+                                    string key = chan.Substring(chan.IndexOf(' ') + 1);
+                                    ListViewItem lvi = new ListViewItem(channel);
+                                    lvi.SubItems.Add(key);
+                                    listChannel.Items.Add(lvi);
+                                }
+                                else
+                                {
+                                    ListViewItem lvi = new ListViewItem(chan.Substring(1));
+                                    listChannel.Items.Add(lvi);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (serverSetting.AutoPerform != null)
+                {
+                    foreach (string command in serverSetting.AutoPerform)
+                        textAutoPerform.AppendText(command.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()) + Environment.NewLine);
+                }
+
+                if (serverSetting.Ignores != null)
+                {
+                    foreach (IgnoreListItem ignore in serverSetting.Ignores)
+                    {
+                        ListViewItem lvi = new ListViewItem(ignore.Item)
+                        {
+                            Checked = ignore.Enabled
+                        };
+
+                        lvi.SubItems.Add(ignore.IgnoreType.ToString());
+
+                        if (ignore.IgnoreType.All == true || ignore.IgnoreType.Channel == true)
+                            lvi.SubItems.Add("x");
+                        else
+                            lvi.SubItems.Add("");
+
+                        if (ignore.IgnoreType.All == true || ignore.IgnoreType.Private == true)
+                            lvi.SubItems.Add("x");
+                        else
+                            lvi.SubItems.Add("");
+
+                        if (ignore.IgnoreType.All == true || ignore.IgnoreType.Notice == true)
+                            lvi.SubItems.Add("x");
+                        else
+                            lvi.SubItems.Add("");
+
+                        if (ignore.IgnoreType.All == true || ignore.IgnoreType.Ctcp == true)
+                            lvi.SubItems.Add("x");
+                        else
+                            lvi.SubItems.Add("");
+
+                        if (ignore.IgnoreType.All == true || ignore.IgnoreType.Invite == true)
+                            lvi.SubItems.Add("x");
+                        else
+                            lvi.SubItems.Add("");
+
+                        if (ignore.IgnoreType.All == true || ignore.IgnoreType.DCC == true)
+                            lvi.SubItems.Add("x");
+                        else
+                            lvi.SubItems.Add("");
+
+
+                        listIgnore.Items.Add(lvi);
+
+                    }
+                }
+
+                if (serverSetting.BuddyList != null)
+                {
+                    foreach (BuddyListItem buddy in serverSetting.BuddyList)
+                    {
+                        if (buddy != null)
+                        {
+                            if (!buddy.Nick.StartsWith(";"))
+                            {
+                                ListViewItem lvi = new ListViewItem(buddy.Nick)
                                 {
                                     Checked = true
                                 };
-                                listChannel.Items.Add(lvi);
-                            }
-                        }
-                        else
-                        {
-                            if (chan.IndexOf(' ') > -1)
-                            {
-                                string channel = chan.Substring(1, chan.IndexOf(' '));
-                                string key = chan.Substring(chan.IndexOf(' ') + 1);
-                                ListViewItem lvi = new ListViewItem(channel);
-                                lvi.SubItems.Add(key);
-                                listChannel.Items.Add(lvi);
+                                listBuddyList.Items.Add(lvi);
                             }
                             else
-                            {
-                                ListViewItem lvi = new ListViewItem(chan.Substring(1));
-                                listChannel.Items.Add(lvi);
-                            }
+                                listBuddyList.Items.Add(buddy.Nick.Substring(1));
                         }
                     }
                 }
-            }
 
-            if (serverSetting.AutoPerform != null)
+                checkUseProxy.Checked = serverSetting.UseProxy;
+                textProxyIP.Text = serverSetting.ProxyIP;
+                textProxyPort.Text = serverSetting.ProxyPort;
+                textProxyUser.Text = serverSetting.ProxyUser;
+                textProxyPass.Text = serverSetting.ProxyPass;
+
+                if (serverSetting.ProxyType == 1)
+                    radioSocksHTTP.Checked = true;
+                else if (serverSetting.ProxyType == 2)
+                    radioSocks4.Checked = true;
+                else if (serverSetting.ProxyType == 3)
+                    radioSocks5.Checked = true;
+
+                checkUseBNC.Checked = serverSetting.UseBNC;
+                textBNCIP.Text = serverSetting.BNCIP;
+                textBNCPort.Text = serverSetting.BNCPort;
+                textBNCUser.Text = serverSetting.BNCUser;
+                textBNCPass.Text = serverSetting.BNCPass;
+
+                this.textNotes.Text = serverSetting.ServerNotes.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
+
+            } 
+            catch(Exception ex)
             {
-                foreach (string command in serverSetting.AutoPerform)
-                    textAutoPerform.AppendText(command.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString()) + Environment.NewLine);
+                FormMain.Instance.WindowMessage(FormMain.Instance.InputPanel.CurrentConnection, "Console", "\x000304LoadServerSettings Error:" + ex.Message + ":" + ex.Source, "", true);
             }
-
-            if (serverSetting.Ignores != null)
-            {
-                foreach (IgnoreListItem ignore in serverSetting.Ignores)
-                {
-                    ListViewItem lvi = new ListViewItem(ignore.Item)
-                    {
-                        Checked = ignore.Enabled
-                    };
-
-                    lvi.SubItems.Add(ignore.IgnoreType.ToString() );
-
-                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.Channel == true)
-                        lvi.SubItems.Add("x");
-                    else
-                        lvi.SubItems.Add("");
-
-                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.Private == true)
-                        lvi.SubItems.Add("x");
-                    else
-                        lvi.SubItems.Add("");
-
-                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.Notice == true)
-                        lvi.SubItems.Add("x");
-                    else
-                        lvi.SubItems.Add("");
-
-                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.Ctcp == true)
-                        lvi.SubItems.Add("x");
-                    else
-                        lvi.SubItems.Add("");
-
-                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.Invite == true)
-                        lvi.SubItems.Add("x");
-                    else
-                        lvi.SubItems.Add("");
-
-                    if (ignore.IgnoreType.All == true || ignore.IgnoreType.DCC == true)
-                        lvi.SubItems.Add("x");
-                    else
-                        lvi.SubItems.Add("");
-
-
-                    listIgnore.Items.Add(lvi);
-
-                }
-            }
-
-            if (serverSetting.BuddyList != null)
-            {
-                foreach (BuddyListItem buddy in serverSetting.BuddyList)
-                {
-                    if (buddy != null)
-                    {
-                        if (!buddy.Nick.StartsWith(";"))
-                        {
-                            ListViewItem lvi = new ListViewItem(buddy.Nick)
-                            {
-                                Checked = true
-                            };
-                            listBuddyList.Items.Add(lvi);
-                        }
-                        else
-                            listBuddyList.Items.Add(buddy.Nick.Substring(1));
-                    }
-                }
-            }
-
-            checkUseProxy.Checked = serverSetting.UseProxy;
-            textProxyIP.Text = serverSetting.ProxyIP;
-            textProxyPort.Text = serverSetting.ProxyPort;
-            textProxyUser.Text = serverSetting.ProxyUser;
-            textProxyPass.Text = serverSetting.ProxyPass;
-
-            if (serverSetting.ProxyType == 1)
-                radioSocksHTTP.Checked = true;
-            else if (serverSetting.ProxyType == 2)
-                radioSocks4.Checked = true;
-            else if (serverSetting.ProxyType == 3)
-                radioSocks5.Checked = true;
-
-            checkUseBNC.Checked = serverSetting.UseBNC;
-            textBNCIP.Text = serverSetting.BNCIP;
-            textBNCPort.Text = serverSetting.BNCPort;
-            textBNCUser.Text = serverSetting.BNCUser;
-            textBNCPass.Text = serverSetting.BNCPass;
-            
-            this.textNotes.Text = serverSetting.ServerNotes.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
         }
 
         /// <summary>

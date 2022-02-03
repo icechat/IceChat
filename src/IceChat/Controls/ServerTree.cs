@@ -2111,33 +2111,44 @@ namespace IceChat
         {
             //open up the Server Editor
             //check if a server is selected or not
-            if (Application.OpenForms["FormServers"] as FormServers != null)
-            {
-                Application.OpenForms["FormServers"].BringToFront();
-                return;
-            }            
-            
-            if (selectedServerID > 0)
-            {
-                f = new FormServers(GetServerSetting(selectedServerID));
-                f.SaveServer += new FormServers.SaveServerDelegate(OnSaveServer);
-                f.NewServer += new FormServers.NewServerDelegate(OnNewServer);
-                f.SaveDefaultServer += new FormServers.SaveDefaultServerDelegate(OnSaveDefaultServer);
+            try { 
+
+                if (Application.OpenForms["FormServers"] as FormServers != null)
+                {
+                    Application.OpenForms["FormServers"].BringToFront();
+                    return;
+                }
+
+                ServerSetting ss = GetServerSetting(selectedServerID);
+
+                if (selectedServerID > 0 && ss != null)
+                {
+                    f = new FormServers(ss);
+                    f.SaveServer += new FormServers.SaveServerDelegate(OnSaveServer);
+                    //f.NewServer += new FormServers.NewServerDelegate(OnNewServer);
+                    f.SaveDefaultServer += new FormServers.SaveDefaultServerDelegate(OnSaveDefaultServer);
+                }
+                else
+                {
+                    f = new FormServers();
+                    f.NewServer += new FormServers.NewServerDelegate(OnNewServer);
+                    f.SaveDefaultServer += new FormServers.SaveDefaultServerDelegate(OnSaveDefaultServer);
+                }
+
+                f.Show(this.Parent);
+
             }
-            else
+            catch(Exception ex)
             {
-                f = new FormServers();
-                f.NewServer += new FormServers.NewServerDelegate(OnNewServer);
-                f.SaveDefaultServer += new FormServers.SaveDefaultServerDelegate(OnSaveDefaultServer);
+                FormMain.Instance.WindowMessage(FormMain.Instance.InputPanel.CurrentConnection, "Console", "\x000304EditServerBtn Error:" + selectedServerID + ":" + ex.Message + ":" + ex.Source, "", true);
             }
 
-            f.Show(this.Parent);
-        }
-        
-        /// <summary>
-        /// Save the Default Server Settings
-        /// </summary>
-        private void OnSaveDefaultServer()
+}
+
+/// <summary>
+/// Save the Default Server Settings
+/// </summary>
+private void OnSaveDefaultServer()
         {
             if (SaveDefault != null)
                 SaveDefault();
@@ -2312,21 +2323,32 @@ namespace IceChat
 
         private void EditToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (selectedServerID > 0)
+            try
             {
-                f = new FormServers(GetServerSetting(selectedServerID));
-                f.SaveServer += new FormServers.SaveServerDelegate(OnSaveServer);
-                f.SaveDefaultServer += new FormServers.SaveDefaultServerDelegate(OnSaveDefaultServer);
+
+                ServerSetting ss = GetServerSetting(selectedServerID);
+
+                if (selectedServerID > 0 && ss != null)
+                {                    
+                    f = new FormServers(ss);
+                    f.SaveServer += new FormServers.SaveServerDelegate(OnSaveServer);
+                    f.SaveDefaultServer += new FormServers.SaveDefaultServerDelegate(OnSaveDefaultServer);
+                }
+                else
+                {
+                    f = new FormServers();
+                    f.NewServer += new FormServers.NewServerDelegate(OnNewServer);
+                    f.SaveDefaultServer += new FormServers.SaveDefaultServerDelegate(OnSaveDefaultServer);
+                }
+
+                f.Show(this.Parent);
+
+
             }
-            else
+            catch(Exception ex)
             {
-                f = new FormServers();
-                f.NewServer += new FormServers.NewServerDelegate(OnNewServer);
-                f.SaveDefaultServer += new FormServers.SaveDefaultServerDelegate(OnSaveDefaultServer);
+                FormMain.Instance.WindowMessage(FormMain.Instance.InputPanel.CurrentConnection, "Console", "\x000304EditServer Error:" + selectedServerID + ":" + ex.Message + ":" + ex.Source, "", true);
             }
-
-            f.Show(this.Parent);
-
         }
 
         private void AutoJoinToolStripMenuItem_Click(object sender, EventArgs e)

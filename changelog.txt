@@ -1,9 +1,11 @@
+Build 9.53 Feb 2 2022
+* Fix bug with not being able to bring up the server editor, created an Exception
+
 Build 9.52 Jan 9 2022
 * Fix bug when using -profile and directory is inaccessible
 * Fix bug with $+ not properly joining words
 * Fix bug with control codes in notes for server editor
 * Fix bug with control codes in multiline aliases
-
 
 Build 9.51 July 14 2021
 * Alt 0-9 keys select nth window (Alt-0 is Console)

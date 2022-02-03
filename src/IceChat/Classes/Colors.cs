@@ -51,7 +51,7 @@ namespace IceChat
         private int _tabBarServerQuit = 9;
         private int _tabBarServerMessage = 13;
         private int _tabBarOtherMessage = 6;
-        private int _tabBarDefault = 1;
+        private int _tabBarDefault = 0;
 
         private int _tabBarNewAction = 4;
         private int _tabBarServerNotice = 13;
@@ -63,7 +63,7 @@ namespace IceChat
         private int _tabBarOtherBG2 = 15;
         private int _tabBarHoverBG1 = 0;
         private int _tabBarHoverBG2 = 7;
-        private int _tabbarBack = 20;
+        private int _tabBarBack = 20;
         
         private int _consoleTabHighlite = 4;
 
@@ -139,7 +139,7 @@ namespace IceChat
 
         [XmlElement("TabbarBackColor")]
         public int TabbarBackColor
-        { get { return _tabbarBack; } set { _tabbarBack = value; } }
+        { get { return _tabBarBack; } set { _tabBarBack = value; } }
 
         [XmlElement("MenubarBackColor")]
         public int MenubarBackColor

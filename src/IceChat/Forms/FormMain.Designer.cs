@@ -53,7 +53,7 @@ namespace IceChat
         private System.Windows.Forms.ContextMenuStrip contextMenuToolBar;
         private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripEditor;
-        private System.Windows.Forms.ToolStripMenuItem forumsToolStripMenuItem;
+        //private System.Windows.Forms.ToolStripMenuItem forumsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iceChatChannelStripMenuItem;
@@ -122,7 +122,7 @@ namespace IceChat
             this.identifiersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildFromSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.forumsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            //this.forumsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gitHubPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facebookFanPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadPluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -693,14 +693,14 @@ namespace IceChat
             // 
             this.helpToolStripMenuItem.BackColor = System.Drawing.SystemColors.MenuBar;
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.iceChatHomePageToolStripMenuItem,
-            this.iceChatWikiToolStripMenuItem,
-            this.forumsToolStripMenuItem,
+            //this.iceChatHomePageToolStripMenuItem,    // remove home page
+            //this.iceChatWikiToolStripMenuItem,        // remove wiki page
+            //this.forumsToolStripMenuItem,             // remove forums
             this.gitHubPageToolStripMenuItem,
-            this.facebookFanPageToolStripMenuItem,
+            //this.facebookFanPageToolStripMenuItem,    // remove facebook page link
             this.downloadPluginsToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.checkForUpdateToolStripMenuItem,
+            //this.checkForUpdateToolStripMenuItem,     // remove check for update
             this.browseDataFolderToolStripMenuItem,
             this.browseLogsFolderToolStripMenuItem,
             this.browsePluginsFolderToolStripMenuItem,
@@ -783,6 +783,7 @@ namespace IceChat
             // 
             // forumsToolStripMenuItem
             // 
+            /*
             this.forumsToolStripMenuItem.BackColor = System.Drawing.SystemColors.Menu;
             this.forumsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
             this.forumsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("forumsToolStripMenuItem.Image")));
@@ -790,6 +791,7 @@ namespace IceChat
             this.forumsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.forumsToolStripMenuItem.Text = "IceChat Forums";
             this.forumsToolStripMenuItem.Click += new System.EventHandler(this.ForumsToolStripMenuItem_Click);
+            */
             // 
             // gitHubPageToolStripMenuItem
             // 

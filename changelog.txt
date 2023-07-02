@@ -1,3 +1,6 @@
+Build 9.54 Mar 7 2022
+* Fix bug with not having mandatory settings in the server editor
+
 Build 9.53 Feb 2 2022
 * Fix bug with not being able to bring up the server editor, created an Exception
 
@@ -19,7 +22,7 @@ Build 9.51 July 14 2021
 * Fix Buddylist error on initial install/run
 
 Build 9.50 July 29 2020
-* First 9.50 Release
+* Re-release 9.49.07 as 9.50
 
 Build 9.49.07 June 25 2020
 * Fix /background command to also save settings
@@ -115,7 +118,7 @@ Build 9.16a Jul 29 2017
 * Add the ability to use CTRL-F1 -> CTRL-F12 as Hotkey events with Plugins, can trigger function on those keys
 
 Build 9.16 Jul 2 2017
-* Added options for /ignore command (-pcn), ignore just channel/private/notice messages (/ignore -p Nick)
+* Added options for /ignore command (-cpn), ignore just channel/private/notice messages (/ignore -p Nick)
 * Added Color Settings for the Side Panel Splitters, under Other Colors, and fixed the splitters
 
 Build 9.15a Jun 30 2017

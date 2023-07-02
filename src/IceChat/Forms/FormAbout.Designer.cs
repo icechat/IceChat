@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
             this.labelAbout = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.labelVersion = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
@@ -46,21 +45,6 @@
             this.labelAbout.Size = new System.Drawing.Size(515, 108);
             this.labelAbout.TabIndex = 0;
             this.labelAbout.Text = resources.GetString("labelAbout.Text");
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.Location = new System.Drawing.Point(320, 430);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.linkLabel1.Size = new System.Drawing.Size(194, 16);
-            this.linkLabel1.TabIndex = 1;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Visit us at www.icechat.net";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
             // 
             // labelVersion
             // 
@@ -96,7 +80,6 @@
             this.ClientSize = new System.Drawing.Size(516, 451);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.labelVersion);
-            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.labelAbout);
             this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -115,7 +98,6 @@
         #endregion
 
         private System.Windows.Forms.Label labelAbout;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.LinkLabel linkLabel2;
     }

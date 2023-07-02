@@ -1,10 +1,11 @@
 # IceChat
 
+
 ## IceChat IRC Client v9
 
 IceChat is an open source IRC Client written in C# using WinForms.
 
-It has been fully released, but always undergoing development and improvements.
+Version 9.54 is the last version to be released, and is no longer in active development.
 
 It is [RFC 1459](https://tools.ietf.org/html/rfc1459.html) Compliant.
 

@@ -52,6 +52,10 @@
             this.labelServerName = new System.Windows.Forms.Label();
             this.labelNickName = new System.Windows.Forms.Label();
             this.tabPageExtra = new System.Windows.Forms.TabPage();
+            this.textNickservPassword = new System.Windows.Forms.TextBox();
+            this.labelNickservPassword = new System.Windows.Forms.Label();
+            this.labelServerPassword = new System.Windows.Forms.Label();
+            this.textServerPassword = new System.Windows.Forms.TextBox();
             this.checkNoColorMode = new System.Windows.Forms.CheckBox();
             this.checkDisableQueries = new System.Windows.Forms.CheckBox();
             this.checkDisableLogging = new System.Windows.Forms.CheckBox();
@@ -151,6 +155,8 @@
             this.labelBNCIP = new System.Windows.Forms.Label();
             this.checkUseBNC = new System.Windows.Forms.CheckBox();
             this.tabPageDefault = new System.Windows.Forms.TabPage();
+            this.checkServerReconnect = new System.Windows.Forms.CheckBox();
+            this.checkIdentServer = new System.Windows.Forms.CheckBox();
             this.textDefaultQuitMessage = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textDefaultFullName = new System.Windows.Forms.TextBox();
@@ -176,12 +182,6 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
-            this.labelServerPassword = new System.Windows.Forms.Label();
-            this.textServerPassword = new System.Windows.Forms.TextBox();
-            this.textNickservPassword = new System.Windows.Forms.TextBox();
-            this.labelNickservPassword = new System.Windows.Forms.Label();
-            this.checkServerReconnect = new System.Windows.Forms.CheckBox();
-            this.checkIdentServer = new System.Windows.Forms.CheckBox();
             this.tabControlSettings.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.tabPageExtra.SuspendLayout();
@@ -363,12 +363,13 @@
             // labelFullName
             // 
             this.labelFullName.AutoSize = true;
+            this.labelFullName.ForeColor = System.Drawing.Color.Red;
             this.labelFullName.Location = new System.Drawing.Point(10, 110);
             this.labelFullName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFullName.Name = "labelFullName";
-            this.labelFullName.Size = new System.Drawing.Size(65, 16);
+            this.labelFullName.Size = new System.Drawing.Size(70, 16);
             this.labelFullName.TabIndex = 43;
-            this.labelFullName.Text = "Fullname";
+            this.labelFullName.Text = "Full name";
             // 
             // textFullName
             // 
@@ -389,6 +390,7 @@
             // labelIdentName
             // 
             this.labelIdentName.AutoSize = true;
+            this.labelIdentName.ForeColor = System.Drawing.Color.Red;
             this.labelIdentName.Location = new System.Drawing.Point(10, 85);
             this.labelIdentName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelIdentName.Name = "labelIdentName";
@@ -423,6 +425,7 @@
             // labelServerPort
             // 
             this.labelServerPort.AutoSize = true;
+            this.labelServerPort.ForeColor = System.Drawing.Color.Red;
             this.labelServerPort.Location = new System.Drawing.Point(398, 10);
             this.labelServerPort.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelServerPort.Name = "labelServerPort";
@@ -484,6 +487,44 @@
             this.tabPageExtra.TabIndex = 3;
             this.tabPageExtra.Text = "Extra Settings";
             this.tabPageExtra.UseVisualStyleBackColor = true;
+            // 
+            // textNickservPassword
+            // 
+            this.textNickservPassword.Location = new System.Drawing.Point(223, 205);
+            this.textNickservPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.textNickservPassword.Name = "textNickservPassword";
+            this.textNickservPassword.PasswordChar = '*';
+            this.textNickservPassword.Size = new System.Drawing.Size(200, 23);
+            this.textNickservPassword.TabIndex = 75;
+            // 
+            // labelNickservPassword
+            // 
+            this.labelNickservPassword.AutoSize = true;
+            this.labelNickservPassword.Location = new System.Drawing.Point(9, 210);
+            this.labelNickservPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelNickservPassword.Name = "labelNickservPassword";
+            this.labelNickservPassword.Size = new System.Drawing.Size(130, 16);
+            this.labelNickservPassword.TabIndex = 76;
+            this.labelNickservPassword.Text = "Nickserv password";
+            // 
+            // labelServerPassword
+            // 
+            this.labelServerPassword.AutoSize = true;
+            this.labelServerPassword.Location = new System.Drawing.Point(9, 185);
+            this.labelServerPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelServerPassword.Name = "labelServerPassword";
+            this.labelServerPassword.Size = new System.Drawing.Size(118, 16);
+            this.labelServerPassword.TabIndex = 74;
+            this.labelServerPassword.Text = "Server password";
+            // 
+            // textServerPassword
+            // 
+            this.textServerPassword.Location = new System.Drawing.Point(223, 180);
+            this.textServerPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.textServerPassword.Name = "textServerPassword";
+            this.textServerPassword.PasswordChar = '*';
+            this.textServerPassword.Size = new System.Drawing.Size(200, 23);
+            this.textServerPassword.TabIndex = 73;
             // 
             // checkNoColorMode
             // 
@@ -1557,6 +1598,28 @@
             this.tabPageDefault.Text = "Default Server Settings";
             this.tabPageDefault.UseVisualStyleBackColor = true;
             // 
+            // checkServerReconnect
+            // 
+            this.checkServerReconnect.AutoSize = true;
+            this.checkServerReconnect.Location = new System.Drawing.Point(13, 141);
+            this.checkServerReconnect.Margin = new System.Windows.Forms.Padding(2);
+            this.checkServerReconnect.Name = "checkServerReconnect";
+            this.checkServerReconnect.Size = new System.Drawing.Size(207, 20);
+            this.checkServerReconnect.TabIndex = 80;
+            this.checkServerReconnect.Text = "Reconnect servers on error";
+            this.checkServerReconnect.UseVisualStyleBackColor = true;
+            // 
+            // checkIdentServer
+            // 
+            this.checkIdentServer.AutoSize = true;
+            this.checkIdentServer.Location = new System.Drawing.Point(13, 117);
+            this.checkIdentServer.Margin = new System.Windows.Forms.Padding(2);
+            this.checkIdentServer.Name = "checkIdentServer";
+            this.checkIdentServer.Size = new System.Drawing.Size(108, 20);
+            this.checkIdentServer.TabIndex = 79;
+            this.checkIdentServer.Text = "Ident server";
+            this.checkIdentServer.UseVisualStyleBackColor = true;
+            // 
             // textDefaultQuitMessage
             // 
             this.textDefaultQuitMessage.Location = new System.Drawing.Point(117, 80);
@@ -1820,66 +1883,6 @@
             this.buttonHelp.Text = "Help";
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
-            // 
-            // labelServerPassword
-            // 
-            this.labelServerPassword.AutoSize = true;
-            this.labelServerPassword.Location = new System.Drawing.Point(9, 185);
-            this.labelServerPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelServerPassword.Name = "labelServerPassword";
-            this.labelServerPassword.Size = new System.Drawing.Size(118, 16);
-            this.labelServerPassword.TabIndex = 74;
-            this.labelServerPassword.Text = "Server password";
-            // 
-            // textServerPassword
-            // 
-            this.textServerPassword.Location = new System.Drawing.Point(223, 180);
-            this.textServerPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textServerPassword.Name = "textServerPassword";
-            this.textServerPassword.PasswordChar = '*';
-            this.textServerPassword.Size = new System.Drawing.Size(200, 23);
-            this.textServerPassword.TabIndex = 73;
-            // 
-            // textNickservPassword
-            // 
-            this.textNickservPassword.Location = new System.Drawing.Point(223, 205);
-            this.textNickservPassword.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.textNickservPassword.Name = "textNickservPassword";
-            this.textNickservPassword.PasswordChar = '*';
-            this.textNickservPassword.Size = new System.Drawing.Size(200, 23);
-            this.textNickservPassword.TabIndex = 75;
-            // 
-            // labelNickservPassword
-            // 
-            this.labelNickservPassword.AutoSize = true;
-            this.labelNickservPassword.Location = new System.Drawing.Point(9, 210);
-            this.labelNickservPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelNickservPassword.Name = "labelNickservPassword";
-            this.labelNickservPassword.Size = new System.Drawing.Size(130, 16);
-            this.labelNickservPassword.TabIndex = 76;
-            this.labelNickservPassword.Text = "Nickserv password";
-            // 
-            // checkServerReconnect
-            // 
-            this.checkServerReconnect.AutoSize = true;
-            this.checkServerReconnect.Location = new System.Drawing.Point(13, 141);
-            this.checkServerReconnect.Margin = new System.Windows.Forms.Padding(2);
-            this.checkServerReconnect.Name = "checkServerReconnect";
-            this.checkServerReconnect.Size = new System.Drawing.Size(207, 20);
-            this.checkServerReconnect.TabIndex = 80;
-            this.checkServerReconnect.Text = "Reconnect servers on error";
-            this.checkServerReconnect.UseVisualStyleBackColor = true;
-            // 
-            // checkIdentServer
-            // 
-            this.checkIdentServer.AutoSize = true;
-            this.checkIdentServer.Location = new System.Drawing.Point(13, 117);
-            this.checkIdentServer.Margin = new System.Windows.Forms.Padding(2);
-            this.checkIdentServer.Name = "checkIdentServer";
-            this.checkIdentServer.Size = new System.Drawing.Size(108, 20);
-            this.checkIdentServer.TabIndex = 79;
-            this.checkIdentServer.Text = "Ident server";
-            this.checkIdentServer.UseVisualStyleBackColor = true;
             // 
             // FormServers
             // 

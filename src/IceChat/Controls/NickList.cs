@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2023 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -650,11 +650,20 @@ namespace IceChat
         {
             if (sortedNickNames == null) return;
             if (currentWindow == null) return;
-
-            for (int i = 0; i < sortedNickNames.Count; i++)
+            int i = 0;
+            try
             {
-                sortedNickNames[i].selected = false;
-                currentWindow.GetNick(sortedNickNames[i].nick).Selected = false;
+
+                for (i = 0; i < sortedNickNames.Count; i++)
+                {
+                    sortedNickNames[i].selected = false;
+                    currentWindow.GetNick(sortedNickNames[i].nick).Selected = false;
+                }
+
+            } catch(Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("DeselectAllNicks Error:" + i + ":" + ex.Message );
+
             }
         }
 

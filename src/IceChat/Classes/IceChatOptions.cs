@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2023 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -610,7 +610,13 @@ namespace IceChat
         public int MaximumTextLines
         {
             get { return this._maxTextLines; }
-            set { this._maxTextLines = value; }
+            set
+            {
+                if (value > 49)
+                {
+                    this._maxTextLines = value;
+                }
+            }
         }
 
         [XmlElement("NickCompleteAfter")]

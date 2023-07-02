@@ -1,7 +1,7 @@
 ﻿/******************************************************************************\
  * IceChat 9 Internet Relay Chat Client
  *
- * Copyright (C) 2022 Paul Vanderzee <snerf@icechat.net>
+ * Copyright (C) 2023 Paul Vanderzee <snerf@icechat.net>
  *                                    <www.icechat.net> 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -444,12 +444,15 @@ namespace IceChat
                 textBNCUser.Text = serverSetting.BNCUser;
                 textBNCPass.Text = serverSetting.BNCPass;
 
-                this.textNotes.Text = serverSetting.ServerNotes.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
+                if (serverSetting.ServerNotes != null)
+                {
+                    this.textNotes.Text = serverSetting.ServerNotes.Replace("&#x3;", ((char)3).ToString()).Replace("&#x2;", ((char)2).ToString());
+                }
 
             } 
             catch(Exception ex)
             {
-                FormMain.Instance.WindowMessage(FormMain.Instance.InputPanel.CurrentConnection, "Console", "\x000304LoadServerSettings Error:" + ex.Message + ":" + ex.Source, "", true);
+                FormMain.Instance.WindowMessage(FormMain.Instance.InputPanel.CurrentConnection, "Console", "\x000304LoadServerSettings Error:" + ex.Message, "", true);
             }
         }
 
@@ -471,7 +474,23 @@ namespace IceChat
                 MessageBox.Show("You do not have a nick name");
                 return false;
             }
-            
+            if (textIdentName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You do not have an ident name");
+                return false;
+            }
+            if (textFullName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You do not have a full name");
+                return false;
+            }
+            if (textServerPort.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You do not have a server port");
+                return false;
+            }
+
+
             serverSetting.NickName = textNickName.Text.Trim();
             if (textAltNickName.Text.Trim().Length > 0)
                 serverSetting.AltNickName = textAltNickName.Text;

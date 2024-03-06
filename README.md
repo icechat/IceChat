@@ -31,7 +31,7 @@ There are several build options in the extracted root folder.
 * `BuildIceChat.latest.cmd`
   * which uses .NET 4.7.1
 * `BuildIceChatLinux.sh`
-  * A script to build IceChat 9 under Linux. See IceChat on Linux for details.
+  * A script to build IceChat 9 under Linux. See [IceChat on Linux](https://wiki.icechat.net/index.php/IceChat_on_Linux) for details.
 
 You will get at the end of the process the following lines:
 
